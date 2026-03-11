@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "UserSession": {
+      "title": "User Session",
+      "description": "Temporary session data for the user. Cleared on logout or session expiry.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique identifier for the user."
+        },
+        "lastActive": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The last time the user was active in this session."
+        },
+        "isAnonymous": {
+          "type": "boolean",
+          "description": "Whether the user is signed in anonymously."
+        }
+      },
+      "required": ["uid", "lastActive"]
+    },
+    "VaultItem": {
+      "title": "Vault Item",
+      "description": "A secure item stored during the session.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["password", "json", "text", "sql"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["id", "title", "content", "type", "createdAt", "ownerId"]
+    }
+  },
+  "firestore": {
+    "/sessions/{uid}": {
+      "schema": "UserSession",
+      "description": "User session metadata."
+    },
+    "/vault/{itemId}": {
+      "schema": "VaultItem",
+      "description": "Secure items stored by the user during their session."
+    }
+  }
+}

@@ -1,0 +1,102 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: sessions
+// Document ID: {uid}
+// Fields:
+//   - uid: string (required) - User's unique ID
+//   - lastActive: timestamp (required) - Last activity time
+//   - isAnonymous: bool (optional) - Anonymous status
+//
+// Collection: vault
+// Document ID: {itemId}
+// Fields:
+//   - id: string (required) - Item ID
+//   - title: string (required, max 100 chars) - Item title
+//   - content: string (required, max 10000 chars) - The secure content
+//   - type: string (required, enum) - password, json, text, sql
+//   - createdAt: timestamp (required) - Creation time
+//   - ownerId: string (required) - UID of the owner
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.ownerId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "vyohes@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidSession(data) {
+      return hasRequiredFields(['uid', 'lastActive']) &&
+             hasOnlyAllowedFields(['uid', 'lastActive', 'isAnonymous']) &&
+             data.uid == request.auth.uid &&
+             data.lastActive is timestamp;
+    }
+
+    function isValidVaultItem(data) {
+      return hasRequiredFields(['id', 'title', 'content', 'type', 'createdAt', 'ownerId']) &&
+             hasOnlyAllowedFields(['id', 'title', 'content', 'type', 'createdAt', 'ownerId']) &&
+             data.id is string && data.id.size() > 0 &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 100 &&
+             data.content is string && data.content.size() <= 10000 &&
+             data.type in ['password', 'json', 'text', 'sql'] &&
+             data.createdAt is timestamp &&
+             data.ownerId == request.auth.uid;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /sessions/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create, update: if isOwner(uid) && isValidSession(request.resource.data);
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    match /vault/{itemId} {
+      allow read: if (isAuthenticated() && resource.data.ownerId == request.auth.uid) || isAdmin();
+      allow create: if isAuthenticated() && isValidVaultItem(request.resource.data);
+      allow update: if isAuthenticated() && isDocOwner() && isValidVaultItem(request.resource.data);
+      allow delete: if isAuthenticated() && isDocOwner() || isAdmin();
+    }
+  }
+}
