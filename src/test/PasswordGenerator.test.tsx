@@ -12,10 +12,11 @@ vi.mock('../context/AuthContext', () => ({
 }));
 
 // Mock navigator.clipboard
-Object.assign(navigator, {
-  clipboard: {
+Object.defineProperty(navigator, 'clipboard', {
+  value: {
     writeText: vi.fn(),
   },
+  writable: true,
 });
 
 describe('PasswordGenerator Component', () => {

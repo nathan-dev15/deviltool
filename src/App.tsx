@@ -9,6 +9,7 @@ import { Layout } from './components/Layout';
 import { AuthProvider } from './context/AuthContext';
 import { Home } from './pages/Home';
 import { JsonFormatter } from './pages/JsonFormatter';
+import { StringComparison } from './pages/StringComparison';
 import { PasswordGenerator } from './pages/PasswordGenerator';
 import { WordCounter } from './pages/WordCounter';
 import { SqlFormatter } from './pages/SqlFormatter';
@@ -27,6 +28,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/json-formatter" element={<JsonFormatter />} />
+            <Route path="/string-comparison" element={<StringComparison />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
             <Route path="/word-counter" element={<WordCounter />} />
             <Route path="/sql-formatter" element={<SqlFormatter />} />

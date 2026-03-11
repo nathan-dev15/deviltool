@@ -20,12 +20,51 @@
   }
 }
 
+
 .gradient-text {
-  background: linear-gradient(135deg, #0066ff 0%, #8b5cf6 100%);
+  background: linear-gradient(90deg, #0066ff 0%, #8b5cf6 50%, #00e0ff 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.animate-gradient-text {
+  animation: gradient-move 4s ease-in-out infinite;
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .glass-card {
-  @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50;
+  @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50 shadow-xl shadow-primary/5;
+}
+
+@keyframes gradient-move2 {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(20px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
+
+.animate-gradient-move {
+  animation: gradient-move 8s ease-in-out infinite;
+}
+.animate-gradient-move2 {
+  animation: gradient-move2 10s ease-in-out infinite;
 }
