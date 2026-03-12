@@ -55,6 +55,14 @@ export const TOOLS: Tool[] = [
     path: '/json-formatter',
     trending: true,
   },
+  {
+  id: 'json-to-typescript',
+  name: 'JSON to TypeScript Generator',
+  description: 'Convert JSON data into TypeScript interfaces instantly. Perfect for developers building APIs with React, Angular, or Node.js.',
+  icon: 'file-code',
+  category: 'json',
+  path: '/json-to-typescript'
+},
     {
       id: 'json-validator',
       name: 'JSON Validator',

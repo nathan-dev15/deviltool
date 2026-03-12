@@ -9,6 +9,11 @@ import { Layout } from './components/Layout';
 import { AuthProvider } from './context/AuthContext';
 import { Home } from './pages/Home';
 import { JsonFormatter } from './pages/JsonFormatter';
+import { JsonValidator } from './pages/JsonValidator';
+import { JsonMinifier } from './pages/JsonMinifier';
+import { JsonPrettyTool } from './pages/JsonPretty';
+import { JsonToCsvTool } from './pages/JsonToCsvTool';
+import { HelmetProvider } from "react-helmet-async";
 import { StringComparison } from './pages/StringComparison';
 import { PasswordGenerator } from './pages/PasswordGenerator';
 import { WordCounter } from './pages/WordCounter';
@@ -19,6 +24,8 @@ import { ImageToBase64 } from './pages/ImageToBase64';
 import { ImageCompressor } from './pages/ImageCompressor';
 import { Security } from './pages/Security';
 import { SessionVault } from './pages/SessionVault';
+import { JsonToTypescriptGenerator } from './pages/JsonToTypescriptGenerator';
+
 
 export default function App() {
   return (
@@ -28,6 +35,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/json-formatter" element={<JsonFormatter />} />
+             <Route path="/json-validator" element={<JsonValidator />} />
+<Route path="/json-minifier" element={<JsonMinifier />} />
+<Route path="/json-to-typescript" element={<JsonToTypescriptGenerator />}/>
+            <Route path="/json-pretty-print" element={<JsonPrettyTool />}/>
+             <Route path="/json-to-csv" element={<JsonToCsvTool />}/>
+        
             <Route path="/string-comparison" element={<StringComparison />} />
             <Route path="/password-generator" element={<PasswordGenerator />} />
             <Route path="/word-counter" element={<WordCounter />} />
