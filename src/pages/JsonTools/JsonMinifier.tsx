@@ -13,13 +13,17 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/src/components/SEO";
+import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
+import { useToolActions } from "../useToolActions";
 
 export const JsonMinifier: React.FC = () => {
 
   const [input, setInput] = React.useState("");
   const [output, setOutput] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
-  const [copied, setCopied] = React.useState(false);
+  const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
+
+  useRealTimeConversion(input, () => minifyJson());
 
   const minifyJson = () => {
 
@@ -47,34 +51,6 @@ export const JsonMinifier: React.FC = () => {
     setInput("");
     setOutput("");
     setError(null);
-
-  };
-
-  const copyOutput = () => {
-
-    if (!output) return;
-
-    navigator.clipboard.writeText(output);
-
-    setCopied(true);
-
-    setTimeout(() => setCopied(false), 2000);
-
-  };
-
-  const downloadJson = () => {
-
-    if (!output) return;
-
-    const blob = new Blob([output], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `minified-${Date.now()}.json`;
-    a.click();
-
-    URL.revokeObjectURL(url);
 
   };
 
@@ -158,26 +134,12 @@ export const JsonMinifier: React.FC = () => {
                   type="file"
                   accept=".json"
                   className="hidden"
-                  onChange={(e) => {
-
+                  onChange={async (e) => {
                     const file = e.target.files?.[0];
-
-                    if (!file) return;
-
-                    const reader = new FileReader();
-
-                    reader.onload = (ev) => {
-
-                      if (typeof ev.target?.result === "string") {
-
-                        setInput(ev.target.result);
-
-                      }
-
-                    };
-
-                    reader.readAsText(file);
-
+                    if (file) {
+                      const content = await readFile(file);
+                      setInput(content);
+                    }
                   }}
                 />
 
@@ -224,7 +186,7 @@ export const JsonMinifier: React.FC = () => {
               {/* Copy */}
 
               <button
-                onClick={copyOutput}
+                onClick={() => copyToClipboard(output)}
                 className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border hover:border-green-400 hover:text-green-600 transition"
               >
 
@@ -236,7 +198,7 @@ export const JsonMinifier: React.FC = () => {
               {/* Download */}
 
               <button
-                onClick={downloadJson}
+                onClick={() => downloadFile(output, `minified-${Date.now()}.json`, "application/json")}
                 className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-slate-700 border hover:border-blue-400 hover:text-blue-600 transition"
               >
 
@@ -333,7 +295,7 @@ export const JsonMinifier: React.FC = () => {
           </Link>
 
           <Link
-            to="/base64-encoder"
+            to="/base64-encode"
             className="block p-4 bg-white dark:bg-slate-800 border rounded-xl hover:border-primary cursor-pointer"
           >
 

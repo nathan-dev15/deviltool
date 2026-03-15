@@ -4,18 +4,14 @@ import { motion } from 'framer-motion';
 import { Settings, RefreshCw, Copy, Info, ShieldCheck, Key, Database, QrCode, ArrowRight, Lock } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
-import { useAuth } from '../context/AuthContext';
-import { db, collection, doc, setDoc, serverTimestamp } from '../firebase';
 
 export const PasswordGenerator: React.FC = () => {
-  const { user } = useAuth();
   const [length, setLength] = React.useState(16);
   const [includeUppercase, setIncludeUppercase] = React.useState(true);
   const [includeLowercase, setIncludeLowercase] = React.useState(true);
   const [includeNumbers, setIncludeNumbers] = React.useState(true);
   const [includeSymbols, setIncludeSymbols] = React.useState(true);
   const [password, setPassword] = React.useState('');
-  const [isSaving, setIsSaving] = React.useState(false);
 
   const generatePassword = React.useCallback(() => {
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -50,27 +46,6 @@ export const PasswordGenerator: React.FC = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password);
-  };
-
-  const saveToVault = async () => {
-    if (!user || !password) return;
-    setIsSaving(true);
-    try {
-      const itemId = crypto.randomUUID();
-      await setDoc(doc(db, 'vault', itemId), {
-        id: itemId,
-        title: `Password (${length} chars)`,
-        content: password,
-        type: 'password',
-        createdAt: serverTimestamp(),
-        ownerId: user.uid
-      });
-      alert("Saved to Session Vault!");
-    } catch (e) {
-      console.error("Error saving to vault:", e);
-    } finally {
-      setIsSaving(false);
-    }
   };
 
   const getStrength = () => {
@@ -126,14 +101,6 @@ export const PasswordGenerator: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-3 w-full sm:w-auto">
-                    <button 
-                      onClick={saveToVault}
-                      disabled={isSaving}
-                      className="flex-grow sm:flex-grow-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary text-slate-700 dark:text-slate-200 px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-                    >
-                      <Lock className="size-5" />
-                      {isSaving ? 'Saving...' : 'Save to Vault'}
-                    </button>
                     <button 
                       onClick={copyToClipboard}
                       className="flex-grow sm:flex-grow-0 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20"

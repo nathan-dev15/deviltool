@@ -22,14 +22,6 @@ export interface Tool {
 export const TOOLS: Tool[] = [
   // --- Image Tools ---
   {
-    id: 'image-to-base64',
-    name: 'Image → Base64',
-    description: 'Convert images to Base64 strings for embedding or transfer.',
-    icon: 'image',
-    category: 'image',
-    path: '/image-to-base64',
-  },
-  {
     id: 'base64-to-image',
     name: 'Base64 → Image',
     description: 'Convert Base64 strings back to images.',
@@ -202,14 +194,6 @@ export const TOOLS: Tool[] = [
       path: '/text-to-base64',
     },
     {
-      id: 'base64-to-image',
-      name: 'Base64 to Image',
-      description: 'Convert Base64 strings to images.',
-      icon: 'file-image',
-      category: 'encoding',
-      path: '/base64-to-image',
-    },
-    {
       id: 'unicode-converter',
       name: 'Unicode Converter',
       description: 'Convert text to Unicode and vice versa.',
@@ -217,15 +201,6 @@ export const TOOLS: Tool[] = [
       category: 'encoding',
       path: '/unicode-converter',
     },
-  {
-    id: 'json-formatter',
-    name: 'JSON Formatter',
-    description: 'Clean, prettify, and validate your JSON data instantly with syntax highlighting.',
-    icon: 'code-xml',
-    category: 'developer',
-    path: '/json-formatter',
-    trending: true,
-  },
   {
   id: 'string-comparison',
   name: 'String Comparison',

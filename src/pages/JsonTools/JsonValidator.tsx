@@ -13,13 +13,19 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/src/components/SEO";
+import { useToolActions } from "@/src/pages/useToolActions";
+import { AdSense } from "@/src/components/AdSense";
+import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
 
 export const JsonValidator: React.FC = () => {
-
   const [input, setInput] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [valid, setValid] = React.useState(false);
   const [fileName, setFileName] = React.useState("");
+
+  const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
+
+  useRealTimeConversion(input, () => validateJson());
 
   const validateJson = () => {
 
@@ -50,33 +56,6 @@ export const JsonValidator: React.FC = () => {
 
   };
 
-  const copyInput = () => {
-
-    if (!input) return;
-
-    navigator.clipboard.writeText(input);
-
-  };
-
-  const downloadJson = () => {
-
-    if (!input) return;
-
-    const blob = new Blob([input], { type: "application/json" });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-    a.download = `json-${Date.now()}.json`;
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-  };
-
   const loadSample = () => {
 
     setInput(`{
@@ -96,23 +75,14 @@ export const JsonValidator: React.FC = () => {
 
   };
 
-  const handleUpload = (file: File) => {
-
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-
-      if (typeof event.target?.result === "string") {
-
-        setInput(event.target.result);
-        setFileName(file.name);
-
-      }
-
-    };
-
-    reader.readAsText(file);
-
+  const onUpload = async (file: File) => {
+    try {
+      const content = await readFile(file);
+      setInput(content);
+      setFileName(file.name);
+    } catch (err) {
+      setError("Failed to read file");
+    }
   };
 
   return (
@@ -123,7 +93,19 @@ export const JsonValidator: React.FC = () => {
         title="JSON Validator – Validate JSON Data Online"
         description="Free JSON validator tool to check JSON syntax instantly. Validate API responses and detect JSON errors easily."
         keywords="json validator, validate json online, json syntax checker"
-      />
+      >
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "JSON Validator",
+            applicationCategory: "DeveloperApplication",
+            operatingSystem: "Web",
+            url: window.location.href,
+            offers: { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          })}
+        </script>
+      </SEO>
 
       {/* Breadcrumb */}
 
@@ -195,7 +177,7 @@ export const JsonValidator: React.FC = () => {
 
                     const file = e.target.files?.[0];
 
-                    if (file) handleUpload(file);
+                    if (file) onUpload(file);
 
                   }}
                 />
@@ -245,15 +227,15 @@ export const JsonValidator: React.FC = () => {
               </button>
 
               <button
-                onClick={copyInput}
+                onClick={() => copyToClipboard(input)}
                 className="cursor-pointer px-4 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 flex items-center gap-2"
               >
                 <Copy size={18} />
-                Copy
+                {copied ? "Copied!" : "Copy"}
               </button>
 
               <button
-                onClick={downloadJson}
+                onClick={() => downloadFile(input, `json-${Date.now()}.json`, "application/json")}
                 className="cursor-pointer px-4 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 flex items-center gap-2"
               >
                 <Download size={18} />
@@ -295,6 +277,9 @@ export const JsonValidator: React.FC = () => {
             )}
 
           </div>
+
+          {/* AdSense */}
+          <AdSense slot="1234567890" />
 
           {/* INFO SECTION */}
 
@@ -343,7 +328,7 @@ export const JsonValidator: React.FC = () => {
           </Link>
 
           <Link
-            to="/base64-encoder"
+            to="/base64-encode"
             className="block p-4 bg-white dark:bg-slate-800 border rounded-xl hover:border-primary cursor-pointer"
           >
             Base64 Encoder

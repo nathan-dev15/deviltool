@@ -5,18 +5,14 @@ import { Database, Trash2, Copy, Download, Info, ChevronRight, Home as HomeIcon,
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
-import { useAuth } from '../context/AuthContext';
-import { db, doc, setDoc, serverTimestamp } from '../firebase';
 
 type Dialect = 'sql' | 'mysql' | 'postgresql' | 'sqlite' | 'mariadb' | 'tsql';
 
 export const SqlFormatter: React.FC = () => {
-  const { user } = useAuth();
   const [input, setInput] = React.useState('');
   const [output, setOutput] = React.useState('');
   const [dialect, setDialect] = React.useState<Dialect>('sql');
   const [error, setError] = React.useState<string | null>(null);
-  const [isSaving, setIsSaving] = React.useState(false);
 
   const formatSql = () => {
     try {
@@ -30,27 +26,6 @@ export const SqlFormatter: React.FC = () => {
     } catch (e) {
       setError('Error formatting SQL. Please check your syntax.');
       setOutput('');
-    }
-  };
-
-  const saveToVault = async () => {
-    if (!user || !output) return;
-    setIsSaving(true);
-    try {
-      const itemId = crypto.randomUUID();
-      await setDoc(doc(db, 'vault', itemId), {
-        id: itemId,
-        title: `SQL Query (${dialect})`,
-        content: output,
-        type: 'sql',
-        createdAt: serverTimestamp(),
-        ownerId: user.uid
-      });
-      alert("Saved to Session Vault!");
-    } catch (e) {
-      console.error("Error saving to vault:", e);
-    } finally {
-      setIsSaving(false);
     }
   };
 
@@ -132,13 +107,6 @@ export const SqlFormatter: React.FC = () => {
             <div className="p-4 border-b border-white/10 flex items-center justify-between">
               <span className="text-xs font-bold uppercase text-slate-400">Formatted Result</span>
               <div className="flex items-center gap-4">
-                <button 
-                  onClick={saveToVault}
-                  disabled={isSaving}
-                  className="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1 disabled:opacity-50"
-                >
-                  <Lock size={12} /> {isSaving ? 'Saving...' : 'Save to Vault'}
-                </button>
                 <button 
                   onClick={copyToClipboard}
                   className="text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1"

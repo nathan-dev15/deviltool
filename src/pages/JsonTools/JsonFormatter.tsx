@@ -4,20 +4,21 @@ import { CodeXml, Upload, Trash2, Copy, Wand2, Download, Info, ChevronRight, Hom
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
-import { useAuth } from '../context/AuthContext';
-import { db, doc, setDoc, serverTimestamp } from '../firebase';
+// import { useAuth } from '../context/AuthContext';
+// import { db, doc, setDoc, serverTimestamp } from '../firebase';
+import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
+import { useToolActions } from '../useToolActions';
 
 export const JsonFormatter: React.FC = () => {
-  const { user } = useAuth();
   const [input, setInput] = React.useState('');
   const [output, setOutput] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
-  const [isSaving, setIsSaving] = React.useState(false);
+  const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
 
-  const formatJson = () => {
+  const formatJson = (val: string = input) => {
     try {
-      if (!input.trim()) return;
-      const parsed = JSON.parse(input);
+      if (!val || typeof val !== 'string' || !val.trim()) return;
+      const parsed = JSON.parse(val);
       setOutput(JSON.stringify(parsed, null, 2));
       setError(null);
     } catch (e) {
@@ -26,46 +27,14 @@ export const JsonFormatter: React.FC = () => {
     }
   };
 
-  const saveToVault = async () => {
-    if (!user || !output) return;
-    setIsSaving(true);
-    try {
-      const itemId = crypto.randomUUID();
-      await setDoc(doc(db, 'vault', itemId), {
-        id: itemId,
-        title: `JSON Data (${output.length} chars)`,
-        content: output,
-        type: 'json',
-        createdAt: serverTimestamp(),
-        ownerId: user.uid
-      });
-      alert("Saved to Session Vault!");
-    } catch (e) {
-      console.error("Error saving to vault:", e);
-    } finally {
-      setIsSaving(false);
-    }
-  };
+  useRealTimeConversion(input, (val) => formatJson(val));
+
+  // Vault save removed: app is now fully free and public
 
   const clear = () => {
     setInput('');
     setOutput('');
     setError(null);
-  };
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
-
-  const downloadJson = () => {
-    if (!output) return;
-    const blob = new Blob([output], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'formatted.json';
-    a.click();
-    URL.revokeObjectURL(url);
   };
 
   return (
@@ -99,9 +68,25 @@ export const JsonFormatter: React.FC = () => {
             <div className="p-4 border-b border-primary/5 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Input JSON</span>
               <div className="flex gap-2">
-                <button className="text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-primary flex items-center gap-1 bg-white dark:bg-slate-700 px-2 py-1 rounded border border-slate-200 dark:border-slate-600">
+                <label className="cursor-pointer text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-primary flex items-center gap-1 bg-white dark:bg-slate-700 px-2 py-1 rounded border border-slate-200 dark:border-slate-600">
                   <Upload className="size-3" /> Upload
-                </button>
+                  <input
+                    type="file"
+                    accept=".json"
+                    hidden
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        try {
+                          const content = await readFile(file);
+                          setInput(content);
+                        } catch (err) {
+                          setError('Failed to read file');
+                        }
+                      }
+                    }}
+                  />
+                </label>
               </div>
             </div>
             <div className="p-0">
@@ -115,7 +100,7 @@ export const JsonFormatter: React.FC = () => {
             </div>
             <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-primary/5 flex flex-wrap gap-3">
               <button 
-                onClick={formatJson}
+                onClick={() => formatJson(input)}
                 className="flex-1 min-w-[140px] bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-primary/20"
               >
                 <Wand2 className="size-5" />
@@ -124,17 +109,17 @@ export const JsonFormatter: React.FC = () => {
               <div className="flex gap-2 w-full sm:w-auto">
                 <button 
                   onClick={clear}
-                  className="flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"
+                  className="cursor-pointer flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
                   <Trash2 className="size-5" />
                   <span>Clear</span>
                 </button>
                 <button 
                   onClick={() => copyToClipboard(input)}
-                  className="flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"
+                  className="cursor-pointer flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"
                 >
                   <Copy className="size-5" />
-                  <span>Copy</span>
+                  <span>{copied ? "Copied!" : "Copy"}</span>
                 </button>
               </div>
             </div>
@@ -157,24 +142,20 @@ export const JsonFormatter: React.FC = () => {
                 </div>
                 <span className="ml-4 text-xs font-bold uppercase tracking-wider text-slate-400">Formatted Output</span>
               </div>
-              <button 
-                onClick={downloadJson}
-                className="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1"
-              >
-                <Download className="size-3" /> Download .json
-              </button>
+              <div className="flex items-center gap-4">
+                <button onClick={() => copyToClipboard(output)} className="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1">
+                  <Copy className="size-3" /> {copied ? 'Copied!' : 'Copy'}
+                </button>
+                <button 
+                  onClick={() => downloadFile(output, 'formatted.json', 'application/json')}
+                  className="text-xs font-medium text-slate-400 hover:text-white flex items-center gap-1"
+                >
+                  <Download className="size-3" /> Download .json
+                </button>
+              </div>
             </div>
             <div className="p-4 min-h-[200px] font-mono text-sm text-blue-300 bg-slate-900/50 overflow-x-auto relative group">
-              {output && (
-                <button 
-                  onClick={saveToVault}
-                  disabled={isSaving}
-                  className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all flex items-center gap-2 text-xs font-bold disabled:opacity-50"
-                >
-                  <Lock size={14} />
-                  {isSaving ? 'Saving...' : 'Save to Vault'}
-                </button>
-              )}
+              {/* Vault save removed: app is now fully free and public */}
               <pre className="inline-block min-w-full">
                 <code>{output || 'Your formatted JSON will appear here'}</code>
               </pre>
@@ -210,7 +191,7 @@ export const JsonFormatter: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-slate-100">Related Tools</h3>
             <div className="space-y-3">
-              <Link to="/base64-encoder" className="group block p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/5 hover:border-primary/30 transition-all hover:shadow-md">
+              <Link to="/base64-encode" className="group block p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/5 hover:border-primary/30 transition-all hover:shadow-md">
                 <div className="flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500">
                     <Database className="size-5" />
@@ -218,17 +199,6 @@ export const JsonFormatter: React.FC = () => {
                   <div>
                     <p className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors">Base64 Encoder</p>
                     <p className="text-xs text-slate-500">Encode or decode strings easily</p>
-                  </div>
-                </div>
-              </Link>
-              <Link to="/uuid-generator" className="group block p-4 bg-white dark:bg-slate-800 rounded-xl border border-primary/5 hover:border-primary/30 transition-all hover:shadow-md">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-purple-500/10 text-purple-500">
-                    <Fingerprint className="size-5" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors">UUID Generator</p>
-                    <p className="text-xs text-slate-500">Generate v4 unique identifiers</p>
                   </div>
                 </div>
               </Link>

@@ -10,24 +10,21 @@ import {
   Home
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
+import { SEO } from "@/src/components/SEO";
+import { useToolActions } from "@/src/pages/useToolActions";
+import { AdSense } from "@/src/components/AdSense";
+import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
 export const JsonToCsvTool = () => {
-
   const [jsonInput, setJsonInput] = useState("");
   const [csvOutput, setCsvOutput] = useState("");
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    try {
-      // refresh ads
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch {}
-  }, []);
+  const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
+
+  useRealTimeConversion(jsonInput, () => convertToCSV());
+
 const jsonToCSV = (json: any[]) => {
-  if (!Array.isArray(json)) return "";
+  if (!Array.isArray(json) || json.length === 0) return "";
 
   const headers = Object.keys(json[0]);
 
@@ -44,6 +41,11 @@ const jsonToCSV = (json: any[]) => {
 };
 const convertToCSV = () => {
   try {
+    if (!jsonInput.trim()) {
+      setCsvOutput("");
+      setError("");
+      return;
+    }
 
     const parsed = JSON.parse(jsonInput);
 
@@ -51,12 +53,9 @@ const convertToCSV = () => {
 
     setCsvOutput(csv);
     setError("");
-
-  } catch {
-
-    setError("Invalid JSON format");
+  } catch (e: any) {
+    setError(e.message || "Invalid JSON format");
     setCsvOutput("");
-
   }
 };
 
@@ -77,92 +76,30 @@ const convertToCSV = () => {
 
   };
 
-  const copyOutput = () => {
-
-    if (!csvOutput) return;
-
-    navigator.clipboard.writeText(csvOutput);
-
-    setCopied(true);
-
-    setTimeout(() => setCopied(false), 1500);
-
-  };
-
   const clearAll = () => {
-
     setJsonInput("");
-
     setCsvOutput("");
-
     setError("");
-
   };
 
-  const uploadFile = (file: File) => {
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-
-      if (typeof e.target?.result === "string") {
-
-        setJsonInput(e.target.result);
-
-      }
-
-    };
-
-    reader.readAsText(file);
-
-  };
-
-  const downloadCSV = () => {
-
-    if (!csvOutput) return;
-
-    const blob = new Blob([csvOutput], { type: "text/csv" });
-
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-
-    a.href = url;
-
-    a.download = "data.csv";
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-
+  const handleUpload = async (file: File) => {
+    try {
+      const content = await readFile(file);
+      setJsonInput(content);
+    } catch (err) {
+      setError("Failed to read file");
+    }
   };
 
   return (
 
     <div className="max-w-5xl mx-auto p-6 space-y-6">
 
-      {/* SEO */}
-
-      <Helmet>
-
-        <title>JSON to CSV Converter – Free Online Tool</title>
-
-        <meta
-          name="description"
-          content="Convert JSON data to CSV format instantly. Free online JSON to CSV converter for developers."
-        />
-
-        <meta
-          name="keywords"
-          content="json to csv, json csv converter, convert json to csv online"
-        />
-
-        <link
-          rel="canonical"
-          href="https://yourdomain.com/json-to-csv"
-        />
-
-      </Helmet>
+      <SEO 
+        title="JSON to CSV Converter – Free Online Tool"
+        description="Convert JSON data to CSV format instantly. Free online JSON to CSV converter for developers."
+        keywords="json to csv, json csv converter, convert json to csv online"
+      />
 
       {/* Breadcrumb */}
 
@@ -222,7 +159,7 @@ const convertToCSV = () => {
             hidden
             onChange={(e) => {
               const file = e.target.files?.[0];
-              if (file) uploadFile(file);
+              if (file) handleUpload(file);
             }}
           />
         </label>
@@ -236,7 +173,7 @@ const convertToCSV = () => {
         </button>
 
         <button
-          onClick={copyOutput}
+          onClick={() => copyToClipboard(csvOutput)}
           className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:border-green-400 hover:text-green-600 transition"
         >
           <Copy size={16} />
@@ -244,7 +181,7 @@ const convertToCSV = () => {
         </button>
 
         <button
-          onClick={downloadCSV}
+          onClick={() => downloadFile(csvOutput, "data.csv", "text/csv")}
           className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:border-blue-400 hover:text-blue-600 transition"
         >
           <Download size={16} />
@@ -270,20 +207,8 @@ const convertToCSV = () => {
         className="w-full h-44 border rounded-lg p-4 font-mono text-sm bg-gray-50"
       />
 
-      {/* Google AdSense */}
-
-      <div className="text-center my-6">
-
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-XXXXXXXX"
-          data-ad-slot="1234567890"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-
-      </div>
+      {/* Centralized AdSense */}
+      <AdSense slot="1234567890" />
 
       {/* SEO Content */}
 

@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
 import { 
   db, 
   collection, 
@@ -40,38 +39,14 @@ interface VaultItem {
 }
 
 export const SessionVault: React.FC = () => {
-  const { user, isAuthReady } = useAuth();
   const [items, setItems] = useState<VaultItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!isAuthReady || !user) return;
-
-    const q = query(
-      collection(db, 'vault'),
-      where('ownerId', '==', user.uid)
-    );
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newItems = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-      })) as VaultItem[];
-      
-      // Sort by createdAt locally since we might not have an index yet
-      setItems(newItems.sort((a, b) => {
-        const timeA = a.createdAt?.seconds || 0;
-        const timeB = b.createdAt?.seconds || 0;
-        return timeB - timeA;
-      }));
-      setLoading(false);
-    }, (error) => {
-      console.error("Vault listener error:", error);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, [user, isAuthReady]);
+    // This logic currently depends on Firebase auth for user-isolated data.
+    // If authorization is removed globally, you may want to migrate to localStorage.
+    setLoading(false);
+  }, []);
 
   const deleteItem = async (id: string) => {
     try {
@@ -95,8 +70,6 @@ export const SessionVault: React.FC = () => {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
-
-  if (!isAuthReady) return null;
 
   return (
     <div className="px-4 py-12">
@@ -136,13 +109,7 @@ export const SessionVault: React.FC = () => {
         )}
       </div>
 
-      {!user ? (
-        <div className="bg-yellow-500/10 border border-yellow-500/20 p-8 rounded-2xl text-center">
-          <AlertCircle className="size-12 text-yellow-500 mx-auto mb-4" />
-          <h3 className="text-xl font-bold mb-2">Authentication Required</h3>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">Please sign in to access your secure session vault.</p>
-        </div>
-      ) : loading ? (
+      {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[1, 2, 3, 4].map(i => (
             <div key={i} className="h-48 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-2xl"></div>

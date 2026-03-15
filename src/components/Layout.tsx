@@ -3,13 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { Grid3X3, Menu, X, Search, User, ShieldCheck, LogOut, Lock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/src/lib/utils';
-import { useAuth } from '../context/AuthContext';
 import { ScrollToTop } from './ScrollToTop';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
-  const { user, signInWithGoogle, signOut, loading } = useAuth();
 
   // scroll to top whenever the route changes
   React.useEffect(() => {
@@ -30,11 +28,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   Tool<span className="text-primary">Nest</span>
                 </span>
               </Link>
-
-              <div className="hidden lg:flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full">
-                <ShieldCheck className="size-3 text-green-500" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-green-600">Secure Session Active</span>
-              </div>
             </div>
 
             <div className="hidden md:flex space-x-8 items-center">
@@ -44,38 +37,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <Lock className="size-3" /> Vault
               </Link>
               <Link to="/security" className="text-sm font-medium hover:text-primary transition-colors">Security</Link>
-              
-              {loading ? (
-                <div className="w-20 h-8 bg-slate-100 animate-pulse rounded-full"></div>
-              ) : user && !user.isAnonymous ? (
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    {user.photoURL ? (
-                      <img src={user.photoURL} alt="" className="size-8 rounded-full border border-slate-200" />
-                    ) : (
-                      <div className="size-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-xs">
-                        {user.displayName?.charAt(0) || 'U'}
-                      </div>
-                    )}
-                    <span className="text-sm font-medium hidden lg:inline">{user.displayName}</span>
-                  </div>
-                  <button 
-                    onClick={signOut}
-                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
-                    title="Sign Out"
-                  >
-                    <LogOut className="size-5" />
-                  </button>
-                </div>
-              ) : (
-                <button 
-                  onClick={signInWithGoogle}
-                  className="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center gap-2"
-                >
-                  <User className="size-4" />
-                  Sign In
-                </button>
-              )}
             </div>
 
             <div className="md:hidden flex items-center">
@@ -102,9 +63,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <Link to="/tools" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Tools</Link>
                 <Link to="/categories" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">Categories</Link>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">About</Link>
-                <button className="bg-primary text-white px-5 py-3 rounded-xl text-base font-semibold w-full">
-                  Sign In
-                </button>
               </div>
             </motion.div>
           )}

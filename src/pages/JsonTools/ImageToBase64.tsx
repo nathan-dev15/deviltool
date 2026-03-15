@@ -10,10 +10,13 @@ export const ImageToBase64: React.FC = () => {
   const [fileName, setFileName] = React.useState('');
   const [fileSize, setFileSize] = React.useState('');
   const [preview, setPreview] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) return setError("File size exceeds 5MB limit.");
 
     setFileName(file.name);
     setFileSize((file.size / 1024).toFixed(2) + ' KB');
@@ -24,11 +27,15 @@ export const ImageToBase64: React.FC = () => {
       setBase64(result);
       setPreview(result);
     };
+    reader.onerror = () => setError("Failed to read file.");
     reader.readAsDataURL(file);
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(base64);
+  const copyToClipboard = (text: string) => {
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      // Optional: Add a toast notification here
+    });
   };
 
   const clear = () => {
@@ -36,6 +43,7 @@ export const ImageToBase64: React.FC = () => {
     setFileName('');
     setFileSize('');
     setPreview(null);
+    setError(null);
   };
 
   return (
@@ -43,7 +51,7 @@ export const ImageToBase64: React.FC = () => {
       <SEO 
         title="Image to Base64 Converter - Encode Images Online"
         description="Convert images to Base64 strings instantly. Free online tool to encode PNG, JPG, and GIF images for use in HTML, CSS, or JSON. Fast and secure conversion."
-        keywords="image to base64, base64 encoder, encode image, image tools, developer tools"
+        keywords="image to base64, base64 encoder, encode image, image tools, developer tools, convert image to base64, base64 image converter, png to base64, jpg to base64, image to data uri"
       />
       <nav className="flex mb-8 text-sm text-slate-500">
         <ol className="flex items-center space-x-2">
@@ -63,7 +71,7 @@ export const ImageToBase64: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-7 space-y-6">
           {/* Upload Area */}
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 p-12 text-center relative group hover:border-primary transition-colors">
+          <div className={cn("bg-white dark:bg-slate-900 rounded-2xl border-2 border-dashed p-12 text-center relative group transition-colors", error ? "border-red-500" : "border-slate-200 dark:border-slate-800 hover:border-primary")}>
             <input 
               type="file" 
               accept="image/*"
@@ -79,6 +87,12 @@ export const ImageToBase64: React.FC = () => {
             </div>
           </div>
 
+          {error && (
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl border border-red-100 dark:border-red-900/30 text-sm font-medium">
+              {error}
+            </div>
+          )}
+
           {base64 && (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -86,7 +100,7 @@ export const ImageToBase64: React.FC = () => {
               className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm"
             >
               <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-900/50">
-                <span className="text-xs font-bold uppercase text-slate-500">Base64 String</span>
+                <span className="text-xs font-bold uppercase text-slate-500">Data URI / Base64 Output</span>
                 <div className="flex gap-2">
                   <button onClick={copyToClipboard} className="text-xs font-bold text-primary hover:underline flex items-center gap-1">
                     <Copy className="size-3" /> Copy String
@@ -102,6 +116,14 @@ export const ImageToBase64: React.FC = () => {
                   value={base64}
                   className="w-full h-48 font-mono text-xs bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border-0 focus:ring-0 resize-none break-all"
                 />
+                <div className="mt-4 flex gap-3">
+                  <button 
+                    onClick={() => copyToClipboard(base64.split(',')[1] || base64)}
+                    className="text-xs bg-slate-100 dark:bg-slate-800 px-3 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors"
+                  >
+                    Copy Raw Base64 (No Prefix)
+                  </button>
+                </div>
               </div>
             </motion.div>
           )}

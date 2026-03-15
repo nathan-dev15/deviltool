@@ -10,6 +10,7 @@ import {
   Calendar,
   Clock,
   FileImage,
+  FileCode,
   GitCompare,
   LucideIcon,
 } from "lucide-react";
@@ -29,6 +30,7 @@ const iconMap: { [key: string]: LucideIcon } = {
   calendar: Calendar,
   clock: Clock,
   "file-image": FileImage,
+  "file-code": FileCode,
   "git-compare": GitCompare,
 };
 
@@ -64,10 +66,10 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, index = 0 }) => {
         to={tool.path}
         className="block h-full glass-card p-7 rounded-2xl border border-white/30 dark:border-slate-800/60 hover:border-primary/60 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer overflow-hidden relative backdrop-blur-lg"
       >
-        <div className="absolute inset-0 bg-linear-to-br from-white/50 to-transparent dark:from-slate-900/50 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent dark:from-slate-900/50 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <div
-          className={`w-14 h-14 rounded-xl bg-linear-to-br ${getCategoryColor(
+          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${getCategoryColor(
             tool.category
           )} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
         >
@@ -83,7 +85,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, index = 0 }) => {
         </p>
 
         {tool.trending && (
-          <div className="absolute top-4 right-4 bg-linear-to-r from-orange-400 to-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
+          <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse">
             🔥 Trending
           </div>
         )}
