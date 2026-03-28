@@ -4,16 +4,15 @@ import {
   Copy,
   Upload,
   Download,
-  Home,
   RefreshCcw
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
 import { decode } from "js-base64";
 
 import { SEO } from "@/src/components/SEO";
 import { useToolActions } from "@/src/pages/useToolActions";
 import { AdSense } from "@/src/components/AdSense";
+import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 
 /* ---------- Code Editor ---------- */
 
@@ -36,7 +35,7 @@ const CodeEditor = ({
     const el = textareaRef.current;
     if (el) {
       el.style.height = "auto";
-      el.style.height = el.scrollHeight + "px";
+      el.style.height = Math.max(200, el.scrollHeight) + "px";
     }
   };
 
@@ -46,11 +45,11 @@ const CodeEditor = ({
 
   return (
 
-    <div className="flex font-mono text-sm">
+    <div className="flex font-mono text-sm bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-b-xl overflow-hidden min-h-[200px]">
 
       {/* Line Numbers */}
 
-      <div className="bg-gray-100 text-gray-400 px-3 py-4 text-right select-none border-r">
+      <div className="bg-slate-100 dark:bg-slate-800/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 px-3 py-4 text-right select-none border-r border-slate-200 dark:border-slate-700 hidden sm:block">
 
         {lines.map((_, i) => (
           <div key={i} className="leading-6">
@@ -69,8 +68,8 @@ const CodeEditor = ({
         onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
         spellCheck={false}
-        rows={10}
-        className="flex-1 p-4 outline-none resize-none leading-6 overflow-hidden"
+        rows={8}
+        className="flex-1 p-4 outline-none resize-none leading-6 bg-transparent text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
       />
 
     </div>
@@ -149,149 +148,137 @@ export const Base64DecodeTool = () => {
 
   return (
 
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
-
+    <ToolPageWrapper
+      title="Base64 Decode Tool"
+      description="Decode Base64 strings back to plain text instantly. Fast, private, and entire browser-side."
+      breadcrumbs={[
+        { label: "Encoder/Decoder", href: "#" },
+        { label: "Base64 Decode" }
+      ]}
+      accentColor="tertiary"
+    >
       <SEO
         title="Base64 Decode Tool – Free Online Decoder"
-        description="Decode Base64 to text instantly."
-        keywords="base64 decode, base64 decoder online"
+        description="Decode Base64 strings to text instantly. Secure, browser-based Base64 decoding."
+        keywords="base64 decode, base64 decoder online, decode base64"
       />
 
-      {/* Breadcrumb */}
+      <div className="space-y-8 animate-fade-in">
 
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+        {/* Workspace */}
 
-        <Link to="/" className="flex items-center gap-1 hover:text-indigo-600">
-          <Home size={16}/> Home
-        </Link>
+        <div className="grid lg:grid-cols-2 gap-8">
 
-        <span>/</span>
+          {/* INPUT */}
 
-        <span className="font-medium text-gray-700">
-          Base64 Decode
-        </span>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-tertiary/20 group">
 
-      </div>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="size-2 rounded-full bg-tertiary" />
+                Base64 Input
+              </span>
+              <div className="text-xs font-semibold text-slate-400">
+                Chars: {inputText.length}
+              </div>
+            </div>
 
-      <h1 className="text-3xl font-bold">
-        Base64 Decode Tool
-      </h1>
+            <CodeEditor
+              value={inputText}
+              onChange={setInputText}
+              placeholder="Paste Base64 string here..."
+            />
 
-      <p className="text-gray-600">
-        Decode Base64 encoded text instantly.
-      </p>
-
-      {/* Workspace */}
-
-      <div className="grid md:grid-cols-2 gap-6">
-
-        {/* INPUT */}
-
-        <div className="bg-white border rounded-xl shadow-sm flex flex-col">
-
-          <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
-            <span className="font-medium">Base64 Input</span>
           </div>
 
-          <CodeEditor
-            value={inputText}
-            onChange={setInputText}
-            placeholder="Paste Base64 string..."
-          />
+          {/* OUTPUT */}
 
-          <div className="text-xs text-gray-500 px-4 pb-2">
-            Characters: {inputText.length}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-tertiary/20 group">
+
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
+
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="size-2 rounded-full bg-primary" />
+                Decoded Output
+              </span>
+
+              <button
+                disabled={!outputText}
+                onClick={() => copyToClipboard(outputText)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-tertiary transition-colors disabled:opacity-30 disabled:hover:text-slate-500 px-2 py-1 rounded-md hover:bg-tertiary/5"
+              >
+                <Copy size={14}/>
+                {copied ? "Copied!" : "Copy Output"}
+              </button>
+
+            </div>
+
+            <CodeEditor
+              value={outputText}
+              readOnly
+              placeholder="Decoded text will appear here..."
+            />
+
           </div>
 
         </div>
 
-        {/* OUTPUT */}
+        {/* Action Bar */}
 
-        <div className="bg-white border rounded-xl shadow-sm flex flex-col">
+        <div className="flex flex-wrap items-center justify-center gap-4 p-6 bg-slate-900 dark:bg-slate-950 rounded-2xl shadow-lg border border-white/5 relative overflow-hidden group">
+          {/* subtle background glow */}
+          <div className="absolute -inset-24 bg-tertiary/20 blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
 
-          <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
+          <button
+            onClick={clearAll}
+            className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10"
+          >
+            <Trash2 size={18}/> Clear All
+          </button>
 
-            <span className="font-medium">
-              Decoded Output
-            </span>
+          <button
+            disabled={!outputText}
+            onClick={swapText}
+            className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10"
+          >
+            <RefreshCcw size={18}/> Swap
+          </button>
 
-            <button
-              disabled={!outputText}
-              onClick={() => copyToClipboard(outputText)}
-              className="flex items-center gap-1 text-sm hover:text-indigo-600"
-            >
-              <Copy size={14}/>
-              {copied ? "Copied!" : "Copy"}
-            </button>
+          <button
+            disabled={!outputText}
+            onClick={() =>
+              downloadFile(outputText,"decoded.txt","text/plain")
+            }
+            className="relative z-10 cursor-pointer flex items-center gap-2 bg-tertiary hover:bg-tertiary-container text-on-tertiary px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-tertiary/20 disabled:opacity-50 disabled:hover:scale-100"
+          >
+            <Download size={18}/> Download Result
+          </button>
+          
+          <label className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10">
+            <Upload size={18}/> Upload Base64 File
+            <input
+              type="file"
+              hidden
+              onChange={(e)=>{
+                const file = e.target.files?.[0];
+                if(file) handleUpload(file);
+              }}
+            />
+          </label>
+        </div>
 
+        {error && (
+          <div className="bg-error/10 border border-error/20 text-error p-4 rounded-xl text-center font-bold animate-pop-in">
+            {error}
           </div>
+        )}
 
-          <CodeEditor
-            value={outputText}
-            readOnly
-            placeholder="Decoded text will appear here..."
-          />
-
+        <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+           <AdSense slot="1234567890"/>
         </div>
 
       </div>
-
-      {/* Action Bar */}
-
-      <div className="flex flex-wrap justify-center gap-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-xl">
-
-        <button
-          onClick={clearAll}
-          className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
-        >
-          <Trash2 size={16}/> Clear
-        </button>
-
-        <button
-          disabled={!outputText}
-          onClick={swapText}
-          className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
-        >
-          <RefreshCcw size={16}/> Swap
-        </button>
-
-        <button
-          disabled={!outputText}
-          onClick={() =>
-            downloadFile(outputText,"decoded.txt","text/plain")
-          }
-          className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
-        >
-          <Download size={16}/> Download
-        </button>
-
-        <label className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg cursor-pointer hover:text-indigo-600 transition">
-
-          <Upload size={16}/> Upload
-
-          <input
-            type="file"
-            hidden
-            onChange={(e)=>{
-              const file = e.target.files?.[0];
-              if(file) handleUpload(file);
-            }}
-          />
-
-        </label>
-
-      </div>
-
-      {error && (
-        <div className="text-red-500 text-center font-medium">
-          {error}
-        </div>
-      )}
-
-      <AdSense slot="1234567890"/>
-
-    </div>
+    </ToolPageWrapper>
 
   );
-
 };

@@ -3,6 +3,7 @@ import { PasswordGenerator } from '../pages/PasswordGenerator';
 import { describe, it, expect, vi } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { I18nProvider } from '../i18n/I18nContext';
 
 // Mock the AuthContext
 vi.mock('../context/AuthContext', () => ({
@@ -23,9 +24,11 @@ describe('PasswordGenerator Component', () => {
   const renderComponent = () => {
     return render(
       <HelmetProvider>
-        <BrowserRouter>
-          <PasswordGenerator />
-        </BrowserRouter>
+        <I18nProvider>
+          <BrowserRouter>
+            <PasswordGenerator />
+          </BrowserRouter>
+        </I18nProvider>
       </HelmetProvider>
     );
   };

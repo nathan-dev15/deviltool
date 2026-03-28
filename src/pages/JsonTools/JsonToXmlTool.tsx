@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { XMLBuilder } from "fast-xml-parser";
-
 import {
   Wand2,
   FileText,
@@ -8,251 +7,299 @@ import {
   Copy,
   Upload,
   Download,
-  Home
+  Sparkles,
+  Code,
+  Zap,
+  Info,
+  Database,
+  Lock,
+  LayoutDashboard
 } from "lucide-react";
-import { cn } from "@/src/lib/utils";
 import { Link } from "react-router-dom";
 import { SEO } from "@/src/components/SEO";
 import { useToolActions } from "@/src/pages/useToolActions";
 import { AdSense } from "@/src/components/AdSense";
 import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
+import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
+import { useI18n } from "@/src/i18n/I18nContext";
+
+/* ---------- Code Editor Component ---------- */
+
+const CodeEditor = ({
+  value,
+  onChange,
+  placeholder,
+  readOnly = false,
+  error = false,
+  language = "json"
+}: {
+  value: string;
+  onChange?: (v: string) => void;
+  placeholder: string;
+  readOnly?: boolean;
+  error?: boolean;
+  language?: string;
+}) => {
+
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const lines = value.split("\n");
+
+  const autoResize = () => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = Math.max(250, el.scrollHeight) + "px";
+    }
+  };
+
+  useEffect(() => {
+    autoResize();
+  }, [value]);
+
+  return (
+
+    <div className={`flex font-mono text-sm bg-surface-container-low/50 dark:bg-surface-container-low/20 rounded-b-xl overflow-hidden min-h-[250px] border-t ${error ? 'border-t-error/30' : 'border-t-outline-variant/10'}`}>
+
+      {/* Line Numbers */}
+
+      <div className="bg-surface-container-high/40 text-on-surface-variant/40 px-3 py-4 text-right select-none border-r border-outline-variant/10 hidden sm:block">
+
+        {lines.map((_, i) => (
+          <div key={i} className="leading-6">
+            {i + 1}
+          </div>
+        ))}
+
+      </div>
+
+      {/* Textarea */}
+
+      <textarea
+        ref={textareaRef}
+        value={value}
+        readOnly={readOnly}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        placeholder={placeholder}
+        spellCheck={false}
+        rows={10}
+        className="flex-1 p-6 outline-none resize-none leading-6 bg-transparent text-on-surface placeholder:text-on-surface-variant/30"
+      />
+
+    </div>
+
+  );
+
+};
 
 export const JsonToXmlTool = () => {
+  const { t } = useI18n();
   const [jsonInput, setJsonInput] = useState("");
   const [xmlOutput, setXmlOutput] = useState("");
   const [error, setError] = useState("");
 
   const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
 
-  useRealTimeConversion(jsonInput, () => convertToXML());
-
-  const convertToXML = () => {
-
+  const convertToXML = (val: string = jsonInput) => {
+    if (!val || !val.trim()) {
+      setXmlOutput("");
+      setError("");
+      return;
+    }
     try {
-      if (!jsonInput.trim()) return;
-      const parsed = JSON.parse(jsonInput);
-
+      const parsed = JSON.parse(val);
       const builder = new XMLBuilder({
         format: true,
         ignoreAttributes: false
       });
-
       const xml = builder.build(parsed);
-
       setXmlOutput(xml);
       setError("");
-
     } catch (e: any) {
-
       setError(e.message || "Invalid JSON format");
       setXmlOutput("");
-
     }
-
   };
 
-  const loadSample = () => {
+  useRealTimeConversion(jsonInput, (val) => convertToXML(val));
 
+  const loadSample = () => {
     setJsonInput(`{
-  "users": {
-    "user": [
-      {
-        "id": 1,
-        "name": "John",
-        "email": "john@example.com"
-      },
-      {
-        "id": 2,
-        "name": "Jane",
-        "email": "jane@example.com"
-      }
-    ]
+  "project": {
+    "name": "ToolNest",
+    "version": "1.0.0",
+    "stats": {
+      "tools": 50,
+      "users": "10k+"
+    },
+    "tags": ["developer", "utils", "premium"]
   }
 }`);
-
   };
 
   const clearAll = () => {
-
     setJsonInput("");
     setXmlOutput("");
     setError("");
-
-  };
-
-  const handleUpload = async (file: File) => {
-    try {
-      const content = await readFile(file);
-      setJsonInput(content);
-    } catch (err) {
-      setError("Failed to read file");
-    }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-10 space-y-6">
+    <ToolPageWrapper
+      title={t('label.json_to_xml')}
+      description={t('label.json_to_xml_desc')}
+      breadcrumbs={[
+        { label: t('label.json_tools'), href: "#" },
+        { label: t('label.json_to_xml') }
+      ]}
+      accentColor="primary"
+    >
       <SEO 
         title="JSON to XML Converter - Free Online Developer Tool"
         description="Convert JSON data to XML format instantly. Secure, browser-based JSON to XML converter for developers."
         keywords="json to xml, json xml converter, online converter, developer tools"
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "JSON to XML Converter",
-            applicationCategory: "DeveloperApplication",
-            operatingSystem: "Web",
-            url: window.location.href,
-            offers: { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          })}
-        </script>
-      </SEO>
+      />
 
-      <nav className="flex items-center gap-2 text-sm text-slate-500 mb-6">
-        <Link to="/" className="hover:text-primary transition-colors flex items-center gap-1">
-          <Home size={14} /> Home
-        </Link>
-        <span className="text-slate-300">/</span>
-        <span className="text-primary font-medium">JSON to XML</span>
-      </nav>
+      <div className="grid lg:grid-cols-12 gap-8 animate-fade-in">
+        {/* Main Content */}
+        <div className="lg:col-span-8 space-y-8">
+          
+          {/* INPUT PANEL */}
+          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-[2rem] shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 bg-surface-container-low/50">
+              <span className="font-black uppercase tracking-widest text-xs text-on-surface flex items-center gap-2">
+                <div className="size-2 rounded-full bg-primary" />
+                {t('label.input_json_object')}
+              </span>
+              <div className="flex items-center gap-3">
+                 <label className="cursor-pointer flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-primary transition-colors px-3 py-1.5 rounded-lg hover:bg-primary/5 border border-transparent hover:border-primary/20">
+                  <Upload size={14} /> {t('action.upload')}
+                  <input
+                    type="file"
+                    accept=".json"
+                    hidden
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const content = await readFile(file);
+                        setJsonInput(content);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+            
+            <CodeEditor
+              value={jsonInput}
+              onChange={setJsonInput}
+              placeholder={t('label.json_validator_placeholder')}
+              error={!!error}
+            />
 
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">JSON to XML Converter</h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2">Transform your JSON objects into well-formatted XML strings instantly.</p>
-      </div>
+            <div className="p-4 bg-surface-container-low/30 border-t border-outline-variant/10 flex flex-wrap gap-4">
+              <button 
+                onClick={() => convertToXML(jsonInput)}
+                className="flex-1 min-w-[160px] bg-primary hover:bg-primary-container text-on-primary px-8 py-4 rounded-2xl font-black uppercase tracking-[0.15em] text-[10px] flex items-center justify-center gap-3 transition-all shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95"
+              >
+                <Zap className="size-4" />
+                <span>{t('label.convert_to_xml')}</span>
+              </button>
+              
+              <button 
+                onClick={loadSample}
+                className="bg-surface-container-high/60 border border-outline-variant/10 hover:text-primary hover:border-primary/30 text-on-surface px-6 py-4 rounded-2xl font-bold transition-all hover:bg-primary/5 text-xs uppercase tracking-widest"
+              >
+                {t('action.load_sample')}
+              </button>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Input JSON</label>
+              <button 
+                onClick={clearAll}
+                className="bg-surface-container-high/60 border border-outline-variant/10 hover:text-error hover:border-error/30 text-on-surface px-6 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-error/5 text-xs uppercase tracking-widest"
+              >
+                <Trash2 className="size-4" />
+                <span>{t('action.clear')}</span>
+              </button>
+            </div>
           </div>
-          <textarea
-            value={jsonInput}
-            onChange={(e) => setJsonInput(e.target.value)}
-            placeholder="Paste your JSON here..."
-            className="w-full h-64 border border-slate-200 dark:border-slate-800 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-primary/20 outline-none bg-white dark:bg-slate-900"
-          />
-        </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-500">XML Output</label>
+          {error && (
+            <div className="bg-error/10 border border-error/20 text-error p-5 rounded-2xl text-center font-bold text-sm animate-pop-in">
+              {error}
+            </div>
+          )}
+
+          {/* OUTPUT CONTAINER */}
+          <div className="bg-surface-container-lowest-dark dark:bg-slate-950 rounded-[2rem] shadow-xl overflow-hidden border border-outline-variant/30 relative group">
+            <div className="absolute -inset-24 bg-primary/5 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+            <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-black/40 backdrop-blur-sm relative z-10">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/40">{t('label.xml_result')}</span>
+              <div className="flex items-center gap-6">
+                <button onClick={() => copyToClipboard(xmlOutput)} className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-primary flex items-center gap-2 transition-all">
+                  <Copy size={14} /> {copied ? t('action.copied') : t('label.copy_xml')}
+                </button>
+                <button 
+                  onClick={()=>downloadFile(xmlOutput,"data.xml","application/xml")}
+                  className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 hover:text-success flex items-center gap-2 transition-all"
+                >
+                  <Download size={14} /> {t('label.download_xml')}
+                </button>
+              </div>
+            </div>
+            
+            <CodeEditor
+              value={xmlOutput}
+              readOnly
+              placeholder={t('label.xml_placeholder')}
+              language="xml"
+            />
           </div>
-          <textarea
-            value={xmlOutput}
-            readOnly
-            placeholder="Generated XML will appear here..."
-            className="w-full h-64 border border-slate-200 dark:border-slate-800 rounded-xl p-4 font-mono text-sm bg-slate-50 dark:bg-slate-950"
-          />
+
+          <div className="mt-12 rounded-[2rem] overflow-hidden border border-outline-variant/20 shadow-sm">
+             <AdSense slot="1234567890"/>
+          </div>
+
         </div>
+
+        {/* Sidebar */}
+        <aside className="lg:col-span-4 space-y-8">
+           <div className="bg-surface-container-low/30 rounded-[2.5rem] p-8 border border-outline-variant/20 shadow-sm sticky top-24">
+            <h3 className="text-xl font-black uppercase tracking-widest mb-8 text-on-surface flex items-center gap-3">
+               <Sparkles className="size-5 text-warning" />
+               {t('label.json_tools')}
+            </h3>
+            <div className="grid gap-4">
+              {[
+                { name: 'To TS Interface', path: '/json-to-typescript', icon: <Code className="size-4" />, desc: 'JSON to TypeScript' },
+                { name: 'To YAML', path: '/json-to-yaml', icon: <Sparkles className="size-4" />, desc: 'JSON to YAML format' },
+                { name: 'Comparator', path: '/json-compare', icon: <Database className="size-4" />, desc: 'Diff two objects' },
+                { name: 'Key Sorter', path: '/json-sort-keys', icon: <Lock size={16} />, desc: 'Sort alphabetically' },
+              ].map((tool) => (
+                <Link 
+                  key={tool.path}
+                  to={tool.path} 
+                  className="group block p-4 rounded-2xl border border-outline-variant/10 hover:border-primary/30 hover:bg-primary/5 transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-xl bg-surface-container-high text-on-surface-variant/60 group-hover:text-primary group-hover:bg-primary/10 transition-colors">
+                      {tool.icon}
+                    </div>
+                    <div>
+                      <p className="font-black text-on-surface text-xs uppercase tracking-widest group-hover:text-primary transition-colors">{tool.name}</p>
+                      <p className="text-[10px] font-bold text-on-surface-variant/50 mt-1">{tool.desc}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-12 pt-8 border-t border-outline-variant/10 text-center">
+                <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:translate-x-1 transition-transform">
+                    {t('label.view_all_tools')}
+                    <LayoutDashboard className="size-4" />
+                </Link>
+            </div>
+          </div>
+        </aside>
       </div>
-
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-        <button
-          onClick={convertToXML}
-          className="flex-1 md:flex-none cursor-pointer flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-white font-bold bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 transition"
-        >
-          <Wand2 size={16} />
-          Convert
-        </button>
-
-        <button
-          onClick={loadSample}
-          className="cursor-pointer flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition"
-        >
-          <FileText size={16} />
-          Sample
-        </button>
-
-        <label className="cursor-pointer flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-          <Upload size={16} />
-          Upload
-          <input
-            type="file"
-            accept=".json"
-            hidden
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) handleUpload(file);
-            }}
-          />
-        </label>
-
-        <button
-          onClick={clearAll}
-          className="cursor-pointer flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold hover:text-red-500 transition"
-        >
-          <Trash2 size={16} />
-          Clear
-        </button>
-
-        <button
-          onClick={() => copyToClipboard(xmlOutput)}
-          className={cn("cursor-pointer flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold transition", copied ? "text-green-500" : "hover:text-primary")}
-        >
-          <Copy size={16} />
-          {copied ? "Copied!" : "Copy"}
-        </button>
-
-        <button
-          onClick={() => downloadFile(xmlOutput, "data.xml", "application/xml")}
-          className="cursor-pointer flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-semibold hover:text-blue-500 transition"
-        >
-          <Download size={16} />
-          Download
-        </button>
-      </div>
-
-      {/* Error */}
-      {error && (
-        <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl border border-red-100 dark:border-red-900/30 text-sm font-medium">
-          {error}
-        </div>
-      )}
-
-      {/* AdSense */}
-      <AdSense slot="1234567890" />
-
-      {/* SEO Content */}
-
-      <section className="grid md:grid-cols-2 gap-6 pt-6">
-
-        <div className="bg-white border rounded-xl p-6 shadow-sm">
-
-          <h2 className="text-xl font-semibold mb-3">
-            What is JSON to XML?
-          </h2>
-
-          <p className="text-gray-600">
-            JSON to XML conversion transforms structured JSON data into XML format.
-            XML is widely used for APIs, configuration files, and enterprise systems.
-            This tool helps developers quickly convert JSON objects into XML format.
-          </p>
-
-        </div>
-
-        <div className="bg-white border rounded-xl p-6 shadow-sm">
-
-          <h2 className="text-xl font-semibold mb-3">
-            Features
-          </h2>
-
-          <ul className="space-y-2 text-gray-600">
-
-            <li>✔ Convert JSON to XML instantly</li>
-            <li>✔ Upload JSON files</li>
-            <li>✔ Copy XML output</li>
-            <li>✔ Download XML file</li>
-            <li>✔ Works in all modern browsers</li>
-
-          </ul>
-
-        </div>
-
-      </section>
-
-    </div>
+    </ToolPageWrapper>
   );
 };

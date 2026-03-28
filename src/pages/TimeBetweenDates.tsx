@@ -1,11 +1,15 @@
 import React from 'react';
 import { differenceInDays, differenceInWeeks, differenceInMonths, differenceInYears, parseISO, isValid } from 'date-fns';
-import { motion } from 'framer-motion';
-import { Clock, Calendar, Info, ChevronRight, Home as HomeIcon, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Clock, Calendar, Info, ChevronRight, LayoutDashboard, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
+import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
+import { useI18n } from '@/src/i18n/I18nContext';
 
 export const TimeBetweenDates: React.FC = () => {
+  const { t } = useI18n();
   const [startDate, setStartDate] = React.useState('');
   const [endDate, setEndDate] = React.useState('');
   const [result, setResult] = React.useState<{
@@ -31,99 +35,121 @@ export const TimeBetweenDates: React.FC = () => {
   };
 
   return (
-    <div className="px-4 py-12">
+    <ToolPageWrapper
+      title={t('label.time_between_dates')}
+      description={t('label.time_between_dates_desc')}
+      breadcrumbs={[
+        { label: "Calculators", href: "#" },
+        { label: t('label.time_between_dates') }
+      ]}
+      accentColor="secondary"
+    >
       <SEO 
         title="Time Between Dates Calculator - Days, Weeks, Months"
         description="Calculate the exact time difference between two dates. Get the duration in days, weeks, months, and years. Perfect for project planning and countdowns."
         keywords="time between dates, date difference calculator, days between dates, duration calculator, date tools"
       />
-      <nav className="flex mb-8 text-sm text-slate-500">
-        <ol className="flex items-center space-x-2">
-          <li><Link to="/" className="hover:text-primary flex items-center gap-1"><HomeIcon className="size-3" /> Home</Link></li>
-          <li><ChevronRight className="size-3" /></li>
-          <li>Calculators</li>
-          <li><ChevronRight className="size-3" /></li>
-          <li className="text-primary font-medium">Time Between Dates</li>
-        </ol>
-      </nav>
 
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-black mb-4">Time Between Dates</h1>
-        <p className="text-slate-600 dark:text-slate-400">Calculate the exact duration between any two dates instantly.</p>
-      </div>
+      <div className="space-y-12 animate-fade-in">
 
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-8 md:p-12">
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <div className="space-y-2">
-            <label className="text-sm font-bold uppercase tracking-wider text-slate-500">Start Date</label>
-            <input 
-              type="date" 
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="w-full p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-primary outline-none"
-            />
+        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] shadow-xl p-8 md:p-12 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/5 blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="grid md:grid-cols-2 gap-10 mb-10">
+            <div className="space-y-4">
+              <label className="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">{t('label.start_date')}</label>
+              <div className="relative group/input">
+                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-on-surface-variant/40 group-focus-within/input:text-secondary transition-colors" />
+                 <input 
+                   type="date" 
+                   value={startDate}
+                   onChange={(e) => setStartDate(e.target.value)}
+                   className="w-full pl-12 pr-6 py-5 bg-surface-container-high/40 dark:bg-slate-900 border border-outline-variant/20 rounded-2xl focus:ring-4 focus:ring-secondary/10 focus:border-secondary/50 outline-none transition-all text-on-surface font-bold text-lg"
+                 />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <label className="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">{t('label.end_date')}</label>
+              <div className="relative group/input">
+                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-on-surface-variant/40 group-focus-within/input:text-tertiary transition-colors" />
+                 <input 
+                   type="date" 
+                   value={endDate}
+                   onChange={(e) => setEndDate(e.target.value)}
+                   className="w-full pl-12 pr-6 py-5 bg-surface-container-high/40 dark:bg-slate-900 border border-outline-variant/20 rounded-2xl focus:ring-4 focus:ring-tertiary/10 focus:border-tertiary/50 outline-none transition-all text-on-surface font-bold text-lg"
+                 />
+              </div>
+            </div>
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-bold uppercase tracking-wider text-slate-500">End Date</label>
-            <input 
-              type="date" 
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="w-full p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-        </div>
 
-        <button 
-          onClick={calculate}
-          className="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
-        >
-          <Clock className="size-5" /> Calculate Duration
-        </button>
-
-        {result && (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4"
+          <button 
+            onClick={calculate}
+            className="w-full bg-on-surface dark:bg-white text-surface dark:text-black py-5 rounded-[1.5rem] font-black uppercase tracking-[0.2em] text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-2xl flex items-center justify-center gap-3"
           >
-            <div className="p-6 bg-primary/5 rounded-2xl text-center">
-              <p className="text-3xl font-black text-primary">{result.years}</p>
-              <p className="text-xs font-bold text-slate-500 uppercase mt-1">Years</p>
-            </div>
-            <div className="p-6 bg-primary/5 rounded-2xl text-center">
-              <p className="text-3xl font-black text-primary">{result.months}</p>
-              <p className="text-xs font-bold text-slate-500 uppercase mt-1">Months</p>
-            </div>
-            <div className="p-6 bg-primary/5 rounded-2xl text-center">
-              <p className="text-3xl font-black text-primary">{result.weeks}</p>
-              <p className="text-xs font-bold text-slate-500 uppercase mt-1">Weeks</p>
-            </div>
-            <div className="p-6 bg-primary/5 rounded-2xl text-center">
-              <p className="text-3xl font-black text-primary">{result.days}</p>
-              <p className="text-xs font-bold text-slate-500 uppercase mt-1">Days</p>
-            </div>
-          </motion.div>
-        )}
-      </div>
+            <Clock className="size-5" /> {t('label.calculate_duration')}
+          </button>
 
-      <div className="mt-16 prose prose-slate dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-bold mb-6">Why use this tool?</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <Calendar className="text-primary size-5" /> Project Planning
-            </h3>
-            <p className="text-slate-500 text-sm">Calculate the exact number of days or weeks available for a project deadline or sprint cycle.</p>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <ArrowRight className="text-primary size-5" /> Event Countdown
-            </h3>
-            <p className="text-slate-500 text-sm">Find out exactly how long it is until your next vacation, wedding, or major life event.</p>
-          </div>
+          <AnimatePresence>
+            {result && (
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+              >
+                {[
+                  { label: t('label.years'), value: result.years, color: 'text-primary' },
+                  { label: t('label.months'), value: result.months, color: 'text-secondary' },
+                  { label: t('label.weeks'), value: result.weeks, color: 'text-tertiary' },
+                  { label: t('label.days'), value: result.days, color: 'text-success' },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-surface-container-high/30 border border-outline-variant/10 p-8 rounded-[2rem] text-center backdrop-blur-sm group/card hover:bg-surface-container-high/60 transition-colors">
+                    <p className={cn("text-5xl font-black mb-2 tracking-tighter group-hover/card:scale-110 transition-transform", stat.color)}>{stat.value}</p>
+                    <p className="text-[10px] font-black text-on-surface-variant/50 uppercase tracking-[0.2em]">{stat.label}</p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
+
+        <section className="bg-surface-container-low/20 p-12 rounded-[2.5rem] border border-outline-variant/20 relative overflow-hidden group">
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/2 blur-[120px] pointer-events-none" />
+          
+          <h2 className="text-2xl font-black uppercase tracking-widest mb-12 text-center text-on-surface flex items-center justify-center gap-4">
+            <Sparkles className="text-warning size-6" />
+            {t('label.why_use_this_tool')}
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-16">
+            <div className="flex gap-6 group/item">
+              <div className="size-16 bg-primary/10 rounded-3xl flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary/20 transition-colors">
+                 <Calendar className="text-primary size-8" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-on-surface">{t('label.project_planning')}</h3>
+                <p className="text-on-surface-variant text-sm font-medium leading-relaxed italic">{t('label.project_planning_desc')}</p>
+              </div>
+            </div>
+            <div className="flex gap-6 group/item">
+              <div className="size-16 bg-tertiary/10 rounded-3xl flex items-center justify-center flex-shrink-0 group-hover/item:bg-tertiary/20 transition-colors">
+                 <ArrowRight className="text-tertiary size-8" />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-on-surface">{t('label.event_countdown')}</h3>
+                <p className="text-on-surface-variant text-sm font-medium leading-relaxed italic">{t('label.event_countdown_desc')}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="flex justify-center mt-20">
+            <Link to="/tools" className="group flex items-center gap-3 bg-surface-container-high/40 hover:bg-surface-container-high px-10 py-5 rounded-[2rem] border border-outline-variant/10 transition-all">
+                <LayoutDashboard className="size-5 text-primary group-hover:rotate-12 transition-transform" />
+                <span className="text-sm font-black uppercase tracking-widest text-on-surface">{t('label.view_all_tools')}</span>
+            </Link>
+        </div>
+
       </div>
-    </div>
+    </ToolPageWrapper>
   );
 };

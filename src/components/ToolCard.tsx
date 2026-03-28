@@ -80,7 +80,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool, index = 0 }) => {
           {tool.name}
         </h3>
 
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300">
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed group-hover:text-slate-700 dark:text-slate-300 dark:group-hover:text-slate-300 transition-colors duration-300">
           {tool.description}
         </p>
 

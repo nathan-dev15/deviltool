@@ -1,10 +1,16 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { TOOL_SEO_BY_PATH } from "@/src/seo/toolSeo";
+import { buildFaqJsonLd, buildToolSeoPage } from "@/src/seo/generateToolSeo";
+import { useI18n } from "@/src/i18n/I18nContext";
 
 interface SEOProps {
   title: string;
   description: string;
   keywords?: string;
+  canonicalUrl?: string;
+  jsonLd?: object | object[];
+  noIndex?: boolean;
   children?: React.ReactNode;
 }
 
@@ -12,32 +18,66 @@ export const SEO: React.FC<SEOProps> = ({
   title,
   description,
   keywords = "",
+  canonicalUrl,
+  jsonLd: jsonLdProp,
+  noIndex = false,
   children
 }) => {
+  const { locale } = useI18n();
 
-  const canonicalUrl =
-    window.location.origin + window.location.pathname;
+  const toolCfg = typeof window !== "undefined"
+    ? TOOL_SEO_BY_PATH[window.location.pathname]
+    : undefined;
+  const toolPage = toolCfg ? buildToolSeoPage(toolCfg, { locale }) : undefined;
+
+  const finalTitle = toolPage?.seoTitle ?? title;
+  const finalDescription = toolPage?.metaDescription ?? description;
+  const finalKeywords = toolPage
+    ? [toolPage.mainKeyword, ...toolPage.secondaryKeywords].join(", ")
+    : keywords;
+
+  const resolvedCanonicalUrl =
+    canonicalUrl ?? (typeof window !== "undefined"
+      ? window.location.origin + window.location.pathname + window.location.search
+      : "");
+
+  const autoJsonLd = React.useMemo(() => {
+    if (jsonLdProp) return jsonLdProp;
+    if (typeof window === "undefined") return undefined;
+    const cfg = TOOL_SEO_BY_PATH[window.location.pathname];
+    if (!cfg) return undefined;
+    const page = buildToolSeoPage(cfg, { locale });
+    return buildFaqJsonLd(page.toolName, page.faqs);
+  }, [jsonLdProp, locale]);
 
   return (
     <Helmet>
 
-      <title>{title}</title>
+      <title>{finalTitle}</title>
 
-      <meta name="description" content={description} />
+      <meta name="description" content={finalDescription} />
 
-      {keywords && (
-        <meta name="keywords" content={keywords} />
+      {finalKeywords && (
+        <meta name="keywords" content={finalKeywords} />
       )}
 
-      <link rel="canonical" href={canonicalUrl} />
+      {resolvedCanonicalUrl && (
+        <link rel="canonical" href={resolvedCanonicalUrl} />
+      )}
+
+      {noIndex && (
+        <meta name="robots" content="noindex, nofollow" />
+      )}
 
       {/* OpenGraph */}
 
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={finalTitle} />
 
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={finalDescription} />
 
-      <meta property="og:url" content={canonicalUrl} />
+      {resolvedCanonicalUrl && (
+        <meta property="og:url" content={resolvedCanonicalUrl} />
+      )}
 
       <meta property="og:type" content="website" />
 
@@ -45,9 +85,15 @@ export const SEO: React.FC<SEOProps> = ({
 
       <meta name="twitter:card" content="summary_large_image" />
 
-      <meta name="twitter:title" content={title} />
+      <meta name="twitter:title" content={finalTitle} />
 
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={finalDescription} />
+
+      {autoJsonLd && (
+        <script type="application/ld+json">
+          {JSON.stringify(autoJsonLd)}
+        </script>
+      )}
 
       {children}
 

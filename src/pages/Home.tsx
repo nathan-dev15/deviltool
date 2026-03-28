@@ -1,314 +1,362 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import {
-  CodeXml,
-  Lock,
-  Image as ImageIcon,
-  Type,
-  Database,
-  Calendar as Calculator,
-  Clock,
-  FileImage,
-  FileCode,
-  Bolt,
-  GitCompare,
-  ArrowRight,
-  Search
+  CodeXml, Lock, Image as ImageIcon, Type, Database,
+  Calendar as Calculator, Clock, FileImage, FileCode,
+  Bolt, GitCompare, ArrowRight, Search, History, QrCode,
+  Link as LinkIcon, ShieldCheck, TableProperties, Diff, AlignJustify,
+  Zap, Shield, Globe
 } from 'lucide-react';
 import { TOOLS } from '../constants';
-import { SEO } from '../components/SEO';
-
 import { cn } from '../lib/utils';
+import { useI18n } from '../i18n/I18nContext';
 
 const iconMap: Record<string, any> = {
-  'code-xml': CodeXml,
-  'lock': Lock,
-  'image': ImageIcon,
-  'type': Type,
-  'database': Database,
-  'calendar': Calculator,
-  'clock': Clock,
-  'file-image': FileImage,
-  'file-code': FileCode,
-  'git-compare': GitCompare,
+  'code-xml':     CodeXml,
+  'lock':         Lock,
+  'image':        ImageIcon,
+  'type':         Type,
+  'database':     Database,
+  'calendar':     Calculator,
+  'clock':        Clock,
+  'file-image':   FileImage,
+  'file-code':    FileCode,
+  'git-compare':  GitCompare,
+  'history':      History,
+  'qr-code':      QrCode,
+  'link':         LinkIcon,
+  'shield':       ShieldCheck,
+  'table':        TableProperties,
+  'diff':         Diff,
+  'align-justify':AlignJustify,
+  'bolt':         Bolt,
+  'search':       Search,
+  'arrow-right':  ArrowRight,
 };
 
-// ...existing code...
+const resolveIcon = (key: string, fallback: any) => {
+  const Icon = iconMap[key];
+  // Lucide icons are typically React.forwardRef() objects with $$typeof.
+  // If we ever end up with a browser global (e.g. History/Image) by accident, this avoids "Illegal constructor".
+  if (Icon && typeof Icon === "object" && "$$typeof" in Icon) return Icon;
+  return fallback;
+};
 
-      {/* Image Tools Category - Classic Section */}
-      <section className="bg-[conic-gradient(at_top_left,var(--tw-gradient-stops))] from-gray-100 via-white to-gray-200 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 py-20 border-y-2 border-blue-200 dark:border-blue-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-black tracking-tight text-blue-700 dark:text-blue-300 drop-shadow">Image Tools</h2>
-            <p className="text-blue-800 dark:text-blue-200 mt-2 font-medium">Convert, encode, and resize images with ease.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TOOLS.filter(tool => tool.category === 'image').map((tool, index) => {
-              const Icon = iconMap[tool.icon] || ImageIcon;
-              return (
-                <Link 
-                  key={tool.id}
-                  to={tool.path}
-                  className="group block h-full bg-white/90 dark:bg-slate-900/80 backdrop-blur-xl p-7 rounded-2xl border-2 border-blue-200 dark:border-blue-800 hover:border-blue-400 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-400/20 cursor-pointer overflow-hidden relative"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg border-2 border-blue-200 dark:border-blue-700">
-                    <Icon className="size-7 text-white drop-shadow filter brightness-110" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-blue-900 dark:text-blue-200 group-hover:text-blue-600 transition-colors duration-300">
-                    {tool.name}
-                  </h3>
-                  <p className="text-sm text-blue-800 dark:text-blue-300 leading-relaxed group-hover:text-blue-900 dark:group-hover:text-blue-100 transition-colors duration-300">
-                    {tool.description}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+const fadeUp = (delay = 0) => ({
+  initial:    { opacity: 0, y: 24 },
+  animate:    { opacity: 1, y: 0 },
+  transition: { delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] as any },
+});
 
-// Removed duplicate export
 export const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
+  const { t } = useI18n();
 
-  const filteredTools = TOOLS.filter(tool => 
+  const filteredTools = TOOLS.filter(tool =>
     tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     tool.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const popularTools = TOOLS.slice(0, 3);
+  const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter');
+  const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode');
+  const imageTools   = TOOLS.filter(t => t.category === 'image');
+
+  const cardColors = [
+    'from-indigo-500 to-violet-700 shadow-indigo-500/20',
+    'from-emerald-500 to-teal-700 shadow-emerald-500/20',
+    'from-fuchsia-500 to-pink-700 shadow-fuchsia-500/20',
+  ];
+
   return (
-    <div className="relative min-h-screen overflow-hidden bg-linear-to-br from-[#f5f7fa] via-[#e0e7ff] to-[#f0f4ff] dark:from-background-dark dark:via-[#1e293b] dark:to-[#232946]">
-      <SEO 
-        title="ToolNest - Free Online Developer Tools & Utilities"
-        description="The ultimate suite of free online tools for developers and everyone. JSON Formatter, Password Generator, Image Compressor, and more. Fast, secure, and private."
-        keywords="online tools, developer tools, json formatter, password generator, image compressor, word counter, age calculator, free utilities"
-      />
-      {/* Hero Section */}
-      <section className="relative pt-16 pb-20 lg:pt-24 lg:pb-32">
-        {/* Layered gradients and blur for hero background */}
-        <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-gradient-to-br from-primary/30 to-accent-purple/20 rounded-full blur-[120px] opacity-60 animate-gradient-move"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-gradient-to-tr from-accent-purple/30 to-primary/10 rounded-full blur-[100px] opacity-40 animate-gradient-move2"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-accent-purple text-white shadow-xl shadow-primary/10 text-base font-semibold mb-8 backdrop-blur-md"
-          >
-            <Bolt className="size-4" />
-            <span>The Web's Ultimate Utility Suite</span>
+    <div className="relative min-h-screen overflow-hidden home-light-bg">
+      <div className="home-light-grid" aria-hidden="true" />
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="relative pt-28 pb-24 sm:pt-36 sm:pb-32 px-4 sm:px-8 overflow-hidden min-h-[88vh] flex items-center">
+        {/* Animated background orbs */}
+        <div className="blob w-[520px] h-[520px] sm:w-[720px] sm:h-[720px] bg-primary/35 dark:bg-primary/25 top-[-15%] left-[-8%] rounded-full mix-blend-multiply dark:mix-blend-screen" />
+        <div className="blob w-[420px] h-[420px] sm:w-[580px] sm:h-[580px] bg-secondary/28 dark:bg-secondary/25 bottom-[-8%] right-[-5%] rounded-full mix-blend-multiply dark:mix-blend-screen" />
+        <div className="blob blob-pulse w-[320px] h-[320px] sm:w-[470px] sm:h-[470px] bg-tertiary/22 dark:bg-tertiary/15 top-[25%] right-[10%] rounded-full mix-blend-multiply dark:mix-blend-overlay" />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
+          {/* Badge */}
+          <motion.div {...fadeUp(0)} className="mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+              <Bolt className="size-3" /> {t('home.badge')}
+            </span>
           </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tight drop-shadow-xl"
+
+          {/* Headline */}
+          <motion.h1
+            {...fadeUp(0.1)}
+            className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter mb-6 kinetic-gradient leading-[1.05]"
           >
-            Free Online Tools for <br />
-            <span className="gradient-text animate-gradient-text">Developers & Everyone</span>
+            {t('home.hero_title_1')}<br className="hidden sm:block" /> {t('home.hero_title_2')}
           </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-300 mb-10 backdrop-blur-sm bg-white/40 dark:bg-slate-900/40 rounded-xl px-6 py-4 shadow-lg"
+
+          {/* Subheading */}
+          <motion.p
+            {...fadeUp(0.2)}
+            className="text-on-surface-variant text-base sm:text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed"
           >
-            Simplified web utilities for your daily workflow. Format, compress, generate, and calculate in seconds. No sign-up required.
+            {t('home.hero_subtitle')}
           </motion.p>
 
-          {/* Search Bar */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="max-w-2xl mx-auto relative group"
-          >
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent-purple rounded-2xl blur-xl opacity-30 group-focus-within:opacity-60 transition duration-1000"></div>
-            <div className="relative flex flex-col sm:flex-row items-center glass-card shadow-2xl p-2 gap-2">
-              <Search className="ml-4 text-slate-400 size-5" />
-              <input 
-                type="text" 
+          {/* Search bar */}
+          <motion.div {...fadeUp(0.3)} className="relative max-w-2xl mx-auto group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary via-tertiary to-secondary rounded-full blur opacity-25 group-focus-within:opacity-60 group-hover:opacity-40 transition duration-500" />
+            <div className="relative flex items-center bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/30 rounded-full p-2 pl-5 shadow-2xl transition-all duration-300 group-focus-within:-translate-y-0.5">
+              <Search className="text-on-surface-variant mr-3 group-focus-within:text-primary transition-colors size-5 shrink-0" />
+              <input
+                id="tool-search"
+                type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full border-none focus:ring-0 bg-transparent text-slate-900 dark:text-white px-4 py-3 placeholder:text-slate-400" 
-                placeholder="Search 200+ tools (e.g. JSON, Password, PDF...)"
+                onChange={e => setSearchQuery(e.target.value)}
+                className="w-full bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-on-surface-variant/50 py-3 outline-none text-sm sm:text-base"
+                placeholder={t('home.search_placeholder')}
+                aria-label={t('home.search_aria')}
               />
-              <button className="bg-gradient-to-r from-primary to-accent-purple text-white px-8 py-3 rounded-lg font-bold hover:scale-105 transition-all w-full sm:w-auto shadow-lg shadow-primary/20">
-                Search
+              <button className="bg-gradient-to-br from-primary to-primary-container text-on-primary px-5 sm:px-7 py-3 rounded-full text-sm font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-primary/20 shrink-0">
+                {t('common.search')}
               </button>
             </div>
           </motion.div>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs font-medium text-slate-400">
-            <span>Trending:</span>
-            <Link to="/json-formatter" className="hover:text-primary transition-colors underline decoration-primary/30">JSON Formatter</Link>
-            <Link to="/password-generator" className="hover:text-primary transition-colors underline decoration-primary/30">Password Generator</Link>
-            <Link to="/word-counter" className="hover:text-primary transition-colors underline decoration-primary/30">Word Counter</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Tools Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-              {searchQuery ? 'Search Results' : 'Popular Tools'}
-            </h2>
-            <p className="text-slate-500 mt-2">
-              {searchQuery ? `Found ${filteredTools.length} tools matching your search.` : 'The most used utilities by our community this week.'}
-            </p>
-          </div>
-          {!searchQuery && (
-            <Link to="/tools" className="hidden sm:flex items-center gap-1 text-primary font-bold hover:underline">
-              View All Tools <ArrowRight className="size-4" />
-            </Link>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {filteredTools.length > 0 ? (
-            filteredTools.map((tool, index) => {
-              const Icon = iconMap[tool.icon] || CodeXml;
-              return (
-                <motion.div
-                  key={tool.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <Link 
-                    to={tool.path}
-                    className="group block h-full glass-card p-7 rounded-2xl border border-white/30 dark:border-slate-800/60 hover:border-primary/60 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer overflow-hidden relative backdrop-blur-lg"
-                  >
-                    <div className={cn(
-                      "w-14 h-14 rounded-xl bg-gradient-to-br flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg",
-                      tool.category === 'security' ? "from-accent-purple to-primary" : "from-primary to-accent-purple"
-                    )}>
-                      <Icon className="size-7 text-white drop-shadow" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors duration-300">
-                      {tool.name}
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors duration-300">
-                      {tool.description}
-                    </p>
-                  </Link>
-                </motion.div>
-              );
-            })
-          ) : (
-            <div className="col-span-full py-20 text-center">
-              <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
-                <Search className="size-10" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">No tools found</h3>
-              <p className="text-slate-500">We couldn't find any tools matching "{searchQuery}". Try a different search term.</p>
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="mt-6 text-primary font-bold hover:underline"
-              >
-                Clear search
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* JSON Tools Category */}
-      <section className="bg-gradient-to-br from-[#e0f7fa] via-[#b2ebf2] to-[#e1f5fe] dark:from-[#0e2230] dark:via-[#1e3a4c] dark:to-[#19324a] py-20 border-y-2 border-cyan-200 dark:border-cyan-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-black tracking-tight text-cyan-700 dark:text-cyan-300 drop-shadow">JSON Tools</h2>
-            <p className="text-cyan-800 dark:text-cyan-200 mt-2 font-medium">Work with JSON: format, validate, convert, and more.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TOOLS.filter(tool => tool.category === 'json').map((tool, index) => {
-              const Icon = iconMap[tool.icon] || CodeXml;
-              return (
-                <Link 
-                  key={tool.id}
-                  to={tool.path}
-                  className="group block h-full bg-white/80 dark:bg-cyan-950/80 backdrop-blur-xl p-7 rounded-2xl border-2 border-cyan-300 dark:border-cyan-800 hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-400/20 cursor-pointer overflow-hidden relative"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg border-2 border-cyan-200 dark:border-cyan-700">
-                    <Icon className="size-7 text-white drop-shadow filter brightness-110" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-cyan-900 dark:text-cyan-200 group-hover:text-cyan-600 transition-colors duration-300">
-                    {tool.name}
-                  </h3>
-                  <p className="text-sm text-cyan-800 dark:text-cyan-300 leading-relaxed group-hover:text-cyan-900 dark:group-hover:text-cyan-100 transition-colors duration-300">
-                    {tool.description}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Encoding / Decoding Tools Category */}
-      <section className="bg-gradient-to-br from-[#fce4ec] via-[#f8bbd0] to-[#f3e5f5] dark:from-[#2a0a2a] dark:via-[#4a154b] dark:to-[#2d1936] py-20 border-y-2 border-fuchsia-200 dark:border-fuchsia-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-black tracking-tight text-fuchsia-700 dark:text-fuchsia-300 drop-shadow">Encoding / Decoding Tools</h2>
-            <p className="text-fuchsia-800 dark:text-fuchsia-200 mt-2 font-medium">Encode, decode, and convert text, URLs, HTML, JWT, and more.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {TOOLS.filter(tool => tool.category === 'encoding').map((tool, index) => {
-              const Icon = iconMap[tool.icon] || CodeXml;
-              return (
-                <Link 
-                  key={tool.id}
-                  to={tool.path}
-                  className="group block h-full bg-white/80 dark:bg-fuchsia-950/80 backdrop-blur-xl p-7 rounded-2xl border-2 border-fuchsia-300 dark:border-fuchsia-800 hover:border-fuchsia-500 transition-all duration-300 hover:shadow-2xl hover:shadow-fuchsia-400/20 cursor-pointer overflow-hidden relative"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg border-2 border-fuchsia-200 dark:border-fuchsia-700">
-                    <Icon className="size-7 text-white drop-shadow filter brightness-110" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-fuchsia-900 dark:text-fuchsia-200 group-hover:text-fuchsia-600 transition-colors duration-300">
-                    {tool.name}
-                  </h3>
-                  <p className="text-sm text-fuchsia-800 dark:text-fuchsia-300 leading-relaxed group-hover:text-fuchsia-900 dark:group-hover:text-fuchsia-100 transition-colors duration-300">
-                    {tool.description}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="bg-slate-50 dark:bg-slate-900/50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Explore by Category</h2>
-            <p className="text-slate-500 mt-2">Browse our massive collection of tools organized by function.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          {/* Stats row */}
+          <motion.div {...fadeUp(0.45)} className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
             {[
-              { name: 'Developer Tools', icon: CodeXml, color: 'text-primary' },
-              { name: 'Image Tools', icon: ImageIcon, color: 'text-accent-purple' },
-              { name: 'Text Tools', icon: Type, color: 'text-primary' },
-              { name: 'Calculators', icon: Calculator, color: 'text-accent-purple' },
-            ].map((cat, i) => (
-              <Link key={i} to={`/category/${cat.name.toLowerCase().replace(' ', '-')}`} className="flex flex-col items-center group">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white dark:bg-slate-800 shadow-lg flex items-center justify-center mb-4 group-hover:-translate-y-2 transition-transform border border-slate-100 dark:border-slate-700">
-                  <cat.icon className={cn("size-8 sm:size-10", cat.color)} />
+              { icon: Zap,    label: t('home.stats_tools_label', { count: TOOLS.length }), sub: t('home.stats_tools_sub') },
+              { icon: Shield, label: t('home.stats_privacy_label'), sub: t('home.stats_privacy_sub') },
+              { icon: Globe,  label: t('home.stats_free_label'), sub: t('home.stats_free_sub') },
+            ].map(({ icon: Icon, label, sub }) => (
+              <div key={label} className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Icon className="size-4 text-primary" />
                 </div>
-                <span className="font-bold text-sm sm:text-base text-center text-slate-800 dark:text-slate-200">{cat.name}</span>
-              </Link>
+                <div className="text-left">
+                  <p className="text-sm font-bold text-on-surface leading-tight">{label}</p>
+                  <p className="text-xs text-on-surface-variant">{sub}</p>
+                </div>
+              </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
+
+      {/* ── Main content ─────────────────────────────────────── */}
+      <main className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-20">
+
+        {/* Search results (shown only when searching) */}
+        {searchQuery.trim() && (
+          <section>
+            <h2 className="text-2xl font-bold mb-6 text-on-surface">
+              {t('home.search_results_title', { query: searchQuery })}
+            </h2>
+            {filteredTools.length === 0 ? (
+              <p className="text-on-surface-variant">{t('home.search_no_results')}</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {filteredTools.map(tool => {
+                  const Icon = iconMap[tool.icon] || CodeXml;
+                  return (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="glass-card home-tile-3d p-5 rounded-2xl transition-all duration-200 group block"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                        <Icon className="size-5 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-sm mb-1 text-on-surface">{tool.name}</h3>
+                      <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-2">{tool.description}</p>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Popular Tools */}
+        {!searchQuery && (
+          <>
+            <section>
+              <div className="flex items-center gap-4 mb-10">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface whitespace-nowrap">{t('home.popular_tools')}</h2>
+                <div className="h-px flex-grow bg-gradient-to-r from-outline-variant/50 to-transparent" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                {popularTools.map((tool, index) => {
+                  const Icon = iconMap[tool.icon] || CodeXml;
+                  return (
+                    <motion.div
+                      key={tool.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.08 }}
+                    >
+                      <Link
+                        to={tool.path}
+                        className="glass-card home-tile-3d group p-6 sm:p-8 rounded-3xl transition-all duration-300 relative overflow-hidden block h-full"
+                      >
+                        <div className="absolute -top-2 -right-2 bg-tertiary text-on-tertiary px-3 py-0.5 rounded-full text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          {t('common.open')}
+                        </div>
+                        <div className={cn(
+                          'w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-5 shadow-lg',
+                          cardColors[index]
+                        )}>
+                          <Icon className="size-7 text-white" />
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 text-on-surface">{tool.name}</h3>
+                        <p className="text-on-surface-variant text-sm leading-relaxed mb-5">{tool.description}</p>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="px-2.5 py-0.5 bg-tertiary/15 text-tertiary text-[10px] font-bold rounded-full uppercase tracking-wider">
+                            {tool.category}
+                          </span>
+                          {tool.trending && (
+                            <span className="px-2.5 py-0.5 bg-primary/15 text-primary text-[10px] font-bold rounded-full uppercase tracking-wider">
+                              {t('common.trending')}
+                            </span>
+                          )}
+                        </div>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* JSON Laboratory */}
+            <section className="section-card">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-tertiary rounded-l-3xl" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div className="lg:col-span-4 pl-4">
+                  <span className="text-tertiary font-bold tracking-widest text-xs uppercase mb-3 block">{t('home.section_structural_label')}</span>
+                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">{t('home.section_json_title')}</h2>
+                  <p className="text-on-surface-variant mb-6 leading-relaxed">
+                    {t('home.section_json_desc')}
+                  </p>
+                  <Link to="/json-formatter" className="inline-flex items-center gap-2 text-tertiary font-bold hover:translate-x-1 transition-transform">
+                    {t('home.section_json_cta')} <ArrowRight className="size-4" />
+                  </Link>
+                </div>
+                <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {jsonTools.map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-tertiary/10 flex items-center justify-center shrink-0 group-hover:bg-tertiary/20 transition-colors">
+                        {React.createElement(resolveIcon(tool.icon, CodeXml), { className: 'size-4 text-tertiary' })}
+                      </div>
+                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Encoding Hub */}
+            <section className="section-card">
+              <div className="absolute top-0 right-0 w-1.5 h-full bg-error rounded-r-3xl" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div className="lg:col-span-8 order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {encodeTools.map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-error/10 flex items-center justify-center shrink-0 group-hover:bg-error/20 transition-colors">
+                        {React.createElement(resolveIcon(tool.icon, Lock), { className: 'size-4 text-error' })}
+                      </div>
+                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                    </Link>
+                  ))}
+                </div>
+                <div className="lg:col-span-4 order-1 lg:order-2 pr-4 text-right">
+                  <span className="text-error font-bold tracking-widest text-xs uppercase mb-3 block">{t('home.section_security_label')}</span>
+                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">{t('home.section_encoding_title')}</h2>
+                  <p className="text-on-surface-variant mb-6 leading-relaxed">
+                    {t('home.section_encoding_desc')}
+                  </p>
+                  <Link to="/base64-encode" className="inline-flex items-center gap-2 text-error font-bold hover:-translate-x-1 transition-transform">
+                    {t('home.section_encoding_cta')} <ArrowRight className="size-4" />
+                  </Link>
+                </div>
+              </div>
+            </section>
+
+            {/* Image Forge */}
+            <section className="section-card">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-secondary rounded-l-3xl" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div className="lg:col-span-4 pl-4">
+                  <span className="text-secondary font-bold tracking-widest text-xs uppercase mb-3 block">{t('home.section_visual_label')}</span>
+                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">{t('home.section_image_title')}</h2>
+                  <p className="text-on-surface-variant mb-6 leading-relaxed">
+                    {t('home.section_image_desc')}
+                  </p>
+                  <Link to="/image-compressor" className="inline-flex items-center gap-2 text-secondary font-bold hover:translate-x-1 transition-transform">
+                    {t('home.section_image_cta')} <ArrowRight className="size-4" />
+                  </Link>
+                </div>
+                <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {imageTools.map(tool => (
+                    <Link
+                      key={tool.id}
+                      to={tool.path}
+                      className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
+                        {React.createElement(resolveIcon(tool.icon, ImageIcon), { className: 'size-4 text-secondary' })}
+                      </div>
+                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* All tools grid */}
+            <section>
+              <div className="flex items-center gap-4 mb-10">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-on-surface whitespace-nowrap">{t('home.all_tools')}</h2>
+                <div className="h-px flex-grow bg-gradient-to-r from-outline-variant/50 to-transparent" />
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                {TOOLS.map((tool, i) => {
+                  const Icon = resolveIcon(tool.icon, CodeXml);
+                  return (
+                    <motion.div
+                      key={tool.id}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: (i % 10) * 0.03 }}
+                    >
+                      <Link
+                        to={tool.path}
+                        className="glass-card home-tile-3d flex flex-col items-center text-center p-4 rounded-2xl hover:border-primary/30 transition-all duration-200 group h-full"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                          <Icon className="size-5 text-primary" />
+                        </div>
+                        <span className="text-xs font-semibold text-on-surface leading-tight">{tool.name}</span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </section>
+          </>
+        )}
+      </main>
     </div>
   );
 };

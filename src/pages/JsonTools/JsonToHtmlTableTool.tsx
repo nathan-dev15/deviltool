@@ -6,77 +6,107 @@ import {
   Copy,
   Upload,
   Download,
-  Home
+  Sparkles,
+  Table,
+  Code,
+  Zap,
+  Info,
+  Database
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/src/components/SEO";
 import { useToolActions } from "@/src/pages/useToolActions";
 import { AdSense } from "@/src/components/AdSense";
 import { useRealTimeConversion } from "@/src/hooks/useRealTimeConversion";
+import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
+
+/* ---------- Code Editor Component ---------- */
+
+const CodeEditor = ({
+  value,
+  onChange,
+  placeholder,
+  readOnly = false,
+  error = false
+}: {
+  value: string;
+  onChange?: (v: string) => void;
+  placeholder: string;
+  readOnly?: boolean;
+  error?: boolean;
+}) => {
+
+  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const lines = value.split("\n");
+
+  const autoResize = () => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = Math.max(250, el.scrollHeight) + "px";
+    }
+  };
+
+  useEffect(() => {
+    autoResize();
+  }, [value]);
+
+  return (
+
+    <div className={`flex font-mono text-sm bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-b-xl overflow-hidden min-h-[250px] border-t ${error ? 'border-t-error/30' : 'border-t-slate-100 dark:border-t-slate-800'}`}>
+
+      {/* Line Numbers */}
+
+      <div className="bg-slate-100 dark:bg-slate-800/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 px-3 py-4 text-right select-none border-r border-slate-200 dark:border-slate-700 hidden sm:block">
+
+        {lines.map((_, i) => (
+          <div key={i} className="leading-6">
+            {i + 1}
+          </div>
+        ))}
+
+      </div>
+
+      {/* Textarea */}
+
+      <textarea
+        ref={textareaRef}
+        value={value}
+        readOnly={readOnly}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        placeholder={placeholder}
+        spellCheck={false}
+        rows={10}
+        className="flex-1 p-6 outline-none resize-none leading-6 bg-transparent text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+      />
+
+    </div>
+
+  );
+
+};
 
 export const JsonToHtmlTableTool = () => {
 
   const [jsonInput, setJsonInput] = useState("");
   const [htmlOutput, setHtmlOutput] = useState("");
   const [error, setError] = useState("");
-  const [lineNumbers, setLineNumbers] = useState([1]);
-
-  const inputRef = useRef(null);
-  const outputRef = useRef(null);
 
   const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
 
-  useRealTimeConversion(jsonInput, () => convertToHtmlTable());
-
-  /* AUTO RESIZE JSON INPUT */
-
-  const resizeInput = () => {
-    const el = inputRef.current;
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = el.scrollHeight + "px";
-    }
-  };
-
-  /* AUTO RESIZE HTML OUTPUT */
-
-  const resizeOutput = () => {
-    const el = outputRef.current;
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = el.scrollHeight + "px";
-    }
-  };
-
-  /* UPDATE LINE NUMBERS */
-
-  useEffect(() => {
-
-    resizeInput();
-    resizeOutput();
-
-    const lines = jsonInput.split("\n").length;
-
-    setLineNumbers(
-      Array.from({ length: lines }, (_, i) => i + 1)
-    );
-
-  }, [jsonInput, htmlOutput]);
+  useRealTimeConversion(jsonInput, (val) => convertToHtmlTable(val));
 
   /* JSON → HTML TABLE */
-
-  const jsonToTable = (json) => {
-
+  const jsonToTable = (json: any[]) => {
     if (!Array.isArray(json) || json.length === 0) return "";
-
     const headers = Object.keys(json[0]);
 
     const thead = `
       <thead style="background:#6366f1;color:white">
         <tr>
-          <th style="padding:8px;border:1px solid #ddd">S.No</th>
+          <th style="padding:12px 16px;border:1px solid #e2e8f0;text-align:left">#</th>
           ${headers.map(h =>
-            `<th style="padding:8px;border:1px solid #ddd">${h}</th>`
+            `<th style="padding:12px 16px;border:1px solid #e2e8f0;text-align:left">${h}</th>`
           ).join("")}
         </tr>
       </thead>
@@ -85,12 +115,12 @@ export const JsonToHtmlTableTool = () => {
     const tbody = `
       <tbody>
         ${json.map((row, index) => `
-          <tr>
-            <td style="padding:8px;border:1px solid #ddd;background:#f1f5f9">
+          <tr style="${index % 2 === 0 ? 'background:#f8fafc' : 'background:white'}">
+            <td style="padding:10px 16px;border:1px solid #e2e8f0;color:#64748b;font-weight:bold">
               ${index + 1}
             </td>
             ${headers.map(h =>
-              `<td style="padding:8px;border:1px solid #ddd">
+              `<td style="padding:10px 16px;border:1px solid #e2e8f0">
                 ${row[h] ?? ""}
               </td>`
             ).join("")}
@@ -100,220 +130,228 @@ export const JsonToHtmlTableTool = () => {
     `;
 
     return `
-      <table style="border-collapse:collapse;width:100%;font-family:Arial">
+      <table style="border-collapse:collapse;width:100%;font-family:Inter,system-ui,sans-serif;font-size:14px;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
         ${thead}
         ${tbody}
       </table>
     `;
   };
 
-  /* CONVERT */
-
-  const convertToHtmlTable = () => {
-
+  const convertToHtmlTable = (val: string = jsonInput) => {
+    if (!val || !val.trim()) {
+      setHtmlOutput("");
+      setError("");
+      return;
+    }
     try {
-
-      const parsed = JSON.parse(jsonInput);
-
+      const parsed = JSON.parse(val);
       const html = jsonToTable(parsed);
-
       setHtmlOutput(html);
       setError("");
-
     } catch {
-
-      setError("Invalid JSON format");
+      setError("Invalid JSON format (Must be an array of objects)");
       setHtmlOutput("");
-
     }
-
   };
 
-  /* SAMPLE JSON */
-
   const loadSample = () => {
-
     setJsonInput(`[
   {
     "id": 1,
-    "name": "John",
-    "email": "john@example.com"
+    "product": "AirPods Pro",
+    "price": "$249",
+    "stock": "In Stock"
   },
   {
     "id": 2,
-    "name": "Jane",
-    "email": "jane@example.com"
+    "product": "iPhone 15",
+    "price": "$799",
+    "stock": "Limited"
+  },
+  {
+    "id": 3,
+    "product": "MacBook Air",
+    "price": "$999",
+    "stock": "Out of Stock"
   }
 ]`);
-
   };
 
-  /* CLEAR */
-
   const clearAll = () => {
-
     setJsonInput("");
     setHtmlOutput("");
     setError("");
-
   };
 
   return (
-
-    <div className="max-w-5xl mx-auto p-6 space-y-6">
-
+    <ToolPageWrapper
+      title="JSON to HTML Table"
+      description="Convert JSON arrays into clean, styled HTML tables instantly. Ideal for documentation, emails, and web reports."
+      breadcrumbs={[
+        { label: "Developer Tools", href: "#" },
+        { label: "JSON to HTML Table" }
+      ]}
+      accentColor="secondary"
+    >
       <SEO
         title="JSON to HTML Table Converter – Free Online Tool"
-        description="Convert JSON data to HTML table instantly."
-        keywords="json to html table, json converter"
+        description="Convert JSON data to HTML table instantly. Clean, responsive table generation for developers."
+        keywords="json to html table, json table converter, online json tools"
       />
 
-      {/* Breadcrumb */}
-
-      <div className="flex items-center gap-2 text-sm text-gray-500">
-
-        <Link to="/" className="flex items-center gap-1 hover:text-indigo-600">
-          <Home size={16}/> Home
-        </Link>
-
-        <span>/</span>
-
-        <span className="text-gray-700 font-medium">
-          JSON to HTML Table
-        </span>
-
-      </div>
-
-      <h1 className="text-3xl font-bold">
-        JSON to HTML Table Converter
-      </h1>
-
-      {/* JSON EDITOR */}
-
-      <div className="flex border rounded-lg overflow-hidden font-mono text-sm">
-
-        {/* Line Numbers */}
-
-        <div className="bg-gray-900 text-gray-400 px-3 py-4 select-none text-right">
-
-          {lineNumbers.map(n => (
-            <div key={n}>{n}</div>
-          ))}
-
-        </div>
-
-        {/* JSON INPUT */}
-
-        <textarea
-          ref={inputRef}
-          value={jsonInput}
-          onChange={(e)=>setJsonInput(e.target.value)}
-          placeholder="Paste JSON array here..."
-          rows={1}
-          className="flex-1 bg-gray-900 text-green-300 p-4 outline-none resize-none overflow-hidden"
-        />
-
-      </div>
-
-      {error && (
-        <p className="text-red-500 text-sm">{error}</p>
-      )}
-
-      {/* TOOLBAR */}
-
-      <div className="flex flex-wrap items-center gap-3 p-3 bg-slate-50 border rounded-lg">
-
-        <button
-          onClick={convertToHtmlTable}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-semibold bg-gradient-to-r from-indigo-600 to-purple-600"
-        >
-          <Wand2 size={16}/> Convert
-        </button>
-
-        <button
-          onClick={loadSample}
-          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-indigo-600 Hover:bg-yellow-50 transition"
-        >
-          <FileText size={16}/> Sample
-        </button>
-
-        <label className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-red-600 Hover:bg-yellow-50 transition">
-          <Upload size={16}/> Upload
-          <input
-            type="file"
-            accept=".json"
-            hidden
-            onChange={(e)=>{
-              const file = e.target.files?.[0];
-              if(file) readFile(file).then(setJsonInput);
-            }}
-          />
-        </label>
-
-        <button
-          onClick={clearAll}
-          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-purple-600 Hover:bg-yellow-50 transition"
-        >
-          <Trash2 size={16}/> Clear
-        </button>
-
-        <button
-          onClick={()=>copyToClipboard(htmlOutput)}
-          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-yellow-600 Hover:bg-yellow-50 transition"
-        >
-          <Copy size={16}/>
-          {copied ? "Copied!" : "Copy"}
-        </button>
-
-        <button
-          onClick={()=>downloadFile(htmlOutput,"table.html","text/html")}
-          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-green-600 Hover:bg-yellow-50 transition"
-        >
-          <Download size={16}/> Download
-        </button>
-
-      </div>
-
-      <AdSense slot="1234567890"/>
-
-      {/* HTML OUTPUT */}
-
-      {htmlOutput && (
-
-        <div className="space-y-4">
-
-          <h2 className="text-xl font-semibold">
-            HTML Output
-          </h2>
-
-          <textarea
-            ref={outputRef}
-            value={htmlOutput}
-            readOnly
-            rows={1}
-            className="w-full border rounded-lg p-4 font-mono text-sm bg-gray-100 resize-none overflow-hidden"
-          />
-
-          {/* TABLE PREVIEW */}
-
-          <div className="border rounded-lg p-4 bg-white">
-
-            <h3 className="font-semibold mb-3">
-              Table Preview
-            </h3>
-
-            <div
-              dangerouslySetInnerHTML={{__html:htmlOutput}}
+      <div className="grid lg:grid-cols-12 gap-8 animate-fade-in">
+        {/* Main Workspace */}
+        <div className="lg:col-span-8 space-y-8">
+          
+          {/* INPUT AREA */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-secondary/20 group">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="size-2 rounded-full bg-secondary" />
+                Input JSON Array
+              </span>
+              <div className="flex items-center gap-3">
+                 <label className="cursor-pointer flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-secondary transition-colors px-2 py-1 rounded-md hover:bg-secondary/5">
+                  <Upload size={14} /> Upload
+                  <input
+                    type="file"
+                    accept=".json"
+                    hidden
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const content = await readFile(file);
+                        setJsonInput(content);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
+            
+            <CodeEditor
+              value={jsonInput}
+              onChange={setJsonInput}
+              placeholder="Paste JSON array of objects here..."
+              error={!!error}
             />
 
+            <div className="p-4 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-3">
+              <button 
+                onClick={() => convertToHtmlTable(jsonInput)}
+                className="flex-1 min-w-[140px] bg-secondary hover:bg-secondary-container text-on-secondary hover:text-white px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-secondary/20 hover:scale-[1.02] active:scale-95"
+              >
+                <Table className="size-5" />
+                <span>Generate Table</span>
+              </button>
+              
+              <button 
+                onClick={loadSample}
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-secondary hover:border-secondary/30 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-secondary/5"
+              >
+                Sample Data
+              </button>
+
+              <button 
+                onClick={clearAll}
+                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:text-error hover:border-error/30 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-error/5"
+              >
+                <Trash2 className="size-5" />
+                <span>Clear</span>
+              </button>
+            </div>
+          </div>
+
+          {error && (
+            <div className="bg-error/10 border border-error/20 text-error p-4 rounded-xl text-center font-bold animate-pop-in">
+              {error}
+            </div>
+          )}
+
+          {/* PREVIEW & OUTPUT */}
+          {htmlOutput && (
+            <div className="space-y-8 animate-pop-in">
+              
+              {/* TABLE PREVIEW */}
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto">
+                <div className="flex items-center justify-between mb-6">
+                   <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                      <Zap className="size-5 text-warning" /> Visual Preview
+                   </h3>
+                </div>
+                <div 
+                  className="rounded-xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900"
+                  dangerouslySetInnerHTML={{__html: htmlOutput}} 
+                />
+              </div>
+
+              {/* HTML CODE OUTPUT */}
+              <div className="bg-slate-900 dark:bg-slate-950 rounded-2xl shadow-xl overflow-hidden border border-white/5 relative group">
+                <div className="p-4 border-b border-white/10 flex items-center justify-between bg-slate-900/50 backdrop-blur-sm">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400">HTML Code Result</span>
+                  <div className="flex items-center gap-4">
+                    <button onClick={() => copyToClipboard(htmlOutput)} className="text-xs font-bold text-slate-400 hover:text-secondary flex items-center gap-1.5 transition-colors">
+                      <Copy size={3} /> {copied ? 'Copied!' : 'Copy Snippet'}
+                    </button>
+                    <button 
+                      onClick={()=>downloadFile(htmlOutput, "table.html", "text/html")}
+                      className="text-xs font-bold text-slate-400 hover:text-success flex items-center gap-1.5 transition-colors"
+                    >
+                      <Download size={3} /> Download .html
+                    </button>
+                  </div>
+                </div>
+                
+                <CodeEditor
+                  value={htmlOutput}
+                  readOnly
+                  placeholder="Generated HTML code will appear here..."
+                />
+              </div>
+
+            </div>
+          )}
+
+          <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm">
+             <AdSense slot="1234567890"/>
           </div>
 
         </div>
 
-      )}
-
-    </div>
-
+        {/* Sidebar */}
+        <aside className="lg:col-span-4 space-y-8">
+           <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm sticky top-24">
+            <h3 className="text-xl font-bold mb-6 text-slate-800 dark:text-white flex items-center gap-2">
+               <Sparkles className="size-5 text-warning" />
+               JSON Export Toolkit
+            </h3>
+            <div className="grid gap-4">
+              {[
+                { name: 'Comparator', path: '/json-compare', icon: <Code className="size-4" />, desc: 'Diff two objects' },
+                { name: 'To CSV', path: '/json-to-csv', icon: <Database className="size-4" />, desc: 'JSON to Spreadsheet' },
+                { name: 'To XML', path: '/json-to-xml', icon: <Zap size={14} />, desc: 'JSON to XML format' },
+                { name: 'To YAML', path: '/json-to-yaml', icon: <Table className="size-4" />, desc: 'JSON to YAML format' },
+              ].map((tool) => (
+                <Link 
+                  key={tool.path}
+                  to={tool.path} 
+                  className="group block p-4 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-secondary/30 hover:bg-secondary/5 transition-all"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 group-hover:text-secondary group-hover:bg-secondary/10 transition-colors">
+                      {tool.icon}
+                    </div>
+                    <div>
+                      <p className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-primary transition-colors">{tool.name}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">{tool.desc}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
+    </ToolPageWrapper>
   );
-
 };

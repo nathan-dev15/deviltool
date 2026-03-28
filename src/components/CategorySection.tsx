@@ -42,7 +42,7 @@ export const CategorySection: React.FC<CategorySectionProps> = ({ categories }) 
             >
               <Link
                 to={`/category/${category.category}`}
-                className="block bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10"
+                className="block bg-white dark:bg-slate-900/90 dark:bg-slate-800/90 backdrop-blur-sm p-8 rounded-2xl border border-slate-200 dark:border-slate-800/50 dark:border-slate-700/50 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10"
               >
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl`}>
                   <category.icon className="size-8 text-white" />

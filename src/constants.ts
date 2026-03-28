@@ -163,19 +163,11 @@ export const TOOLS: Tool[] = [
     },
     {
       id: 'html-encode',
-      name: 'HTML Encode',
-      description: 'Encode HTML entities to prevent XSS and display code.',
+      name: 'HTML Encode decode',
+      description: 'Encode HTML entities to prevent XSS and display code. Decode HTML entities back to readable text.',
       icon: 'type',
       category: 'encoding',
       path: '/html-encode',
-    },
-    {
-      id: 'html-decode',
-      name: 'HTML Decode',
-      description: 'Decode HTML entities back to readable text.',
-      icon: 'type',
-      category: 'encoding',
-      path: '/html-decode',
     },
     {
       id: 'jwt-decoder',

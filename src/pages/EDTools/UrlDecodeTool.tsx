@@ -4,16 +4,14 @@ import {
   Copy,
   Upload,
   Download,
-  Home
 } from "lucide-react";
-
-import { Link } from "react-router-dom";
 
 import { SEO } from "@/src/components/SEO";
 import { useToolActions } from "@/src/pages/useToolActions";
 import { AdSense } from "@/src/components/AdSense";
+import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 
-/* ---------- Code Editor (Horizontal Scroll) ---------- */
+/* ---------- Code Editor (Vertical Scroll) ---------- */
 
 const CodeEditor = ({
   value,
@@ -31,11 +29,11 @@ const CodeEditor = ({
 
   return (
 
-    <div className="flex font-mono text-sm h-64 overflow-hidden">
+    <div className="flex font-mono text-sm h-64 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-b-xl overflow-hidden">
 
       {/* Line Numbers */}
 
-      <div className="bg-gray-100 text-gray-400 px-3 py-4 text-right select-none border-r">
+      <div className="bg-slate-100 dark:bg-slate-800/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 px-3 py-4 text-right select-none border-r border-slate-200 dark:border-slate-700 hidden sm:block overflow-y-hidden">
 
         {lines.map((_, i) => (
           <div key={i} className="leading-6">{i + 1}</div>
@@ -60,8 +58,11 @@ const CodeEditor = ({
         overflow-x-auto
         overflow-y-auto
         whitespace-nowrap
-        font-mono
-        text-sm
+        bg-transparent
+        text-slate-800
+        dark:text-slate-200
+        placeholder:text-slate-400
+        dark:placeholder:text-slate-500
         "
       />
 
@@ -133,256 +134,156 @@ export const UrlDecodeTool = () => {
 
   return (
 
-    <div className="max-w-5xl mx-auto p-6 space-y-6">
-
+    <ToolPageWrapper
+      title="URL Decode Tool"
+      description="Decode encoded URLs instantly with our free online URL decoder tool. Safe, fast, and secure URL parameter decoding."
+      breadcrumbs={[
+        { label: "Encoder/Decoder", href: "#" },
+        { label: "URL Decode" }
+      ]}
+      accentColor="secondary"
+    >
       <SEO
         title="URL Decode Tool – Free Online URL Decoder"
-        description="Decode encoded URLs instantly with our free online URL decoder tool."
+        description="Decode encoded URLs instantly with our free online URL decoder tool. Safe, fast, and secure URL parameter decoding."
         keywords="url decode, url decoder online, decode url parameters, developer tools url decode"
       />
 
-      {/* Breadcrumb */}
+      <div className="space-y-8 animate-fade-in">
 
-      <div className="flex items-center gap-2 text-sm text-gray-500">
+        {/* Workspace */}
 
-        <Link to="/" className="flex items-center gap-1 hover:text-indigo-600">
-          <Home size={16}/> Home
-        </Link>
+        <div className="grid lg:grid-cols-2 gap-8">
 
-        <span>/</span>
+          {/* INPUT PANEL */}
 
-        <span className="font-medium text-gray-700">
-          URL Decode
-        </span>
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-secondary/20 group">
 
-      </div>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="size-2 rounded-full bg-secondary" />
+                Encoded URL Input
+              </span>
+              <div className="text-xs font-semibold text-slate-400">
+                Chars: {inputText.length}
+              </div>
+            </div>
 
-      <h1 className="text-3xl font-bold">
-        URL Decode Tool
-      </h1>
+            <CodeEditor
+              value={inputText}
+              onChange={setInputText}
+              placeholder="Paste encoded URL here..."
+            />
 
-      <p className="text-gray-600">
-        Decode URL encoded strings instantly for APIs, query parameters, and web development.
-      </p>
+          </div>
 
-      {/* INPUT PANEL */}
+          {/* OUTPUT PANEL */}
 
-      <div className="bg-white border rounded-xl shadow-sm">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-secondary/20 group">
 
-        <div className="px-4 py-3 border-b bg-gray-50 font-medium">
-          Encoded URL Input
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
+
+              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <div className="size-2 rounded-full bg-tertiary" />
+                Decoded URL
+              </span>
+
+              <button
+                disabled={!outputText}
+                onClick={() => copyToClipboard(outputText)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-secondary transition-colors disabled:opacity-30 disabled:hover:text-slate-500 px-2 py-1 rounded-md hover:bg-secondary/5"
+              >
+                <Copy size={14}/>
+                {copied ? "Copied!" : "Copy URL"}
+              </button>
+
+            </div>
+
+            <CodeEditor
+              value={outputText}
+              readOnly
+              placeholder="Decoded URL will appear here..."
+            />
+
+          </div>
+
         </div>
 
-        <CodeEditor
-          value={inputText}
-          onChange={setInputText}
-          placeholder="Paste encoded URL here..."
-        />
+        {/* Action Bar */}
 
-        <div className="text-xs text-gray-500 px-4 pb-3">
-          Characters: {inputText.length}
-        </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 p-6 bg-slate-900 dark:bg-slate-950 rounded-2xl shadow-lg border border-white/5 relative overflow-hidden group">
+          {/* subtle background glow */}
+          <div className="absolute -inset-24 bg-secondary/20 blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
 
-      </div>
-
-      {/* OUTPUT PANEL */}
-
-      <div className="bg-white border rounded-xl shadow-sm">
-
-        <div className="flex items-center justify-between px-4 py-3 border-b bg-gray-50">
-
-          <span className="font-medium">
-            Decoded URL
-          </span>
+          <button
+            onClick={clearAll}
+            className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10"
+          >
+            <Trash2 size={18}/> Clear All
+          </button>
 
           <button
             disabled={!outputText}
-            onClick={() => copyToClipboard(outputText)}
-            className="flex items-center gap-1 text-sm hover:text-indigo-600"
+            onClick={() =>
+              downloadFile(outputText,"url-decoded.txt","text/plain")
+            }
+            className="relative z-10 cursor-pointer flex items-center gap-2 bg-secondary hover:bg-secondary-container text-on-secondary hover:text-white px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-secondary/20 disabled:opacity-50 disabled:hover:scale-100"
           >
-            <Copy size={14}/>
-            {copied ? "Copied!" : "Copy"}
+            <Download size={18}/> Download Result
           </button>
-
+          
+          <label className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10">
+            <Upload size={18}/> Upload URL File
+            <input
+              type="file"
+              hidden
+              onChange={(e)=>{
+                const file = e.target.files?.[0];
+                if(file) handleUpload(file);
+              }}
+            />
+          </label>
         </div>
 
-        <CodeEditor
-          value={outputText}
-          readOnly
-          placeholder="Decoded URL will appear here..."
-        />
+        {error && (
+          <div className="bg-error/10 border border-error/20 text-error p-4 rounded-xl text-center font-bold animate-pop-in">
+            {error}
+          </div>
+        )}
 
-      </div>
+        <div className="mt-12 space-y-8">
+          <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h2 className="text-2xl font-bold mb-4 text-slate-800 dark:text-white">What is URL Decoding?</h2>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+              URL decoding is the process of converting percent-encoded characters back into their original readable form. When URLs contain special characters like spaces, symbols, or non-ASCII characters, they are encoded to ensure safe transmission over the internet.
+            </p>
+          </section>
 
-      {/* ACTION BAR */}
-
-      <div className="flex flex-wrap justify-center gap-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-xl">
-
-        <button
-          onClick={clearAll}
-          className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
-        >
-          <Trash2 size={16}/> Clear
-        </button>
-
-        <button
-          disabled={!outputText}
-          onClick={() =>
-            downloadFile(outputText,"url-decoded.txt","text/plain")
-          }
-          className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
-        >
-          <Download size={16}/> Download
-        </button>
-
-        <label className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg cursor-pointer hover:text-indigo-600 transition">
-
-          <Upload size={16}/> Upload
-
-          <input
-            type="file"
-            hidden
-            onChange={(e)=>{
-              const file = e.target.files?.[0];
-              if(file) handleUpload(file);
-            }}
-          />
-
-        </label>
-
-      </div>
-
-      {error && (
-        <div className="text-red-500 text-center font-medium">
-          {error}
+          <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h2 className="text-2xl font-bold mb-4 text-slate-800 dark:text-white">URL Decode Example</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold mb-2 text-slate-700 dark:text-slate-300">Encoded URL</h3>
+                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-lg font-mono text-sm overflow-x-auto border border-slate-100 dark:border-slate-800">
+                  https%3A%2F%2Fexample.com%2Fsearch%3Fq%3Dhello%20world
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2 text-slate-700 dark:text-slate-300">Decoded Result</h3>
+                <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg font-mono text-sm overflow-x-auto text-primary dark:text-primary-container">
+                  https://example.com/search?q=hello world
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      )}
 
-      <AdSense slot="1234567890"/>
+        <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+           <AdSense slot="1234567890"/>
+        </div>
 
-      {/* SEO CONTENT */}
-
-      <section className="bg-white border rounded-xl shadow-sm p-6 space-y-6">
-
-  <h2 className="text-2xl font-bold">
-    What is URL Decoding?
-  </h2>
-
-  <p className="text-gray-600 leading-relaxed">
-    URL decoding is the process of converting percent-encoded characters
-    back into their original readable form. When URLs contain special
-    characters like spaces, symbols, or non-ASCII characters, they are
-    encoded to ensure safe transmission over the internet.
-  </p>
-
-  <p className="text-gray-600">
-    For example, a space character cannot appear directly in a URL.
-    Instead, it is encoded as <code>%20</code>. URL decoding reverses
-    this process and restores the original text.
-  </p>
-
-</section>
-
-
-<section className="bg-white border rounded-xl shadow-sm p-6 space-y-6">
-
-  <h2 className="text-2xl font-bold">
-    URL Decode Example
-  </h2>
-
-  <div className="grid md:grid-cols-2 gap-6">
-
-    <div>
-
-      <h3 className="font-semibold mb-2">
-        Encoded URL
-      </h3>
-
-      <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-        https%3A%2F%2Fexample.com%2Fsearch%3Fq%3Dhello%20world
       </div>
-
-    </div>
-
-    <div>
-
-      <h3 className="font-semibold mb-2">
-        Decoded Result
-      </h3>
-
-      <div className="bg-green-50 border border-green-200 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-        https://example.com/search?q=hello world
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section className="bg-white border rounded-xl shadow-sm p-6 space-y-6">
-
-  <h2 className="text-2xl font-bold">
-    Why Use a URL Decoder?
-  </h2>
-
-  <ul className="grid md:grid-cols-2 gap-4 text-gray-700">
-
-    <li className="flex gap-2">
-      🔍 Debug encoded URLs in web applications
-    </li>
-
-    <li className="flex gap-2">
-      📊 Read query parameters clearly
-    </li>
-
-    <li className="flex gap-2">
-      ⚙️ Test API request parameters
-    </li>
-
-    <li className="flex gap-2">
-      🧑‍💻 Simplify web development debugging
-    </li>
-
-    <li className="flex gap-2">
-      🌐 Work with encoded links in browsers
-    </li>
-
-    <li className="flex gap-2">
-      🛠 Understand URL parameters in logs
-    </li>
-
-  </ul>
-
-</section>
-
-
-<section className="bg-white border rounded-xl shadow-sm p-6 space-y-4">
-
-  <h2 className="text-2xl font-bold">
-    When Do URLs Get Encoded?
-  </h2>
-
-  <p className="text-gray-600">
-    URLs are automatically encoded when they contain special characters
-    such as spaces, symbols, or Unicode characters. This ensures the
-    URL remains valid and can be safely transmitted across the web.
-  </p>
-
-  <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
-
-    Space → %20  
-    & → %26  
-    = → %3D  
-    ? → %3F  
-
-  </div>
-
-</section>
-
-    </div>
+    </ToolPageWrapper>
 
   );
-
 };

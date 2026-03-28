@@ -1,70 +1,695 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ── Tailwind v4 theme tokens ─────────────────────────────── */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
-  
-  --color-primary: #0066ff;
-  --color-accent-purple: #8b5cf6;
-  --color-background-light: #f5f7f8;
-  --color-background-dark: #0f1723;
+  --font-headline: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body:     "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-label:    "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  /* brand palette */
+  --color-primary:                #a7a5ff;
+  --color-primary-container:      #9795ff;
+  --color-on-primary:             #1c00a0;
+  --color-secondary:              #7799ff;
+  --color-secondary-container:    #0053db;
+  --color-on-secondary:           #08102a;
+  --color-tertiary:               #8ce7ff;
+  --color-tertiary-container:     #53ddfc;
+  --color-on-tertiary:            #005464;
+  --color-error:                  #ff6e84;
+  --color-error-container:        #a70138;
+  --color-on-error:               #490013;
+
+  /* dark-mode surface defaults */
+  --color-background:                    #060e20;
+  --color-on-background:                 #dee5ff;
+  --color-surface:                       #060e20;
+  --color-on-surface:                    #dee5ff;
+  --color-surface-variant:               #192540;
+  --color-on-surface-variant:            #a3aac4;
+  --color-outline:                       #6d758c;
+  --color-outline-variant:               #40485d;
+  --color-surface-container:             #0f1930;
+  --color-surface-container-low:         #091328;
+  --color-surface-container-high:        #141f38;
+  --color-surface-container-highest:     #192540;
+  --color-surface-container-lowest:      #000000;
+
+  /* Premium soft shadows for elegant depth */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(15, 23, 42, 0.12);
 }
 
+/* ── Light-mode overrides ─────────────────────────────────── */
+:root:not(.dark) {
+  --color-background:                  #f4f6fb; /* Refined dynamic off-white */
+  --color-on-background:               #0f172a;
+  --color-surface:                     #ffffff;
+  --color-on-surface:                  #0f172a;
+  --color-surface-variant:             #f1f5f9;
+  --color-on-surface-variant:          #475569;
+  --color-outline:                     #94a3b8;
+  --color-outline-variant:             #cbd5e1;
+  --color-surface-container:           #ffffff;
+  --color-surface-container-low:       #f8fafc;
+  --color-surface-container-high:      #f1f5f9;
+  --color-surface-container-highest:   #e2e8f0;
+  --color-surface-container-lowest:    #f8fafc; /* Footer anchor */
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 @layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  /* Smooth theme switching (prevents a visible flash while gradients re-paint). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: var(--color-background);
+    opacity: 0;
+  }
+
+  html.tn-theme-fade body::before {
+    /* Self-ending flash so the app never becomes permanently "blank" if the class gets stuck. */
+    animation: tnThemeFlash 260ms ease forwards;
+  }
+
   body {
-    @apply bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300;
+    @apply bg-background text-on-background font-body overflow-x-hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: rgba(167, 165, 255, 0.3); color: inherit; }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(167,165,255,0.3); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(167,165,255,0.6); }
+
+  input[type="range"] { accent-color: var(--color-primary); }
+}
+
+/* Removed global dark mode overrides that were breaking Tailwind utility classes */
+
+/* ── Components ───────────────────────────────────────────── */
+@layer components {
+
+  /* Glassmorphism card */
+  .glass-card {
+    background: rgba(25, 37, 64, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(167, 165, 255, 0.12);
+    transition: all 0.25s ease;
+  }
+
+  /* Navbar icon buttons: improve light-mode contrast and add subtle depth. */
+  .nav-icon-btn {
+    @apply p-2 rounded-full transition-all duration-200;
+    color: var(--color-on-surface-variant);
+  }
+
+  .nav-icon-btn:hover {
+    color: var(--color-on-surface);
+    background: color-mix(in srgb, var(--color-surface-variant) 45%, transparent);
+  }
+
+  :root:not(.dark) .nav-icon-btn {
+    background: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow:
+      0 10px 30px rgba(15, 23, 42, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  :root:not(.dark) .nav-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(167, 165, 255, 0.28);
+    transform: translateY(-1px);
+    box-shadow:
+      0 16px 44px rgba(15, 23, 42, 0.10),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  :root:not(.dark) .nav-icon-btn:active {
+    transform: translateY(0px);
+  }
+
+  /* Compact language selector in navbar with 3D depth */
+  .lang-select {
+    @apply hidden sm:flex items-center gap-2.5 h-[38px] px-4 rounded-xl transition-all duration-300 select-none cursor-pointer;
+    color: var(--color-on-surface-variant);
+    background: linear-gradient(180deg, rgba(25, 37, 64, 0.8), rgba(6, 14, 32, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 12px 36px rgba(0, 0, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  }
+  
+  .lang-select:hover {
+    color: var(--color-on-surface);
+    transform: translateY(-2px);
+    box-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.45),
+      0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    border-color: rgba(167, 165, 255, 0.25);
+  }
+
+  .lang-select:active {
+    transform: translateY(0);
+  }
+
+  :root:not(.dark) .lang-select {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(226, 232, 240, 0.95));
+    border-color: rgba(15, 23, 42, 0.12);
+    box-shadow:
+      0 12px 30px rgba(15, 23, 42, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.98) inset;
+  }
+  
+  :root:not(.dark) .lang-select:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow:
+      0 20px 45px rgba(15, 23, 42, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.98) inset;
+  }
+
+  .lang-select-input {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding-right: 6px;
+    cursor: pointer;
+  }
+
+  /* 3D theme switch (navbar only). */
+  .theme-switch {
+    position: relative;
+    width: 58px;
+    height: 34px;
+    border-radius: 9999px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .theme-switch:focus-visible {
+    outline: 3px solid rgba(167, 165, 255, 0.45);
+    outline-offset: 3px;
+  }
+
+  .theme-switch-track {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 14px 40px rgba(0, 0, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    background:
+      radial-gradient(38px circle at 22% 35%, rgba(83, 221, 252, 0.14), transparent 55%),
+      radial-gradient(38px circle at 80% 65%, rgba(167, 165, 255, 0.12), transparent 55%),
+      linear-gradient(180deg, rgba(20, 31, 56, 0.86), rgba(6, 14, 32, 0.92));
+    transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  :root:not(.dark) .theme-switch-track {
+    border-color: rgba(15, 23, 42, 0.10);
+    box-shadow:
+      0 16px 44px rgba(15, 23, 42, 0.10),
+      0 1px 0 rgba(255, 255, 255, 0.92) inset;
+    background:
+      radial-gradient(38px circle at 22% 35%, rgba(83, 221, 252, 0.18), transparent 58%),
+      radial-gradient(38px circle at 82% 65%, rgba(167, 165, 255, 0.16), transparent 58%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(226, 232, 240, 0.92));
+  }
+
+  .theme-switch-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .theme-switch-icon--sun {
+    left: 10px;
+    color: rgba(250, 204, 21, 0.95);
+    filter: drop-shadow(0 2px 8px rgba(250, 204, 21, 0.25));
+  }
+
+  .theme-switch-icon--moon {
+    right: 10px;
+    color: rgba(222, 229, 255, 0.92);
+    filter: drop-shadow(0 2px 10px rgba(167, 165, 255, 0.22));
+  }
+
+  .theme-switch-thumb {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
+    display: grid;
+    place-items: center;
+    transform: translateY(-50%) translateX(0);
+    color: rgba(222, 229, 255, 0.92);
+    background:
+      radial-gradient(18px circle at 30% 28%, rgba(255, 255, 255, 0.12), transparent 60%),
+      linear-gradient(180deg, rgba(25, 37, 64, 0.95), rgba(6, 14, 32, 0.96));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 16px 34px rgba(0, 0, 0, 0.45),
+      0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), background 220ms ease, color 220ms ease, border-color 220ms ease;
+    will-change: transform;
+  }
+
+  :root:not(.dark) .theme-switch-thumb {
+    color: rgba(133, 77, 14, 0.95);
+    background:
+      radial-gradient(18px circle at 30% 28%, rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0) 60%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(226, 232, 240, 0.98));
+    border-color: rgba(15, 23, 42, 0.10);
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.98) inset;
+  }
+
+  .theme-switch[data-theme="dark"] .theme-switch-thumb {
+    transform: translateY(-50%) translateX(24px);
+  }
+
+  .theme-switch:hover .theme-switch-thumb {
+    box-shadow:
+      0 22px 56px rgba(0, 0, 0, 0.52),
+      0 1px 0 rgba(255, 255, 255, 0.10) inset;
+  }
+
+  :root:not(.dark) .theme-switch:hover .theme-switch-thumb {
+    box-shadow:
+      0 24px 60px rgba(15, 23, 42, 0.16),
+      0 1px 0 rgba(255, 255, 255, 0.98) inset;
+  }
+
+  .theme-switch:active .theme-switch-thumb {
+    transform: translateY(-50%) translateX(2px);
+  }
+
+  .theme-switch[data-theme="dark"]:active .theme-switch-thumb {
+    transform: translateY(-50%) translateX(22px);
+  }
+
+  :root:not(.dark) .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(167, 165, 255, 0.2);
+    box-shadow: 0 4px 24px rgba(100, 100, 200, 0.07);
+  }
+
+  /* Animated gradient text */
+  .kinetic-gradient {
+    background: linear-gradient(135deg, #a7a5ff 0%, #7799ff 25%, #53ddfc 50%, #7799ff 75%, #a7a5ff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+  }
+
+  .gradient-text {
+    background: linear-gradient(to right, var(--color-primary), var(--color-tertiary), var(--color-secondary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .animate-gradient-text { animation: shine 5s linear infinite; }
+
+  /* Background blobs */
+  .blob {
+    filter: blur(100px);
+    position: absolute;
+    z-index: 0;
+    opacity: 0.5;
+    animation: float-blob 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .blob-pulse {
+    animation: pulse-blob 8s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  /* Navbar glass */
+  .navbar-glass {
+    background: rgba(6, 14, 32, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(167, 165, 255, 0.07);
+    box-shadow: 0 1px 30px rgba(0,0,0,0.3);
+  }
+
+  :root:not(.dark) .navbar-glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+    box-shadow: 0 4px 30px rgba(15, 23, 42, 0.03);
+  }
+
+  /* Tool section card */
+  .section-card {
+    @apply relative rounded-3xl overflow-hidden p-8 md:p-12;
+    background: var(--color-surface-container);
+    border: 1px solid rgba(64, 72, 93, 0.25);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  :root:not(.dark) .section-card {
+    /* Light mode needs separation from the already-bright canvas */
+    background:
+      radial-gradient(900px circle at 18% 10%, rgba(167, 165, 255, 0.12), transparent 58%),
+      radial-gradient(900px circle at 82% 18%, rgba(83, 221, 252, 0.10), transparent 60%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(241, 245, 249, 0.94));
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow:
+      0 22px 70px rgba(15, 23, 42, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  }
+
+  .dark .section-card {
+    /* Dark mode: add subtle depth so sections don't read as flat blocks. */
+    background:
+      radial-gradient(900px circle at 16% 10%, rgba(167, 165, 255, 0.10), transparent 60%),
+      radial-gradient(900px circle at 86% 18%, rgba(83, 221, 252, 0.08), transparent 62%),
+      linear-gradient(180deg, rgba(20, 31, 56, 0.94), rgba(6, 14, 32, 0.98));
+    border: 1px solid rgba(167, 165, 255, 0.10);
+    box-shadow:
+      0 24px 90px rgba(0, 0, 0, 0.55),
+      0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  }
+
+  /* Page wrapper used in tool pages */
+  .page-wrapper {
+    @apply w-full px-4 sm:px-6 lg:px-8 py-8 md:py-12 max-w-7xl mx-auto;
+  }
+
+  /* Tool card — standard high-end container */
+  .tool-card {
+    background: var(--color-surface-container);
+    border: 1px solid var(--color-outline-variant);
+    @apply rounded-2xl shadow-md;
+    transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  :root:not(.dark) .tool-card {
+    border: 1px solid rgba(15, 23, 42, 0.06);
+  }
+
+  /* Home page: richer light-mode canvas without touching dark mode. */
+  .home-light-bg {
+    position: relative;
+    z-index: 0; /* stacking context for ::before */
+    background: transparent;
+  }
+
+  .home-light-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(1100px circle at 18% 10%, rgba(167, 165, 255, 0.38), transparent 60%),
+      radial-gradient(900px circle at 82% 22%, rgba(83, 221, 252, 0.26), transparent 58%),
+      radial-gradient(900px circle at 60% 92%, rgba(119, 153, 255, 0.18), transparent 62%),
+      linear-gradient(180deg, #f8fafc 0%, #ffffff 40%, #eef2ff 100%);
+    opacity: 1;
+    transition: opacity 220ms ease;
+  }
+
+  .home-light-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+    background-size: 72px 72px;
+    opacity: 0.55;
+    mask-image: radial-gradient(60% 55% at 50% 20%, rgba(0,0,0,1), rgba(0,0,0,0));
+    transition: opacity 220ms ease;
+  }
+
+  .dark .home-light-grid {
+    opacity: 0;
+  }
+
+  .dark .home-light-bg::before {
+    opacity: 0;
+  }
+
+  /* Home page tile hover: light-mode only "classic 3D" feel. */
+  /* Base 3D behavior (works in both themes). Visual fill is themed below. */
+  .home-tile-3d,
+  .home-tile-3d-row {
+    transform: perspective(1100px) translateY(0) rotateX(0) rotateY(0);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 220ms ease,
+      border-color 220ms ease;
+    will-change: transform, box-shadow;
+  }
+
+  .home-tile-3d:hover {
+    transform: perspective(1100px) translateY(-5px) rotateX(2deg) rotateY(-1.25deg);
+  }
+
+  .home-tile-3d:active {
+    transform: perspective(1100px) translateY(-1px) rotateX(0.6deg) rotateY(-0.6deg);
+  }
+
+  .home-tile-3d-row:hover {
+    transform: perspective(1100px) translateY(-3px) rotateX(1.25deg) rotateY(-0.75deg);
+  }
+
+  :root:not(.dark) .home-tile-3d {
+    position: relative;
+    background:
+      radial-gradient(560px circle at 18% 10%, rgba(167, 165, 255, 0.16), transparent 52%),
+      radial-gradient(640px circle at 86% 14%, rgba(83, 221, 252, 0.10), transparent 58%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(226, 232, 240, 0.88));
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    box-shadow:
+      0 18px 55px rgba(15, 23, 42, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.92) inset;
+    /* transform/transition come from base .home-tile-3d */
+  }
+
+  :root:not(.dark) .home-tile-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.62), rgba(255,255,255,0) 48%),
+      radial-gradient(420px circle at 15% 10%, rgba(167, 165, 255, 0.20), transparent 55%);
+    opacity: 0.48;
+    mix-blend-mode: soft-light;
+  }
+
+  :root:not(.dark) .home-tile-3d::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.62) inset;
+    opacity: 0.75;
+  }
+
+  :root:not(.dark) .home-tile-3d:hover {
+    border-color: rgba(167, 165, 255, 0.42);
+    box-shadow:
+      0 28px 80px rgba(15, 23, 42, 0.16),
+      0 2px 0 rgba(255, 255, 255, 0.80) inset;
+  }
+
+  :root:not(.dark) .home-tile-3d:focus-visible {
+    outline: 3px solid rgba(167, 165, 255, 0.45);
+    outline-offset: 3px;
+  }
+
+  :root:not(.dark) .home-tile-3d-row {
+    position: relative;
+    background:
+      radial-gradient(520px circle at 14% 0%, rgba(83, 221, 252, 0.12), transparent 52%),
+      radial-gradient(520px circle at 90% 30%, rgba(167, 165, 255, 0.10), transparent 55%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(226, 232, 240, 0.80));
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    box-shadow:
+      0 14px 42px rgba(15, 23, 42, 0.10),
+      0 1px 0 rgba(255, 255, 255, 0.78) inset;
+    /* transform/transition come from base .home-tile-3d-row */
+  }
+
+  :root:not(.dark) .home-tile-3d-row:hover {
+    background: rgba(255, 255, 255, 0.70);
+    border-color: rgba(167, 165, 255, 0.30);
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+  }
+
+  /* Dark mode: keep existing dark fills from utilities (glass-card, bg-surface-*) but add premium lift/shadow. */
+  .dark .home-tile-3d:hover {
+    box-shadow:
+      0 34px 95px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(167, 165, 255, 0.10) inset;
+    border-color: rgba(167, 165, 255, 0.22);
+  }
+
+  .dark .home-tile-3d {
+    /* Resting state depth for All Tools / glass-card tiles on Home only */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 16px 60px rgba(0, 0, 0, 0.35),
+      0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  }
+
+  .dark .home-tile-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      radial-gradient(520px circle at 18% 10%, rgba(167, 165, 255, 0.12), transparent 60%),
+      linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0) 45%);
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+
+  .dark .home-tile-3d-row:hover {
+    box-shadow:
+      0 26px 80px rgba(0, 0, 0, 0.50),
+      0 0 0 1px rgba(167, 165, 255, 0.10) inset;
+    border-color: rgba(167, 165, 255, 0.18);
+  }
+
+  .dark .home-tile-3d-row {
+    /* Resting state depth for row tiles on Home only */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow:
+      0 14px 48px rgba(0, 0, 0, 0.32),
+      0 1px 0 rgba(255, 255, 255, 0.04) inset;
+    background:
+      radial-gradient(520px circle at 12% 0%, rgba(83, 221, 252, 0.10), transparent 55%),
+      radial-gradient(520px circle at 92% 35%, rgba(167, 165, 255, 0.08), transparent 58%),
+      linear-gradient(180deg, rgba(20, 31, 56, 0.70), rgba(15, 25, 48, 0.55));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-tile-3d,
+    .home-tile-3d-row {
+      transition: none;
+      transform: none;
+    }
+    .home-tile-3d:hover,
+    .home-tile-3d-row:hover {
+      transform: none;
+    }
   }
 }
 
-
-.gradient-text {
-  background: linear-gradient(90deg, #0066ff 0%, #8b5cf6 50%, #00e0ff 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes shine {
+  to { background-position: 200% center; }
 }
 
-.animate-gradient-text {
-  animation: gradient-move 4s ease-in-out infinite;
+@keyframes float-blob {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(40px, -60px) scale(1.15); }
+  66%  { transform: translate(-30px, 30px) scale(0.88); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes pulse-blob {
+  from { opacity: 0.25; transform: scale(0.85); }
+  to   { opacity: 0.55; transform: scale(1.2); }
 }
 
 @keyframes gradient-move {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.glass-card {
-  @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/50 shadow-xl shadow-primary/5;
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(5%, 5%) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
 @keyframes gradient-move2 {
-  0% {
-    transform: translateY(0px) scale(1);
-  }
-  50% {
-    transform: translateY(20px) scale(1.05);
-  }
-  100% {
-    transform: translateY(0px) scale(1);
-  }
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-5%, -5%) scale(1.1); }
+  100% { transform: translate(0, 0) scale(1); }
 }
 
-.animate-gradient-move {
-  animation: gradient-move 8s ease-in-out infinite;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.animate-gradient-move2 {
-  animation: gradient-move2 10s ease-in-out infinite;
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.9) translateY(10px); }
+  70%  { transform: scale(1.03) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Utility animations ───────────────────────────────────── */
+@keyframes tnThemeFlash {
+  0%   { opacity: 0; }
+  30%  { opacity: 0.32; }
+  100% { opacity: 0; }
+}
+
+.animate-gradient-move  { animation: gradient-move  15s infinite alternate ease-in-out; }
+.animate-gradient-move2 { animation: gradient-move2 18s infinite alternate ease-in-out; }
+.animate-fade-in-up     { animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
+.animate-slide-down     { animation: slideDown 0.25s ease forwards; }
+.animate-fade-in        { animation: fadeIn 0.4s ease forwards; }
+.animate-pop-in         { animation: popIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* Stagger helpers */
+.delay-75  { animation-delay: 75ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-225 { animation-delay: 225ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-450 { animation-delay: 450ms; }
