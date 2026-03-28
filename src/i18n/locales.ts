@@ -15,16 +15,19 @@ export const SUPPORTED_LOCALES: Array<{
   code: SupportedLocale;
   label: string;
 }> = [
-  { code: 'en',    label: 'English (Global)' },
-  { code: 'en-US', label: 'English (USA)' },
-  { code: 'hi',    label: 'Hindi (India)' },
-  { code: 'id',    label: 'Indonesian (Bahasa)' },
-  { code: 'pt-BR', label: 'Portuguese (Brazil)' },
-  { code: 'ja',    label: 'Japanese' },
-  { code: 'de',    label: 'German' },
-  { code: 'ru',    label: 'Russian' },
-  { code: 'ta',    label: 'Tamil' },
-];
+    { code: 'en', label: 'English (Global)' },
+    { code: 'ru', label: 'Russian' },
+    { code: 'ja', label: 'Japanese' },
+    { code: 'de', label: 'German' },
+    { code: 'ta', label: 'Tamil' },
+    { code: 'hi', label: 'Hindi (India)' },
+    { code: 'id', label: 'Indonesian (Bahasa)' },
+    { code: 'pt-BR', label: 'Portuguese (Brazil)' },
+    { code: 'en-US', label: 'English (USA)' },
+
+
+
+  ];
 
 export const isSupportedLocale = (value: string): value is SupportedLocale => {
   return SUPPORTED_LOCALES.some(l => l.code === value);
