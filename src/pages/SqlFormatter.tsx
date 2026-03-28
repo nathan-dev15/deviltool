@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { format } from 'sql-formatter';
 import { motion } from 'framer-motion';
-import { Database, Trash2, Copy, Download, Info, ChevronRight, Settings, Code, LayoutDashboard } from 'lucide-react';
+import { Database, Trash2, Copy, Download, Info, ChevronRight, Settings, Code, LayoutDashboard, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
@@ -16,6 +16,24 @@ export const SqlFormatter: React.FC = () => {
   const [output, setOutput] = React.useState('');
   const [dialect, setDialect] = React.useState<Dialect>('sql');
   const [error, setError] = React.useState<string | null>(null);
+  const [cursorPos, setCursorPos] = React.useState({ line: 1, col: 1 });
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  const updateCursor = () => {
+    const el = textAreaRef.current;
+    if (!el) return;
+    const textBeforeCursor = el.value.substring(0, el.selectionStart);
+    const lines = textBeforeCursor.split('\n');
+    setCursorPos({
+      line: lines.length,
+      col: lines[lines.length - 1].length + 1
+    });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+    updateCursor();
+  };
 
   const formatSql = () => {
     try {
@@ -52,16 +70,26 @@ export const SqlFormatter: React.FC = () => {
         keywords="sql formatter, beautify sql, format sql, mysql formatter, postgresql formatter, sql tools"
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 space-y-6">
-          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl overflow-hidden shadow-sm transition-all hover:shadow-md group">
-            <div className="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50">
-              <div className="flex items-center gap-4">
-                <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant/70">{t('label.input_query')}</span>
-                <select 
-                  value={dialect}
-                  onChange={(e) => setDialect(e.target.value as Dialect)}
-                  className="text-xs bg-surface-container-high text-on-surface border border-outline-variant/20 rounded-lg px-3 py-1.5 outline-none focus:ring-1 focus:ring-primary font-bold"
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+        <div className="lg:col-span-8 space-y-8">
+          
+          {/* Main 3D Container for Input */}
+          <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] border-2 border-slate-300 dark:border-slate-800 shadow-2xl bg-surface-container-lowest/50 backdrop-blur-3xl ring-1 ring-white/10 p-4 sm:p-8">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col gap-6">
+              
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <span className="text-sm font-black uppercase tracking-widest text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  <Database className="text-primary size-5" /> 
+                  <span className="hidden sm:inline">{t('label.input_query') || "Input Query"}</span>
+                  <span className="sm:hidden inline">Input</span>
+                </span>
+                <div className="p-1 bg-slate-200 dark:bg-slate-800 rounded-xl flex items-center shadow-inner">
+                  <select 
+                    value={dialect}
+                    onChange={(e) => setDialect(e.target.value as Dialect)}
+                    className="text-xs sm:text-sm bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 border-none rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-primary font-bold shadow-sm cursor-pointer"
                 >
                   <option value="sql">{t('label.standard_sql')}</option>
                   <option value="mysql">MySQL</option>
@@ -70,27 +98,46 @@ export const SqlFormatter: React.FC = () => {
                   <option value="mariadb">MariaDB</option>
                   <option value="sqlite">SQLite</option>
                 </select>
+                </div>
               </div>
-            </div>
-            <textarea 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="w-full h-64 p-6 font-mono text-sm bg-transparent border-0 focus:ring-0 resize-none text-on-surface placeholder:text-on-surface-variant/30 leading-relaxed"
-              placeholder="SELECT * FROM users WHERE active = 1 ORDER BY created_at DESC;"
-            />
-            <div className="p-4 bg-surface-container-low/30 border-t border-outline-variant/10 flex gap-4">
-              <button 
-                onClick={formatSql}
-                className="flex-1 bg-primary text-on-primary py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-primary-container transition-all flex items-center justify-center gap-3 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95"
-              >
-                <Code className="size-5" /> {t('label.format_sql')}
-              </button>
-              <button 
-                onClick={() => setInput('')}
-                className="px-6 py-4 bg-surface-container-high/60 text-on-surface rounded-2xl font-bold hover:bg-surface-container-high transition-all hover:text-error border border-outline-variant/10"
-              >
-                <Trash2 className="size-5" />
-              </button>
+
+              {/* 3D Glassmorphic Editor Area */}
+              <div className="relative group rounded-2xl md:rounded-3xl p-1 bg-gradient-to-b from-slate-200 to-white dark:from-slate-800 dark:to-slate-900 shadow-inner">
+                <textarea 
+                  ref={textAreaRef}
+                  value={input}
+                  onChange={handleInputChange}
+                  onKeyUp={updateCursor}
+                  onClick={updateCursor}
+                  className="w-full p-4 pt-8 md:p-8 md:pt-10 rounded-xl md:rounded-[1.4rem] bg-white/80 dark:bg-black/40 backdrop-blur-md outline-none transition-all text-sm md:text-base font-mono resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600 min-h-[250px] shadow-inner leading-relaxed text-slate-800 dark:text-slate-200 border-2 border-transparent focus:border-primary/50 focus:bg-white dark:focus:bg-black/60 custom-scrollbar"
+                  placeholder="SELECT * FROM users WHERE active = 1 ORDER BY created_at DESC;"
+                />
+                
+                {/* Cursor Indicator */}
+                <div className="absolute top-4 right-6 flex items-center gap-2 bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20 dark:border-white/5 pointer-events-none">
+                   <MousePointer2 className="size-3 text-primary animate-pulse" />
+                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 tabular-nums">Ln {cursorPos.line}, Col {cursorPos.col}</span>
+                </div>
+              </div>
+
+              {/* 3D Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                <button 
+                  onClick={formatSql}
+                  className="w-full sm:w-auto flex-1 px-8 py-4 bg-primary text-white rounded-2xl text-[11px] font-black uppercase tracking-widest hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-[0_6px_0_0_rgba(var(--primary-rgb),0.3)] active:border-b-0 active:translate-y-1.5 active:shadow-none border border-white/10 group border-b-4"
+                >
+                  <Code className="size-5 group-hover:rotate-12 transition-transform" /> {t('label.format_sql') || "Format SQL"}
+                </button>
+                <div className="p-1 w-full sm:w-auto bg-slate-200 dark:bg-slate-800 rounded-2xl flex shadow-inner">
+                  <button 
+                    onClick={() => { setInput(''); setCursorPos({line:1,col:1}); }}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-black text-slate-600 dark:text-slate-300 rounded-xl font-black uppercase tracking-widest hover:text-error active:border-b-0 active:translate-y-1 transition-all flex items-center justify-center gap-2"
+                  >
+                    <Trash2 className="size-5" /> <span className="sm:hidden">{t('action.clear') || "Clear"}</span>
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -100,20 +147,23 @@ export const SqlFormatter: React.FC = () => {
             </div>
           )}
 
-          <div className="bg-surface-container-lowest-dark dark:bg-slate-950 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 group">
-            <div className="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-black/40">
-              <span className="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">{t('label.formatted_result')}</span>
-              <div className="flex items-center gap-4">
+          {/* Output 3D Container */}
+          <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] border-2 border-slate-300 dark:border-slate-800 shadow-xl bg-slate-950 p-4 sm:p-8 group shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none opacity-50" />
+            
+            <div className="relative z-10 flex flex-col gap-4 h-full">
+              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-400">{t('label.formatted_result') || "Formatted Result"}</span>
                 <button 
                   onClick={copyToClipboard}
-                  className="text-xs font-black uppercase tracking-widest text-primary hover:text-primary-container flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-primary/5 transition-all"
+                  className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-primary hover:text-white flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary transition-all border border-primary/20"
                 >
                   <Copy className="size-4" /> {t('action.copy')}
                 </button>
               </div>
-            </div>
-            <div className="p-6 min-h-[250px] font-mono text-sm text-emerald-400 overflow-x-auto selection:bg-emerald-500/30">
-              <pre className="leading-relaxed"><code>{output || '-- Your formatted SQL will appear here'}</code></pre>
+              <div className="p-4 sm:p-6 min-h-[200px] font-mono text-sm text-emerald-400 overflow-x-auto selection:bg-emerald-500/30 custom-scrollbar rounded-xl bg-black/40 shadow-inner">
+                <pre className="leading-loose"><code>{output || '-- Your beautifully formatted SQL will appear here...'}</code></pre>
+              </div>
             </div>
           </div>
         </div>

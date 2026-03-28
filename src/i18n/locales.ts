@@ -25,8 +25,6 @@ export const SUPPORTED_LOCALES: Array<{
     { code: 'pt-BR', label: 'Portuguese (Brazil)' },
     { code: 'en-US', label: 'English (USA)' },
 
-
-
   ];
 
 export const isSupportedLocale = (value: string): value is SupportedLocale => {
@@ -56,7 +54,7 @@ const normalizeToSupported = (raw: string): SupportedLocale => {
 };
 
 export const getInitialLocale = (): SupportedLocale => {
-  // URL override: allows shareable per-language links via ?lang=xx
+  // 1. URL override: prioritizes shareable links with ?lang=xx
   try {
     if (typeof window !== 'undefined') {
       const sp = new URLSearchParams(window.location.search);
@@ -67,6 +65,7 @@ export const getInitialLocale = (): SupportedLocale => {
     // ignore
   }
 
+  // 2. User preference: persist the choice from previous sessions
   try {
     const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
     if (saved) return normalizeToSupported(saved);
@@ -74,10 +73,6 @@ export const getInitialLocale = (): SupportedLocale => {
     // ignore
   }
 
-  if (typeof navigator !== 'undefined') {
-    const nav = navigator.language || '';
-    return normalizeToSupported(nav);
-  }
-
+  // 3. Absolute Default: Always start with English (Global)
   return 'en';
 };

@@ -107,6 +107,26 @@ export const TOOL_SEO_BY_PATH: Record<string, ToolSeoConfig> = {
       buttonText: "Try Image Compressor",
       buttonHref: "/image-compressor",
     },
+    locales: {
+      hi: {
+        mainKeyword: "फोटो कंप्रेस करें ऑनलाइन",
+        secondaryKeywords: ["इमेज साइज कैसे कम करें", "फोटो साइज घटाएं", "फ्री इमेज कंप्रेसर", "अनलिमिटेड फोटो कंप्रेशन"],
+        seoTitle: "फोटो कंप्रेस करें ऑनलाइन - इमेज साइज घटाने का फ्री टूल",
+        metaDescription: "फोटो कंप्रेस करें ऑनलाइन। बिना क्वालिटी खोए अपने JPG/PNG/WebP इमेज का साइज कम करें। तेज, सुरक्षित और पूरी तरह से फ्री।"
+      },
+      ta: {
+        mainKeyword: "பட சுருக்கி ஆன்லைன்",
+        secondaryKeywords: ["படத்தின் அளவை குறைக்க", "இலவச ஆன்லைன் பட சுருக்கி", "தரம் குறையாமல் படம் சுருக்க"],
+        seoTitle: "பட சுருக்கி ஆன்லைன் - தரமான இலவச கருவி",
+        metaDescription: "எங்கள் பட சுருக்கி ஆன்லைன் கருவியைப் பயன்படுத்தி தரம் குறையாமல் உங்கள் படங்களின் அளவை விரைவாகவும் எளிதாகவும் குறைக்கவும்."
+      },
+      ru: {
+        mainKeyword: "Сжать фото онлайн",
+        secondaryKeywords: ["уменьшить размер фото", "сжатие изображений онлайн", "уменьшить вес картинки", "бесплатный компрессор фото"],
+        seoTitle: "Сжать фото онлайн без потери качества (JPG/PNG/WebP)",
+        metaDescription: "Сжать фото онлайн бесплатно и быстро. Уменьшите размер файлов JPG, PNG и WebP. Полная приватность – файлы остаются в браузере."
+      }
+    }
   },
 
   // Generic configs (content is generated from templates in the renderer).
@@ -123,6 +143,26 @@ export const TOOL_SEO_BY_PATH: Record<string, ToolSeoConfig> = {
     ],
     urlSlug: "/json-formatter",
     imageAltText: "JSON formatter tool showing input and formatted JSON output",
+    locales: {
+      hi: {
+        mainKeyword: "JSON फॉर्मैटर ऑनलाइन",
+        secondaryKeywords: ["JSON को सुंदर बनाएं", "JSON डेटा फॉर्मेट करें", "फ्री ऑनलाइन JSON फॉर्मैटर", "JSON वैलिडेशन टूल"],
+        seoTitle: "JSON फॉर्मैटर ऑनलाइन - डेटा सुंदर और व्यवस्थित करें",
+        metaDescription: "JSON फॉर्मैटर ऑनलाइन का उपयोग करके अपने JSON डेटा को सुंदर, पठनीय और एरर-फ्री बनाएं। तेज, सुरक्षित और पूरी तरह से फ्री।"
+      },
+      ta: {
+        mainKeyword: "JSON வடிவமைப்பான் ஆன்லைன்",
+        secondaryKeywords: ["JSON ஐ அழகுபடுத்த", "JSON தரவு சரிபார்ப்பு", "இலவச ஆன்லைன் JSON கருவி"],
+        seoTitle: "JSON வடிவமைப்பான் - ஆன்லைன் தரவை அழகுபடுத்த",
+        metaDescription: "எங்கள் JSON வடிவமைப்பான் ஆன்லைன் கருவியைப் பயன்படுத்தி உங்கள் JSON தரவை படிக்க எளிதானதாகவும் பிழை இல்லாமலும் மாற்றவும்."
+      },
+      ru: {
+        mainKeyword: "JSON форматирование онлайн",
+        secondaryKeywords: ["красивый JSON", "валидация JSON", "форматировать JSON онлайн", "бесплатный инструмент JSON"],
+        seoTitle: "JSON Форматтер - Красивое форматирование и валидация онлайн",
+        metaDescription: "Форматируйте ваш JSON онлайн быстро и бесплатно. Красивый вывод, проверка синтаксиса и полная безопасность в браузере."
+      }
+    }
   },
   "/json-validator": {
     toolName: "JSON Validator",
@@ -491,16 +531,45 @@ export const TOOL_SEO_BY_PATH: Record<string, ToolSeoConfig> = {
     imageAltText: "Session vault tool page for storing temporary snippets in the browser",
   },
   "/pro-image-tool": {
-    toolName: "Pro Image Tool",
-    mainKeyword: "image resize tool",
+    toolName: "Pro Image Studio",
+    mainKeyword: "batch image compressor online",
     secondaryKeywords: [
-      "change image dimensions",
-      "image size converter",
-      "resize jpg png",
-      "image resizer online",
-      "convert image sizes for web",
+      "watermark image online free",
+      "remove exif data from photos",
+      "bulk image resizer",
+      "sharpen image online",
+      "pro image optimization tool",
+      "batch convert jpg to webp",
+      "secure image processing in browser",
+      "before after image comparison tool",
     ],
     urlSlug: "/pro-image-tool",
-    imageAltText: "Image size converter tool for resizing images and exporting formats",
+    imageAltText: "Pro Image Studio with batch queue, watermark controls, and before/after slider",
+    seoTitle: "Pro Image Studio - Batch Compress, Watermark & Resize",
+    metaDescription: "Professional batch image processing. Compress, resize, and watermark images online. Remove EXIF metadata and sharpen photos instantly. Secure and free.",
+    features: [
+      "Batch image processing: optimize multiple photos at once",
+      "Pro comparison slider: real-time before/after visual inspection",
+      "Dynamic watermarking: add text branding to your images",
+      "Enhance & Sharpen: boost clarity after compression",
+      "Privacy first: strip EXIF metadata and process locally",
+      "Smart presets: Web, Social, and Lossless optimization",
+    ],
+    locales: {
+      hi: {
+        toolName: "प्रो इमेज स्टूडियो",
+        mainKeyword: "बैच इमेज कंप्रेसर ऑनलाइन",
+        secondaryKeywords: ["फोटो पर वॉटरमार्क लगाएं", "इमेज का साइज बदलें", "एक्सिफ डेटा हटाएं", "प्रो फोटो एडिटिंग टूल"],
+        seoTitle: "प्रो इमेज स्टूडियो - फोटो कंप्रेस और वॉटरमार्क करें",
+        metaDescription: "प्रोफेशनल बैच इमेज प्रोसेसिंग। एक साथ कई फोटो कंप्रेस, रिसाइज और वॉटरमार्क करें। सुरक्षित और पूरी तरह फ्री।"
+      },
+      ru: {
+        toolName: "Pro Image Studio",
+        mainKeyword: "пакетное сжатие изображений",
+        secondaryKeywords: ["добавить водяной знак на фото", "изменить размер картинки", "удалить метаданные фото", "профессиональное сжатие изображений"],
+        seoTitle: "Pro Image Studio - Пакетное сжатие и водяные знаки",
+        metaDescription: "Профессиональная пакетная обработка изображений. Сжимайте, изменяйте размер и добавляйте водяные знаки онлайн. Безопасно и бесплатно."
+      }
+    }
   },
 };

@@ -41,7 +41,7 @@ import { HtmlEncodeDecodeTool } from './pages/EDTools/HtmlEncodeDecodeTool';
 import { JwtDecoderTool } from './pages/EDTools/JwtDecoderTool';
 import { TextBase64Tool } from './pages/EDTools/TextBase64Tool';
 import { UnicodeConverterTool } from './pages/EDTools/UnicodeConverterTool';
-import { ProImageTool } from './pages/ImageTools/ImageSizeConverterTool';
+import { ProImageTool } from './pages/ImageTools/ProImageTool';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { Privacy } from './pages/Privacy';
@@ -54,57 +54,57 @@ export default function App() {
   return (
     <ThemeProvider>
       <I18nProvider>
-      <HelmetProvider>
-        <Router>
-          <Layout>
-            <Routes>
+        <HelmetProvider>
+          <Router>
+            <Layout>
+              <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/json-formatter" element={<JsonFormatter />} />
-                 <Route path="/json-validator" element={<JsonValidator />} />
-<Route path="/json-minifier" element={<JsonMinifier />} />
-<Route path="/json-to-typescript" element={<JsonToTypescriptGenerator />}/>
-            <Route path="/json-pretty-print" element={<JsonPrettyTool />}/>
-            <Route path="/json-to-csv" element={<JsonToCsvTool />} />
-             <Route path="/json-to-xml" element={<JsonToXmlTool />} />
-         <Route path="/json-to-yaml" element={<JsonToYamlTool />} />
-         <Route path="/json-to-html-table" element={<JsonToHtmlTableTool />} />
-         <Route path="/json-compare" element={<JsonCompareTool />} />
-<Route path="/json-sort-keys" element={<JsonSortKeysTool />} />
-<Route path="/base64-encode" element={<Base64EncodeTool />} />
-<Route path="/base64-decode" element={<Base64DecodeTool />} />
-<Route path="/url-encode" element={<UrlEncodeTool />} />
-<Route path="/url-decode" element={<UrlDecodeTool />} />
-<Route path="/html-encode" element={<HtmlEncodeDecodeTool />} />
+                <Route path="/json-validator" element={<JsonValidator />} />
+                <Route path="/json-minifier" element={<JsonMinifier />} />
+                <Route path="/json-to-typescript" element={<JsonToTypescriptGenerator />} />
+                <Route path="/json-pretty-print" element={<JsonPrettyTool />} />
+                <Route path="/json-to-csv" element={<JsonToCsvTool />} />
+                <Route path="/json-to-xml" element={<JsonToXmlTool />} />
+                <Route path="/json-to-yaml" element={<JsonToYamlTool />} />
+                <Route path="/json-to-html-table" element={<JsonToHtmlTableTool />} />
+                <Route path="/json-compare" element={<JsonCompareTool />} />
+                <Route path="/json-sort-keys" element={<JsonSortKeysTool />} />
+                <Route path="/base64-encode" element={<Base64EncodeTool />} />
+                <Route path="/base64-decode" element={<Base64DecodeTool />} />
+                <Route path="/url-encode" element={<UrlEncodeTool />} />
+                <Route path="/url-decode" element={<UrlDecodeTool />} />
+                <Route path="/html-encode" element={<HtmlEncodeDecodeTool />} />
 
-<Route path="/jwt-decoder" element={<JwtDecoderTool />} />
-<Route path="/text-to-base64" element={<TextBase64Tool />} />
-<Route path="/unicode-converter" element={<UnicodeConverterTool />} />
+                <Route path="/jwt-decoder" element={<JwtDecoderTool />} />
+                <Route path="/text-to-base64" element={<TextBase64Tool />} />
+                <Route path="/unicode-converter" element={<UnicodeConverterTool />} />
 
-            <Route path="/string-comparison" element={<StringComparison />} />
-            <Route path="/password-generator" element={<PasswordGenerator />} />
-            <Route path="/word-counter" element={<WordCounter />} />
-            <Route path="/sql-formatter" element={<SqlFormatter />} />
-            <Route path="/age-calculator" element={<AgeCalculator />} />
-            <Route path="/time-between-dates" element={<TimeBetweenDates />} />
-            <Route path="/image-to-base64" element={<ImageToBase64 />} />
-            <Route path="/base64-to-image" element={<Base64ToImage />} />
-            <Route path="/image-compressor" element={<ImageCompressor />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/vault" element={<SessionVault />} />
-            <Route path="/pro-image-tool" element={<ProImageTool />} />
+                <Route path="/string-comparison" element={<StringComparison />} />
+                <Route path="/password-generator" element={<PasswordGenerator />} />
+                <Route path="/word-counter" element={<WordCounter />} />
+                <Route path="/sql-formatter" element={<SqlFormatter />} />
+                <Route path="/age-calculator" element={<AgeCalculator />} />
+                <Route path="/time-between-dates" element={<TimeBetweenDates />} />
+                <Route path="/image-to-base64" element={<ImageToBase64 />} />
+                <Route path="/base64-to-image" element={<Base64ToImage />} />
+                <Route path="/image-compressor" element={<ImageCompressor />} />
+                <Route path="/security" element={<Security />} />
+                <Route path="/vault" element={<SessionVault />} />
+                <Route path="/pro-image-tool" element={<ProImageTool />} />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/disclaimer" element={<Disclaimer />} />
-            
-            {/* Fallback to NotFound */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
-      </Router>
-      </HelmetProvider>
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/disclaimer" element={<Disclaimer />} />
+
+                {/* Fallback to NotFound */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </Router>
+        </HelmetProvider>
       </I18nProvider>
     </ThemeProvider>
   );

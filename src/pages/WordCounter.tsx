@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Type, Trash2, Copy, Download, Info, CheckCircle, ChevronRight, Home as HomeIcon, FileText, Diff, BookOpen, LayoutDashboard } from 'lucide-react';
+import { Type, Trash2, Copy, Download, Info, CheckCircle, ChevronRight, Home as HomeIcon, FileText, Diff, BookOpen, LayoutDashboard, MousePointer2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
@@ -10,6 +10,8 @@ import { useI18n } from '@/src/i18n/I18nContext';
 export const WordCounter: React.FC = () => {
   const { t } = useI18n();
   const [text, setText] = React.useState('');
+  const [cursorPos, setCursorPos] = React.useState({ line: 1, col: 1 });
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const stats = React.useMemo(() => {
     const trimmed = text.trim();
@@ -34,6 +36,22 @@ export const WordCounter: React.FC = () => {
     }
   };
 
+  const updateCursor = () => {
+    const el = textAreaRef.current;
+    if (!el) return;
+    const textBeforeCursor = el.value.substring(0, el.selectionStart);
+    const lines = textBeforeCursor.split('\n');
+    setCursorPos({
+      line: lines.length,
+      col: lines[lines.length - 1].length + 1
+    });
+  };
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    updateCursor();
+  };
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(text);
   };
@@ -43,7 +61,7 @@ export const WordCounter: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'text.txt';
+    a.download = 'word-counter.txt';
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -64,67 +82,94 @@ export const WordCounter: React.FC = () => {
         keywords="word counter, character count, sentence counter, reading time calculator, text tools"
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
-        {[
-          { label: t('label.words'), value: stats.words, primary: true },
-          { label: t('label.chars_with_space'), value: stats.charsWithSpace },
-          { label: t('label.chars_no_space'), value: stats.charsNoSpace },
-          { label: t('label.sentences'), value: stats.sentences },
-          { label: t('label.paragraphs'), value: stats.paragraphs },
-          { label: t('label.reading_time'), value: `${stats.readingTime} min` },
-        ].map((stat, i) => (
-          <div key={i} className="bg-surface-container-lowest border border-outline-variant/30 p-5 rounded-3xl shadow-sm transition-all hover:shadow-md hover:border-primary/20">
-            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant/60 mb-2">{stat.label}</p>
-            <p 
-              data-testid={`stat-${stat.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}`}
-              className={cn("text-2xl font-black", stat.primary ? "text-primary" : "text-on-surface")}
-            >
-              {stat.value}
-            </p>
-          </div>
-        ))}
-      </div>
+      <div className="relative overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] border-2 border-slate-300 dark:border-slate-800 shadow-2xl bg-surface-container-lowest/50 backdrop-blur-3xl mb-12 ring-1 ring-white/10 p-4 sm:p-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none" />
 
-      <div className="relative group mb-8">
-        <textarea 
-          data-testid="word-counter-input"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="w-full h-80 p-8 bg-surface-container-lowest border border-outline-variant/30 rounded-3xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all text-lg resize-none placeholder:text-on-surface-variant/30 min-h-[400px] shadow-sm leading-relaxed text-on-surface" 
-          placeholder={t('label.word_counter_placeholder')}
-        />
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/80 backdrop-blur-md p-2 rounded-2xl shadow-2xl border border-white/10 group-focus-within:opacity-100 opacity-60 hover:opacity-100 transition-opacity">
-          <button 
-            onClick={() => setText('')}
-            className="flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:text-error transition-colors border-r border-white/10 pr-6"
-          >
-            <Trash2 className="size-4" /> {t('action.clear')}
-          </button>
-          <button 
-            onClick={copyToClipboard}
-            className="flex items-center justify-center gap-2 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-white hover:text-primary transition-colors pl-6"
-          >
-            <Copy className="size-4" /> {t('action.copy')}
+        {/* 3D Stats Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 mb-6 relative z-10">
+          {[
+            { label: t('label.words'), value: stats.words, primary: true },
+            { label: t('label.chars_with_space'), value: stats.charsWithSpace },
+            { label: t('label.chars_no_space'), value: stats.charsNoSpace },
+            { label: t('label.sentences'), value: stats.sentences },
+            { label: t('label.paragraphs'), value: stats.paragraphs },
+            { label: t('label.reading_time'), value: `${stats.readingTime}m`, highlight: true },
+          ].map((stat, i) => (
+            <div key={i} className="relative group overflow-hidden bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-slate-800 p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:border-primary">
+              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none" />
+              <p className="text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1 sm:mb-2 truncate">{stat.label}</p>
+              <p 
+                data-testid={`stat-${stat.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}`}
+                className={cn(
+                  "text-xl sm:text-2xl md:text-3xl font-black tabular-nums transition-colors tracking-tight", 
+                  stat.primary ? "text-primary drop-shadow-[0_0_12px_rgba(var(--primary-rgb),0.4)]" : "text-slate-700 dark:text-slate-200",
+                  stat.highlight && "text-tertiary"
+                )}
+              >
+                {stat.value}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* 3D Glassmorphic Editor Area */}
+        <div className="relative group mb-8 rounded-2xl md:rounded-3xl p-1 bg-gradient-to-b from-slate-200 to-white dark:from-slate-800 dark:to-slate-900 shadow-inner">
+          <textarea 
+            ref={textAreaRef}
+            data-testid="word-counter-input"
+            value={text}
+            onChange={handleTextChange}
+            onKeyUp={updateCursor}
+            onClick={updateCursor}
+            className="w-full p-4 pt-10 md:p-8 md:pt-10 rounded-xl md:rounded-[1.4rem] bg-white/80 dark:bg-black/40 backdrop-blur-md outline-none transition-all text-base md:text-lg resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600 min-h-[250px] md:min-h-[400px] shadow-inner leading-relaxed text-slate-800 dark:text-slate-200 border-2 border-transparent focus:border-primary/50 focus:bg-white dark:focus:bg-black/60 custom-scrollbar" 
+            placeholder={t('label.word_counter_placeholder') || "Type your masterpiece here..."}
+          />
+          
+          {/* Cursor Indicator */}
+          <div className="absolute top-4 right-6 flex items-center gap-2 bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/20 dark:border-white/5 pointer-events-none">
+             <MousePointer2 className="size-3 text-primary animate-pulse" />
+             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 tabular-nums">Ln {cursorPos.line}, Col {cursorPos.col}</span>
+          </div>
+
+          {/* Floating Action Menu */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-slate-900 dark:bg-black/80 backdrop-blur-xl p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 group-focus-within:opacity-100 opacity-80 hover:opacity-100 transition-all scale-95 group-focus-within:scale-100">
+            <button 
+              onClick={() => { setText(''); setCursorPos({line:1, col:1}); }}
+              className="flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest text-white hover:bg-error transition-colors"
+            >
+              <Trash2 className="size-3 sm:size-4" /> <span className="hidden sm:inline">{t('action.clear')}</span>
+            </button>
+            <div className="w-px h-6 bg-white/20 mx-1" />
+            <button 
+              onClick={copyToClipboard}
+              className="flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest text-white hover:bg-primary transition-colors"
+            >
+              <Copy className="size-3 sm:size-4" /> <span className="hidden sm:inline">{t('action.copy')}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 3D Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
+          <div className="p-1 bg-slate-200 dark:bg-slate-800 rounded-2xl flex flex-wrap justify-center gap-1.5 shadow-inner w-full sm:w-auto">
+            <button onClick={() => transformText('upper')} className="px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-black text-slate-600 dark:text-slate-300 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:text-primary active:border-b-0 active:translate-y-1 transition-all">
+              UPPER
+            </button>
+            <button onClick={() => transformText('lower')} className="px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-black text-slate-600 dark:text-slate-300 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:text-primary active:border-b-0 active:translate-y-1 transition-all">
+              lower
+            </button>
+            <button onClick={() => transformText('title')} className="px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-black text-slate-600 dark:text-slate-300 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:text-primary active:border-b-0 active:translate-y-1 transition-all">
+              Title
+            </button>
+            <button onClick={() => transformText('clean')} className="px-3 sm:px-5 py-2.5 sm:py-3.5 bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-black text-slate-600 dark:text-slate-300 rounded-xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest hover:text-primary active:border-b-0 active:translate-y-1 transition-all flex items-center gap-1 sm:gap-2">
+              <Type className="size-3 sm:size-4" /> <span className="hidden sm:inline">{t('label.clean_spaces')}</span>
+            </button>
+          </div>
+          
+          <button onClick={downloadTxt} className="w-full sm:w-auto mt-2 sm:mt-0 px-6 sm:px-8 py-3.5 sm:py-4 bg-primary text-white rounded-2xl text-[10px] sm:text-[11px] font-black uppercase tracking-widest hover:bg-primary-container transition-all flex items-center justify-center gap-2 sm:ml-auto shadow-[0_6px_0_0_rgba(var(--primary-rgb),0.3)] active:border-b-0 active:translate-y-1.5 active:shadow-none border border-white/10 group border-b-4">
+            <Download className="size-4 group-hover:animate-bounce" /> <span className="sm:inline hidden">{t('label.download_txt')}</span> <span className="sm:hidden inline">Download</span>
           </button>
         </div>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-4 mb-16">
-        <button onClick={() => transformText('upper')} className="px-5 py-3 bg-surface-container-high/60 text-on-surface border border-outline-variant/10 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-container-high transition-all">
-          {t('label.uppercase')}
-        </button>
-        <button onClick={() => transformText('lower')} className="px-5 py-3 bg-surface-container-high/60 text-on-surface border border-outline-variant/10 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-container-high transition-all">
-          {t('label.lowercase')}
-        </button>
-        <button onClick={() => transformText('title')} className="px-5 py-3 bg-surface-container-high/60 text-on-surface border border-outline-variant/10 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-container-high transition-all">
-          {t('label.title_case')}
-        </button>
-        <button onClick={() => transformText('clean')} className="px-5 py-3 bg-surface-container-high/60 text-on-surface border border-outline-variant/10 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-surface-container-high transition-all flex items-center gap-2">
-          <Type className="size-4" /> {t('label.clean_spaces')}
-        </button>
-        <button onClick={downloadTxt} className="px-8 py-4 bg-primary text-on-primary rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-primary-container transition-all shadow-lg shadow-primary/20 flex items-center gap-2 ml-auto hover:scale-[1.05] active:scale-95">
-          <Download className="size-4" /> {t('label.download_txt')}
-        </button>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12 mt-12 bg-surface-container-low/30 p-10 rounded-3xl border border-outline-variant/20">

@@ -51,17 +51,26 @@ const fadeUp = (delay = 0) => ({
 
 export const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
-  const filteredTools = TOOLS.filter(tool =>
+  const getToolTranslation = (tool: (typeof TOOLS)[0]) => {
+    return {
+      ...tool,
+      name: t(`tools.${tool.id}.name`),
+      description: t(`tools.${tool.id}.description`)
+    };
+  };
+
+  const filteredTools = TOOLS.map(getToolTranslation).filter(tool =>
     tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     tool.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const popularTools = TOOLS.slice(0, 3);
-  const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter');
-  const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode');
-  const imageTools   = TOOLS.filter(t => t.category === 'image');
+  const popularTools = TOOLS.slice(0, 3).map(getToolTranslation);
+  const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter').map(getToolTranslation);
+  const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode').map(getToolTranslation);
+  const imageTools   = TOOLS.filter(t => t.category === 'image').map(getToolTranslation);
+  const allTools     = TOOLS.map(getToolTranslation);
 
   const cardColors = [
     'from-indigo-500 to-violet-700 shadow-indigo-500/20',
@@ -330,7 +339,7 @@ export const Home: React.FC = () => {
                 <div className="h-px flex-grow bg-gradient-to-r from-outline-variant/50 to-transparent" />
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-                {TOOLS.map((tool, i) => {
+                {allTools.map((tool, i) => {
                   const Icon = resolveIcon(tool.icon, CodeXml);
                   return (
                     <motion.div

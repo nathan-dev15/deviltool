@@ -46,49 +46,52 @@ export const AgeCalculator: React.FC = () => {
         keywords="age calculator, birthday calculator, exact age, days until birthday, calculator tools"
       />
 
-      <div className="max-w-4xl mx-auto space-y-12 animate-fade-in">
-        <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-[2.5rem] shadow-xl p-8 md:p-12 relative overflow-hidden group">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] pointer-events-none" />
+      <div className="max-w-4xl mx-auto space-y-10 sm:space-y-12 animate-fade-in px-4 sm:px-0">
+        <div className="bg-surface-container-lowest/50 backdrop-blur-3xl border-2 border-slate-300 dark:border-slate-800 border-b-8 border-b-orange-500 rounded-[2rem] sm:rounded-[3rem] shadow-2xl p-6 sm:p-12 relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 blur-[100px] pointer-events-none" />
+           <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 blur-[60px] pointer-events-none" />
           
-          <div className="max-w-md mx-auto space-y-10">
+          <div className="max-w-md mx-auto space-y-8 sm:space-y-10 relative z-10">
             <div className="space-y-4">
-              <label className="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">{t('label.date_of_birth')}</label>
-              <div className="relative group/input">
-                 <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors" />
+              <label className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 ml-1">
+                {t('label.date_of_birth')}
+              </label>
+              <div className="relative group/input p-1 bg-slate-200 dark:bg-slate-800 rounded-2xl shadow-inner">
+                 <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within/input:text-orange-500 transition-colors" />
                  <input 
                    type="date" 
                    value={birthDate}
                    onChange={(e) => setBirthDate(e.target.value)}
-                   className="w-full pl-12 pr-6 py-5 bg-surface-container-high/40 border border-outline-variant/20 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary/50 outline-none transition-all text-on-surface font-black text-xl"
+                   className="w-full pl-14 pr-6 py-4 sm:py-5 bg-white dark:bg-slate-900 border-none rounded-xl focus:ring-2 focus:ring-orange-500/50 outline-none transition-all text-slate-800 dark:text-slate-100 font-black text-lg sm:text-xl shadow-sm"
                  />
               </div>
             </div>
 
             <button 
               onClick={calculateAge}
-              className="w-full bg-primary text-on-primary py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-3"
+              className="w-full bg-orange-400 hover:bg-orange-500 text-white py-4 sm:py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] sm:text-xs transition-all shadow-[0_8px_0_0_#ea580c] hover:shadow-[0_6px_0_0_#ea580c] hover:translate-y-[2px] active:shadow-none active:translate-y-[8px] flex items-center justify-center gap-3 group/btn border-2 border-orange-300 ring-2 ring-orange-600/20"
             >
-              <Gift className="size-5" /> {t('label.calculate_age')}
+              <Gift className="size-5 group-hover:rotate-12 transition-transform" /> {t('label.calculate_age')}
             </button>
 
             <AnimatePresence>
               {result && (
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="grid grid-cols-3 gap-4 pt-10 border-t border-outline-variant/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="grid grid-cols-3 gap-3 sm:gap-4 pt-8 relative"
                 >
-                  <div className="text-center p-6 bg-surface-container-high/40 rounded-3xl border border-outline-variant/10">
-                    <p className="text-4xl font-black text-primary mb-1">{result.years}</p>
-                    <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-widest">{t('label.years')}</p>
+                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
+                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.years}</p>
+                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.years')}</p>
                   </div>
-                  <div className="text-center p-6 bg-surface-container-high/40 rounded-3xl border border-outline-variant/10">
-                    <p className="text-4xl font-black text-primary mb-1">{result.months}</p>
-                    <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-widest">{t('label.months')}</p>
+                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
+                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.months}</p>
+                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.months')}</p>
                   </div>
-                  <div className="text-center p-6 bg-surface-container-high/40 rounded-3xl border border-outline-variant/10">
-                    <p className="text-4xl font-black text-primary mb-1">{result.days}</p>
-                    <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-widest">{t('label.days')}</p>
+                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
+                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.days}</p>
+                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.days')}</p>
                   </div>
                 </motion.div>
               )}
@@ -96,26 +99,26 @@ export const AgeCalculator: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-3 gap-4 sm:gap-8">
           {[
             { icon: Clock, title: t('label.precise_calculation'), desc: t('label.precise_calculation_desc') },
             { icon: Gift, title: t('label.birthday_countdown'), desc: t('label.birthday_countdown_desc') },
             { icon: Star, title: t('label.life_milestones'), desc: t('label.life_milestones_desc') },
           ].map((feature, i) => (
-            <div key={i} className="bg-surface-container-lowest border border-outline-variant/30 p-8 rounded-3xl group shadow-sm hover:shadow-md transition-all">
-              <div className="size-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 border border-primary/20 group-hover:scale-110 transition-transform">
-                <feature.icon className="text-primary size-7" />
+            <div key={i} className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-800 border-b-4 p-6 sm:p-8 rounded-2xl sm:rounded-3xl group shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+              <div className="size-12 sm:size-14 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-500/20 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all text-orange-500">
+                <feature.icon className="size-6 sm:size-7" />
               </div>
-              <h3 className="font-black text-on-surface uppercase tracking-widest text-xs mb-3">{feature.title}</h3>
-              <p className="text-on-surface-variant text-sm font-medium leading-relaxed opacity-80">{feature.desc}</p>
+              <h3 className="font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest text-[10px] sm:text-xs mb-3 truncate">{feature.title}</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium leading-relaxed opacity-80">{feature.desc}</p>
             </div>
           ))}
         </div>
 
         <div className="flex justify-center pt-8">
-            <Link to="/tools" className="group flex items-center gap-3 bg-surface-container-high/40 hover:bg-surface-container-high px-10 py-5 rounded-[2rem] border border-outline-variant/10 transition-all">
-                <LayoutDashboard className="size-5 text-primary group-hover:rotate-12 transition-transform" />
-                <span className="text-sm font-black uppercase tracking-widest text-on-surface">{t('label.view_all_tools')}</span>
+            <Link to="/tools" className="group flex items-center gap-3 bg-white dark:bg-slate-900 px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] border-2 border-slate-200 dark:border-slate-800 border-b-4 active:border-b-0 active:translate-y-1 transition-all shadow-md">
+                <LayoutDashboard className="size-5 text-orange-500 group-hover:rotate-12 transition-transform" />
+                <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-slate-700 dark:text-slate-200">{t('label.view_all_tools')}</span>
             </Link>
         </div>
       </div>

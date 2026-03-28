@@ -63,24 +63,24 @@ export const ComparisonSlider = ({ originalSrc, compressedSrc }: ComparisonSlide
 
       {/* Divider line */}
       <div
-        className="absolute top-0 bottom-0 z-10"
+        className="absolute top-0 bottom-0 z-10 pointer-events-none"
         style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
       >
-        <div className={`w-[2px] h-full bg-primary transition-all ${isDragging ? 'opacity-100' : 'opacity-70'}`} />
-        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-card shadow-medium flex items-center justify-center border border-border">
-          <svg width="12" height="12" viewBox="0 0 12 12" className="text-foreground">
-            <path d="M3 6L0 3V9L3 6Z" fill="currentColor" />
-            <path d="M9 6L12 3V9L9 6Z" fill="currentColor" />
-          </svg>
+        <div className={`w-[2px] h-full bg-orange-500/80 backdrop-blur-sm transition-all shadow-[0_0_15px_rgba(249,115,22,0.4)] ${isDragging ? 'opacity-100 scale-x-150' : 'opacity-50'}`} />
+        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-slate-900 border-2 border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.5)] flex items-center justify-center cursor-col-resize active:scale-90 transition-transform pointer-events-auto">
+          <div className="flex gap-1">
+             <div className="w-1 h-3 bg-white/40 rounded-full" />
+             <div className="w-1 h-3 bg-white/40 rounded-full" />
+          </div>
         </div>
       </div>
 
       {/* Labels */}
-      <div className="absolute top-3 left-3 z-20 px-2 py-1 rounded-md bg-foreground/80 text-card text-[10px] font-semibold uppercase tracking-wider">
+      <div className="absolute top-4 left-4 z-20 px-3 py-1.5 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl">
         Original
       </div>
-      <div className="absolute top-3 right-3 z-20 px-2 py-1 rounded-md bg-primary/90 text-primary-foreground text-[10px] font-semibold uppercase tracking-wider">
-        Compressed
+      <div className="absolute top-4 right-4 z-20 px-3 py-1.5 rounded-xl bg-orange-500/20 backdrop-blur-md border border-orange-500/30 text-white text-[9px] font-black uppercase tracking-[0.2em] shadow-2xl">
+        Optimized
       </div>
     </div>
   );

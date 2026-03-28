@@ -4,6 +4,7 @@ import {
   Trash2,
   Upload,
   Download,
+  ArrowRightLeft,
 } from "lucide-react";
 
 import { SEO } from "@/src/components/SEO";
@@ -178,11 +179,25 @@ export const TextBase64Tool = () => {
 
         {/* Workspace */}
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 relative items-center">
+
+          {/* Swap Button */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center hidden sm:flex">
+            <button
+               onClick={() => {
+                 setMode(mode === "encode" ? "decode" : "encode");
+                 setInput(output);
+               }}
+               className="w-12 h-12 bg-primary text-white rounded-full shadow-xl flex items-center justify-center border-[4px] border-slate-50 dark:border-slate-950 hover:scale-110 active:scale-95 transition-all text-on-primary lg:rotate-0 rotate-90 cursor-pointer"
+               title="Swap Encode/Decode"
+            >
+               <ArrowRightLeft size={20} />
+            </button>
+          </div>
 
           {/* INPUT */}
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group h-full">
 
             <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
               <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
@@ -204,7 +219,7 @@ export const TextBase64Tool = () => {
 
           {/* OUTPUT */}
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group h-full">
 
             <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
 

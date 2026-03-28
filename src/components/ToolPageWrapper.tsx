@@ -3,8 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home as HomeIcon } from 'lucide-react';
 import { cn } from '@/src/lib/utils';
 import { useI18n } from '@/src/i18n/I18nContext';
-import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
+import { Helmet } from 'react-helmet-async';
+import { SUPPORTED_LOCALES } from '@/src/i18n/locales';
 import { buildToolSeoPage } from '@/src/seo/generateToolSeo';
+import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
 
 interface Breadcrumb {
   label: string;
@@ -67,8 +69,29 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
       ? localizedSeo.metaDescription
       : description;
 
+  const seoTitle = localizedSeo?.seoTitle || `${title} | ToolNest`;
+  const seoDesc = localizedSeo?.metaDescription || description;
+  const canonicalUrl = `https://toolnest.com${location.pathname}${locale && locale !== 'en' ? `?lang=${locale}` : ''}`;
+
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDesc} />
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Hreflang for international SEO - country wise promotion */}
+        {SUPPORTED_LOCALES.map(loc => (
+          <link 
+            key={loc.code}
+            rel="alternate" 
+            hrefLang={loc.code} 
+            href={`https://toolnest.com${location.pathname}?lang=${loc.code}`} 
+          />
+        ))}
+        <link rel="alternate" hrefLang="x-default" href={`https://toolnest.com${location.pathname}`} />
+      </Helmet>
+
       {/* Page hero header */}
       <div className="relative overflow-hidden">
         {/* Background gradient glow */}
