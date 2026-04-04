@@ -234,11 +234,6 @@ export const WordCounter: React.FC = () => {
           </Link>
         </div>
       </div>
-      <div className="mt-12 text-center">
-          <Link to="/tools" className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:translate-x-1 transition-transform">
-            {t('label.view_all_tools')} <LayoutDashboard className="size-4" />
-          </Link>
-      </div>
     </ToolPageWrapper>
   );
 };

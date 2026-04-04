@@ -255,12 +255,6 @@ export const Base64EncodeTool = () => {
         </div>
 
       </div>
-      <div className="mt-8 flex justify-center">
-          <Link to="/tools" className="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
-                {t('label.view_all_tools')}
-                <LayoutDashboard className="size-4" />
-          </Link>
-      </div>
     </ToolPageWrapper>
   );
 };

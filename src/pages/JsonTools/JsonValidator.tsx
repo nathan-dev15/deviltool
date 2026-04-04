@@ -314,10 +314,6 @@ export const JsonValidator: React.FC = () => {
                 </Link>
               ))}
             </div>
-            <Link to="/tools" className="mt-8 text-primary text-sm font-bold flex items-center justify-center gap-1 hover:underline">
-                {t('label.view_all_tools')}
-                <LayoutDashboard className="size-4" />
-            </Link>
           </div>
         </aside>
       </div>

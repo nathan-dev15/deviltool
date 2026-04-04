@@ -199,13 +199,6 @@ export const SessionVault: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex justify-center pt-8">
-            <Link to="/tools" className="group flex items-center gap-3 bg-surface-container-high/40 hover:bg-surface-container-high px-10 py-5 rounded-[2rem] border border-outline-variant/10 transition-all">
-                <LayoutDashboard className="size-5 text-primary group-hover:rotate-12 transition-transform" />
-                <span className="text-sm font-black uppercase tracking-widest text-on-surface">{t('label.view_all_tools')}</span>
-            </Link>
-        </div>
-
       </div>
     </ToolPageWrapper>
   );

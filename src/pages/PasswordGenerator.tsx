@@ -284,12 +284,6 @@ export const PasswordGenerator: React.FC = () => {
               ))}
             </div>
             
-            <div className="mt-12 pt-8 border-t border-outline-variant/10 text-center">
-                <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:translate-x-1 transition-transform">
-                    {t('label.view_all_tools')}
-                    <LayoutDashboard className="size-4" />
-                </Link>
-            </div>
           </div>
 
           <div className="bg-primary p-8 rounded-[2.5rem] shadow-2xl shadow-primary/20 relative overflow-hidden group">

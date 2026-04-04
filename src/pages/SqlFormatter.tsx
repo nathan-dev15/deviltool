@@ -189,10 +189,6 @@ export const SqlFormatter: React.FC = () => {
               {t('label.sql_did_you_know_desc')}
             </p>
           </div>
-
-          <Link to="/tools" className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:translate-x-1 transition-transform pl-4">
-            {t('label.view_all_tools')} <LayoutDashboard className="size-4" />
-          </Link>
         </aside>
       </div>
     </ToolPageWrapper>

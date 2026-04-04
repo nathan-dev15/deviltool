@@ -141,12 +141,6 @@ export const Security: React.FC = () => {
                 </motion.div>
             </div>
             
-            <div className="mt-16 justify-center flex">
-                 <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:translate-x-1 transition-transform">
-                     {t('label.view_all_tools')}
-                     <LayoutDashboard className="size-4" />
-                 </Link>
-            </div>
         </div>
 
       </div>

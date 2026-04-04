@@ -115,12 +115,6 @@ export const AgeCalculator: React.FC = () => {
           ))}
         </div>
 
-        <div className="flex justify-center pt-8">
-            <Link to="/tools" className="group flex items-center gap-3 bg-white dark:bg-slate-900 px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] border-2 border-slate-200 dark:border-slate-800 border-b-4 active:border-b-0 active:translate-y-1 transition-all shadow-md">
-                <LayoutDashboard className="size-5 text-orange-500 group-hover:rotate-12 transition-transform" />
-                <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-slate-700 dark:text-slate-200">{t('label.view_all_tools')}</span>
-            </Link>
-        </div>
       </div>
     </ToolPageWrapper>
   );

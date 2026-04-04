@@ -341,12 +341,6 @@ export const JsonFormatter: React.FC = () => {
                </div>
             </div>
             
-            <div className="mt-8 pt-4 text-center">
-                <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:translate-x-1 transition-transform">
-                    {t('label.view_all_tools')}
-                    <LayoutDashboard className="size-4" />
-                </Link>
-            </div>
           </div>
         </aside>
       </div>

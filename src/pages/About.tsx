@@ -81,12 +81,6 @@ export const About: React.FC = () => {
             </div>
           </div>
           
-          <div className="p-8 text-center pt-16">
-            <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:translate-x-1 transition-transform">
-                {t('label.view_all_tools')}
-                <LayoutDashboard className="size-4" />
-            </Link>
-          </div>
         </aside>
       </div>
     </ToolPageWrapper>
