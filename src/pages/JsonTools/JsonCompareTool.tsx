@@ -127,13 +127,13 @@ export const JsonCompareTool = () => {
 
   const loadSample = () => {
     setLeftText(`{
-  "name": "ToolNest",
+  "name": "Koobrain",
   "version": "1.0",
   "status": "beta",
   "features": ["json", "encoding"]
 }`);
     setRightText(`{
-  "name": "ToolNest Premium",
+  "name": "Koobrain Premium",
   "version": "1.1.0",
   "status": "live",
   "features": ["json", "encoding", "compare"]

@@ -16,9 +16,9 @@ export const About: React.FC = () => {
       accentColor="primary"
     >
       <SEO
-        title="About ToolNest | Free Online Tools"
-        description="Learn about ToolNest: our mission, how we handle privacy, and how we keep tools free for everyone."
-        keywords="about toolnest, online tools, developer tools, privacy friendly tools"
+        title="About Koobrain | Free Online Tools"
+        description="Learn about Koobrain: our mission, how we handle privacy, and how we keep tools free for everyone."
+        keywords="about koobrain, online tools, developer tools, privacy friendly tools"
       />
 
       <div className="mt-12 grid lg:grid-cols-12 gap-12 animate-fade-in">

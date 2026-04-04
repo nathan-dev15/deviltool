@@ -85,7 +85,7 @@ export const Base64ToImage: React.FC = () => {
         keywords="base64 to image, decode base64, base64 decoder, image tools"
       />
 
-      <div className="grid lg:grid-cols-12 gap-8 animate-fade-in">
+      <div className="grid lg:grid-cols-12 gap-6 animate-fade-in">
         {/* Input Area */}
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col group transition-all hover:border-primary/20 hover:shadow-lg">
@@ -189,7 +189,7 @@ export const Base64ToImage: React.FC = () => {
         </div>
 
         <div className="lg:col-span-12">
-            <AdSense slot="1234567890" />
+            <AdSense slot="1234567890" className="!mt-4 !mb-0" />
         </div>
       </div>
     </ToolPageWrapper>

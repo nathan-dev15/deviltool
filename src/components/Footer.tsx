@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
                 <Zap className="size-full text-white fill-white/20" />
              </div>
              <span className="text-2xl font-black tracking-tighter text-on-surface">
-                ToolNest
+                Koobrain
              </span>
           </div>
           <p className="text-on-surface-variant font-medium text-sm leading-relaxed italic pr-4 opacity-60">
@@ -111,7 +111,7 @@ export const Footer: React.FC = () => {
 
       {/* COPYRIGHT */}
       <div className="max-w-7xl mx-auto mt-24 pt-12 border-t border-outline-variant/10 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10 font-bold text-xs uppercase tracking-widest text-on-surface-variant/40">
-        <p>© 2026 ToolNest Kinetic Lab. All rights reserved.</p>
+        <p>© 2026 Koobrain Kinetic Lab. All rights reserved.</p>
         <div className="flex items-center gap-6">
             <span className="flex items-center gap-2 group cursor-help"><div className="size-2 rounded-full bg-success shadow-[0_0_10px_rgba(34,197,94,0.5)] group-hover:scale-150 transition-transform" /> All Systems Online</span>
             <span className="opacity-50">Local Time: {new Date().toLocaleTimeString()}</span>

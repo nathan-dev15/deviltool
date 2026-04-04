@@ -17,7 +17,7 @@ export const Terms: React.FC = () => {
       <SEO
         title={t("legal.terms.seo_title")}
         description={t("legal.terms.seo_desc")}
-        keywords="terms and conditions, toolnest terms, acceptable use, limitations"
+        keywords="terms and conditions, koobrain terms, acceptable use, limitations"
       />
 
       <div className="mt-8 grid lg:grid-cols-12 gap-8 animate-fade-in">

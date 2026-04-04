@@ -50,7 +50,7 @@ const initialState: ImageState = {
   watermark: "",
   sharpen: false,
   saturation: 1,
-  nameTemplate: "toolnest-[name]",
+  nameTemplate: "koobrain-[name]",
   backgroundColor: "transparent",
   overlayText: "",
   overlayColor: "#ffffff",
@@ -100,7 +100,7 @@ export function useImageProcessor() {
         format: ["image/jpeg", "image/png", "image/webp"].includes(file.type) ? file.type : "image/webp",
         quality: 0.92,
         // Reset name template to original file name part
-        nameTemplate: `toolnest-${file.name.split('.')[0]}`
+        nameTemplate: `koobrain-${file.name.split('.')[0]}`
       }));
     };
     img.src = url;

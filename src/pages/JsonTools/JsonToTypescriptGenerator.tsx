@@ -140,7 +140,7 @@ export const JsonToTypescriptGenerator: React.FC = () => {
     setJsonInput(`{
   "id": 1,
   "name": "Kinetic User",
-  "email": "kinetic@toolnest.dev",
+  "email": "kinetic@koobrain.dev",
   "isActive": true,
   "roles": ["admin", "creator"],
   "stats": {

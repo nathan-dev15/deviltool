@@ -125,7 +125,7 @@ export const JsonToXmlTool = () => {
   const loadSample = () => {
     setJsonInput(`{
   "project": {
-    "name": "ToolNest",
+    "name": "Koobrain",
     "version": "1.0.0",
     "stats": {
       "tools": 50,

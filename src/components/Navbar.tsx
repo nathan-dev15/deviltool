@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
             <Zap className="size-full text-white fill-white/20" />
           </div>
           <span className="text-2xl font-black tracking-tighter kinetic-gradient pb-0.5">
-            ToolNest
+            Koobrain
           </span>
         </Link>
 
@@ -218,7 +218,7 @@ export const Navbar: React.FC = () => {
                  <div className="bg-gradient-to-br from-tertiary to-tertiary-container rounded-3xl p-6 text-on-tertiary shadow-xl">
                     <div className="flex items-center gap-3 mb-2">
                        <Sparkles size={20} />
-                       <span className="font-extrabold text-lg">ToolNest Premium</span>
+                       <span className="font-extrabold text-lg">Koobrain Premium</span>
                     </div>
                     <p className="text-xs opacity-80 font-medium mb-4 italic">Experience the ultimate toolkit with no limits.</p>
                     <button className="w-full bg-white text-tertiary py-3 rounded-2xl font-black uppercase tracking-widest text-[10px]">

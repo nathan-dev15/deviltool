@@ -120,7 +120,7 @@ export const JsonToYamlTool = () => {
 
   const loadSample = () => {
     setJsonInput(`{
-  "project": "ToolNest",
+  "project": "Koobrain",
   "version": "1.0.0",
   "features": [
     "Premium Design",

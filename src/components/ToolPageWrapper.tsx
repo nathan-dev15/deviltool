@@ -69,9 +69,9 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
       ? localizedSeo.metaDescription
       : description;
 
-  const seoTitle = localizedSeo?.seoTitle || `${title} | ToolNest`;
+  const seoTitle = localizedSeo?.seoTitle || `${title} | Koobrain`;
   const seoDesc = localizedSeo?.metaDescription || description;
-  const canonicalUrl = `https://toolnest.com${location.pathname}${locale && locale !== 'en' ? `?lang=${locale}` : ''}`;
+  const canonicalUrl = `https://koobrain.com${location.pathname}${locale && locale !== 'en' ? `?lang=${locale}` : ''}`;
 
   return (
     <div className="min-h-screen">
@@ -86,10 +86,10 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
             key={loc.code}
             rel="alternate" 
             hrefLang={loc.code} 
-            href={`https://toolnest.com${location.pathname}?lang=${loc.code}`} 
+            href={`https://koobrain.com${location.pathname}?lang=${loc.code}`} 
           />
         ))}
-        <link rel="alternate" hrefLang="x-default" href={`https://toolnest.com${location.pathname}`} />
+        <link rel="alternate" hrefLang="x-default" href={`https://koobrain.com${location.pathname}`} />
       </Helmet>
 
       {/* Page hero header */}

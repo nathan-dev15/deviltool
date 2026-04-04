@@ -5,26 +5,10 @@ import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
 import { Link } from "react-router-dom";
 
-const SUPPORT_EMAIL = "support@toolnest.dev";
+const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
 
 export const Contact: React.FC = () => {
   const { t } = useI18n();
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [subject, setSubject] = React.useState("ToolNest Support");
-  const [message, setMessage] = React.useState("");
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const body = [
-      `${t('label.name')}: ${name || "-"}`,
-      `${t('label.email')}: ${email || "-"}`,
-      "",
-      message || "",
-    ].join("\n");
-    const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-  };
 
   return (
     <ToolPageWrapper
@@ -34,9 +18,9 @@ export const Contact: React.FC = () => {
       accentColor="secondary"
     >
       <SEO
-        title="Contact ToolNest | Support & Feedback"
-        description="Contact ToolNest support for help, bug reports, and feedback. We typically reply within 1-2 business days."
-        keywords="contact toolnest, toolnest support, report bug, feedback"
+        title="Contact Koobrain | Support & Feedback"
+        description="Contact Koobrain support for help, bug reports, and feedback. We typically reply within 1-2 business days."
+        keywords="contact koobrain, koobrain support, report bug, feedback"
       />
 
       <div className="mt-12 grid lg:grid-cols-12 gap-12 animate-fade-in">
@@ -44,69 +28,37 @@ export const Contact: React.FC = () => {
           <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm group">
             <h2 className="text-3xl font-black tracking-tight text-on-surface flex items-center gap-4 mb-8">
               <MessageSquare className="size-8 text-secondary group-hover:scale-110 transition-transform" />
-              {t('label.send_a_message')}
+              {t('label.contact_title')}
             </h2>
             <p className="text-on-surface-variant font-medium leading-relaxed italic opacity-85 text-lg mb-10 border-l-4 border-secondary/20 pl-8">
-              {t('label.contact_p1')}
-              {" "}
-              {t('label.contact_p2')}
-              <a className="text-primary font-bold hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>
-                {SUPPORT_EMAIL}
-              </a>
-              .
+              {t('label.contact_p1')} {t('label.contact_p2')}
             </p>
 
-            <form onSubmit={onSubmit} className="grid gap-8">
-              <div className="grid sm:grid-cols-2 gap-8">
-                <label className="grid gap-3">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/50 ml-1">{t('label.name')}</span>
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    className="rounded-2xl border border-outline-variant/20 bg-surface-container-high/40 px-6 py-4 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-secondary/50 font-bold"
-                  />
-                </label>
-                <label className="grid gap-3">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/50 ml-1">{t('label.email')}</span>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    type="email"
-                    className="rounded-2xl border border-outline-variant/20 bg-surface-container-high/40 px-6 py-4 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-secondary/50 font-bold"
-                  />
-                </label>
+            <div className="grid gap-6">
+              <div className="rounded-2xl border border-outline-variant/30 bg-surface-container-high/40 px-6 py-5 flex items-center justify-between">
+                <div className="space-y-1">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant/60">{t('label.email_support')}</p>
+                  <a className="text-on-surface text-lg font-black hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>
+                    {SUPPORT_EMAIL}
+                  </a>
+                  <p className="text-on-surface-variant text-sm opacity-80">{t('label.support_notes_p3')}</p>
+                </div>
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}`}
+                  className="inline-flex items-center gap-2 rounded-xl bg-secondary text-on-secondary px-5 py-3 font-black uppercase tracking-widest text-[11px] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-secondary/20"
+                >
+                  <Mail className="size-4" />
+                  {t('label.email_support')}
+                </a>
               </div>
 
-              <label className="grid gap-3">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/50 ml-1">{t('label.subject')}</span>
-                <input
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  className="rounded-2xl border border-outline-variant/20 bg-surface-container-high/40 px-6 py-4 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-secondary/50 font-bold"
-                />
-              </label>
-
-              <label className="grid gap-3">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/50 ml-1">{t('label.message')}</span>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder={t('label.message_placeholder')}
-                  rows={7}
-                  className="rounded-[2rem] border border-outline-variant/20 bg-surface-container-high/40 px-8 py-6 text-on-surface placeholder:text-on-surface-variant/30 focus:outline-none focus:border-secondary/50 resize-y font-medium leading-relaxed shadow-inner"
-                />
-              </label>
-
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-secondary text-on-secondary py-5 px-10 font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-secondary/20"
-              >
-                <Mail className="size-5" />
-                {t('label.email_support')}
-              </button>
-            </form>
+              <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-high/30 p-6">
+                <p className="flex items-start gap-3 text-sm text-on-surface-variant leading-relaxed font-medium">
+                  <ShieldAlert className="size-4 text-secondary mt-0.5" />
+                  {t('label.support_notes_p2')}
+                </p>
+              </div>
+            </div>
           </section>
         </div>
 

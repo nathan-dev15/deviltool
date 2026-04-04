@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { ScrollToTop } from './ScrollToTop';
 import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
@@ -18,6 +19,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-on-background transition-colors duration-300 relative z-0">
+      <Helmet>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-ID"
+          crossOrigin="anonymous"
+        />
+      </Helmet>
       
       {/* ── Background Decoration (Light mode only) ────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[-1] hidden dark:hidden md:block">

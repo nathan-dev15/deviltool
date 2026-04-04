@@ -22,7 +22,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
     // Keep a copy of the component stack for debugging.
     this.setState({ componentStack: info.componentStack });
     // eslint-disable-next-line no-console
-    console.error("[ToolNest ErrorBoundary]", this.props.label ?? "app", error, info);
+    console.error("[Koobrain ErrorBoundary]", this.props.label ?? "app", error, info);
   }
 
   render() {

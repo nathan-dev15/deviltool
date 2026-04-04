@@ -4,8 +4,8 @@ import { Shield, Cookie, Globe, Mail } from "lucide-react";
 import { SEO } from "@/src/components/SEO";
 import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
-
-const SUPPORT_EMAIL = "support@toolnest.dev";
+import { AdSense } from "@/src/components/AdSense";
+const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
 
 export const Privacy: React.FC = () => {
   const { t } = useI18n();
@@ -19,7 +19,7 @@ export const Privacy: React.FC = () => {
       <SEO
         title={t("legal.privacy.seo_title")}
         description={t("legal.privacy.seo_desc")}
-        keywords="privacy policy, toolnest privacy, adsense privacy, cookies policy"
+        keywords="privacy policy, koobrain privacy, adsense privacy, cookies policy"
       />
 
       <div className="mt-8 grid lg:grid-cols-12 gap-8 animate-fade-in">
@@ -94,7 +94,9 @@ export const Privacy: React.FC = () => {
             </p>
           </section>
         </div>
-
+   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
+             <AdSense slot="1234567890"/>
+          </div>
         <aside className="lg:col-span-4 space-y-8">
           <div className="tool-card p-6 sticky top-24">
             <h3 className="text-xl font-black text-on-surface">{t("legal.privacy.quick_h")}</h3>

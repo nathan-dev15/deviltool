@@ -17,7 +17,7 @@ export const Disclaimer: React.FC = () => {
       <SEO
         title={t("legal.disclaimer.seo_title")}
         description={t("legal.disclaimer.seo_desc")}
-        keywords="disclaimer, toolnest disclaimer, no warranty, limitation of liability"
+        keywords="disclaimer, koobrain disclaimer, no warranty, limitation of liability"
       />
 
       <div className="mt-8 grid lg:grid-cols-12 gap-8 animate-fade-in">

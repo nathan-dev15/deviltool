@@ -48,8 +48,8 @@ export const Security: React.FC = () => {
       accentColor="primary"
     >
       <SEO 
-        title="Security Center - ToolNest Privacy & Security"
-        description="Learn how ToolNest ensures high security and privacy for all users. Client-side processing, secure randomness, and transparent code."
+        title="Security Center - Koobrain Privacy & Security"
+        description="Learn how Koobrain ensures high security and privacy for all users. Client-side processing, secure randomness, and transparent code."
         keywords="security, privacy, data protection, client-side processing, secure tools"
       />
 
@@ -70,7 +70,9 @@ export const Security: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-10 rounded-[2.5rem] border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all group relative overflow-hidden`}
+              style={{ perspective: 900 }}
+              whileHover={{ rotateX: -4, rotateY: 4, translateZ: 10, scale: 1.01 }}
+              className={`p-10 rounded-[2.5rem] border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all group relative overflow-hidden will-change-transform`}
             >
               <div className="absolute -inset-12 bg-primary/2 blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity" />
               
@@ -91,7 +93,12 @@ export const Security: React.FC = () => {
         </div>
 
         {/* COMMITMENT CARD */}
-        <div className="bg-surface-container-lowest-dark dark:bg-slate-950 text-white rounded-[3rem] p-8 md:p-16 overflow-hidden relative shadow-2xl group border border-outline-variant/10">
+        <motion.div
+          style={{ perspective: 1200 }}
+          whileHover={{ rotateX: -3, rotateY: 5, translateZ: 12, scale: 1.01 }}
+          transition={{ type: "spring", stiffness: 120, damping: 14 }}
+          className="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-black text-white rounded-[3rem] p-8 md:p-16 overflow-hidden relative shadow-2xl shadow-slate-900/40 group border border-slate-800/60 will-change-transform"
+        >
           <div className="absolute top-0 right-0 p-16 opacity-10 pointer-events-none group-hover:scale-110 transition-transform duration-1000">
             <ShieldAlert size={300} />
           </div>
@@ -101,33 +108,37 @@ export const Security: React.FC = () => {
               <AlertTriangle className="text-warning size-10" />
               {t('label.security_commitment_title')}
             </h2>
-            <p className="text-slate-300 text-xl mb-12 leading-relaxed font-medium italic opacity-90 border-l-4 border-primary/30 pl-8">
+            <p className="text-slate-200 text-xl mb-12 leading-relaxed font-medium italic opacity-95 border-l-4 border-primary/50 pl-8">
               {t('label.security_commitment_p1')}
             </p>
             <div className="grid sm:grid-cols-2 gap-10">
               <div className="space-y-4">
                 <h4 className="font-black text-primary uppercase tracking-widest text-sm">Zero Storage</h4>
-                <p className="text-sm text-slate-400 font-medium opacity-80 leading-relaxed italic">We don't store your input data, passwords, or files. Everything is transient.</p>
+                <p className="text-sm text-slate-200 font-medium opacity-85 leading-relaxed italic">We don't store your input data, passwords, or files. Everything is transient.</p>
               </div>
               <div className="space-y-4">
                 <h4 className="font-black text-primary uppercase tracking-widest text-sm">Zero Tracking</h4>
-                <p className="text-sm text-slate-400 font-medium opacity-80 leading-relaxed italic">No cookies are used to track your personal behavior. We prioritize anonymity.</p>
+                <p className="text-sm text-slate-200 font-medium opacity-85 leading-relaxed italic">No cookies are used to track your personal behavior. We prioritize anonymity.</p>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* CTAS */}
         <div className="text-center pt-8">
             <h3 className="text-xl font-black uppercase tracking-widest mb-10 text-on-surface">{t('label.want_more_security')}</h3>
             <div className="flex flex-wrap justify-center gap-6">
-                <Link to="/password-generator" className="group flex items-center gap-3 bg-primary text-on-primary px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/20">
-                    <Lock className="size-4" />
-                    {t('label.generate_secure_password')}
-                </Link>
-                <Link to="/about" className="group flex items-center gap-3 bg-surface-container-high border border-outline-variant/10 text-on-surface px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all">
-                    {t('label.learn_more_about_us')}
-                </Link>
+                <motion.div whileHover={{ rotateX: -2, rotateY: 4, scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ perspective: 800 }}>
+                  <Link to="/password-generator" className="group flex items-center gap-3 bg-primary text-on-primary px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:shadow-2xl hover:shadow-primary/25 transition-all">
+                      <Lock className="size-4" />
+                      {t('label.generate_secure_password')}
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ rotateX: -2, rotateY: -4, scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ perspective: 800 }}>
+                  <Link to="/about" className="group flex items-center gap-3 bg-surface-container-high border border-outline-variant/10 text-on-surface px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:shadow-xl transition-all">
+                      {t('label.learn_more_about_us')}
+                  </Link>
+                </motion.div>
             </div>
             
             <div className="mt-16 justify-center flex">
