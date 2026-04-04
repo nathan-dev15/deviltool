@@ -278,7 +278,7 @@ export const JsonValidator: React.FC = () => {
           </section>
 
           <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
-             <AdSense slot="1234567890"/>
+             <AdSense slot="8156203131"/>
           </div>
 
         </div>

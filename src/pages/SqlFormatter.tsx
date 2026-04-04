@@ -7,7 +7,7 @@ import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
 import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
 import { useI18n } from '@/src/i18n/I18nContext';
-
+import { AdSense } from "@/src/components/AdSense";
 type Dialect = 'sql' | 'mysql' | 'postgresql' | 'sqlite' | 'mariadb' | 'tsql';
 
 export const SqlFormatter: React.FC = () => {
@@ -167,7 +167,9 @@ export const SqlFormatter: React.FC = () => {
             </div>
           </div>
         </div>
-
+   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
+             <AdSense slot="8156203131"/>
+          </div>
         <aside className="lg:col-span-4 space-y-6">
           <div className="bg-surface-container-low/30 p-8 rounded-3xl border border-outline-variant/20 shadow-sm transition-all hover:shadow-md">
             <h3 className="font-black uppercase tracking-widest text-xs mb-6 flex items-center gap-3 text-on-surface">
@@ -189,6 +191,10 @@ export const SqlFormatter: React.FC = () => {
               {t('label.sql_did_you_know_desc')}
             </p>
           </div>
+
+          <Link to="/tools" className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:translate-x-1 transition-transform pl-4">
+            {t('label.view_all_tools')} <LayoutDashboard className="size-4" />
+          </Link>
         </aside>
       </div>
     </ToolPageWrapper>

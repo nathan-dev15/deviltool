@@ -189,7 +189,7 @@ export const Base64ToImage: React.FC = () => {
         </div>
 
         <div className="lg:col-span-12">
-            <AdSense slot="1234567890" className="!mt-4 !mb-0" />
+            <AdSense slot="8156203131" className="!mt-4 !mb-0" />
         </div>
       </div>
     </ToolPageWrapper>

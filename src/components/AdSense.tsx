@@ -20,7 +20,7 @@ export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-XXXXXXXX" // Centralized ID
+        data-ad-client="ca-pub-8601698568618117" // Centralized ID
         data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"

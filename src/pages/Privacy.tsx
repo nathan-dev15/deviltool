@@ -95,7 +95,7 @@ export const Privacy: React.FC = () => {
           </section>
         </div>
    <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
-             <AdSense slot="1234567890"/>
+             <AdSense slot="8156203131"/>
           </div>
         <aside className="lg:col-span-4 space-y-8">
           <div className="tool-card p-6 sticky top-24">

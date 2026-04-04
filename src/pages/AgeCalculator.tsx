@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { SEO } from '@/src/components/SEO';
 import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
 import { useI18n } from '@/src/i18n/I18nContext';
-
+import { AdSense } from "@/src/components/AdSense";
 export const AgeCalculator: React.FC = () => {
   const { t } = useI18n();
   const [birthDate, setBirthDate] = React.useState('');
@@ -66,7 +66,9 @@ export const AgeCalculator: React.FC = () => {
                  />
               </div>
             </div>
-
+   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
+             <AdSense slot="8156203131"/>
+          </div>
             <button 
               onClick={calculateAge}
               className="w-full bg-orange-400 hover:bg-orange-500 text-white py-4 sm:py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] sm:text-xs transition-all shadow-[0_8px_0_0_#ea580c] hover:shadow-[0_6px_0_0_#ea580c] hover:translate-y-[2px] active:shadow-none active:translate-y-[8px] flex items-center justify-center gap-3 group/btn border-2 border-orange-300 ring-2 ring-orange-600/20"
@@ -115,6 +117,12 @@ export const AgeCalculator: React.FC = () => {
           ))}
         </div>
 
+        <div className="flex justify-center pt-8">
+            <Link to="/tools" className="group flex items-center gap-3 bg-white dark:bg-slate-900 px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] border-2 border-slate-200 dark:border-slate-800 border-b-4 active:border-b-0 active:translate-y-1 transition-all shadow-md">
+                <LayoutDashboard className="size-5 text-orange-500 group-hover:rotate-12 transition-transform" />
+                <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-slate-700 dark:text-slate-200">{t('label.view_all_tools')}</span>
+            </Link>
+        </div>
       </div>
     </ToolPageWrapper>
   );

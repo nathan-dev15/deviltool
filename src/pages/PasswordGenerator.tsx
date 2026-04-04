@@ -21,7 +21,7 @@ import { cn } from '@/src/lib/utils';
 import { SEO } from '@/src/components/SEO';
 import { useI18n } from '@/src/i18n/I18nContext';
 import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
-
+import { AdSense } from "@/src/components/AdSense";
 export const PasswordGenerator: React.FC = () => {
   const { t } = useI18n();
   const [length, setLength] = React.useState(16);
@@ -252,7 +252,9 @@ export const PasswordGenerator: React.FC = () => {
             </div>
           </section>
         </div>
-
+   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
+             <AdSense slot="8156203131"/>
+          </div>
         {/* Sidebar */}
         <aside className="lg:col-span-4 space-y-8">
            <div className="bg-surface-container-low/30 rounded-[2.5rem] p-8 border border-outline-variant/20 shadow-sm sticky top-24">
@@ -284,6 +286,12 @@ export const PasswordGenerator: React.FC = () => {
               ))}
             </div>
             
+            <div className="mt-12 pt-8 border-t border-outline-variant/10 text-center">
+                <Link to="/tools" className="text-primary text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:translate-x-1 transition-transform">
+                    {t('label.view_all_tools')}
+                    <LayoutDashboard className="size-4" />
+                </Link>
+            </div>
           </div>
 
           <div className="bg-primary p-8 rounded-[2.5rem] shadow-2xl shadow-primary/20 relative overflow-hidden group">

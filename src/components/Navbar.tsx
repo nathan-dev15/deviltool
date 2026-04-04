@@ -215,6 +215,25 @@ export const Navbar: React.FC = () => {
                ))}
                
                <div className="mt-8 pt-8 border-t border-outline-variant/10 flex flex-col gap-6">
+                 {/* Mobile language picker */}
+                 <div className="bg-surface-container-high rounded-3xl p-5 border border-outline-variant/20">
+                   <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-3">
+                     <Globe className="size-4" />
+                     {t('header.lang')}
+                   </div>
+                   <select
+                     value={locale}
+                     onChange={(e) => setLocale(e.target.value)}
+                     className="w-full rounded-2xl border border-outline-variant/30 bg-surface-container-low px-4 py-3 text-sm font-bold text-on-surface focus:outline-none focus:border-primary/60"
+                   >
+                     {supportedLocales.map((loc) => (
+                       <option key={loc.code} value={loc.code}>
+                         {loc.label} ({loc.code})
+                       </option>
+                     ))}
+                   </select>
+                 </div>
+
                  <div className="bg-gradient-to-br from-tertiary to-tertiary-container rounded-3xl p-6 text-on-tertiary shadow-xl">
                     <div className="flex items-center gap-3 mb-2">
                        <Sparkles size={20} />

@@ -219,7 +219,7 @@ export const ImageCompressor: React.FC = () => {
           </AnimatePresence>
 
           <div className="mt-12 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800">
-             <AdSense slot="1234567890" />
+             <AdSense slot="8156203131" />
           </div>
         </div>
 

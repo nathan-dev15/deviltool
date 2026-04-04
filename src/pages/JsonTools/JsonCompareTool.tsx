@@ -268,7 +268,7 @@ export const JsonCompareTool = () => {
         )}
 
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-           <AdSense slot="1234567890" />
+           <AdSense slot="8156203131" />
         </div>
 
         {/* INFO */}

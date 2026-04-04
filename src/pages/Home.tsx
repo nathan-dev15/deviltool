@@ -11,7 +11,7 @@ import {
 import { TOOLS } from '../constants';
 import { cn } from '../lib/utils';
 import { useI18n } from '../i18n/I18nContext';
-
+import { AdSense } from "@/src/components/AdSense";
 const iconMap: Record<string, any> = {
   'code-xml':     CodeXml,
   'lock':         Lock,
@@ -331,7 +331,9 @@ export const Home: React.FC = () => {
                 </div>
               </div>
             </section>
-
+   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
+             <AdSense slot="8156203131"/>
+          </div>
             {/* All tools grid */}
             <section>
               <div className="flex items-center gap-4 mb-10">
