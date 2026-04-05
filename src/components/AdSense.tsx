@@ -16,7 +16,9 @@ export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
   }, []);
 
   return (
-    <div className={`text-center my-6 ${className}`}>
+    <div
+      className={`my-6 p-4 rounded-3xl border border-outline-variant/30 shadow-sm bg-surface-container-lowest ${className ?? ""}`}
+    >
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
