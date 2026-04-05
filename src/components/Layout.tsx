@@ -7,6 +7,7 @@ import { ToolSeoArticle } from '@/src/components/ToolSeoArticle';
 import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { AdConsentBanner } from './AdConsentBanner';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
@@ -20,13 +21,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   return (
     <div className="min-h-screen flex flex-col bg-background text-on-background transition-colors duration-300 relative z-0">
       <Helmet>
-        <meta name="google-adsense-account" content="ca-pub-8601698568618117"></meta>
-       <script
-        async
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117"
-        crossOrigin="anonymous"
-      />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117"
+          crossOrigin="anonymous"
+        />
       </Helmet>
       
       {/* ── Background Decoration (Light mode only) ────────────────────── */}
@@ -53,6 +52,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <Footer />
 
       <ScrollToTop />
+      <AdConsentBanner />
     </div>
   );
 };

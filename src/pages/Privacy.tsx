@@ -4,8 +4,8 @@ import { Shield, Cookie, Globe, Mail } from "lucide-react";
 import { SEO } from "@/src/components/SEO";
 import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
-import { AdSense } from "@/src/components/AdSense";
-const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
+
+const SUPPORT_EMAIL = "privacy@koobrain.com";
 
 export const Privacy: React.FC = () => {
   const { t } = useI18n();
@@ -94,9 +94,6 @@ export const Privacy: React.FC = () => {
             </p>
           </section>
         </div>
-   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
-             <AdSense slot="8156203131"/>
-          </div>
         <aside className="lg:col-span-4 space-y-8">
           <div className="tool-card p-6 sticky top-24">
             <h3 className="text-xl font-black text-on-surface">{t("legal.privacy.quick_h")}</h3>

@@ -182,7 +182,7 @@ export const ProImageTool = () => {
         keywords="image compressor, resize image online, convert image, optimize image tool"
       />
 
-      <AdSense slot="top-banner" />
+      <AdSense slot="8156203131" />
 
       <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-transparent bg-clip-text">
         🚀 Advanced Image Tool
@@ -293,7 +293,7 @@ export const ProImageTool = () => {
 
       <canvas ref={canvasRef} className="hidden"/>
 
-      <AdSense slot="middle-banner" />
+      <AdSense slot="8156203131" />
 
       {/* SEO CONTENT */}
 
@@ -317,7 +317,7 @@ export const ProImageTool = () => {
         </ul>
       </section>
 
-      <AdSense slot="bottom-banner" />
+      <AdSense slot="8156203131" />
 
     </div>
   );
