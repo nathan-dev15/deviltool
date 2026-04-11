@@ -34,7 +34,8 @@ const iconMap: { [key: string]: LucideIcon } = {
   "git-compare": GitCompare,
 };
 
-export const ToolCard: React.FC<ToolCardProps> = ({ tool, index = 0 }) => {
+export const ToolCard: React.FC<ToolCardProps> = (props: ToolCardProps) => {
+  const { tool, index = 0 } = props;
   const Icon = iconMap[tool.icon] ?? CodeXml;
 
   const getCategoryColor = (category: string) => {

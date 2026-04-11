@@ -8,7 +8,7 @@ describe('SEO Component', () => {
     const helmetContext = {};
     render(
       <HelmetProvider context={helmetContext}>
-        <SEO />
+        <SEO title="Test Title" description="Test Description" />
       </HelmetProvider>
     );
     
@@ -20,7 +20,7 @@ describe('SEO Component', () => {
   it('renders with custom title', async () => {
     render(
       <HelmetProvider>
-        <SEO title="Custom Title" />
+        <SEO title="Custom Title" description="Custom Description" />
       </HelmetProvider>
     );
     

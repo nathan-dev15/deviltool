@@ -1,12 +1,10 @@
-import React, { useRef } from "react";
-import { X, Plus, Image as ImageIcon } from "lucide-react";
-import { useI18n } from "../../i18n/I18nContext";
+import { X } from "lucide-react";
 
 export interface QueueItem {
   id: string;
   file: File;
-  name: string;
   thumbnail: string;
+  name: string;
 }
 
 interface BatchQueueProps {
@@ -17,51 +15,40 @@ interface BatchQueueProps {
   onAdd: () => void;
 }
 
-export const BatchQueue: React.FC<BatchQueueProps> = ({ items, activeId, onSelect, onRemove, onAdd }) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const { t } = useI18n();
+export const BatchQueue = ({ items, activeId, onSelect, onRemove, onAdd }: BatchQueueProps) => {
+  if (items.length === 0) return null;
 
   return (
-    <footer className="h-24 border-t-2 border-border bg-card/10 backdrop-blur-2xl flex-shrink-0 p-3 transition-all">
-      <div ref={scrollRef} className="flex items-center gap-4 h-full overflow-x-auto custom-scrollbar px-2">
-        {items.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => onSelect(item.id)}
-            className={`h-full aspect-square rounded-2xl relative overflow-hidden cursor-pointer flex-shrink-0 transition-all border-b-4 group shadow-xl ${
-              activeId === item.id
-                ? "border-orange-500 shadow-orange-500/20 translate-y-[-4px] scale-105"
-                : "border-slate-300 dark:border-slate-800 hover:border-orange-500/40 hover:translate-y-[-2px]"
-            }`}
-          >
-            <img
-              src={item.thumbnail}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              alt={item.name}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-40" />
-            
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onRemove(item.id);
-              }}
-              className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-black/40 backdrop-blur-md text-white/80 hover:bg-error hover:text-white transition-all flex items-center justify-center border border-white/10 group-hover:scale-110 shadow-lg cursor-pointer"
-            >
-              <X size={10} />
-            </button>
-          </div>
-        ))}
-        <button
-          onClick={onAdd}
-          className="h-full aspect-square rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-800 hover:border-orange-500/50 transition-all flex flex-col items-center justify-center text-muted-foreground hover:text-orange-500 hover:bg-orange-500/5 cursor-pointer border-b-4 active:translate-y-1 active:border-b-0 group"
+    <footer className="h-20 border-t border-border bg-card/80 backdrop-blur-md px-4 flex items-center gap-3 overflow-x-auto">
+      {items.map((item) => (
+        <div
+          key={item.id}
+          className={`relative group shrink-0 w-14 h-14 rounded-lg overflow-hidden cursor-pointer transition-all shadow-low ${
+            activeId === item.id
+              ? "ring-2 ring-primary ring-offset-1 ring-offset-background"
+              : "opacity-60 hover:opacity-100"
+          }`}
+          onClick={() => onSelect(item.id)}
         >
-          <div className="w-8 h-8 rounded-full bg-secondary/50 flex items-center justify-center group-hover:scale-110 transition-transform">
-             <Plus size={18} />
-          </div>
-          <span className="text-[9px] mt-2 font-black uppercase tracking-widest">{t("pro_image.batch_add") || "Add"}</span>
-        </button>
-      </div>
+          <img
+            src={item.thumbnail}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
+          <button
+            onClick={(e) => { e.stopPropagation(); onRemove(item.id); }}
+            className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <X className="w-2.5 h-2.5" />
+          </button>
+        </div>
+      ))}
+      <button
+        onClick={onAdd}
+        className="shrink-0 w-14 h-14 rounded-lg border-2 border-dashed border-border flex items-center justify-center text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+      >
+        <span className="text-xl leading-none">+</span>
+      </button>
     </footer>
   );
 };

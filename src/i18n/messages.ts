@@ -393,7 +393,7 @@ export const en: Messages = {
   'label.perfect_quality': 'Perfect Quality',
   'label.ultra_private': 'Ultra Private',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': 'Free Online Tools',
   'home.hero_title_2': 'for Developers & Everyone',
   'home.hero_subtitle': 'The ultimate laboratory for rapid transformation, conversion, and optimization. Fast, secure, and purely client-side.',
@@ -924,7 +924,7 @@ export const id: Messages = {
   'label.perfect_quality': 'Kualitas Terbaik',
   'label.ultra_private': 'Sangat Privat',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': 'Alat Online Gratis',
   'home.hero_title_2': 'untuk Developer & Semua Orang',
   'home.hero_subtitle': 'Laboratorium untuk transformasi, konversi, dan optimasi cepat. Cepat, aman, dan sepenuhnya client-side.',
@@ -1144,7 +1144,7 @@ export const ptBR: Messages = {
   'label.perfect_quality': 'Qualidade perfeita',
   'label.ultra_private': 'Ultra privado',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': 'Ferramentas Online Gratis',
   'home.hero_title_2': 'para Desenvolvedores e Todos',
   'home.hero_subtitle': 'O laboratorio definitivo para transformacao, conversao e otimizacao rapida. Rapido, seguro e 100% no navegador.',
@@ -1364,7 +1364,7 @@ export const ja: Messages = {
   'label.perfect_quality': '最高品質',
   'label.ultra_private': '超プライベート',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': '無料オンラインツール',
   'home.hero_title_2': '開発者とすべての人へ',
   'home.hero_subtitle': '変換・最適化を素早く行うためのラボ。高速・安全・完全にブラウザ内で動作します。',
@@ -1584,7 +1584,7 @@ export const de: Messages = {
   'label.perfect_quality': 'Perfekte Qualitat',
   'label.ultra_private': 'Ultra privat',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': 'Kostenlose Online-Tools',
   'home.hero_title_2': 'fur Entwickler und alle',
   'home.hero_subtitle': 'Das Labor fur schnelle Transformation, Konvertierung und Optimierung. Schnell, sicher und komplett client-side.',
@@ -1804,7 +1804,7 @@ export const ru: Messages = {
   'label.perfect_quality': 'Идеальное качество',
   'label.ultra_private': 'Максимальная приватность',
 
-  'home.badge': 'v2.0 Kinetic Engine',
+  'home.badge': 'Koobrain Toolkit',
   'home.hero_title_1': 'Бесплатные онлайн-инструменты',
   'home.hero_title_2': 'для разработчиков и всех',
   'home.hero_subtitle': 'Лаборатория для быстрых преобразований, конвертации и оптимизации. Быстро, безопасно и полностью в браузере.',

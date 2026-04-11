@@ -1,5 +1,6 @@
 import React from 'react';
 import { AD_CONSENT_EVENT, getStoredAdConsent, type AdConsentStatus } from '@/src/lib/adConsent';
+import { canRenderAdSense } from '@/src/lib/adSense';
 
 declare global {
   interface Window {
@@ -12,9 +13,12 @@ interface AdSenseProps {
   className?: string;
 }
 
+const initializedAdSlots = new WeakSet<HTMLElement>();
+
 export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
   const [consent, setConsent] = React.useState<AdConsentStatus>(getStoredAdConsent);
-  const insRef = React.useRef<HTMLElement | null>(null);
+  const insRef = React.useRef<HTMLModElement | null>(null);
+  const canShowAds = canRenderAdSense();
 
   React.useEffect(() => {
     const handleConsentChange = () => {
@@ -31,18 +35,26 @@ export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
   }, []);
 
   React.useEffect(() => {
-    if (consent !== 'accepted' || !insRef.current) return;
-    if (insRef.current.getAttribute('data-adsbygoogle-status')) return;
+    if (!canShowAds || consent !== 'accepted' || !insRef.current) return;
+
+    const ins = insRef.current;
+    if (initializedAdSlots.has(ins)) return;
+    if (ins.getAttribute('data-adsbygoogle-status')) {
+      initializedAdSlots.add(ins);
+      return;
+    }
 
     try {
+      initializedAdSlots.add(ins);
       // Google uses this queue to render the ad unit once the script is ready.
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (error) {
+      initializedAdSlots.delete(ins);
       console.error('AdSense error', error);
     }
-  }, [consent, slot]);
+  }, [canShowAds, consent, slot]);
 
-  if (consent !== 'accepted') {
+  if (!canShowAds || consent !== 'accepted') {
     return null;
   }
 

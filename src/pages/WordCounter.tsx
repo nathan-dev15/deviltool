@@ -70,6 +70,7 @@ export const WordCounter: React.FC = () => {
     <ToolPageWrapper
       title={t('label.word_counter_title')}
       description={t('label.word_counter_desc')}
+      titleTestId="word-counter-title"
       breadcrumbs={[
         { label: "Text", href: "#" },
         { label: t('label.word_counter_title') }
@@ -88,18 +89,18 @@ export const WordCounter: React.FC = () => {
         {/* 3D Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 mb-6 relative z-10">
           {[
-            { label: t('label.words'), value: stats.words, primary: true },
-            { label: t('label.chars_with_space'), value: stats.charsWithSpace },
-            { label: t('label.chars_no_space'), value: stats.charsNoSpace },
-            { label: t('label.sentences'), value: stats.sentences },
-            { label: t('label.paragraphs'), value: stats.paragraphs },
-            { label: t('label.reading_time'), value: `${stats.readingTime}m`, highlight: true },
+            { label: t('label.words'), value: stats.words, testId: 'stat-words', primary: true },
+            { label: t('label.chars_with_space'), value: stats.charsWithSpace, testId: 'stat-chars-w-space' },
+            { label: t('label.chars_no_space'), value: stats.charsNoSpace, testId: 'stat-chars-no-space' },
+            { label: t('label.sentences'), value: stats.sentences, testId: 'stat-sentences' },
+            { label: t('label.paragraphs'), value: stats.paragraphs, testId: 'stat-paragraphs' },
+            { label: t('label.reading_time'), value: `${stats.readingTime}m`, testId: 'stat-reading-time', highlight: true },
           ].map((stat, i) => (
             <div key={i} className="relative group overflow-hidden bg-white dark:bg-slate-900 border-b-4 border-slate-300 dark:border-slate-800 p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl hover:border-primary">
               <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors pointer-events-none" />
               <p className="text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1 sm:mb-2 truncate">{stat.label}</p>
               <p 
-                data-testid={`stat-${stat.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+$/, '')}`}
+                data-testid={stat.testId}
                 className={cn(
                   "text-xl sm:text-2xl md:text-3xl font-black tabular-nums transition-colors tracking-tight", 
                   stat.primary ? "text-primary drop-shadow-[0_0_12px_rgba(var(--primary-rgb),0.4)]" : "text-slate-700 dark:text-slate-200",

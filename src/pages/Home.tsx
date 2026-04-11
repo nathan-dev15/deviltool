@@ -188,6 +188,46 @@ export const Home: React.FC = () => {
           </section>
         )}
 
+        {/* Welcome & Mission Section */}
+        {!searchQuery && (
+          <section className="bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 border border-outline-variant/20 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden">
+            <div className="absolute inset-0 bg-grid opacity-5" />
+            <div className="relative z-10">
+              <h2 className="text-3xl sm:text-4xl font-black mb-6 text-on-surface text-center">
+                Welcome to Koobrain - Your Free Online Tools Hub
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
+                <div>
+                  <h3 className="text-xl font-bold text-primary mb-3">Why Koobrain?</h3>
+                  <p className="text-on-surface-variant leading-relaxed">
+                    Koobrain is your all-in-one solution for online productivity. Our comprehensive suite of {TOOLS.length}+ free tools is designed to simplify your workflow whether you're a developer, designer, student, or content creator.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-secondary mb-3">No Complications</h3>
+                  <p className="text-on-surface-variant leading-relaxed">
+                    From JSON formatting and image optimization to password generation and text analysis, all tools work instantly in your browser. Zero installation, zero registration, zero hassle.
+                  </p>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-2xl text-primary mb-1">{TOOLS.length}+</p>
+                  <p className="text-sm text-on-surface-variant">Professional Tools</p>
+                </div>
+                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-2xl text-tertiary mb-1">100% Free</p>
+                  <p className="text-sm text-on-surface-variant">Forever & Always</p>
+                </div>
+                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-2xl text-secondary mb-1">Privacy Protected</p>
+                  <p className="text-sm text-on-surface-variant">Data on Your Device</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Popular Tools */}
         {!searchQuery && (
           <>
@@ -331,9 +371,116 @@ export const Home: React.FC = () => {
                 </div>
               </div>
             </section>
-   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
-             <AdSense slot="8156203131"/>
-          </div>
+
+            {/* Success Stories / Use Cases */}
+            <section className="bg-gradient-to-r from-tertiary/5 to-secondary/5 rounded-[2.5rem] p-8 sm:p-12 border border-outline-variant/20">
+              <h2 className="text-3xl sm:text-4xl font-black mb-12 text-on-surface text-center">
+                Who Benefits From Koobrain?
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {[
+                  {
+                    title: 'Developers & Programmers',
+                    description: 'JSON formatters, regex testers, SQL formatters, and code beautifiers help you write cleaner code faster. No need for heavy IDE plugins.',
+                    icon: CodeXml
+                  },
+                  {
+                    title: 'Content Creators',
+                    description: 'Image compressors, word counters, and text analyzers streamline your content production workflow and optimize files for web publishing.',
+                    icon: FileCode
+                  },
+                  {
+                    title: 'Students & Researchers',
+                    description: 'Unit converters, calculators, text tools, and data processors help with homework, projects, and academic research.',
+                    icon: Calculator
+                  },
+                  {
+                    title: 'Security Professionals',
+                    description: 'Password generators, JWT decoders, and encryption tools provide essential utilities for cybersecurity and data protection.',
+                    icon: ShieldCheck
+                  },
+                  {
+                    title: 'Designers & Photographers',
+                    description: 'Image compressors, resizers, and converters optimize visual assets for web and print without expensive software.',
+                    icon: ImageIcon
+                  },
+                  {
+                    title: 'Business Professionals',
+                    description: 'CSV converters, document analyzers, and formatting tools increase productivity in everyday data work.',
+                    icon: Database
+                  },
+                ].map(({ title, description, icon: Icon }, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.06 }}
+                    className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-primary/40 transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon className="size-6 text-primary" />
+                    </div>
+                    <h3 className="font-bold text-on-surface mb-2">{title}</h3>
+                    <p className="text-sm text-on-surface-variant leading-relaxed">{description}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
+            <AdSense slot="8156203131"/>
+            {/* FAQ Section */}
+            <section className="max-w-3xl mx-auto">
+              <h2 className="text-3xl sm:text-4xl font-black mb-12 text-on-surface text-center">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {[
+                  {
+                    question: 'Are all Koobrain tools truly free?',
+                    answer: 'Yes! All {TOOLS.length}+ tools on Koobrain are completely free. We believe in making productivity tools accessible to everyone. There are no hidden charges, no premium versions, and no credit card required. Use as many tools as you like, whenever you like.'
+                  },
+                  {
+                    question: 'Is my data safe and private?',
+                    answer: 'Absolutely. Privacy is our top priority. All processing happens directly in your browser - your data never leaves your device. We don\'t collect, store, or track any of your information. Check our Privacy Policy for complete details about our zero-data-collection approach.'
+                  },
+                  {
+                    question: 'Do I need to install anything to use these tools?',
+                    answer: 'No installation required! All Koobrain tools work directly in your web browser. Simply visit koobrain.com, select a tool, and start using it instantly. It works on any device: desktop, tablet, or mobile.'
+                  },
+                  {
+                    question: 'Which tools are most popular?',
+                    answer: 'Our most popular tools include JSON Formatter for data validation, Password Generator for creating secure passwords, Image Compressor for optimizing images, and Word Counter for text analysis. However, we have tools for every need - from SQL formatting to Base64 encoding.'
+                  },
+                  {
+                    question: 'Can I use Koobrain tools offline?',
+                    answer: 'Once a page loads, most tools work offline. However, for the best experience, we recommend having an internet connection to ensure you have access to the latest versions of all tools.'
+                  },
+                  {
+                    question: 'Do you offer an API or bulk processing?',
+                    answer: 'Currently, Koobrain tools are designed for web-based use. For special requirements or partnerships, please contact us at contact@koobrain.com.'
+                  },
+                ].map((faq, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05 }}
+                    className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-outline-variant/40 transition-all duration-200 group"
+                  >
+                    <h3 className="font-bold text-on-surface mb-3 flex items-start gap-3">
+                      <span className="text-primary font-black text-lg w-6 pt-0.5">Q:</span>
+                      <span>{faq.question}</span>
+                    </h3>
+                    <p className="text-on-surface-variant text-sm ml-9 leading-relaxed">
+                      {faq.answer.replace('{TOOLS.length}', TOOLS.length.toString())}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+
             {/* All tools grid */}
             <section>
               <div className="flex items-center gap-4 mb-10">

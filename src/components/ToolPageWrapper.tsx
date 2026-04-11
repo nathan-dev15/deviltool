@@ -19,6 +19,7 @@ interface ToolPageWrapperProps {
   description?: string;
   breadcrumbs?: Breadcrumb[];
   accentColor?: 'primary' | 'tertiary' | 'secondary' | 'error';
+  titleTestId?: string;
 }
 
 const accentMap = {
@@ -50,6 +51,7 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
   description,
   breadcrumbs = [],
   accentColor = 'primary',
+  titleTestId,
 }) => {
   const accent = accentMap[accentColor];
   const { t, locale } = useI18n();
@@ -132,7 +134,10 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
           )}
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-on-surface mb-3 leading-tight">
+          <h1
+            data-testid={titleTestId}
+            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-on-surface mb-3 leading-tight"
+          >
             {displayTitle}
           </h1>
           {displayDescription && (

@@ -11,10 +11,16 @@ interface I18nValue {
   supportedLocales: typeof SUPPORTED_LOCALES;
 }
 
+const resolveTemplate = (locale: SupportedLocale, key: string) => {
+  const messages = MESSAGES_BY_LOCALE[locale] ?? MESSAGES_BY_LOCALE.en;
+  const fallback = MESSAGES_BY_LOCALE.en;
+  return messages[key] ?? fallback[key] ?? key;
+};
+
 const I18nContext = React.createContext<I18nValue>({
   locale: 'en',
   setLocale: () => {},
-  t: (key: string) => key,
+  t: (key: string, vars?: Vars) => interpolate(resolveTemplate('en', key), vars),
   supportedLocales: SUPPORTED_LOCALES,
 });
 
@@ -44,10 +50,7 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [locale]);
 
   const t = React.useCallback((key: string, vars?: Vars) => {
-    const messages = MESSAGES_BY_LOCALE[locale] ?? MESSAGES_BY_LOCALE['en'];
-    const fallback = MESSAGES_BY_LOCALE['en'];
-    const template = messages[key] ?? fallback[key] ?? key;
-    return interpolate(template, vars);
+    return interpolate(resolveTemplate(locale, key), vars);
   }, [locale]);
 
   const value = React.useMemo<I18nValue>(() => ({ 

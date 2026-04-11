@@ -107,13 +107,17 @@ export const PasswordGenerator: React.FC = () => {
               </div>
               
               <div className="bg-surface-container-low/50 dark:bg-black/40 rounded-3xl border border-outline-variant/20 p-8 sm:p-12 mb-10 shadow-inner group/pass">
-                <span className="text-2xl sm:text-4xl md:text-5xl font-mono font-black tracking-[0.1em] break-all text-primary block min-h-[1.5em] leading-relaxed selection:bg-primary/30">
+                <span
+                  data-testid="password-display"
+                  className="text-2xl sm:text-4xl md:text-5xl font-mono font-black tracking-widest break-all text-primary block min-h-[1.5em] leading-relaxed selection:bg-primary/30"
+                >
                   {password || '••••••••••••'}
                 </span>
                 
                 <div className="mt-8 flex justify-center gap-6">
                     <button 
                       onClick={generatePassword}
+                      data-testid="refresh-password"
                       className="p-4 bg-surface-container-high rounded-2xl border border-outline-variant/10 text-on-surface-variant/60 hover:text-primary hover:border-primary/30 transition-all hover:bg-primary/5 active:scale-95"
                     >
                       <RefreshCw className="size-6" />
@@ -121,7 +125,7 @@ export const PasswordGenerator: React.FC = () => {
                     <button 
                       onClick={copyToClipboard}
                       className={cn(
-                        "flex-1 max-w-[280px] py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl",
+                        "flex-1 max-w-70 py-4 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl",
                         copied ? "bg-success text-on-success shadow-success/20" : "bg-primary text-on-primary shadow-primary/20 hover:scale-[1.02]"
                       )}
                     >

@@ -13,10 +13,12 @@ import {
   Globe,
   LayoutDashboard,
   ShieldCheck,
-  Info
+  Info,
+  CheckCircle2
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useI18n } from '../i18n/I18nContext';
+import type { SupportedLocale } from '../i18n/locales';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -62,7 +64,7 @@ export const Navbar: React.FC = () => {
       className={cn(
         "fixed top-0 w-full z-[100] transition-all duration-500",
         isScrolled 
-          ? "py-3 bg-surface/80 backdrop-blur-2xl border-b border-outline-variant/10 shadow-lg" 
+          ? "py-3 bg-surface/85 dark:bg-surface-dim/90 backdrop-blur-2xl border-b border-outline-variant/20 dark:border-outline-variant/30 shadow-lg dark:shadow-xl" 
           : "py-6 bg-transparent"
       )}
     >
@@ -124,7 +126,7 @@ export const Navbar: React.FC = () => {
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 mt-3 w-max min-w-[200px] bg-white dark:bg-white border border-slate-200 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden p-1.5 z-[110]"
+                  className="absolute right-0 mt-3 w-max min-w-[200px] bg-surface-container-high dark:bg-surface-dim border border-outline-variant/30 dark:border-outline-variant/40 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden p-1.5 z-[110]"
                  >
                    <div className="grid gap-0.5 max-h-[60vh] overflow-y-auto custom-scrollbar">
                      {supportedLocales.map((loc) => (
@@ -137,8 +139,8 @@ export const Navbar: React.FC = () => {
                          className={cn(
                            "flex items-center justify-between px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
                            locale === loc.code 
-                             ? "bg-primary text-white shadow-md translate-x-1" 
-                             : "text-slate-500 hover:text-black hover:bg-slate-50"
+                             ? "bg-primary text-on-primary shadow-md translate-x-1" 
+                             : "text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface dark:hover:text-on-surface hover:bg-surface-container dark:hover:bg-surface-container-high"
                          )}
                        >
                          <div className="flex flex-col items-start leading-tight">
@@ -214,17 +216,17 @@ export const Navbar: React.FC = () => {
                  </Link>
                ))}
                
-               <div className="mt-8 pt-8 border-t border-outline-variant/10 flex flex-col gap-6">
+               <div className="mt-8 pt-8 border-t border-outline-variant/20 flex flex-col gap-6">
                  {/* Mobile language picker */}
-                 <div className="bg-surface-container-high rounded-3xl p-5 border border-outline-variant/20">
-                   <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant mb-3">
-                     <Globe className="size-4" />
+                 <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl p-6 border border-outline-variant/30">
+                   <label className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-on-surface mb-4">
+                     <Globe className="size-5 text-primary" />
                      {t('header.lang')}
-                   </div>
+                   </label>
                    <select
                      value={locale}
-                     onChange={(e) => setLocale(e.target.value)}
-                     className="w-full rounded-2xl border border-outline-variant/30 bg-surface-container-low px-4 py-3 text-sm font-bold text-on-surface focus:outline-none focus:border-primary/60"
+                     onChange={(e) => setLocale(e.target.value as SupportedLocale)}
+                     className="w-full rounded-2xl border-2 border-primary/30 bg-surface-container-high px-5 py-3.5 text-sm font-bold text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition-all"
                    >
                      {supportedLocales.map((loc) => (
                        <option key={loc.code} value={loc.code}>
@@ -240,7 +242,7 @@ export const Navbar: React.FC = () => {
                        <span className="font-extrabold text-lg">Koobrain Premium</span>
                     </div>
                     <p className="text-xs opacity-80 font-medium mb-4 italic">Experience the ultimate toolkit with no limits.</p>
-                    <button className="w-full bg-white text-tertiary py-3 rounded-2xl font-black uppercase tracking-widest text-[10px]">
+                    <button className="w-full bg-white text-tertiary py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-transform active:scale-95">
                         Get Early Access
                     </button>
                  </div>
@@ -252,20 +254,3 @@ export const Navbar: React.FC = () => {
     </nav>
   );
 };
-
-const CheckCircle2 = ({ className }: { className?: string }) => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="24" 
-        height="24" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        className={className}
-    >
-        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/>
-    </svg>
-);

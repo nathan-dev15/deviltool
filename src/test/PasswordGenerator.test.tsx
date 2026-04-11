@@ -35,7 +35,7 @@ describe('PasswordGenerator Component', () => {
 
   it('renders the password generator heading', () => {
     renderComponent();
-    expect(screen.getByText('Password Generator')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Password Generator' })).toBeInTheDocument();
   });
 
   it('generates a password on mount', () => {

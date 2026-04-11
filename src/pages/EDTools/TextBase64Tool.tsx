@@ -4,77 +4,24 @@ import {
   Trash2,
   Upload,
   Download,
-  ArrowRightLeft,
+  Home
 } from "lucide-react";
 
+import { Link } from "react-router-dom";
 import { SEO } from "@/src/components/SEO";
 import { useToolActions } from "@/src/pages/useToolActions";
 import { AdSense } from "@/src/components/AdSense";
-import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 
-/* ---------- Code Editor ---------- */
+/* ---------- Tooltip ---------- */
 
-const CodeEditor = ({
-  value,
-  onChange,
-  placeholder,
-  readOnly = false
-}: {
-  value: string;
-  onChange?: (v: string) => void;
-  placeholder: string;
-  readOnly?: boolean;
-}) => {
-
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const lines = value.split("\n");
-
-  const autoResize = () => {
-    const el = textareaRef.current;
-    if (el) {
-      el.style.height = "auto";
-      el.style.height = Math.max(200, el.scrollHeight) + "px";
-    }
-  };
-
-  useEffect(() => {
-    autoResize();
-  }, [value]);
-
-  return (
-
-    <div className="flex font-mono text-sm bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-b-xl overflow-hidden min-h-[200px]">
-
-      {/* Line Numbers */}
-
-      <div className="bg-slate-100 dark:bg-slate-800/50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 px-3 py-4 text-right select-none border-r border-slate-200 dark:border-slate-700 hidden sm:block">
-
-        {lines.map((_, i) => (
-          <div key={i} className="leading-6">
-            {i + 1}
-          </div>
-        ))}
-
-      </div>
-
-      {/* Textarea */}
-
-      <textarea
-        ref={textareaRef}
-        value={value}
-        readOnly={readOnly}
-        onChange={(e) => onChange && onChange(e.target.value)}
-        placeholder={placeholder}
-        spellCheck={false}
-        rows={8}
-        className="flex-1 p-4 outline-none resize-none leading-6 bg-transparent text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-      />
-
-    </div>
-
-  );
-
-};
+const Tooltip = ({ text }: { text: string }) => (
+  <span className="group relative cursor-pointer">
+    ❔
+    <span className="absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
+      {text}
+    </span>
+  </span>
+);
 
 /* ---------- Main Tool ---------- */
 
@@ -100,14 +47,14 @@ export const TextBase64Tool = () => {
 
       const result =
         mode === "encode"
-          ? btoa(unescape(encodeURIComponent(input))) // Support Unicode
-          : decodeURIComponent(escape(atob(input)));
+          ? btoa(input)
+          : atob(input);
 
       setOutput(result);
       setError("");
 
     } catch {
-      setError("Invalid input for " + mode);
+      setError("Invalid Base64 input");
     }
 
   }, [input, mode]);
@@ -133,185 +80,184 @@ export const TextBase64Tool = () => {
 
   return (
 
-    <ToolPageWrapper
-      title="Text ↔ Base64 Converter"
-      description="Bi-directional converter for text and Base64. Support for Unicode and larger data strings."
-      breadcrumbs={[
-        { label: "Encoder/Decoder", href: "#" },
-        { label: "Text to Base64" }
-      ]}
-      accentColor="primary"
-    >
+    <div className="max-w-5xl mx-auto p-6 space-y-6">
+
       <SEO
         title="Text to Base64 Converter – Encode & Decode Online"
         description="Convert text to Base64 and decode Base64 instantly with this free online tool. Fast, secure, and developer-friendly."
         keywords="text to base64, base64 encode, base64 decode, base64 converter online"
       />
 
-      <div className="space-y-8 animate-fade-in">
+      {/* Breadcrumb */}
 
-        {/* TOGGLE */}
+      <div className="flex items-center gap-2 text-sm text-gray-500">
+        <Link to="/" className="flex items-center gap-1 hover:text-indigo-600">
+          <Home size={16}/> Home
+        </Link>
+        <span>/</span>
+        <span className="font-medium text-gray-700">
+          Text to Base64
+        </span>
+      </div>
 
-        <div className="flex justify-center">
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-inner">
-            <button
-              onClick={() => setMode("encode")}
-              className={`px-8 py-2 rounded-xl text-sm font-bold transition-all ${
-                mode === "encode"
-                  ? "bg-primary text-on-primary shadow-md"
-                  : "text-slate-500 hover:text-primary dark:hover:text-primary-container"
-              }`}
-            >
-              Encode Text
-            </button>
-            <button
-              onClick={() => setMode("decode")}
-              className={`px-8 py-2 rounded-xl text-sm font-bold transition-all ${
-                mode === "decode"
-                  ? "bg-primary text-on-primary shadow-md"
-                  : "text-slate-500 hover:text-primary dark:hover:text-primary-container"
-              }`}
-            >
-              Decode Base64
-            </button>
-          </div>
-        </div>
+      <h1 className="text-3xl font-bold">
+        Text ↔ Base64 Converter
+      </h1>
 
-        {/* Workspace */}
+      <p className="text-gray-600 flex items-center gap-2">
+        Encode text into Base64 or decode Base64 back to readable text.
+        <Tooltip text="Base64 is used to encode binary data into ASCII format." />
+      </p>
 
-        <div className="grid lg:grid-cols-2 gap-8 relative items-center">
+      {/* TOGGLE */}
 
-          {/* Swap Button */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center hidden sm:flex">
-            <button
-               onClick={() => {
-                 setMode(mode === "encode" ? "decode" : "encode");
-                 setInput(output);
-               }}
-               className="w-12 h-12 bg-primary text-white rounded-full shadow-xl flex items-center justify-center border-[4px] border-slate-50 dark:border-slate-950 hover:scale-110 active:scale-95 transition-all text-on-primary lg:rotate-0 rotate-90 cursor-pointer"
-               title="Swap Encode/Decode"
-            >
-               <ArrowRightLeft size={20} />
-            </button>
-          </div>
-
-          {/* INPUT */}
-
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group h-full">
-
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
-              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                <div className="size-2 rounded-full bg-primary" />
-                {mode === "encode" ? "Input Text" : "Base64 Input"}
-              </span>
-              <div className="text-xs font-semibold text-slate-400">
-                Chars: {input.length}
-              </div>
-            </div>
-
-            <CodeEditor
-              value={input}
-              onChange={setInput}
-              placeholder={mode === "encode" ? "Paste text here..." : "Paste Base64 string here..."}
-            />
-
-          </div>
-
-          {/* OUTPUT */}
-
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col transition-all hover:shadow-md hover:border-primary/20 group h-full">
-
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 dark:bg-slate-900/50 rounded-t-2xl">
-
-              <span className="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                <div className="size-2 rounded-full bg-tertiary" />
-                {mode === "encode" ? "Base64 Result" : "Text Result"}
-              </span>
-
-              <button
-                disabled={!output}
-                onClick={() => copyToClipboard(output)}
-                className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-tertiary transition-colors disabled:opacity-30 disabled:hover:text-slate-500 px-2 py-1 rounded-md hover:bg-tertiary/5"
-              >
-                <Copy size={14}/>
-                {copied ? "Copied!" : "Copy Output"}
-              </button>
-
-            </div>
-
-            <CodeEditor
-              value={output}
-              readOnly
-              placeholder="Conversion result will appear here..."
-            />
-
-          </div>
-
-        </div>
-
-        {/* Action Bar */}
-
-        <div className="flex flex-wrap items-center justify-center gap-4 p-6 bg-slate-900 dark:bg-slate-950 rounded-2xl shadow-lg border border-white/5 relative overflow-hidden group">
-          {/* subtle background glow */}
-          <div className="absolute -inset-24 bg-primary/20 blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
+      <div className="flex justify-center">
+        <div className="flex bg-gray-200 rounded-full p-1">
 
           <button
-            onClick={clearAll}
-            className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10"
+            onClick={() => setMode("encode")}
+            className={`cursor-pointer px-4 py-1 rounded-full text-sm ${
+              mode === "encode"
+                ? "bg-indigo-600 text-white"
+                : ""
+            }`}
           >
-            <Trash2 size={18}/> Clear All
+            Encode
           </button>
 
           <button
-            disabled={!output}
-            onClick={() =>
-              downloadFile(output, "base64-converter.txt", "text/plain")
-            }
-            className="relative z-10 cursor-pointer flex items-center gap-2 bg-primary hover:bg-primary-container text-on-primary px-8 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 disabled:hover:scale-100"
+            onClick={() => setMode("decode")}
+            className={`cursor-pointer px-4 py-1 rounded-full text-sm ${
+              mode === "decode"
+                ? "bg-indigo-600 text-white"
+                : ""
+            }`}
           >
-            <Download size={18}/> Download Result
+            Decode
           </button>
-          
-          <label className="relative z-10 cursor-pointer flex items-center gap-2 bg-white/90 text-slate-900 hover:bg-white dark:bg-slate-800/60 dark:text-slate-100 dark:hover:bg-slate-800/80 px-6 py-3 rounded-xl font-bold transition-all hover:scale-105 active:scale-95 border border-slate-200/60 dark:border-white/10">
-            <Upload size={18}/> Upload File
-            <input
-              type="file"
-              hidden
-              onChange={(e)=>{
-                const file = e.target.files?.[0];
-                if(file) handleUpload(file);
-              }}
-            />
-          </label>
-        </div>
 
-        {error && (
-          <div className="bg-error/10 border border-error/20 text-error p-4 rounded-xl text-center font-bold animate-pop-in">
-            {error}
-          </div>
-        )}
-
-        <div className="mt-12 space-y-8">
-           <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm">
-             <h2 className="text-2xl font-bold mb-4 text-slate-800 dark:text-white">What is Base64 Encoding?</h2>
-             <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-               Base64 encoding converts binary data into ASCII text format. It is commonly used in web development, APIs, and data transfer to ensure that data remains intact during transmission.
-             </p>
-             <h3 className="text-xl font-bold mb-2 text-slate-700 dark:text-slate-300">Why Use Base64?</h3>
-             <ul className="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-400">
-               <li>Encode binary data safely for transport over text-based protocols.</li>
-               <li>Embed small images or assets directly in CSS or HTML as data URIs.</li>
-               <li>Simple obfuscation for data (note: Base64 is NOT encryption).</li>
-               <li>Standard format for authentication headers and JWT tokens.</li>
-             </ul>
-           </section>
         </div>
+      </div>
 
-        <div className="mt-12 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
-           <AdSense slot="8156203131"/>
-        </div>
+      {/* INPUT */}
+
+      <div className="bg-linear-to-r from-indigo-500 to-purple-600 p-1 rounded-xl">
+
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter text or Base64..."
+          className="w-full h-40 p-4 rounded-xl outline-none font-mono text-sm"
+        />
 
       </div>
-    </ToolPageWrapper>
+
+      {/* OUTPUT */}
+
+      <div className="bg-white border rounded-xl shadow-sm">
+
+        <div className="flex justify-between px-4 py-3 border-b bg-gray-50">
+
+          <span className="font-medium">
+            Output
+          </span>
+
+          <button
+            onClick={() => copyToClipboard(output)}
+            className="cursor-pointer flex items-center gap-1 text-sm hover:text-indigo-600 transition"
+          >
+            <Copy size={14}/>
+            {copied ? "Copied!" : "Copy"}
+          </button>
+
+        </div>
+
+        <textarea
+          value={output}
+          readOnly
+          className="w-full h-40 p-4 outline-none font-mono text-sm"
+        />
+
+      </div>
+
+      {/* ACTION BAR */}
+
+      <div className="flex flex-wrap justify-center gap-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-xl">
+
+        <button
+          onClick={clearAll}
+          className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition"
+        >
+          <Trash2 size={16}/> Clear
+        </button>
+
+        <button
+          onClick={() =>
+            downloadFile(output, "base64.txt", "text/plain")
+          }
+          className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition "
+        >
+          <Download size={16}/> Download
+        </button>
+
+        <label className="cursor-pointer flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:text-indigo-600 transition">
+
+          <Upload size={16}/> Upload
+
+          <input
+            type="file"
+            hidden
+            onChange={(e)=>{
+              const file = e.target.files?.[0];
+              if(file) handleUpload(file);
+            }}
+          />
+
+        </label>
+
+      </div>
+
+      {error && (
+        <div className="text-red-500 text-center font-medium">
+          {error}
+        </div>
+      )}
+
+      <AdSense slot="8156203131"/>
+
+      {/* SEO CONTENT */}
+
+      <section className="bg-white border rounded-xl shadow-sm p-6 space-y-4">
+
+        <h2 className="text-2xl font-bold">
+          What is Base64 Encoding?
+        </h2>
+
+        <p className="text-gray-600">
+          Base64 encoding converts binary data into ASCII text format. It is commonly used in web development, APIs, and data transfer.
+        </p>
+
+        <p className="text-gray-600">
+          For example, text like <code>Hello</code> becomes <code>SGVsbG8=</code> in Base64.
+        </p>
+
+      </section>
+
+      <section className="bg-white border rounded-xl shadow-sm p-6 space-y-4">
+
+        <h2 className="text-2xl font-bold">
+          Why Use Base64?
+        </h2>
+
+        <ul className="list-disc pl-5 text-gray-600 space-y-2">
+          <li>Encode binary data safely</li>
+          <li>Embed images in HTML/CSS</li>
+          <li>Secure data transfer</li>
+          <li>Used in JWT and APIs</li>
+        </ul>
+
+      </section>
+
+    </div>
   );
 };
