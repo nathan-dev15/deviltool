@@ -202,7 +202,7 @@ export const JsonValidator: React.FC = () => {
                 className="flex-1 min-w-[140px] bg-secondary hover:bg-secondary-container text-on-secondary px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-secondary/20 hover:scale-[1.02] active:scale-95"
               >
                 <CheckCircle2 className="size-5" />
-                <span>{t('action.format')}</span>
+                <span>{t('action.validate_json')}</span>
               </button>
               
               <button 
