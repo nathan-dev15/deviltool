@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { ScrollToTop } from './ScrollToTop';
 import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
@@ -31,6 +30,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     };
   }, []);
 
+  // Load AdSense script manually to avoid data-rh attribute issues
+  React.useEffect(() => {
+    // Check if script is already loaded
+    const existingScript = document.querySelector('script[src*="googlesyndication.com"]');
+    if (existingScript) return;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117';
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+  }, []);
+
   // Scroll to top on route change
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -38,14 +50,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-on-background transition-colors duration-300 relative z-0">
-      <Helmet>
-        {/* Load AdSense script always for Google verification - ads render based on consent */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117"
-          crossOrigin="anonymous"
-        />
-      </Helmet>
+      {/* Removed Helmet script loading to avoid data-rh attribute issues */}
       
       {/* ── Background Decoration (Light mode only) ────────────────────── */}
       <div className="fixed inset-0 pointer-events-none z-[-1] hidden dark:hidden md:block">
