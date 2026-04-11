@@ -58,6 +58,13 @@ export const Contact: React.FC = () => {
                   {t('label.support_notes_p2')}
                 </p>
               </div>
+
+              <div className="rounded-2xl border border-secondary/30 bg-secondary/5 p-6">
+                <h3 className="text-sm font-bold text-on-surface mb-3">AdSense & Policy Support</h3>
+                <p className="text-sm text-on-surface-variant leading-relaxed">
+                  For questions about Google AdSense, advertising, or privacy policy, please email us at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-secondary font-bold hover:underline">{SUPPORT_EMAIL}</a>. We typically respond within 1-2 business days.
+                </p>
+              </div>
             </div>
           </section>
         </div>

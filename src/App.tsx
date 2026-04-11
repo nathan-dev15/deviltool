@@ -29,6 +29,7 @@ import { TimeBetweenDates } from './pages/TimeBetweenDates';
 import { ImageToBase64 } from './pages/JsonTools/ImageToBase64';
 import { Base64ToImage } from './pages/Base64ToImage';
 import { ImageCompressor } from './pages/ImageCompressor';
+import { ImageSizeConverterTool } from './pages/ImageTools/ImageSizeConverterTool';
 import { Security } from './pages/Security';
 import { SessionVault } from './pages/SessionVault';
 import { JsonToTypescriptGenerator } from './pages/JsonTools/JsonToTypescriptGenerator';
@@ -88,6 +89,7 @@ export default function App() {
                 <Route path="/time-between-dates" element={<TimeBetweenDates />} />
                 <Route path="/image-to-base64" element={<ImageToBase64 />} />
                 <Route path="/base64-to-image" element={<Base64ToImage />} />
+                <Route path="/image-size-converter" element={<ImageSizeConverterTool />} />
                 <Route path="/image-compressor" element={<ImageCompressor />} />
                 <Route path="/security" element={<Security />} />
                 <Route path="/vault" element={<SessionVault />} />

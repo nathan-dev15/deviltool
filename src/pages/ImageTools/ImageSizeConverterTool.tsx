@@ -15,7 +15,7 @@ import { AdSense } from "@/src/components/AdSense";
 
 /* ---------- MAIN TOOL ---------- */
 
-export const ProImageTool = () => {
+export const ImageSizeConverterTool = () => {
 
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [preview, setPreview] = useState("");

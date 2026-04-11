@@ -77,6 +77,9 @@ export const Footer: React.FC = () => {
             <Link to="/disclaimer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group">
                 {t('footer.disclaimer') || 'Disclaimer'}
             </Link>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group text-xs opacity-75">
+                Google AdSense Policy
+            </a>
           </div>
         </div>
 

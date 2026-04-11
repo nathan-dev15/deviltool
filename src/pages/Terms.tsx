@@ -183,6 +183,24 @@ export const Terms: React.FC = () => {
             </div>
           </section>
 
+          {/* Advertising & Third-Party Ads */}
+          <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm">
+            <h2 className="text-2xl font-black text-on-surface mb-6">Advertising & Third-Party Ads</h2>
+            <div className="space-y-4 text-on-surface-variant leading-relaxed">
+              <p className="text-base">
+                Koobrain may display advertisements from Google AdSense and other authorized advertising partners. These ads are served by third parties and are not under our direct control.
+              </p>
+              <ul className="list-disc ml-4 space-y-2 text-sm text-on-surface-variant">
+                <li>Ads may be personalized based on your browser and device settings.</li>
+                <li>Third-party advertisers may use cookies and similar technologies to serve ads.</li>
+                <li>We are not responsible for the accuracy or quality of third-party advertisements.</li>
+              </ul>
+              <p className="text-base">
+                For AdSense or advertising policy questions, please <Link to="/contact" className="text-primary font-bold hover:underline">contact us</Link>. Google AdSense ads are subject to Google's policies.
+              </p>
+            </div>
+          </section>
+
           {/* Indemnification */}
           <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm">
             <h2 className="text-2xl font-black text-on-surface mb-6">Indemnification</h2>
