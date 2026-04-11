@@ -99,10 +99,7 @@ export const Navbar: React.FC = () => {
                 {link.name}
               </span>
               {location.pathname === link.path && (
-                <motion.div 
-                  layoutId="nav-active"
-                  className="absolute inset-0 bg-primary/10 rounded-full"
-                />
+                <div className="absolute inset-0 bg-primary/10 rounded-full animate-fade-in" />
               )}
             </Link>
           ))}

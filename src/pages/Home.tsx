@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
 import {
   CodeXml, Lock, Image as ImageIcon, Type, Database,
   Calendar as Calculator, Clock, FileImage, FileCode,
@@ -91,30 +90,28 @@ export const Home: React.FC = () => {
 
         <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
           {/* Badge */}
-          <motion.div {...fadeUp(0)} className="mb-6">
+          <div className="mb-6 animate-fade-in-up">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
               <Bolt className="size-3" /> {t('home.badge')}
             </span>
-          </motion.div>
+          </div>
 
           {/* Headline */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter mb-6 kinetic-gradient leading-[1.05]"
+          <h1
+            className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter mb-6 kinetic-gradient leading-[1.05] animate-fade-in-up delay-150"
           >
             {t('home.hero_title_1')}<br className="hidden sm:block" /> {t('home.hero_title_2')}
-          </motion.h1>
+          </h1>
 
           {/* Subheading */}
-          <motion.p
-            {...fadeUp(0.2)}
-            className="text-on-surface-variant text-base sm:text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed"
+          <p
+            className="text-on-surface-variant text-base sm:text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up delay-225"
           >
             {t('home.hero_subtitle')}
-          </motion.p>
+          </p>
 
           {/* Search bar */}
-          <motion.div {...fadeUp(0.3)} className="relative max-w-2xl mx-auto group">
+          <div className="relative max-w-2xl mx-auto group animate-fade-in-up delay-300">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary via-tertiary to-secondary rounded-full blur opacity-25 group-focus-within:opacity-60 group-hover:opacity-40 transition duration-500" />
             <div className="relative flex items-center bg-surface-container-low/80 backdrop-blur-md border border-outline-variant/30 rounded-full p-2 pl-5 shadow-2xl transition-all duration-300 group-focus-within:-translate-y-0.5">
               <Search className="text-on-surface-variant mr-3 group-focus-within:text-primary transition-colors size-5 shrink-0" />
@@ -131,10 +128,10 @@ export const Home: React.FC = () => {
                 {t('common.search')}
               </button>
             </div>
-          </motion.div>
+          </div>
 
           {/* Stats row */}
-          <motion.div {...fadeUp(0.45)} className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 animate-fade-in-up delay-450">
             {[
               { icon: Zap,    label: t('home.stats_tools_label', { count: TOOLS.length }), sub: t('home.stats_tools_sub') },
               { icon: Shield, label: t('home.stats_privacy_label'), sub: t('home.stats_privacy_sub') },
@@ -150,7 +147,7 @@ export const Home: React.FC = () => {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -240,12 +237,10 @@ export const Home: React.FC = () => {
                 {popularTools.map((tool, index) => {
                   const Icon = iconMap[tool.icon] || CodeXml;
                   return (
-                    <motion.div
+                    <div
                       key={tool.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.08 }}
+                      className={`animate-fade-in-up delay-${index * 75}`}
+                      style={{ animationDelay: `${index * 75}ms` }}
                     >
                       <Link
                         to={tool.path}
@@ -273,7 +268,7 @@ export const Home: React.FC = () => {
                           )}
                         </div>
                       </Link>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -410,20 +405,17 @@ export const Home: React.FC = () => {
                     icon: Database
                   },
                 ].map(({ title, description, icon: Icon }, idx) => (
-                  <motion.div
+                  <div
                     key={idx}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.06 }}
-                    className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-primary/40 transition-all duration-300"
+                    className={`bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-primary/40 transition-all duration-300 animate-fade-in-up delay-${idx * 75}`}
+                    style={{ animationDelay: `${idx * 75}ms` }}
                   >
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <Icon className="size-6 text-primary" />
                     </div>
                     <h3 className="font-bold text-on-surface mb-2">{title}</h3>
                     <p className="text-sm text-on-surface-variant leading-relaxed">{description}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </section>
@@ -461,13 +453,10 @@ export const Home: React.FC = () => {
                     answer: 'Currently, Koobrain tools are designed for web-based use. For special requirements or partnerships, please contact us at contact@koobrain.com.'
                   },
                 ].map((faq, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-outline-variant/40 transition-all duration-200 group"
+                    className={`bg-surface-container-lowest border border-outline-variant/20 rounded-2xl p-6 hover:border-outline-variant/40 transition-all duration-200 group animate-fade-in-up delay-${index * 75}`}
+                    style={{ animationDelay: `${index * 75}ms` }}
                   >
                     <h3 className="font-bold text-on-surface mb-3 flex items-start gap-3">
                       <span className="text-primary font-black text-lg w-6 pt-0.5">Q:</span>
@@ -476,7 +465,7 @@ export const Home: React.FC = () => {
                     <p className="text-on-surface-variant text-sm ml-9 leading-relaxed">
                       {faq.answer.replace('{TOOLS.length}', TOOLS.length.toString())}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </section>
@@ -491,23 +480,21 @@ export const Home: React.FC = () => {
                 {allTools.map((tool, i) => {
                   const Icon = resolveIcon(tool.icon, CodeXml);
                   return (
-                    <motion.div
+                    <div
                       key={tool.id}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: (i % 10) * 0.03 }}
+                      className={`glass-card home-tile-3d flex flex-col items-center text-center p-4 rounded-2xl hover:border-primary/30 transition-all duration-200 group h-full animate-fade-in-up delay-${(i % 10) * 75}`}
+                      style={{ animationDelay: `${(i % 10) * 75}ms` }}
                     >
                       <Link
                         to={tool.path}
-                        className="glass-card home-tile-3d flex flex-col items-center text-center p-4 rounded-2xl hover:border-primary/30 transition-all duration-200 group h-full"
+                        className="flex flex-col items-center text-center w-full h-full"
                       >
                         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
                           <Icon className="size-5 text-primary" />
                         </div>
                         <span className="text-xs font-semibold text-on-surface leading-tight">{tool.name}</span>
                       </Link>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>

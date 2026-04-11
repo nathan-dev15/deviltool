@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import {
   CodeXml,
   Lock,
@@ -56,16 +55,13 @@ export const ToolCard: React.FC<ToolCardProps> = (props: ToolCardProps) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
-      whileHover={{ y: -5 }}
-      className="group"
+    <div
+      className={`group animate-fade-in-up delay-${index * 75}`}
+      style={{ animationDelay: `${index * 75}ms` }}
     >
       <Link
         to={tool.path}
-        className="block h-full glass-card p-7 rounded-2xl border border-white/30 dark:border-slate-800/60 hover:border-primary/60 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer overflow-hidden relative backdrop-blur-lg"
+        className="block h-full glass-card p-7 rounded-2xl border border-white/30 dark:border-slate-800/60 hover:border-primary/60 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer overflow-hidden relative backdrop-blur-lg hover:scale-[1.02]"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/50 to-transparent dark:from-slate-900/50 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
@@ -91,6 +87,6 @@ export const ToolCard: React.FC<ToolCardProps> = (props: ToolCardProps) => {
           </div>
         )}
       </Link>
-    </motion.div>
+    </div>
   );
 };
