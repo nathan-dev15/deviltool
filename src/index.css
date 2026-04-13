@@ -45,7 +45,7 @@
 
 /* ── Light-mode overrides ─────────────────────────────────── */
 :root:not(.dark) {
-  --color-background:                  #f4f6fb; /* Refined dynamic off-white */
+  --color-background:                  #f1f5f9; /* Softer slate-white for eye comfort */
   --color-on-background:               #0f172a;
   --color-surface:                     #ffffff;
   --color-on-surface:                  #0f172a;
