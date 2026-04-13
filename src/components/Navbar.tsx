@@ -14,7 +14,12 @@ import {
   LayoutDashboard,
   ShieldCheck,
   Info,
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown,
+  FileText,
+  Calculator,
+  Code2,
+  ImageIcon
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useI18n } from '../i18n/I18nContext';
@@ -28,9 +33,11 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+  const [showToolsDropdown, setShowToolsDropdown] = useState(false);
   const location = useLocation();
 
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const toolsRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +47,9 @@ export const Navbar: React.FC = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowLanguageDropdown(false);
+      }
+      if (toolsRef.current && !toolsRef.current.contains(event.target as Node)) {
+        setShowToolsDropdown(false);
       }
     };
 
@@ -52,11 +62,25 @@ export const Navbar: React.FC = () => {
     };
   }, []);
 
-  const navLinks = [
-    { name: t('nav.tools'), path: '/', icon: <LayoutDashboard size={16} /> },
+  const categories = [
+    { name: 'JSON Laboratory', path: '/', icon: <Code2 size={16} />, desc: 'Format & Validate' },
+    { name: 'PDF Studio', path: '/pdf', icon: <FileText size={16} />, desc: 'Merge & Convert' },
+    { name: 'Calculator Hub', path: '/calculator', icon: <Calculator size={16} />, desc: 'Financial & Health' },
+    { name: 'Image Forge', path: '/image-compressor', icon: <ImageIcon size={16} />, desc: 'Optimize & Batch' },
+  ];
+
+  const secondaryLinks = [
     { name: t('nav.security'), path: '/security', icon: <ShieldCheck size={16} /> },
     { name: t('nav.about'), path: '/about', icon: <Info size={16} /> },
     { name: t('nav.contact'), path: '/contact', icon: <UserCircle size={16} /> },
+  ];
+
+  const navLinks = [
+    { name: 'JSON Laboratory', path: '/', icon: <Code2 size={16} /> },
+    { name: 'PDF Studio', path: '/pdf', icon: <FileText size={16} /> },
+    { name: 'Calculator Hub', path: '/calculator', icon: <Calculator size={16} /> },
+    { name: 'Image Forge', path: '/image-compressor', icon: <ImageIcon size={16} /> },
+    ...secondaryLinks
   ];
 
   return (
@@ -84,7 +108,54 @@ export const Navbar: React.FC = () => {
 
         {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center gap-2">
-          {navLinks.map((link) => (
+          {/* Tools Mega Menu Trigger */}
+          <div className="relative" ref={toolsRef}>
+            <button
+              onClick={() => setShowToolsDropdown(!showToolsDropdown)}
+              className={cn(
+                "px-6 py-2.5 rounded-full text-sm font-black uppercase tracking-widest transition-all hover:bg-surface-container-high flex items-center gap-2 group",
+                location.pathname === '/' || location.pathname === '/pdf' || location.pathname === '/calculator'
+                  ? "text-primary"
+                  : "text-on-surface-variant/60 hover:text-on-surface"
+              )}
+            >
+              <LayoutDashboard size={16} />
+              {t('nav.tools')}
+              <ChevronDown className={cn("size-3 transition-transform duration-300", showToolsDropdown && "rotate-180")} />
+            </button>
+
+            <AnimatePresence>
+              {showToolsDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute left-0 mt-3 w-[280px] bg-surface-container-high dark:bg-surface-dim border border-outline-variant/30 rounded-[2rem] shadow-2xl p-3 z-[110]"
+                >
+                  <div className="grid gap-1">
+                    {categories.map((cat) => (
+                      <Link
+                        key={cat.path}
+                        to={cat.path}
+                        onClick={() => setShowToolsDropdown(false)}
+                        className="flex items-center gap-4 p-4 rounded-2xl hover:bg-primary/5 group/item transition-colors"
+                      >
+                        <div className="size-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-on-surface-variant group-hover/item:text-primary group-hover/item:bg-primary/10 transition-all">
+                          {cat.icon}
+                        </div>
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-widest text-on-surface group-hover/item:text-primary transition-colors">{cat.name}</p>
+                          <p className="text-[10px] text-on-surface-variant/60 font-medium italic">{cat.desc}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {secondaryLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}

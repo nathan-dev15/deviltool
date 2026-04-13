@@ -7,14 +7,17 @@ export const Footer: React.FC = () => {
   const { t } = useI18n();
 
   return (
-    <footer className="bg-surface-container-lowest dark:bg-surface-dim w-full py-16 sm:py-24 px-4 sm:px-8 border-t border-outline-variant/20 dark:border-outline-variant/30 relative overflow-hidden\">
-      {/* background glow */}
-      <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-primary/5 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+    <footer className="bg-black dark:bg-surface-dim w-full py-12 sm:py-16 px-4 sm:px-8 border-t border-outline-variant/20 dark:border-outline-variant/30 relative overflow-hidden footer-3d-container">
+      {/* 3D backdrop */}
+      <div className="footer-3d-backdrop" />
       
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16 relative z-10\">
+      {/* background glow */}
+      <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-primary/8 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 relative z-10" style={{perspective: '1000px'}}>
         
         {/* BRAND & TAGLINE */}
-        <div className="space-y-8">
+        <div className="space-y-6 footer-3d-card animate-entrance-3d-1" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.05), rgba(88, 212, 255, 0.03))' }}>
           <div className="flex items-center gap-3">
              <div className="size-10 rounded-2xl bg-gradient-to-br from-primary via-tertiary to-secondary flex items-center justify-center p-2 shadow-lg shadow-primary/20">
                 <Zap className="size-full text-white fill-white/20" />
@@ -26,7 +29,7 @@ export const Footer: React.FC = () => {
           <p className="text-on-surface-variant font-medium text-sm leading-relaxed italic pr-4 opacity-60">
              {t('footer.tagline_1') || 'Designed for the future of the web.'}
              <br />
-             <span className="text-primary not-italic font-black uppercase tracking-[0.2em] text-[10px] block mt-4">
+             <span className="text-primary not-italic font-black uppercase tracking-[0.2em] text-[10px] block mt-3">
                 {t('footer.tagline_2') || 'Free · Open-source · Privacy-first'}
              </span>
           </p>
@@ -38,24 +41,24 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* NAVIGATION */}
-        <div className="space-y-8">
+        <div className="space-y-6 footer-3d-card animate-entrance-3d-2" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.05), rgba(88, 212, 255, 0.03))' }}>
           <h4 className="text-on-surface dark:text-on-surface px-4 py-1 bg-primary/10 dark:bg-primary/20 inline-block rounded-lg font-black text-[10px] uppercase tracking-[0.2em] border border-primary/30 dark:border-primary/40">
              {t('footer.navigation') || 'Navigation'}
           </h4>
-          <div className="flex flex-col space-y-4">
-            <Link to="/" className="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-all text-sm font-bold flex items-center gap-3 w-fit group">
+          <div className="flex flex-col space-y-3">
+            <Link to="/" className="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-all text-sm font-bold flex items-center gap-3 w-fit group footer-3d-link">
                <div className="size-1.5 bg-primary/60 dark:bg-primary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
                {t('nav.tools')}
             </Link>
-            <Link to="/security" className="text-on-surface-variant hover:text-secondary dark:hover:text-secondary transition-all text-sm font-bold flex items-center gap-3 w-fit group">
+            <Link to="/security" className="text-on-surface-variant hover:text-secondary dark:hover:text-secondary transition-all text-sm font-bold flex items-center gap-3 w-fit group footer-3d-link">
                <div className="size-1.5 bg-secondary/60 dark:bg-secondary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
                {t('nav.security')}
             </Link>
-            <Link to="/about" className="text-on-surface-variant hover:text-tertiary dark:hover:text-tertiary transition-all text-sm font-bold flex items-center gap-3 w-fit group">
+            <Link to="/about" className="text-on-surface-variant hover:text-tertiary dark:hover:text-tertiary transition-all text-sm font-bold flex items-center gap-3 w-fit group footer-3d-link">
                <div className="size-1.5 bg-tertiary/60 dark:bg-tertiary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
                {t('nav.about')}
             </Link>
-            <Link to="/contact" className="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-all text-sm font-bold flex items-center gap-3 w-fit group">
+            <Link to="/contact" className="text-on-surface-variant hover:text-primary dark:hover:text-primary transition-all text-sm font-bold flex items-center gap-3 w-fit group footer-3d-link">
                <div className="size-1.5 bg-primary/60 dark:bg-primary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
                {t('nav.contact')}
             </Link>
@@ -63,28 +66,28 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* RESOURCES */}
-        <div className="space-y-8">
+        <div className="space-y-6 footer-3d-card animate-entrance-3d-3" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(88, 212, 255, 0.05), rgba(251, 191, 36, 0.03))' }}>
           <h4 className="text-on-surface dark:text-on-surface px-4 py-1 bg-secondary/10 dark:bg-secondary/20 inline-block rounded-lg font-black text-[10px] uppercase tracking-[0.2em] border border-secondary/30 dark:border-secondary/40">
              {t('footer.resources') || 'Resources'}
           </h4>
-          <div className="flex flex-col space-y-4 text-on-surface-variant font-bold text-sm">
-            <Link to="/privacy" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group">
+          <div className="flex flex-col space-y-3 text-on-surface-variant font-bold text-sm">
+            <Link to="/privacy" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group footer-3d-link">
                 {t('footer.privacy') || 'Privacy Policy'}
             </Link>
-            <Link to="/terms" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group">
+            <Link to="/terms" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group footer-3d-link">
                 {t('footer.terms') || 'Terms & Conditions'}
             </Link>
-            <Link to="/disclaimer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group">
+            <Link to="/disclaimer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group footer-3d-link">
                 {t('footer.disclaimer') || 'Disclaimer'}
             </Link>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group text-xs opacity-75">
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="hover:text-secondary dark:hover:text-secondary transition-all flex items-center gap-3 w-fit group text-xs opacity-75 footer-3d-link">
                 Google AdSense Policy
             </a>
           </div>
         </div>
 
         {/* NEWSLETTER */}
-        <div className="space-y-8">
+        <div className="space-y-6 footer-3d-card animate-entrance-3d-4" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(249, 115, 22, 0.03))' }}>
           <h4 className="text-on-surface dark:text-on-surface px-4 py-1 bg-tertiary/10 dark:bg-tertiary/20 inline-block rounded-lg font-black text-[10px] uppercase tracking-[0.2em] border border-tertiary/30 dark:border-tertiary/40">
              {t('footer.newsletter') || 'Newsletter'}
           </h4>
@@ -113,11 +116,11 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* COPYRIGHT */}
-      <div className="max-w-7xl mx-auto mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-outline-variant/20 dark:border-outline-variant/30 flex flex-col gap-6 sm:gap-4 sm:flex-row sm:items-center sm:justify-between relative z-10 font-bold text-[10px] sm:text-xs uppercase tracking-widest text-on-surface-variant/60 dark:text-on-surface-variant/50">
+      <div className="max-w-7xl mx-auto mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-outline-variant/20 dark:border-outline-variant/30 flex flex-col gap-4 sm:gap-3 sm:flex-row sm:items-center sm:justify-between relative z-10 font-bold text-[10px] sm:text-xs uppercase tracking-widest text-on-surface-variant/60 dark:text-on-surface-variant/50">
         <p>© 2026 Koobrain Eng Tech. All rights reserved.</p>
-        <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 group cursor-help"><div className="size-2 rounded-full bg-success shadow-[0_0_10px_rgba(34,197,94,0.5)] dark:shadow-[0_0_15px_rgba(34,197,94,0.7)] group-hover:scale-150 transition-transform\" /> All Systems Online</span>
-            <span className="opacity-70 dark:opacity-60\">Local Time: {new Date().toLocaleTimeString()}</span>
+        <div className="flex items-center gap-4">
+            <span className="flex items-center gap-2 group cursor-help"><div className="size-2 rounded-full bg-success shadow-[0_0_10px_rgba(34,197,94,0.5)] dark:shadow-[0_0_15px_rgba(34,197,94,0.7)] group-hover:scale-150 transition-transform" /> All Systems Online</span>
+            <span className="opacity-70 dark:opacity-60">Local Time: {new Date().toLocaleTimeString()}</span>
         </div>
       </div>
     </footer>
