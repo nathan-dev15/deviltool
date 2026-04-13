@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/((?!api|google004e4df634093e83.html|robots.txt|sitemap.xml).*)", "destination": "/index.html" }
-    { "source": "/((?!api|google004e4df634093e83.html|robots.txt|sitemap.xml|ads.txt).*)", "destination": "/index.html" }
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
