@@ -1,13 +1,19 @@
 import { useState } from 'react';
-
+import { AdSense } from "@/src/components/AdSense";
 export const useToolActions = () => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (text: string) => {
-    if (!text) return;
+    if (!text || !navigator.clipboard) {
+      console.warn("Clipboard API not available or text empty");
+      return;
+    }
+    
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }).catch(err => {
+      console.error("Failed to copy text: ", err);
     });
   };
 
