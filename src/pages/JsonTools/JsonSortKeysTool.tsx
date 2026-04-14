@@ -109,7 +109,7 @@ export const JsonSortKeysTool = () => {
 
         <button
           onClick={loadSample}
-          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-yellow-600"
+          className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg bg-white border hover:text-primary"
         >
           <FileText size={16} /> Sample
         </button>

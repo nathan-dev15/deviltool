@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
   const { t } = useI18n();
 
   return (
-    <footer className="bg-black dark:bg-surface-dim w-full py-12 sm:py-16 px-4 sm:px-8 border-t border-outline-variant/20 dark:border-outline-variant/30 relative overflow-hidden footer-3d-container">
+    <footer className="bg-surface-container-lowest dark:bg-surface-container-lowest w-full py-12 sm:py-16 px-4 sm:px-8 border-t border-outline-variant/20 dark:border-outline-variant/30 relative overflow-hidden footer-3d-container">
       {/* 3D backdrop */}
       <div className="footer-3d-backdrop" />
       
@@ -17,13 +17,13 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 relative z-10" style={{perspective: '1000px'}}>
         
         {/* BRAND & TAGLINE */}
-        <div className="space-y-6 footer-3d-card animate-entrance-3d-1" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.05), rgba(88, 212, 255, 0.03))' }}>
+        <div className="space-y-6 footer-3d-card animate-entrance-3d-1" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(4, 184, 194, 0.05), rgba(88, 212, 255, 0.03))' }}>
           <div className="flex items-center gap-3">
              <div className="size-10 rounded-2xl bg-gradient-to-br from-primary via-tertiary to-secondary flex items-center justify-center p-2 shadow-lg shadow-primary/20">
                 <Zap className="size-full text-white fill-white/20" />
              </div>
              <span className="text-2xl font-black tracking-tighter text-on-surface">
-                Koobrain
+                KooBrain
              </span>
           </div>
           <p className="text-on-surface-variant font-medium text-sm leading-relaxed italic pr-4 opacity-60">
@@ -117,7 +117,7 @@ export const Footer: React.FC = () => {
 
       {/* COPYRIGHT */}
       <div className="max-w-7xl mx-auto mt-12 sm:mt-16 pt-6 sm:pt-8 border-t border-outline-variant/20 dark:border-outline-variant/30 flex flex-col gap-4 sm:gap-3 sm:flex-row sm:items-center sm:justify-between relative z-10 font-bold text-[10px] sm:text-xs uppercase tracking-widest text-on-surface-variant/60 dark:text-on-surface-variant/50">
-        <p>© 2026 Koobrain Eng Tech. All rights reserved.</p>
+        <p>© 2026 KooBrain Eng Tech. All rights reserved.</p>
         <div className="flex items-center gap-4">
             <span className="flex items-center gap-2 group cursor-help"><div className="size-2 rounded-full bg-success shadow-[0_0_10px_rgba(34,197,94,0.5)] dark:shadow-[0_0_15px_rgba(34,197,94,0.7)] group-hover:scale-150 transition-transform" /> All Systems Online</span>
             <span className="opacity-70 dark:opacity-60">Local Time: {new Date().toLocaleTimeString()}</span>

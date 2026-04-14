@@ -37,6 +37,7 @@ const PasswordGenerator = lazy(() => import('./pages/PasswordGenerator').then(m 
 const WordCounter = lazy(() => import('./pages/WordCounter').then(m => ({ default: m.WordCounter })));
 const SqlFormatter = lazy(() => import('./pages/SqlFormatter').then(m => ({ default: m.SqlFormatter })));
 const AgeCalculator = lazy(() => import('./pages/AgeCalculator').then(m => ({ default: m.AgeCalculator })));
+const CoupleAgeCalculator = lazy(() => import('./pages/CoupleAgeCalculator').then(m => ({ default: m.CoupleAgeCalculator })));
 const TimeBetweenDates = lazy(() => import('./pages/TimeBetweenDates').then(m => ({ default: m.TimeBetweenDates })));
 const ImageToBase64 = lazy(() => import('./pages/JsonTools/ImageToBase64').then(m => ({ default: m.ImageToBase64 })));
 const Base64ToImage = lazy(() => import('./pages/Base64ToImage').then(m => ({ default: m.Base64ToImage })));
@@ -97,6 +98,7 @@ export default function App() {
                   <Route path="/word-counter" element={<WordCounter />} />
                   <Route path="/sql-formatter" element={<SqlFormatter />} />
                   <Route path="/age-calculator" element={<AgeCalculator />} />
+                  <Route path="/couple-age-calculator" element={<CoupleAgeCalculator />} />
                   <Route path="/time-between-dates" element={<TimeBetweenDates />} />
                   <Route path="/image-to-base64" element={<ImageToBase64 />} />
                   <Route path="/base64-to-image" element={<Base64ToImage />} />
@@ -111,6 +113,7 @@ export default function App() {
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/disclaimer" element={<Disclaimer />} />
+                  <Route path="/tools" element={<Home />} />
 
                   {/* Fallback to NotFound */}
                   <Route path="*" element={<NotFound />} />

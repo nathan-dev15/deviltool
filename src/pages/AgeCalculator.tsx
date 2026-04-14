@@ -20,10 +20,10 @@ export const AgeCalculator: React.FC = () => {
     const now = new Date();
     const years = differenceInYears(now, birth);
     const months = differenceInMonths(now, birth) % 12;
-    
+
     // Approximate days
     const lastMonth = new Date(now.getFullYear(), now.getMonth(), birth.getDate());
-    const days = differenceInDays(now, lastMonth) < 0 
+    const days = differenceInDays(now, lastMonth) < 0
       ? differenceInDays(now, new Date(now.getFullYear(), now.getMonth() - 1, birth.getDate()))
       : differenceInDays(now, lastMonth);
 
@@ -40,88 +40,107 @@ export const AgeCalculator: React.FC = () => {
       ]}
       accentColor="primary"
     >
-      <SEO 
+      <SEO
         title="Age Calculator - Exact Age in Years, Months, Days"
         description="Calculate your exact age in years, months, and days. Find out how many days until your next birthday with our free online age calculator."
         keywords="age calculator, birthday calculator, exact age, days until birthday, calculator tools"
       />
 
-      <div className="max-w-4xl mx-auto space-y-10 sm:space-y-12 animate-fade-in px-4 sm:px-0">
-        <div className="bg-surface-container-lowest/50 backdrop-blur-3xl border-2 border-slate-300 dark:border-slate-800 border-b-8 border-b-orange-500 rounded-[2rem] sm:rounded-[3rem] shadow-2xl p-6 sm:p-12 relative overflow-hidden group">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 blur-[100px] pointer-events-none" />
-           <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 blur-[60px] pointer-events-none" />
-          
-          <div className="max-w-md mx-auto space-y-8 sm:space-y-10 relative z-10">
-            <div className="space-y-4">
-              <label className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 ml-1">
+      <div className="max-w-4xl mx-auto space-y-10 sm:space-y-16 animate-fade-in px-4 sm:px-0">
+
+        {/* MAIN CALCULATOR CARD */}
+        <div className="bg-surface-container-low dark:bg-surface-container-low border border-outline-variant/30 rounded-[2.5rem] sm:rounded-[3.5rem] shadow-2xl p-6 sm:p-14 relative overflow-hidden group">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 blur-[120px] pointer-events-none group-hover:bg-primary/20 transition-all duration-700" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-tertiary/10 blur-[80px] pointer-events-none group-hover:bg-tertiary/20 transition-all duration-700" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border border-primary/5 rounded-full scale-150 pointer-events-none" />
+
+          <div className="max-w-lg mx-auto space-y-8 sm:space-y-12 relative z-10">
+            <div className="space-y-5">
+              <label className="text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] text-on-surface-variant/60 ml-1 flex items-center gap-2">
+                <div className="size-1.5 rounded-full bg-primary animate-pulse" />
                 {t('label.date_of_birth')}
               </label>
-              <div className="relative group/input p-1 bg-slate-200 dark:bg-slate-800 rounded-2xl shadow-inner">
-                 <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within/input:text-orange-500 transition-colors" />
-                 <input 
-                   type="date" 
-                   value={birthDate}
-                   onChange={(e) => setBirthDate(e.target.value)}
-                   className="w-full pl-14 pr-6 py-4 sm:py-5 bg-white dark:bg-slate-900 border-none rounded-xl focus:ring-2 focus:ring-orange-500/50 outline-none transition-all text-slate-800 dark:text-slate-100 font-black text-lg sm:text-xl shadow-sm"
-                 />
+
+              <div className="relative group/input p-1.5 bg-surface-container-highest dark:bg-black/40 rounded-3xl shadow-inner border border-outline-variant/10 transition-all hover:border-primary/30">
+                <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 size-6 text-on-surface-variant/30 group-focus-within/input:text-primary transition-colors" />
+                <input
+                  type="date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  className="w-full pl-16 pr-8 py-5 sm:py-6 bg-surface-container-lowest dark:bg-surface-container-low border-none rounded-[1.25rem] focus:ring-4 focus:ring-primary/10 outline-none transition-all text-on-surface font-black text-xl sm:text-2xl shadow-sm tracking-tight"
+                />
               </div>
             </div>
-   <div className="rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm">
-             <AdSense slot="8156203131"/>
-          </div>
-            <button 
+
+            <div className="rounded-[2rem] overflow-hidden border border-outline-variant/20 shadow-inner bg-surface-container-lowest/30">
+              <AdSense slot="8156203131" />
+            </div>
+
+            <button
               onClick={calculateAge}
-              className="w-full bg-orange-400 hover:bg-orange-500 text-white py-4 sm:py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] sm:text-xs transition-all shadow-[0_8px_0_0_#ea580c] hover:shadow-[0_6px_0_0_#ea580c] hover:translate-y-[2px] active:shadow-none active:translate-y-[8px] flex items-center justify-center gap-3 group/btn border-2 border-orange-300 ring-2 ring-orange-600/20"
+              className="w-full bg-primary hover:bg-primary-container text-on-primary py-5 sm:py-6 rounded-3xl font-black uppercase tracking-[0.2em] text-[11px] sm:text-xs transition-all shadow-[0_10px_0_0_#008b94] hover:shadow-[0_6px_0_0_#008b94] hover:translate-y-[4px] active:shadow-none active:translate-y-[10px] flex items-center justify-center gap-4 group/btn border-2 border-primary/30 relative overflow-hidden active:scale-95"
             >
-              <Gift className="size-5 group-hover:rotate-12 transition-transform" /> {t('label.calculate_age')}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Gift className="size-5 group-hover:rotate-12 transition-transform" />
+              <span>{t('label.calculate_age')}</span>
             </button>
 
             <AnimatePresence>
               {result && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="grid grid-cols-3 gap-3 sm:gap-4 pt-8 relative"
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  className="grid grid-cols-3 gap-3 sm:gap-6 pt-10 sm:pt-14"
                 >
-                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
-                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.years}</p>
-                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.years')}</p>
-                  </div>
-                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
-                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.months}</p>
-                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.months')}</p>
-                  </div>
-                  <div className="text-center p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border-b-4 border-slate-300 dark:border-black shadow-sm transition-all hover:-translate-y-1 hover:border-orange-500 hover:shadow-xl group/card">
-                    <p className="text-2xl sm:text-4xl font-black text-orange-500 mb-1 drop-shadow-sm">{result.days}</p>
-                    <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">{t('label.days')}</p>
-                  </div>
+                  {[
+                    { val: result.years, label: t('label.years') },
+                    { val: result.months, label: t('label.months') },
+                    { val: result.days, label: t('label.days') }
+                  ].map((item, idx) => (
+                    <div key={idx} className="text-center p-5 sm:p-8 bg-surface-container-lowest dark:bg-surface-container-lowest rounded-[2rem] sm:rounded-[2.5rem] border border-outline-variant/20 shadow-lg shadow-black/5 transition-all hover:-translate-y-2 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/5 group/card relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-3 opacity-0 group-hover/card:opacity-100 transition-opacity">
+                        <Star className="size-4 text-primary fill-primary" />
+                      </div>
+                      <p className="text-3xl sm:text-5xl font-black text-primary mb-2 drop-shadow-sm tracking-tighter">{item.val}</p>
+                      <p className="text-[10px] sm:text-[11px] font-black text-on-surface-variant/60 uppercase tracking-widest truncate">{item.label}</p>
+                    </div>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-4 sm:gap-8">
+        {/* FEATURE TILES */}
+        <div className="grid sm:grid-cols-3 gap-6 sm:gap-10">
           {[
-            { icon: Clock, title: t('label.precise_calculation'), desc: t('label.precise_calculation_desc') },
-            { icon: Gift, title: t('label.birthday_countdown'), desc: t('label.birthday_countdown_desc') },
-            { icon: Star, title: t('label.life_milestones'), desc: t('label.life_milestones_desc') },
+            { icon: Clock, title: t('label.precise_calculation'), desc: t('label.precise_calculation_desc'), color: 'primary' },
+            { icon: Gift, title: t('label.birthday_countdown'), desc: t('label.birthday_countdown_desc'), color: 'secondary' },
+            { icon: Star, title: t('label.life_milestones'), desc: t('label.life_milestones_desc'), color: 'tertiary' },
           ].map((feature, i) => (
-            <div key={i} className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-2 border-slate-200 dark:border-slate-800 border-b-4 p-6 sm:p-8 rounded-2xl sm:rounded-3xl group shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-              <div className="size-12 sm:size-14 bg-orange-500/10 rounded-2xl flex items-center justify-center mb-6 border border-orange-500/20 group-hover:scale-110 group-hover:bg-orange-500 group-hover:text-white transition-all text-orange-500">
-                <feature.icon className="size-6 sm:size-7" />
+            <div key={i} className="bg-surface-container-low/50 dark:bg-surface-container-low/30 backdrop-blur-sm border border-outline-variant/30 p-8 sm:p-10 rounded-[2.5rem] group shadow-sm hover:shadow-2xl hover:bg-surface-container-lowest transition-all hover:-translate-y-2">
+              <div className={`size-14 sm:size-16 rounded-2xl flex items-center justify-center mb-8 border transition-all duration-300
+                ${feature.color === 'primary' ? 'bg-primary/10 text-primary border-primary/20 group-hover:bg-primary group-hover:text-on-primary' : ''}
+                ${feature.color === 'secondary' ? 'bg-secondary/10 text-secondary border-secondary/20 group-hover:bg-secondary group-hover:text-on-secondary' : ''}
+                ${feature.color === 'tertiary' ? 'bg-tertiary/10 text-tertiary border-tertiary/20 group-hover:bg-tertiary group-hover:text-on-tertiary' : ''}
+              `}>
+                <feature.icon className="size-7 sm:size-8" />
               </div>
-              <h3 className="font-black text-slate-800 dark:text-slate-100 uppercase tracking-widest text-[10px] sm:text-xs mb-3 truncate">{feature.title}</h3>
-              <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-medium leading-relaxed opacity-80">{feature.desc}</p>
+              <h3 className="font-black text-on-surface uppercase tracking-widest text-xs mb-4">{feature.title}</h3>
+              <p className="text-on-surface-variant text-sm font-medium leading-relaxed opacity-75">{feature.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center pt-8">
-            <Link to="/tools" className="group flex items-center gap-3 bg-white dark:bg-slate-900 px-8 py-4 sm:px-10 sm:py-5 rounded-[2rem] border-2 border-slate-200 dark:border-slate-800 border-b-4 active:border-b-0 active:translate-y-1 transition-all shadow-md">
-                <LayoutDashboard className="size-5 text-orange-500 group-hover:rotate-12 transition-transform" />
-                <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-slate-700 dark:text-slate-200">{t('label.view_all_tools')}</span>
-            </Link>
+        {/* BOTTOM NAVIGATION */}
+        <div className="flex justify-center pt-6">
+          <Link to="/tools" className="group flex items-center gap-4 bg-surface-container-low hover:bg-surface-container-lowest px-10 py-5 sm:px-12 sm:py-6 rounded-full border border-outline-variant/30 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95">
+            <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+              <LayoutDashboard className="size-5 group-hover:rotate-12 transition-transform" />
+            </div>
+            <span className="text-xs sm:text-sm font-black uppercase tracking-widest text-on-surface/80">{t('label.view_all_tools')}</span>
+          </Link>
         </div>
       </div>
     </ToolPageWrapper>

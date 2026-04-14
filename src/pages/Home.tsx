@@ -244,13 +244,13 @@ export const Home: React.FC = () => {
             <div className="absolute inset-0 bg-grid opacity-5" />
             <div className="relative z-10">
               <h2 className="text-3xl sm:text-4xl font-black mb-6 text-on-surface text-center">
-                Welcome to Koobrain - Your Free Online Tools Hub
+                Welcome to KooBrain - Your Free Online Tools Hub
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
                 <div>
-                  <h3 className="text-xl font-bold text-primary mb-3">Why Koobrain?</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">Why KooBrain?</h3>
                   <p className="text-on-surface-variant leading-relaxed">
-                    Koobrain is your all-in-one solution for online productivity. Our comprehensive suite of {TOOLS.length}+ free tools is designed to simplify your workflow whether you're a developer, designer, student, or content creator.
+                    KooBrain is your all-in-one solution for online productivity. Our comprehensive suite of {TOOLS.length}+ free tools is designed to simplify your workflow whether you're a developer, designer, student, or content creator.
                   </p>
                 </div>
                 <div>
@@ -546,7 +546,7 @@ export const Home: React.FC = () => {
             {/* Success Stories / Use Cases */}
             <section className="bg-gradient-to-r from-tertiary/5 to-secondary/5 rounded-[2.5rem] p-8 sm:p-12 border border-outline-variant/20">
               <h2 className="text-3xl sm:text-4xl font-black mb-12 text-on-surface text-center">
-                Who Benefits From Koobrain?
+                Who Benefits From KooBrain?
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                 {[
@@ -605,8 +605,8 @@ export const Home: React.FC = () => {
               <div className="space-y-4">
                 {[
                   {
-                    question: 'Are all Koobrain tools truly free?',
-                    answer: 'Yes! All {TOOLS.length}+ tools on Koobrain are completely free. We believe in making productivity tools accessible to everyone. There are no hidden charges, no premium versions, and no credit card required. Use as many tools as you like, whenever you like.'
+                    question: 'Are all KooBrain tools truly free?',
+                    answer: 'Yes! All {TOOLS.length}+ tools on KooBrain are completely free. We believe in making productivity tools accessible to everyone. There are no hidden charges, no premium versions, and no credit card required. Use as many tools as you like, whenever you like.'
                   },
                   {
                     question: 'Is my data safe and private?',
@@ -614,19 +614,19 @@ export const Home: React.FC = () => {
                   },
                   {
                     question: 'Do I need to install anything to use these tools?',
-                    answer: 'No installation required! All Koobrain tools work directly in your web browser. Simply visit koobrain.com, select a tool, and start using it instantly. It works on any device: desktop, tablet, or mobile.'
+                    answer: 'No installation required! All KooBrain tools work directly in your web browser. Simply visit koobrain.com, select a tool, and start using it instantly. It works on any device: desktop, tablet, or mobile.'
                   },
                   {
                     question: 'Which tools are most popular?',
                     answer: 'Our most popular tools include JSON Formatter for data validation, Password Generator for creating secure passwords, Image Compressor for optimizing images, and Word Counter for text analysis. However, we have tools for every need - from SQL formatting to Base64 encoding.'
                   },
                   {
-                    question: 'Can I use Koobrain tools offline?',
+                    question: 'Can I use KooBrain tools offline?',
                     answer: 'Once a page loads, most tools work offline. However, for the best experience, we recommend having an internet connection to ensure you have access to the latest versions of all tools.'
                   },
                   {
                     question: 'Do you offer an API or bulk processing?',
-                    answer: 'Currently, Koobrain tools are designed for web-based use. For special requirements or partnerships, please contact us at contact@koobrain.com.'
+                    answer: 'Currently, KooBrain tools are designed for web-based use. For special requirements or partnerships, please contact us at contact@koobrain.com.'
                   },
                 ].map((faq, index) => (
                   <div

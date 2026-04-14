@@ -299,7 +299,7 @@ export const JsonFormatter: React.FC = () => {
         <aside className="lg:col-span-4 space-y-8">
            <div className="bg-surface-container-low/30 rounded-[2.5rem] p-8 border border-outline-variant/20 shadow-sm sticky top-24">
             <h3 className="text-xl font-black uppercase tracking-widest mb-8 text-on-surface flex items-center gap-3">
-               <Sparkles className="size-5 text-warning" />
+               <Sparkles className="size-5 text-primary" />
                {t('label.related_json_tools')}
             </h3>
             <div className="grid gap-4">
