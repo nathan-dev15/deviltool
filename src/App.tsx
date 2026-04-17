@@ -17,6 +17,8 @@ const JsonFormatter = lazy(() => import('./pages/JsonTools/JsonFormatter').then(
 const JsonValidator = lazy(() => import('./pages/JsonTools/JsonValidator').then(m => ({ default: m.JsonValidator })));
 const JsonMinifier = lazy(() => import('./pages/JsonTools/JsonMinifier').then(m => ({ default: m.JsonMinifier })));
 const JsonToTypescriptGenerator = lazy(() => import('./pages/JsonTools/JsonToTypescriptGenerator').then(m => ({ default: m.JsonToTypescriptGenerator })));
+const UuidGenerator = lazy(() => import('./pages/UuidGenerator').then(m => ({ default: m.UuidGenerator })));
+const TextCaseConverter = lazy(() => import('./pages/TextCaseConverter').then(m => ({ default: m.TextCaseConverter })));
 const JsonPrettyTool = lazy(() => import('./pages/JsonTools/JsonPretty').then(m => ({ default: m.JsonPrettyTool })));
 const JsonToCsvTool = lazy(() => import('./pages/JsonTools/JsonToCsvTool').then(m => ({ default: m.JsonToCsvTool })));
 const JsonToXmlTool = lazy(() => import('./pages/JsonTools/JsonToXmlTool').then(m => ({ default: m.JsonToXmlTool })));
@@ -38,6 +40,8 @@ const WordCounter = lazy(() => import('./pages/WordCounter').then(m => ({ defaul
 const SqlFormatter = lazy(() => import('./pages/SqlFormatter').then(m => ({ default: m.SqlFormatter })));
 const AgeCalculator = lazy(() => import('./pages/AgeCalculator').then(m => ({ default: m.AgeCalculator })));
 const CoupleAgeCalculator = lazy(() => import('./pages/CoupleAgeCalculator').then(m => ({ default: m.CoupleAgeCalculator })));
+const GstCalculator = lazy(() => import('./pages/GstCalculator').then(m => ({ default: m.GstCalculator })));
+const EmiCalculator = lazy(() => import('./pages/EmiCalculator').then(m => ({ default: m.EmiCalculator })));
 const TimeBetweenDates = lazy(() => import('./pages/TimeBetweenDates').then(m => ({ default: m.TimeBetweenDates })));
 const ImageToBase64 = lazy(() => import('./pages/JsonTools/ImageToBase64').then(m => ({ default: m.ImageToBase64 })));
 const Base64ToImage = lazy(() => import('./pages/Base64ToImage').then(m => ({ default: m.Base64ToImage })));
@@ -51,8 +55,6 @@ const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Con
 const Privacy = lazy(() => import('./pages/Privacy').then(m => ({ default: m.Privacy })));
 const Terms = lazy(() => import('./pages/Terms').then(m => ({ default: m.Terms })));
 const Disclaimer = lazy(() => import('./pages/Disclaimer').then(m => ({ default: m.Disclaimer })));
-const PdfHome = lazy(() => import('./pages/PdfHome').then(m => ({ default: m.PdfHome })));
-const CalculatorHome = lazy(() => import('./pages/CalculatorHome').then(m => ({ default: m.CalculatorHome })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
 
 export default function App() {
@@ -70,8 +72,8 @@ export default function App() {
               }>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/pdf" element={<PdfHome />} />
-                  <Route path="/calculator" element={<CalculatorHome />} />
+                  <Route path="/pdf" element={<Home />} />
+                  <Route path="/calculator" element={<Home />} />
                   <Route path="/json-formatter" element={<JsonFormatter />} />
                   <Route path="/json-validator" element={<JsonValidator />} />
                   <Route path="/json-minifier" element={<JsonMinifier />} />
@@ -94,11 +96,15 @@ export default function App() {
                   <Route path="/unicode-converter" element={<UnicodeConverterTool />} />
 
                   <Route path="/string-comparison" element={<StringComparison />} />
+                  <Route path="/text-case-converter" element={<TextCaseConverter />} />
                   <Route path="/password-generator" element={<PasswordGenerator />} />
+                  <Route path="/uuid-generator" element={<UuidGenerator />} />
                   <Route path="/word-counter" element={<WordCounter />} />
                   <Route path="/sql-formatter" element={<SqlFormatter />} />
                   <Route path="/age-calculator" element={<AgeCalculator />} />
                   <Route path="/couple-age-calculator" element={<CoupleAgeCalculator />} />
+                  <Route path="/gst-calculator" element={<GstCalculator />} />
+                  <Route path="/emi-calculator" element={<EmiCalculator />} />
                   <Route path="/time-between-dates" element={<TimeBetweenDates />} />
                   <Route path="/image-to-base64" element={<ImageToBase64 />} />
                   <Route path="/base64-to-image" element={<Base64ToImage />} />

@@ -39,6 +39,12 @@ export const JsonSortKeysTool = () => {
   };
 
   const convertJson = (input: string) => {
+    if (!input.trim()) {
+      setJsonOutput("");
+      setError("");
+      return;
+    }
+
     try {
       const parsed = JSON.parse(input);
       const sorted = sortJsonKeys(parsed);

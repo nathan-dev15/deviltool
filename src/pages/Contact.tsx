@@ -34,36 +34,66 @@ export const Contact: React.FC = () => {
               {t('label.contact_p1')} {t('label.contact_p2')}
             </p>
 
-            <div className="grid gap-6">
-              <div className="rounded-2xl border border-outline-variant/30 bg-surface-container-high/40 px-6 py-5 flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] text-on-surface-variant/60">{t('label.email_support')}</p>
-                  <a className="text-on-surface text-lg font-black hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>
-                    {SUPPORT_EMAIL}
-                  </a>
-                  <p className="text-on-surface-variant text-sm opacity-80">{t('label.support_notes_p3')}</p>
+            <div className="grid gap-12">
+              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Name</label>
+                    <input
+                      type="text"
+                      placeholder="John Doe"
+                      className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="john@example.com"
+                      className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
+                    />
+                  </div>
                 </div>
-                <a
-                  href={`mailto:${SUPPORT_EMAIL}`}
-                  className="inline-flex items-center gap-2 rounded-xl bg-secondary text-on-secondary px-5 py-3 font-black uppercase tracking-widest text-[11px] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-secondary/20"
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Subject</label>
+                  <select className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold appearance-none">
+                    <option>General Inquiry</option>
+                    <option>Bug Report</option>
+                    <option>Feature Request</option>
+                    <option>Advertising / AdSense</option>
+                    <option>Privacy Question</option>
+                  </select>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Message</label>
+                  <textarea
+                    rows={6}
+                    placeholder="How can we help you today?"
+                    className="w-full px-6 py-5 rounded-[2rem] bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold resize-none"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-secondary text-on-secondary font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all shadow-xl shadow-secondary/20 flex items-center justify-center gap-3"
                 >
-                  <Mail className="size-4" />
-                  {t('label.email_support')}
-                </a>
-              </div>
+                  <Mail className="size-4" /> Send Message
+                </button>
+              </form>
 
-              <div className="rounded-2xl border border-outline-variant/20 bg-surface-container-high/30 p-6">
-                <p className="flex items-start gap-3 text-sm text-on-surface-variant leading-relaxed font-medium">
-                  <ShieldAlert className="size-4 text-secondary mt-0.5" />
-                  {t('label.support_notes_p2')}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-secondary/30 bg-secondary/5 p-6">
-                <h3 className="text-sm font-bold text-on-surface mb-3">AdSense & Policy Support</h3>
-                <p className="text-sm text-on-surface-variant leading-relaxed">
-                  For questions about Google AdSense, advertising, or privacy policy, please email us at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-secondary font-bold hover:underline">{SUPPORT_EMAIL}</a>. We typically respond within 1-2 business days.
-                </p>
+              <div className="grid sm:grid-cols-2 gap-6 pt-6">
+                <div className="rounded-2xl border border-outline-variant/30 bg-surface-container-high/40 px-6 py-5">
+                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 mb-1">Direct Support</p>
+                   <a className="text-on-surface font-black hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>
+                     {SUPPORT_EMAIL}
+                   </a>
+                </div>
+                <div className="rounded-2xl border border-secondary/30 bg-secondary/5 p-5">
+                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-secondary/60 mb-1">Average Response Time</p>
+                   <p className="text-on-surface font-black">24-48 Business Hours</p>
+                </div>
               </div>
             </div>
           </section>

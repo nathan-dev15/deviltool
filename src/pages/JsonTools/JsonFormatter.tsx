@@ -22,6 +22,9 @@ import { useToolActions } from '../useToolActions';
 import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
 import { AdSense } from '@/src/components/AdSense';
 import { useI18n } from '@/src/i18n/I18nContext';
+import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
+import { buildToolSeoPage } from '@/src/seo/generateToolSeo';
+import { ToolDetailedContent } from '@/src/components/ToolDetailedContent';
 
 /* ---------- Code Editor Component ---------- */
 
@@ -92,11 +95,14 @@ const CodeEditor = ({
 };
 
 export const JsonFormatter: React.FC = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const { copied, copyToClipboard, downloadFile, readFile } = useToolActions();
+
+  const seoConfig = TOOL_SEO_BY_PATH['/json-formatter'];
+  const seoPage = seoConfig ? buildToolSeoPage(seoConfig, { locale }) : null;
 
   const formatJson = (val: string = input) => {
     try {
@@ -292,6 +298,9 @@ export const JsonFormatter: React.FC = () => {
           <div className="mt-12 rounded-[2rem] overflow-hidden border border-outline-variant/20 shadow-sm">
              <AdSense slot="8156203131"/>
           </div>
+
+          {/* DETAILED CONTENT SECTION */}
+          {seoPage && <ToolDetailedContent config={seoPage} />}
 
         </div>
 

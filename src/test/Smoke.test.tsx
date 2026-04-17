@@ -13,6 +13,6 @@ describe("Smoke", () => {
         </I18nProvider>
       </MemoryRouter>
     );
-    expect(screen.getByText(/Free Online Tools/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /Free Online Tools/i })).toBeInTheDocument();
   });
 });

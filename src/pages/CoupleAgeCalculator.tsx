@@ -14,14 +14,20 @@ import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
 import { AdSense } from "@/src/components/AdSense";
 import { useI18n } from '@/src/i18n/I18nContext';
 import { cn } from '@/src/lib/utils';
+import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
+import { buildToolSeoPage } from '@/src/seo/generateToolSeo';
+import { ToolDetailedContent } from '@/src/components/ToolDetailedContent';
 
 export const CoupleAgeCalculator: React.FC = () => {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
     const [name1, setName1] = React.useState('');
     const [name2, setName2] = React.useState('');
     const [date1, setDate1] = React.useState('');
     const [date2, setDate2] = React.useState('');
     const [result, setResult] = React.useState<any>(null);
+
+    const seoConfig = TOOL_SEO_BY_PATH['/couple-age-calculator'];
+    const seoPage = seoConfig ? buildToolSeoPage(seoConfig, { locale }) : null;
 
     const calculate = () => {
         if (!date1 || !date2) return;
@@ -247,77 +253,13 @@ export const CoupleAgeCalculator: React.FC = () => {
                     )}
                 </AnimatePresence>
 
-                {/* SEO CONTENT GRID */}
-                <div className="grid md:grid-cols-3 gap-8 sm:gap-12 animate-fade-in px-2">
-                    {[
-                        {
-                            icon: Info,
-                            title: "What is an Online Love Calculator?",
-                            desc: "An online love calculator is a fun utility designed to estimate the compatibility between two people based on their birthdates and names. It uses a proprietary algorithm to analyze the age gap and provide a percentage-based compatibility score."
-                        },
-                        {
-                            icon: TrendingUp,
-                            title: "Is the Love Percentage Accurate?",
-                            desc: "While our Love Calculator uses advanced logic to compare age differences, it is intended primarily for entertainment and curiosity. True compatibility depends on shared values, communication, and mutual respect beyond just numbers."
-                        },
-                        {
-                            icon: ShieldCheck,
-                            title: "Couple Age Gap Statistics",
-                            desc: "Studies show that age gaps in relationships can offer unique perspectives. Our tool helps couples visualize their age difference in years, months, and days, helping them celebrate their unique journey together."
-                        }
-                    ].map((item, i) => (
-                        <div key={i} className="space-y-4 p-8 rounded-[2rem] bg-surface-container-low/30 border border-outline-variant/30 hover:bg-surface-container-low transition-all">
-                            <div className="size-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary border border-secondary/20">
-                                <item.icon className="size-6" />
-                            </div>
-                            <h2 className="text-lg font-black tracking-tight text-on-surface leading-tight">
-                                {item.title}
-                            </h2>
-                            <p className="text-on-surface-variant text-sm font-medium leading-relaxed opacity-75">
-                                {item.desc}
-                            </p>
-                        </div>
-                    ))}
+                {/* ADS BANNER AFTER TOOL */}
+                <div className="rounded-[2.5rem] overflow-hidden border border-outline-variant/30 shadow-inner bg-surface-container-lowest/30">
+                    <AdSense slot="8156203131" />
                 </div>
 
-                {/* FAQ SECTION */}
-                <div className="max-w-4xl mx-auto space-y-12 py-10">
-                    <div className="text-center space-y-4">
-                        <h2 className="text-3xl sm:text-4xl font-black text-on-surface">Frequently Asked Questions</h2>
-                        <div className="h-1.5 w-24 bg-secondary mx-auto rounded-full" />
-                    </div>
-
-                    <div className="grid gap-6">
-                        {[
-                            {
-                                q: "How is the Love Score calculated?",
-                                a: "Our algorithm takes the age difference into account, converting it into a compatibility metric. We consider the 'Golden Age Gap' theories and calculate the percentage based on how close your ages are, with higher scores for closer age ranges."
-                            },
-                            {
-                                q: "Can I use this as a Friendship Calculator?",
-                                a: "Yes! While titled 'Couple Age Calculator', you can use this to check the age gap and 'compatibility score' for friends, family members, or colleagues to see the difference between your ages."
-                            },
-                            {
-                                q: "Does name impact the Love Percentage?",
-                                a: "Our current version focuses on the mathematical age gap. While names are used for personalization, the core compatibility logic is built around the precise time interval between your birthdates."
-                            },
-                            {
-                                q: "Is my data private?",
-                                a: "Absolutely. KooBrain follows a 'Privacy First' policy. All date-of-birth comparisons are done locally on your device (browser). We never see, store, or share your personal birthdates or names."
-                            }
-                        ].map((faq, i) => (
-                            <div key={i} className="bg-surface-container-low/20 border border-outline-variant/20 p-6 sm:p-8 rounded-3xl hover:border-secondary/40 transition-colors">
-                                <h3 className="text-lg font-bold text-on-surface mb-3 flex items-center gap-3">
-                                    <span className="size-6 rounded-full bg-secondary/10 text-secondary text-xs flex items-center justify-center shrink-0">Q</span>
-                                    {faq.q}
-                                </h3>
-                                <p className="text-on-surface-variant text-sm leading-relaxed pl-9">
-                                    {faq.a}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                {/* DETAILED CONTENT SECTION */}
+                {seoPage && <ToolDetailedContent config={seoPage} />}
 
                 {/* BOTTOM NAVIGATION */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-12">

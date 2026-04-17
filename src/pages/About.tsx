@@ -73,6 +73,36 @@ export const About: React.FC = () => {
             </div>
           </section>
 
+          {/* Leadership & E-A-T */}
+          <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm">
+            <h2 className="text-3xl font-black text-on-surface mb-8">Engineering & Editorial Excellence</h2>
+            <div className="space-y-8">
+              <p className="text-base text-on-surface-variant leading-relaxed">
+                KooBrain isn't just a collection of scripts; it's a platform built by a dedicated team of full-stack developers, SEO specialists, and technical writers. We follow the Google E-A-T (Expertise, Authoritativeness, and Trustworthiness) guidelines to ensure every tool and piece of content we provide is accurate, secure, and helpful.
+              </p>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="flex gap-4 items-start">
+                   <div className="size-14 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <Sparkles className="size-6 text-primary" />
+                   </div>
+                   <div>
+                      <h4 className="font-bold text-on-surface">Precision Engineering</h4>
+                      <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">Our tools are built using modern web technologies like React and WebAssembly to ensure high-performance, client-side processing.</p>
+                   </div>
+                </div>
+                <div className="flex gap-4 items-start">
+                   <div className="size-14 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="size-6 text-secondary" />
+                   </div>
+                   <div>
+                      <h4 className="font-bold text-on-surface">Data Integrity Team</h4>
+                      <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">Our security experts audit every tool to ensure your data never leaves your browser, maintaining 100% privacy.</p>
+                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Quality & Innovation */}
           <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm group">
             <h2 className="text-3xl font-black text-on-surface flex items-center gap-4 mb-8">

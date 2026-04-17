@@ -17,6 +17,12 @@ export type ToolSeoPage = {
   mainKeyword: string;
   secondaryKeywords: string[];
   toolName: string;
+  detailedDescription?: string;
+  usageGuide?: { title: string; steps: string[] };
+  examples?: { title: string; list: { title: string; description: string }[] };
+  useCases?: string[];
+  formula?: { title: string; explanation: string; calculation?: string };
+  lastUpdated: string;
 };
 
 function clamp(input: string, max: number) {
@@ -650,6 +656,12 @@ export function buildToolSeoPage(config: ToolSeoConfig, opts?: { locale?: Suppor
     mainKeyword: merged.mainKeyword,
     secondaryKeywords: merged.secondaryKeywords,
     toolName,
+    detailedDescription: merged.detailedDescription,
+    usageGuide: merged.usageGuide,
+    examples: merged.examples,
+    useCases: merged.useCases,
+    formula: merged.formula,
+    lastUpdated: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
   };
 }
 

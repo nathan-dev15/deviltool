@@ -7,10 +7,17 @@ import { SEO } from '@/src/components/SEO';
 import { ToolPageWrapper } from '@/src/components/ToolPageWrapper';
 import { useI18n } from '@/src/i18n/I18nContext';
 import { AdSense } from "@/src/components/AdSense";
+import { TOOL_SEO_BY_PATH } from '@/src/seo/toolSeo';
+import { buildToolSeoPage } from '@/src/seo/generateToolSeo';
+import { ToolDetailedContent } from '@/src/components/ToolDetailedContent';
+
 export const AgeCalculator: React.FC = () => {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [birthDate, setBirthDate] = React.useState('');
   const [result, setResult] = React.useState<{ years: number; months: number; days: number } | null>(null);
+
+  const seoConfig = TOOL_SEO_BY_PATH['/age-calculator'];
+  const seoPage = seoConfig ? buildToolSeoPage(seoConfig, { locale }) : null;
 
   const calculateAge = () => {
     if (!birthDate) return;
@@ -132,6 +139,9 @@ export const AgeCalculator: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {/* DETAILED CONTENT SECTION */}
+        {seoPage && <ToolDetailedContent config={seoPage} />}
 
         {/* BOTTOM NAVIGATION */}
         <div className="flex justify-center pt-6">

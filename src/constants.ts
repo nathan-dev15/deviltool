@@ -196,6 +196,15 @@ export const TOOLS: Tool[] = [
     path: '/unicode-converter',
   },
   {
+    id: 'text-case-converter',
+    name: 'Text Case Converter',
+    description: 'Instantly convert your text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, and more.',
+    icon: 'type',
+    category: 'text',
+    path: '/text-case-converter',
+    trending: true,
+  },
+  {
     id: 'string-comparison',
     name: 'String Comparison',
     description: 'Compare two strings or text blocks and highlight the differences instantly.',
@@ -216,10 +225,18 @@ export const TOOLS: Tool[] = [
   {
     id: 'password-generator',
     name: 'Password Generator',
-    description: 'Create strong, secure, and random passwords with custom requirements.',
+    description: 'Generate strong, random passwords securely.',
     icon: 'lock',
     category: 'security',
     path: '/password-generator',
+  },
+  {
+    id: 'uuid-generator',
+    name: 'UUID v4 Generator',
+    description: 'Instantly generate cryptographically secure Version 4 UUIDs (Universally Unique Identifiers) in bulk.',
+    icon: 'fingerprint',
+    category: 'developer',
+    path: '/uuid-generator',
     trending: true,
   },
   {
@@ -288,5 +305,21 @@ export const TOOLS: Tool[] = [
     icon: 'image',
     category: 'image',
     path: '/image-to-base64',
+  },
+  {
+    id: 'gst-calculator',
+    name: 'GST Calculator',
+    description: 'Calculate Goods and Services Tax (GST) for any amount instantly. Add or remove GST percentages.',
+    icon: 'landmark',
+    category: 'calculator',
+    path: '/gst-calculator',
+  },
+  {
+    id: 'emi-calculator',
+    name: 'EMI Calculator',
+    description: 'Calculate Monthly Installments (EMI) for home loans, car loans, and personal loans with interest breakdown.',
+    icon: 'banknote',
+    category: 'calculator',
+    path: '/emi-calculator',
   }
 ];

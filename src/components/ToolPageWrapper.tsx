@@ -145,6 +145,7 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
               {displayDescription}
             </p>
           )}
+
         </div>
       </div>
 
