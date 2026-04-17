@@ -140,16 +140,6 @@ export const ToolSeoArticle: React.FC<{ config: ToolSeoConfig }> = ({ config }) 
           </div>
         </section>
 
-        <footer className="relative mt-10 rounded-2xl border border-outline-variant/25 bg-surface-container-low px-4 py-4 text-sm text-on-surface-variant">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span>
-              <strong className="text-on-surface">{t('seo.suggested_url')}:</strong> {page.urlSlug}
-            </span>
-            <span>
-              <strong className="text-on-surface">{t('seo.suggested_alt')}:</strong> {page.imageAltText}
-            </span>
-          </div>
-        </footer>
       </div>
     </article>
   );

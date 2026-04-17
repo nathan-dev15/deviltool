@@ -19,7 +19,8 @@ import {
   FileText,
   Calculator,
   Code2,
-  ImageIcon
+  ImageIcon,
+  BookOpen
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useI18n } from '../i18n/I18nContext';
@@ -71,6 +72,7 @@ export const Navbar: React.FC = () => {
 
   const secondaryLinks = [
     { name: t('nav.security'), path: '/security', icon: <ShieldCheck size={16} /> },
+    { name: 'Guides', path: '/guides', icon: <BookOpen size={16} /> },
     { name: t('nav.about'), path: '/about', icon: <Info size={16} /> },
     { name: t('nav.contact'), path: '/contact', icon: <UserCircle size={16} /> },
   ];

@@ -73,33 +73,55 @@ export const About: React.FC = () => {
             </div>
           </section>
 
-          {/* Quality & Innovation */}
+          {/* How we build tools */}
           <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm group">
             <h2 className="text-3xl font-black text-on-surface flex items-center gap-4 mb-8">
               <Sparkles className="size-8 text-secondary group-hover:scale-110 transition-transform" />
-              Quality, Innovation & Support
+              How We Build and Verify Tools
             </h2>
             <div className="space-y-6 text-on-surface-variant leading-relaxed">
               <p className="text-base">
-                Every tool on Koobrain is carefully built and continuously improved based on user feedback. We're committed to maintaining the highest standards of functionality, accuracy, and user experience.
+                Every tool on KooBrain follows a deliberate build process: the core logic is authored by developers with domain expertise in that area (encoding, security, data formats), cross-checked against the relevant specification or RFC, and tested against real-world edge cases before release. We don't ship tools until they produce correct output consistently.
+              </p>
+              <p className="text-base">
+                Client-side processing is a first-class requirement — not a feature. Every tool that handles user data is verified to operate entirely within the browser before it goes live. We review this as part of every release cycle.
               </p>
               <div className="grid sm:grid-cols-2 gap-4 mt-6">
                 <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-4">
-                  <p className="font-bold text-on-surface text-sm mb-2">Regular Updates</p>
-                  <p className="text-xs text-on-surface-variant">We continuously improve tools based on user feedback and emerging needs.</p>
+                  <p className="font-bold text-on-surface text-sm mb-2">Spec-verified accuracy</p>
+                  <p className="text-xs text-on-surface-variant">Tools are validated against official specifications (RFCs, ISO standards) to ensure correct output, not just plausible output.</p>
                 </div>
                 <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-4">
                   <p className="font-bold text-on-surface text-sm mb-2">Always Free</p>
-                  <p className="text-xs text-on-surface-variant">We believe in keeping productivity tools accessible to everyone, forever.</p>
+                  <p className="text-xs text-on-surface-variant">We believe in keeping productivity tools accessible to everyone, forever. No paywalls, no feature gating.</p>
                 </div>
                 <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-4">
                   <p className="font-bold text-on-surface text-sm mb-2">Reliable & Fast</p>
-                  <p className="text-xs text-on-surface-variant">Built with performance in mind to handle large files and heavy workloads.</p>
+                  <p className="text-xs text-on-surface-variant">Built with performance in mind. All processing happens locally so there's no server round-trip adding latency.</p>
                 </div>
                 <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-4">
-                  <p className="font-bold text-on-surface text-sm mb-2">Expert Support</p>
-                  <p className="text-xs text-on-surface-variant">Have questions? Our team is ready to help via email or contact form.</p>
+                  <p className="font-bold text-on-surface text-sm mb-2">Responsive to feedback</p>
+                  <p className="text-xs text-on-surface-variant">User bug reports and suggestions directly drive our update backlog. Tools are improved continuously, not abandoned after launch.</p>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* E-E-A-T — Editorial standards */}
+          <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm">
+            <h2 className="text-3xl font-black text-on-surface mb-8">Editorial Standards</h2>
+            <div className="space-y-5 text-on-surface-variant leading-relaxed">
+              <p className="text-base">
+                KooBrain publishes <Link to="/guides" className="text-primary font-bold hover:underline">developer guides</Link> alongside its tools. Every guide is written to explain the underlying concept clearly and accurately — not to rank for keywords. We cite authoritative sources (RFCs, official documentation, academic research) and flag the limits of our explanations where simplifications are made for accessibility.
+              </p>
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
+                <p className="font-bold text-on-surface text-sm mb-2">Our content criteria</p>
+                <ul className="text-sm space-y-2 text-on-surface-variant">
+                  <li>✓ <span className="font-semibold text-on-surface">Technically accurate:</span> content reviewed against specifications and tested with real data</li>
+                  <li>✓ <span className="font-semibold text-on-surface">Written for humans:</span> jargon explained, examples included, no filler content</li>
+                  <li>✓ <span className="font-semibold text-on-surface">Updated on change:</span> pages are revised when underlying specs or best practices change</li>
+                  <li>✓ <span className="font-semibold text-on-surface">Honest about limitations:</span> we tell you when a tool has constraints, not just what it does well</li>
+                </ul>
               </div>
             </div>
           </section>

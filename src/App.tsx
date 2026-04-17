@@ -54,6 +54,11 @@ const Disclaimer = lazy(() => import('./pages/Disclaimer').then(m => ({ default:
 const PdfHome = lazy(() => import('./pages/PdfHome').then(m => ({ default: m.PdfHome })));
 const CalculatorHome = lazy(() => import('./pages/CalculatorHome').then(m => ({ default: m.CalculatorHome })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
+const Guides = lazy(() => import('./pages/Guides').then(m => ({ default: m.Guides })));
+const WhatIsJson = lazy(() => import('./pages/guides/WhatIsJson').then(m => ({ default: m.WhatIsJson })));
+const Base64Explained = lazy(() => import('./pages/guides/Base64Explained').then(m => ({ default: m.Base64Explained })));
+const ImageCompressionGuide = lazy(() => import('./pages/guides/ImageCompressionGuide').then(m => ({ default: m.ImageCompressionGuide })));
+const StrongPasswordGuide = lazy(() => import('./pages/guides/StrongPasswordGuide').then(m => ({ default: m.StrongPasswordGuide })));
 
 export default function App() {
   return (
@@ -114,6 +119,12 @@ export default function App() {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/disclaimer" element={<Disclaimer />} />
                   <Route path="/tools" element={<Home />} />
+
+                  <Route path="/guides" element={<Guides />} />
+                  <Route path="/guides/what-is-json" element={<WhatIsJson />} />
+                  <Route path="/guides/base64-encoding-explained" element={<Base64Explained />} />
+                  <Route path="/guides/image-compression-guide" element={<ImageCompressionGuide />} />
+                  <Route path="/guides/strong-password-guide" element={<StrongPasswordGuide />} />
 
                   {/* Fallback to NotFound */}
                   <Route path="*" element={<NotFound />} />

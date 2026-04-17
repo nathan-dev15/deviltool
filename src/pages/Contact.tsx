@@ -72,7 +72,6 @@ export const Contact: React.FC = () => {
         <aside className="lg:col-span-4 space-y-8">
           <div className="bg-surface-container-low/30 p-10 rounded-[2.5rem] border border-outline-variant/20 sticky top-24 backdrop-blur-md relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-bl-full pointer-events-none" />
-            
             <h3 className="text-sm font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mb-8">{t('label.support_notes')}</h3>
             <div className="space-y-6 text-sm text-on-surface-variant leading-relaxed font-medium italic opacity-85">
               <p>
