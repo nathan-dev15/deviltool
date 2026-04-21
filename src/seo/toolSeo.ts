@@ -2069,5 +2069,162 @@ Join the thousands of authors and professionals who chose KooBrain for its speed
       }
     ]
   },
+
+  "/pdf/merge": {
+    toolName: "Merge PDF",
+    mainKeyword: "merge pdf online free",
+    secondaryKeywords: ["combine pdf files", "free pdf merger", "join pdf documents", "pdf joiner online", "merge pdf without watermark", "combine multiple pdfs into one"],
+    urlSlug: "/pdf/merge",
+    imageAltText: "Merge PDF tool showing multiple uploaded PDF files and a combine button",
+    seoTitle: "Merge PDF Online Free | No Watermark | KooBrain",
+    metaDescription: "Combine multiple PDF files into one document. Free, fast, and secure PDF merger online. No login required. No watermark added.",
+    detailedDescription: `Merging PDF files is one of the most common document management tasks for students, professionals, and businesses. Whether you're combining multiple reports into one submission, joining scanned invoices, or assembling a multi-chapter document, KooBrain's Merge PDF tool makes the process instantaneous and completely free.\n\nOur browser-based PDF merger uses the industry-standard pdf-lib library to combine your documents at the page object level — meaning every page, font, image, and annotation is perfectly preserved in the final output. There is no quality degradation, no watermark, and no server involved. Your files stay entirely on your device throughout the process.\n\nWith support for up to 20 PDF files in a single merge operation, KooBrain handles everything from simple two-file merges to complex multi-document assemblies. The order of the output PDF mirrors the order you upload the files, giving you full control over the final structure.`,
+    usageGuide: {
+      title: "How to Merge PDFs in 3 Steps",
+      steps: ["Upload all PDF files you want to merge using the drag-and-drop area.", "Review the file list — files will be merged in this order. Remove any unwanted files.", "Click 'Merge PDFs' and download your combined document instantly."]
+    },
+    useCases: ["Combining report chapters into one submission", "Joining invoices for accounting", "Assembling multi-part application documents", "Merging scanned forms"],
+    faqs: [
+      { question: "Is this PDF merger completely free?", answer: "Yes — 100% free with no account, no watermark, and no hidden fees." },
+      { question: "Are my files safe?", answer: "Absolutely. Files are processed entirely in your browser and never uploaded to any server." },
+      { question: "Does the merged PDF have a watermark?", answer: "No. KooBrain never adds watermarks or branding to your output." },
+      { question: "What is the file limit?", answer: "You can merge up to 20 PDFs in a single operation." },
+    ]
+  },
+
+  "/pdf/split": {
+    toolName: "Split PDF",
+    mainKeyword: "split pdf online free",
+    secondaryKeywords: ["extract pdf pages", "pdf splitter free", "divide pdf", "separate pdf pages", "pdf page extractor"],
+    urlSlug: "/pdf/split",
+    imageAltText: "Split PDF tool showing a PDF file with page extraction options",
+    seoTitle: "Split PDF Online Free | Extract PDF Pages | KooBrain",
+    metaDescription: "Split a PDF file into individual pages or extract a page range. Free, secure browser-based PDF splitter. No upload required.",
+    usageGuide: {
+      title: "How to Split a PDF",
+      steps: ["Upload the PDF you want to split.", "The tool automatically extracts the first half of the document.", "Download the split PDF file."]
+    },
+    useCases: ["Extracting a specific chapter from a long document", "Separating invoices", "Splitting exam papers", "Dividing large reports"],
+    faqs: [
+      { question: "Is this PDF splitter free?", answer: "Yes, completely free with no login required." },
+      { question: "Can I choose which pages to extract?", answer: "Currently the tool splits at the midpoint. Full page-range selection is coming soon." },
+      { question: "Does it work on password-protected PDFs?", answer: "No — you'll need to remove the password protection first." },
+    ]
+  },
+
+  "/pdf/compress": {
+    toolName: "Compress PDF",
+    mainKeyword: "compress pdf online free",
+    secondaryKeywords: ["reduce pdf size", "pdf compressor", "shrink pdf file", "optimize pdf", "pdf size reducer online"],
+    urlSlug: "/pdf/compress",
+    imageAltText: "Compress PDF tool showing file size before and after optimization",
+    seoTitle: "Compress PDF Online Free | Reduce PDF Size | KooBrain",
+    metaDescription: "Reduce PDF file size online for free. Optimize PDF structure without losing quality. No upload to server — 100% private.",
+    usageGuide: {
+      title: "How to Compress a PDF",
+      steps: ["Upload the PDF file you want to compress.", "The tool optimizes the internal PDF structure using object streams.", "Download the compressed PDF."]
+    },
+    useCases: ["Reducing PDF size for email attachments", "Optimizing PDFs for web hosting", "Shrinking documents for storage", "Preparing files for online form submissions"],
+    faqs: [
+      { question: "How much will it reduce my PDF size?", answer: "Results vary. Structure-optimized PDFs typically see 10–30% reduction. Results depend on how optimized the original PDF already is." },
+      { question: "Will it damage my content?", answer: "No — only internal structure is optimized. Text, images, and layout remain unchanged." },
+    ]
+  },
+
+  "/pdf/editor": {
+    toolName: "PDF Editor",
+    mainKeyword: "pdf editor online free",
+    secondaryKeywords: ["add text to pdf", "annotate pdf online", "edit pdf browser", "pdf annotation tool", "free pdf editor no signup"],
+    urlSlug: "/pdf/editor",
+    imageAltText: "PDF Editor tool showing text annotation being added to a PDF document",
+    seoTitle: "PDF Editor Online Free | Add Text to PDF | KooBrain",
+    metaDescription: "Edit PDF files online for free. Add text annotations to any PDF page. Secure browser-based PDF editor — no software install required.",
+    usageGuide: {
+      title: "How to Edit a PDF Online",
+      steps: ["Upload the PDF you want to annotate.", "Enter your annotation text and choose the target page number.", "Click 'Add Annotation' and download the edited PDF."]
+    },
+    useCases: ["Adding comments to contracts", "Annotating reports", "Marking up academic papers", "Adding notes to shared documents"],
+    faqs: [
+      { question: "Can I add text to a specific page?", answer: "Yes — specify the page number in the options panel before processing." },
+      { question: "What fonts are available?", answer: "The tool uses Helvetica Bold, a standard PDF font embedded in all PDF viewers." },
+    ]
+  },
+
+  "/pdf/create": {
+    toolName: "Create PDF",
+    mainKeyword: "create pdf online free",
+    secondaryKeywords: ["make pdf from text", "pdf creator online", "generate pdf document", "new pdf from scratch", "free pdf creator no login"],
+    urlSlug: "/pdf/create",
+    imageAltText: "Create PDF tool showing text input fields and a generate button",
+    seoTitle: "Create PDF Online Free | PDF Creator | KooBrain",
+    metaDescription: "Create a PDF document from scratch online. Type your content, add a title, and download a professional PDF instantly. Free, no login.",
+    usageGuide: {
+      title: "How to Create a PDF",
+      steps: ["Enter a document title in the title field.", "Type or paste your body content in the text area.", "Click 'Generate PDF' and download."]
+    },
+    useCases: ["Creating quick memos", "Generating simple reports", "Making printable documents", "Producing PDF invoices"],
+    faqs: [
+      { question: "Is this PDF creator free?", answer: "Yes — completely free, no account required." },
+      { question: "Can I add images?", answer: "Text-only creation is supported currently. Image embedding is coming in a future update." },
+    ]
+  },
+
+  "/pdf/add-files": {
+    toolName: "Add Files to PDF",
+    mainKeyword: "add files to pdf online",
+    secondaryKeywords: ["append pdf pages", "add pages to pdf", "insert pdf pages", "combine pdf documents", "extend pdf with pages"],
+    urlSlug: "/pdf/add-files",
+    imageAltText: "Add Files to PDF tool showing a base document with additional files being appended",
+    seoTitle: "Add Files to PDF Online Free | Append PDF Pages | KooBrain",
+    metaDescription: "Append pages from other PDFs to an existing document. Free online tool to add files to PDF — no watermark, no login.",
+    usageGuide: {
+      title: "How to Add Files to a PDF",
+      steps: ["Upload your base PDF first.", "Upload additional PDFs to append.", "Click 'Append Files' and download the combined result."]
+    },
+    useCases: ["Appending signature pages", "Adding appendices to reports", "Combining form responses", "Extending contracts"],
+    faqs: [
+      { question: "What is the maximum number of files?", answer: "You can append up to 10 PDF files in a single operation." },
+      { question: "Is this free?", answer: "Yes — completely free with no account required." },
+    ]
+  },
+
+  "/pdf-to-word": {
+    toolName: "PDF to Word",
+    mainKeyword: "pdf to word converter free",
+    secondaryKeywords: ["convert pdf to word online", "extract text from pdf", "pdf to docx", "pdf text extractor free", "pdf to editable document"],
+    urlSlug: "/pdf-to-word",
+    imageAltText: "PDF to Word converter showing a PDF being converted to a Word document",
+    seoTitle: "PDF to Word Converter Online Free | Extract PDF Text | KooBrain",
+    metaDescription: "Convert PDF to Word online for free. Extract text content from any PDF and download as a document. No login, no upload to server.",
+    usageGuide: {
+      title: "How to Convert PDF to Word",
+      steps: ["Upload your PDF file.", "The tool extracts all text content.", "Download the .txt file and open in Word or Google Docs."]
+    },
+    useCases: ["Editing PDF contracts in Word", "Extracting research content", "Converting scanned text for editing", "Repurposing PDF content"],
+    faqs: [
+      { question: "Will it preserve formatting?", answer: "Plain text is extracted. Complex formatting like tables and columns is not preserved — a server-side tool is required for full DOCX conversion." },
+      { question: "Does it work with scanned PDFs?", answer: "Scanned PDFs are image-based and require OCR. This tool works best with digitally-created PDFs." },
+    ]
+  },
+
+  "/image-to-pdf": {
+    toolName: "Image to PDF",
+    mainKeyword: "image to pdf converter free",
+    secondaryKeywords: ["jpg to pdf online", "png to pdf converter", "convert photo to pdf", "images to pdf free", "webp to pdf", "multiple images to one pdf"],
+    urlSlug: "/image-to-pdf",
+    imageAltText: "Image to PDF converter showing multiple images being combined into a PDF document",
+    seoTitle: "Image to PDF Converter Online Free | JPG PNG to PDF | KooBrain",
+    metaDescription: "Convert images to PDF online for free. Turn JPG, PNG, or WebP photos into a PDF. Combine multiple images into one PDF. No login.",
+    usageGuide: {
+      title: "How to Convert Images to PDF",
+      steps: ["Upload your JPG, PNG, or WebP images.", "Each image is placed on its own A4 page.", "Click 'Convert to PDF' and download your document."]
+    },
+    useCases: ["Converting scanned documents to PDF", "Creating photo albums", "Sending images as PDF attachments", "Combining photos into a single report"],
+    faqs: [
+      { question: "What image formats are supported?", answer: "JPG, JPEG, PNG, and WebP are fully supported." },
+      { question: "Will multiple images go on the same page?", answer: "Each image gets its own A4 page for clean, readable output." },
+      { question: "Is image quality preserved?", answer: "Yes — images are embedded at original resolution, scaled only to fit A4 bounds." },
+    ]
+  },
 };
 

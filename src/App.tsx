@@ -57,6 +57,16 @@ const Terms = lazy(() => import('./pages/Terms').then(m => ({ default: m.Terms }
 const Disclaimer = lazy(() => import('./pages/Disclaimer').then(m => ({ default: m.Disclaimer })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
 
+// PDF Tools
+const PdfEditor = lazy(() => import('./pages/PdfTools/PdfEditor').then(m => ({ default: m.PdfEditor })));
+const CreatePdf = lazy(() => import('./pages/PdfTools/CreatePdf').then(m => ({ default: m.CreatePdf })));
+const MergePdf = lazy(() => import('./pages/PdfTools/MergePdf').then(m => ({ default: m.MergePdf })));
+const SplitPdf = lazy(() => import('./pages/PdfTools/SplitPdf').then(m => ({ default: m.SplitPdf })));
+const AddFilesToPdf = lazy(() => import('./pages/PdfTools/AddFilesToPdf').then(m => ({ default: m.AddFilesToPdf })));
+const CompressPdf = lazy(() => import('./pages/PdfTools/CompressPdf').then(m => ({ default: m.CompressPdf })));
+const PdfToWord = lazy(() => import('./pages/PdfTools/PdfToWord').then(m => ({ default: m.PdfToWord })));
+const ImageToPdf = lazy(() => import('./pages/PdfTools/ImageToPdf').then(m => ({ default: m.ImageToPdf })));
+
 export default function App() {
   return (
     <ThemeProvider>
@@ -74,6 +84,16 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/pdf" element={<Home />} />
                   <Route path="/calculator" element={<Home />} />
+
+                  {/* PDF Tools */}
+                  <Route path="/pdf/editor" element={<PdfEditor />} />
+                  <Route path="/pdf/create" element={<CreatePdf />} />
+                  <Route path="/pdf/merge" element={<MergePdf />} />
+                  <Route path="/pdf/split" element={<SplitPdf />} />
+                  <Route path="/pdf/add-files" element={<AddFilesToPdf />} />
+                  <Route path="/pdf/compress" element={<CompressPdf />} />
+                  <Route path="/pdf-to-word" element={<PdfToWord />} />
+                  <Route path="/image-to-pdf" element={<ImageToPdf />} />
                   <Route path="/json-formatter" element={<JsonFormatter />} />
                   <Route path="/json-validator" element={<JsonValidator />} />
                   <Route path="/json-minifier" element={<JsonMinifier />} />
