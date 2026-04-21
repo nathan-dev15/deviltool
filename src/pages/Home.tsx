@@ -14,6 +14,7 @@ import { TOOLS } from '../constants';
 import { cn } from '../lib/utils';
 import { useI18n } from '../i18n/I18nContext';
 import { AdSense } from "@/src/components/AdSense";
+import { PdfToolsSection } from '../components/PdfToolsSection';
 const iconMap: Record<string, any> = {
   'code-xml':     CodeXml,
   'lock':         Lock,
@@ -53,7 +54,10 @@ const iconMap: Record<string, any> = {
   'tag':          Tag,
   'banknote':     Banknote,
   'hourglass':    Hourglass,
-  'landmark':     Landmark
+  'landmark':     Landmark,
+  'file-up':      FileUp,
+  'file-down':    FileDown,
+  'fingerprint':  Filter
 };
 
 const resolveIcon = (key: string, fallback: any) => {
@@ -446,6 +450,9 @@ export const Home: React.FC = () => {
             </section>
 
 
+
+            {/* PDF Tools Studio */}
+            <PdfToolsSection />
 
             {/* Success Stories / Use Cases */}
             <section className="bg-gradient-to-r from-tertiary/5 to-secondary/5 rounded-[2.5rem] p-8 sm:p-12 border border-outline-variant/20">
