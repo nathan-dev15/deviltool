@@ -11,6 +11,7 @@ import {
   Sparkles,
   Zap,
   Globe,
+  LayoutDashboard,
   ShieldCheck,
   Info,
   CheckCircle2,
@@ -96,6 +97,20 @@ export const Navbar: React.FC = () => {
 
         {/* DESKTOP NAV */}
         <div className="hidden lg:flex items-center gap-2">
+          {/* Tools link — goes directly to home */}
+          <Link
+            to="/"
+            className={cn(
+              "px-6 py-2.5 rounded-full text-sm font-black uppercase tracking-widest transition-all hover:bg-surface-container-high flex items-center gap-2",
+              location.pathname === '/'
+                ? "text-primary"
+                : "text-on-surface-variant/60 hover:text-on-surface"
+            )}
+          >
+            <LayoutDashboard size={16} />
+            {t('nav.tools')}
+          </Link>
+
           {secondaryLinks.map((link) => (
             <Link
               key={link.path}
