@@ -656,11 +656,6 @@ export function buildToolSeoPage(config: ToolSeoConfig, opts?: { locale?: Suppor
     mainKeyword: merged.mainKeyword,
     secondaryKeywords: merged.secondaryKeywords,
     toolName,
-    detailedDescription: merged.detailedDescription,
-    usageGuide: merged.usageGuide,
-    examples: merged.examples,
-    useCases: merged.useCases,
-    formula: merged.formula,
     lastUpdated: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
   };
 }
