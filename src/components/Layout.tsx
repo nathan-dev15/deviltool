@@ -30,9 +30,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     };
   }, []);
 
-  // Load AdSense script manually to avoid data-rh attribute issues
+  // Load AdSense script only after consent is given
   React.useEffect(() => {
-    // Check if script is already loaded
+    if (!shouldLoadAdScript) return;
+
     const existingScript = document.querySelector('script[src*="googlesyndication.com"]');
     if (existingScript) return;
 
@@ -41,7 +42,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117';
     script.crossOrigin = 'anonymous';
     document.head.appendChild(script);
-  }, []);
+  }, [shouldLoadAdScript]);
 
   // Scroll to top on route change
   React.useEffect(() => {
