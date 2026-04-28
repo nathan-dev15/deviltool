@@ -38,16 +38,18 @@ export const Contact: React.FC = () => {
               <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Name</label>
+                    <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Name</label>
                     <input
+                      id="contact-name"
                       type="text"
                       placeholder="John Doe"
                       className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Email Address</label>
+                    <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Email Address</label>
                     <input
+                      id="contact-email"
                       type="email"
                       placeholder="john@example.com"
                       className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
@@ -56,8 +58,8 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Subject</label>
-                  <select className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold appearance-none">
+                  <label htmlFor="contact-subject" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Subject</label>
+                  <select id="contact-subject" className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold appearance-none">
                     <option>General Inquiry</option>
                     <option>Bug Report</option>
                     <option>Feature Request</option>
@@ -67,8 +69,9 @@ export const Contact: React.FC = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Message</label>
+                  <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Message</label>
                   <textarea
+                    id="contact-message"
                     rows={6}
                     placeholder="How can we help you today?"
                     className="w-full px-6 py-5 rounded-[2rem] bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold resize-none"

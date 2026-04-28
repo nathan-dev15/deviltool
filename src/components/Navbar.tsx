@@ -137,11 +137,14 @@ export const Navbar: React.FC = () => {
           
           {/* Language Selector */}
           <div className="relative" ref={dropdownRef}>
-            <button 
+            <button
               onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
               className="lang-select group"
+              aria-label="Select language"
+              aria-haspopup="listbox"
+              aria-expanded={showLanguageDropdown}
             >
-              <Globe className="size-4 group-hover:text-primary transition-colors" />
+              <Globe className="size-4 group-hover:text-primary transition-colors" aria-hidden="true" />
               <span className="text-[10px] font-black uppercase tracking-widest">{locale}</span>
             </button>
             <AnimatePresence>
@@ -150,6 +153,8 @@ export const Navbar: React.FC = () => {
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  role="listbox"
+                  aria-label="Language options"
                   className="absolute right-0 mt-3 w-max min-w-[200px] bg-surface-container-high dark:bg-surface-dim border border-outline-variant/30 dark:border-outline-variant/40 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden p-1.5 z-[110]"
                  >
                    <div className="grid gap-0.5 max-h-[60vh] overflow-y-auto custom-scrollbar">
@@ -187,6 +192,7 @@ export const Navbar: React.FC = () => {
             data-theme={theme}
             className="theme-switch"
             type="button"
+            aria-live="polite"
           >
             <span className="theme-switch-track" aria-hidden="true">
               <span className="theme-switch-icon theme-switch-icon--sun">

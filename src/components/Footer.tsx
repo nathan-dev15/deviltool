@@ -34,9 +34,9 @@ export const Footer: React.FC = () => {
              </span>
           </p>
           <div className="flex items-center gap-4">
-             <a href="#" className="p-3 bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 rounded-xl text-primary hover:text-primary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Twitter size={18} /></a>
-             <a href="#" className="p-3 bg-secondary/10 hover:bg-secondary/20 dark:bg-secondary/20 dark:hover:bg-secondary/30 rounded-xl text-secondary hover:text-secondary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Github size={18} /></a>
-             <a href="#" className="p-3 bg-tertiary/10 hover:bg-tertiary/20 dark:bg-tertiary/20 dark:hover:bg-tertiary/30 rounded-xl text-tertiary hover:text-tertiary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Linkedin size={18} /></a>
+             <a href="#" aria-label="Follow us on Twitter" className="p-3 bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 rounded-xl text-primary hover:text-primary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Twitter size={18} aria-hidden="true" /></a>
+             <a href="#" aria-label="Follow us on GitHub" className="p-3 bg-secondary/10 hover:bg-secondary/20 dark:bg-secondary/20 dark:hover:bg-secondary/30 rounded-xl text-secondary hover:text-secondary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Github size={18} aria-hidden="true" /></a>
+             <a href="#" aria-label="Follow us on LinkedIn" className="p-3 bg-tertiary/10 hover:bg-tertiary/20 dark:bg-tertiary/20 dark:hover:bg-tertiary/30 rounded-xl text-tertiary hover:text-tertiary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Linkedin size={18} aria-hidden="true" /></a>
           </div>
         </div>
 
@@ -100,15 +100,18 @@ export const Footer: React.FC = () => {
           </p>
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <input 
-                className="bg-surface-container-highest dark:bg-surface-container-high border border-outline-variant/30 dark:border-outline-variant/40 rounded-2xl text-xs w-full focus:ring-2 focus:ring-primary dark:focus:ring-primary outline-none px-6 py-4 text-on-surface dark:text-on-surface placeholder:text-on-surface-variant/50 dark:placeholder:text-on-surface-variant/40 font-bold transition-all focus:bg-surface-container-highest dark:focus:bg-surface-container-high" 
-                placeholder={t('footer.email_placeholder') || 'Email Address'} 
+              <label htmlFor="footer-newsletter-email" className="sr-only">Email Address</label>
+              <input
+                id="footer-newsletter-email"
+                className="bg-surface-container-highest dark:bg-surface-container-high border border-outline-variant/30 dark:border-outline-variant/40 rounded-2xl text-xs w-full focus:ring-2 focus:ring-primary dark:focus:ring-primary outline-none px-6 py-4 text-on-surface dark:text-on-surface placeholder:text-on-surface-variant/50 dark:placeholder:text-on-surface-variant/40 font-bold transition-all focus:bg-surface-container-highest dark:focus:bg-surface-container-high"
+                placeholder={t('footer.email_placeholder') || 'Email Address'}
                 type="email"
+                aria-label="Newsletter email address"
               />
-              <Mail className="absolute right-5 top-1/2 -translate-y-1/2 size-4 text-on-surface-variant/40 dark:text-on-surface-variant/50" />
+              <Mail className="absolute right-5 top-1/2 -translate-y-1/2 size-4 text-on-surface-variant/40 dark:text-on-surface-variant/50" aria-hidden="true" />
             </div>
-            <button className="bg-tertiary text-on-tertiary p-4 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-tertiary/30 dark:shadow-tertiary/20">
-              <Send className="size-5" />
+            <button aria-label="Subscribe to newsletter" className="bg-tertiary text-on-tertiary p-4 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-tertiary/30 dark:shadow-tertiary/20">
+              <Send className="size-5" aria-hidden="true" />
             </button>
           </div>
           <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] text-on-surface-variant/50 dark:text-on-surface-variant/40 italic">
