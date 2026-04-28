@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
+  "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/((?!api|google350e5ce497b7e021.html|robots.txt|sitemap.xml|ads.txt).*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
