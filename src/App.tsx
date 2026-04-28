@@ -51,7 +51,6 @@ const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Con
 const Privacy = lazy(() => import('./pages/Privacy').then(m => ({ default: m.Privacy })));
 const Terms = lazy(() => import('./pages/Terms').then(m => ({ default: m.Terms })));
 const Disclaimer = lazy(() => import('./pages/Disclaimer').then(m => ({ default: m.Disclaimer })));
-const PdfHome = lazy(() => import('./pages/PdfHome').then(m => ({ default: m.PdfHome })));
 const CalculatorHome = lazy(() => import('./pages/CalculatorHome').then(m => ({ default: m.CalculatorHome })));
 const NotFound = lazy(() => import('./pages/NotFound').then(m => ({ default: m.NotFound })));
 const Guides = lazy(() => import('./pages/Guides').then(m => ({ default: m.Guides })));
@@ -75,7 +74,6 @@ export default function App() {
               }>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path="/pdf" element={<PdfHome />} />
                   <Route path="/calculator" element={<CalculatorHome />} />
                   <Route path="/json-formatter" element={<JsonFormatter />} />
                   <Route path="/json-validator" element={<JsonValidator />} />

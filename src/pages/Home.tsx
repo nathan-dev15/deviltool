@@ -72,8 +72,6 @@ const fadeUp = (delay = 0) => ({
 
 export const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [calcSearch, setCalcSearch] = React.useState('');
-  const [calcCategory, setCalcCategory] = React.useState('All');
   const { t, locale } = useI18n();
 
   const getToolTranslation = (tool: (typeof TOOLS)[0]) => {
@@ -89,39 +87,12 @@ export const Home: React.FC = () => {
     tool.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Define categories for Calculator Tools
-  const calcCategories = ['All', 'Finance', 'Health', 'Daily'];
-
-  const calculatorToolsList = [
-    { id: 'emi-calculator', category: 'Finance', icon: 'banknote' },
-    { id: 'gst-calculator', category: 'Finance', icon: 'landmark' },
-    { id: 'sip-calculator', category: 'Finance', icon: 'trending-up' },
-    { id: 'loan-calculator', category: 'Finance', icon: 'currency' },
-    { id: 'discount-calculator', category: 'Finance', icon: 'tag' },
-    { id: 'bmi-calculator', category: 'Health', icon: 'activity' },
-    { id: 'age-calculator', category: 'Daily', icon: 'calendar' },
-    { id: 'time-calculator', category: 'Daily', icon: 'hourglass' },
-    { id: 'percentage-calculator', category: 'Daily', icon: 'percent' },
-  ].map(tool => ({
-    ...getToolTranslation(tool as any),
-    calcCat: tool.category,
-    path: `/${tool.id}`,
-    icon: tool.icon
-  }));
-
-  const filteredCalculators = calculatorToolsList.filter(tool => {
-    const matchesSearch = tool.name.toLowerCase().includes(calcSearch.toLowerCase());
-    const matchesCat = calcCategory === 'All' || tool.calcCat === calcCategory;
-    return matchesSearch && matchesCat;
-  });
 
   const popularTools = TOOLS.slice(0, 3).map(getToolTranslation);
   const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter').map(getToolTranslation);
   const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode').map(getToolTranslation);
   const imageTools   = TOOLS.filter(t => t.category === 'image').map(getToolTranslation);
-  const calcTools    = TOOLS.filter(t => t.category === 'calculator').map(getToolTranslation);
-  const pdfTools     = TOOLS.filter(t => t.category === 'pdf').map(getToolTranslation);
-  const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
+const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
   const allTools     = TOOLS.map(getToolTranslation);
 
   const cardColors = [
@@ -420,98 +391,33 @@ export const Home: React.FC = () => {
               </div>
             </section>
 
-            {/* ── Tools Hub: Math Laboratory ──────────────── */}
+            {/* ── Tools Hub: Calculator Hub ──────────────── */}
             <section className="section-card">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-primary rounded-l-3xl" />
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 <div className="lg:col-span-4 pl-4">
                   <span className="text-primary font-bold tracking-widest text-xs uppercase mb-3 block">Calculation Hub</span>
-                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">Math Laboratory</h2>
+                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">Date & Age Calculators</h2>
                   <p className="text-on-surface-variant mb-6 leading-relaxed">
-                    Solve complex financial and mathematical problems with precision. Everything from EMI to Quadratic solvers.
+                    Accurate date arithmetic that accounts for leap years, varying month lengths, and time zone precision. Instant results, fully private.
                   </p>
                   <Link to="/calculator" className="inline-flex items-center gap-2 text-primary font-bold hover:translate-x-1 transition-transform">
                     View all calculators <ArrowRight className="size-4" />
                   </Link>
                 </div>
                 <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {calcTools.slice(0, 6).map(tool => (
-                    <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
+                  {[
+                    { path: '/age-calculator', label: 'Age Calculator', icon: 'calendar' },
+                    { path: '/couple-age-calculator', label: 'Couple Age Calculator', icon: 'users' },
+                    { path: '/time-between-dates', label: 'Time Between Dates', icon: 'hourglass' },
+                  ].map(tool => (
+                    <Link key={tool.path} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
                       <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                         {React.createElement(resolveIcon(tool.icon, Calculator), { className: 'size-4 text-primary' })}
                       </div>
-                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                      <span className="font-semibold text-sm text-on-surface">{tool.label}</span>
                     </Link>
                   ))}
-                </div>
-              </div>
-            </section>
-
-            {/* ── Tools Hub: PDF Studio ──────────────────── */}
-            <section className="section-card">
-              <div className="absolute top-0 right-0 w-1.5 h-full bg-tertiary rounded-r-3xl" />
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                <div className="lg:col-span-8 order-2 lg:order-1 space-y-10">
-                  {/* ── Utilities ── */}
-                  <div className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-tertiary/60 flex items-center gap-2">
-                      <div className="w-4 h-0.5 bg-tertiary/30" /> Document Utilities
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {pdfTools.filter(t => ['merge-pdf', 'split-pdf', 'compress-pdf', 'rotate-pdf', 'delete-pdf-pages', 'extract-pdf-pages', 'rearrange-pdf-pages'].includes(t.id)).map(tool => (
-                        <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
-                          <div className="w-9 h-9 rounded-lg bg-tertiary/10 flex items-center justify-center shrink-0 group-hover:bg-tertiary/20 transition-colors">
-                            {React.createElement(resolveIcon(tool.icon, FileText), { className: 'size-4 text-tertiary' })}
-                          </div>
-                          <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* ── Editing ── */}
-                  <div className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-tertiary/60 flex items-center gap-2">
-                      <div className="w-4 h-0.5 bg-tertiary/30" /> Editing & Markup
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {pdfTools.filter(t => ['edit-pdf', 'annotate-pdf', 'highlight-pdf', 'esign-pdf', 'fill-pdf'].includes(t.id)).map(tool => (
-                        <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
-                          <div className="w-9 h-9 rounded-lg bg-tertiary/10 flex items-center justify-center shrink-0 group-hover:bg-tertiary/20 transition-colors">
-                            {React.createElement(resolveIcon(tool.icon, PenLine), { className: 'size-4 text-tertiary' })}
-                          </div>
-                          <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* ── Conversion ── */}
-                  <div className="space-y-4">
-                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-tertiary/60 flex items-center gap-2">
-                      <div className="w-4 h-0.5 bg-tertiary/30" /> PDF Conversion
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {pdfTools.filter(t => t.id.includes('to-pdf') || t.id.includes('pdf-to')).map(tool => (
-                        <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
-                          <div className="w-9 h-9 rounded-lg bg-tertiary/10 flex items-center justify-center shrink-0 group-hover:bg-tertiary/20 transition-colors">
-                            {React.createElement(resolveIcon(tool.icon, FileUp), { className: 'size-4 text-tertiary' })}
-                          </div>
-                          <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:col-span-4 order-1 lg:order-2 pr-4 text-right lg:sticky lg:top-32">
-                  <span className="text-tertiary font-bold tracking-widest text-xs uppercase mb-3 block">Document Suite</span>
-                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">PDF Studio</h2>
-                  <p className="text-on-surface-variant mb-6 leading-relaxed">
-                    The ultimate toolkit for PDF manipulation. Merge, split, compress, and convert documents locally in your browser.
-                  </p>
-                  <Link to="/pdf" className="inline-flex items-center gap-2 text-tertiary font-bold hover:-translate-x-1 transition-transform">
-                    Explore PDF Tools <ArrowRight className="size-4" />
-                  </Link>
                 </div>
               </div>
             </section>

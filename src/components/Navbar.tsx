@@ -65,8 +65,7 @@ export const Navbar: React.FC = () => {
 
   const categories = [
     { name: 'JSON Laboratory', path: '/', icon: <Code2 size={16} />, desc: 'Format & Validate' },
-    { name: 'PDF Studio', path: '/pdf', icon: <FileText size={16} />, desc: 'Merge & Convert' },
-    { name: 'Calculator Hub', path: '/calculator', icon: <Calculator size={16} />, desc: 'Financial & Health' },
+    { name: 'Calculator Hub', path: '/calculator', icon: <Calculator size={16} />, desc: 'Age, Date & More' },
     { name: 'Image Forge', path: '/image-compressor', icon: <ImageIcon size={16} />, desc: 'Optimize & Batch' },
   ];
 
@@ -79,7 +78,6 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'JSON Laboratory', path: '/', icon: <Code2 size={16} /> },
-    { name: 'PDF Studio', path: '/pdf', icon: <FileText size={16} /> },
     { name: 'Calculator Hub', path: '/calculator', icon: <Calculator size={16} /> },
     { name: 'Image Forge', path: '/image-compressor', icon: <ImageIcon size={16} /> },
     ...secondaryLinks
