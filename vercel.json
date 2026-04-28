@@ -2,6 +2,6 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/((?!api|google004e4df634093e83.html|robots.txt|sitemap.xml|ads.txt).*)", "destination": "/index.html" }
+    { "source": "/((?!api|google350e5ce497b7e021.html|robots.txt|sitemap.xml|ads.txt).*)", "destination": "/index.html" }
   ]
 }
