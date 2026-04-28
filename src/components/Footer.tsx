@@ -62,6 +62,10 @@ export const Footer: React.FC = () => {
                <div className="size-1.5 bg-primary/60 dark:bg-primary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
                {t('nav.contact')}
             </Link>
+            <Link to="/guides" className="text-on-surface-variant hover:text-secondary dark:hover:text-secondary transition-all text-sm font-bold flex items-center gap-3 w-fit group footer-3d-link">
+               <div className="size-1.5 bg-secondary/60 dark:bg-secondary/80 rounded-full group-hover:scale-[2.5] transition-transform shadow-sm" />
+               Guides
+            </Link>
           </div>
         </div>
 

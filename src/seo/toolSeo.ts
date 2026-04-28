@@ -20,13 +20,6 @@ export type ToolSeoConfig = {
   seoTitle?: string; // <= 60 chars
   metaDescription?: string; // <= 160 chars
 
-  // AdSense Compliance & High Value Content fields
-  detailedDescription?: string; // 1000+ words target
-  usageGuide?: { title: string; steps: string[] };
-  examples?: { title: string; list: { title: string; description: string }[] };
-  useCases?: string[];
-  formula?: { title: string; explanation: string; calculation?: string };
-
   // Optional per-locale overrides for full multilingual SEO pages.
   // Only include fields you want to override; anything missing falls back to templates.
   locales?: Partial<Record<SupportedLocale, Partial<Omit<ToolSeoConfig, "locales">>>>;
@@ -51,75 +44,56 @@ export const TOOL_SEO_BY_PATH: Record<string, ToolSeoConfig> = {
     urlSlug: "/image-compressor",
     imageAltText: "Image compressor tool showing original vs compressed size and download button",
     seoTitle: "Compress Image Online Free (JPG/PNG/WebP)",
-    metaDescription: "Pro-level image compressor. Reduce file size by up to 90% without losing visual quality. 100% private, browser-based optimization for JPG, PNG, and WebP.",
-    detailedDescription: `In the modern digital landscape, page load speed is a critical factor for SEO, user engagement, and conversion rates. Large, unoptimized images are the leading cause of slow websites and high bounce rates. Our Professional Image Compressor is a high-performance, browser-based utility designed to help photographers, web developers, and content creators optimize their visual assets for maximum efficiency. By leveraging advanced compression algorithms, we enable you to reduce file sizes by up to 90% while maintaining near-perfect visual fidelity.
-
-The science of image compression is divided into two primary categories: lossy and lossless. Lossless compression reduces the file size by removing redundant metadata and optimizing how the data is stored without losing a single pixel of information. Lossy compression, on the other hand, strategically removes data that the human eye is unlikely to notice, resulting in much smaller file sizes. Our tool provides an interactive quality slider that gives you absolute control over this balance, allowing you to find the 'sweet spot' for every individual image.
-
-One of the most powerful features of our compressor is its support for 'Next-Generation' formats like WebP. WebP offers superior compression compared to legacy formats like JPEG and PNG, often providing 30% smaller files at comparable quality. Our tool allows you to convert and compress these formats simultaneously, helping you stay ahead of the curve in web performance standards. Whether you're preparing a portfolio, building a high-traffic blog, or optimizing product photos for an e-commerce store, KooBrain ensures your images are 'web-ready' in seconds.
-
-Privacy and data security are built into the core of our platform. Traditional online compressors require you to upload your files to their servers, where they may be stored, analyzed, or even shared. KooBrain's Image Compressor is 100% client-side. The optimization logic runs entirely within your browser's local sandbox. Your photos—which might be proprietary, private, or sensitive—never leave your device. This 'Security-by-Design' approach provides you with the mind to optimize your most confidential assets without risk.
-
-We are committed to providing a high-value content platform that goes beyond simple utility. Our tool includes educational guides on 'Choosing the Right Image Format,' 'Understanding Compression Ratios,' and 'The Impact of Image Size on Core Web Vitals.' We believe that by providing the 'why' alongside the 'how,' we help our users become more effective digital professionals. Our goal is to transform the routine task of image optimization into a strategic advantage for your online presence.
-
-Experience the speed, precision, and security of the KooBrain Image Compressor. Join thousands of creators who trust our platform for high-performance visual optimization and expert-level SEO resources.`,
-    usageGuide: {
-      title: "How to Optimize Your Visual Assets",
-      steps: [
-        "Upload your JPG, PNG, or WebP files using the drag-and-drop area or file picker.",
-        "Adjust the 'Compression Level' slider. We recommend a setting between 70% and 85% for the best balance.",
-        "Watch the 'Real-Time Preview' to see how the compression affects the visual quality of your image.",
-        "Compare the 'Original Size' vs 'Optimized Size' to see your exact bandwidth savings.",
-        "Click the 'Download' button to save your optimized image instantly.",
-        "Use the 'Batch' toggle if you need to process multiple images for a larger project."
-      ]
-    },
-    formula: {
-      title: "The Optimization Methodology",
-      explanation: "Our tool utilizes a combination of Huffman coding, discrete cosine transforms (for JPG), and bit-depth reduction (for PNG) to eliminate redundant data. For WebP, we use predictive coding to further increase efficiency.",
-      calculation: "Savings % = (1 - (Compressed Size / Original Size)) * 100"
-    },
-    examples: {
-      title: "Image Compression Scenarios",
-      list: [
-        { title: "E-commerce Product Photos", description: "Reducing a 5MB product shot to 400KB to ensure fast mobile loading on shopping pages." },
-        { title: "Social Media Uploads", description: "Optimizing high-resolution photography for platforms like Instagram or LinkedIn to prevent auto-compression artifacts." },
-        { title: "Blog Post Featured Images", description: "Converting large JPEGs to optimized WebP format to improve Google Search ranking and load speed." },
-        { title: "Email Marketing Assets", description: "Shrinking banner images to ensure they load instantly in email clients and don't trigger spam filters due to size." }
-      ]
-    },
-    useCases: [
-      "Improving website performance and Core Web Vitals",
-      "Reducing mobile bandwidth consumption for end-users",
-      "Optimizing storage space on servers and local devices",
-      "Preparing high-fidelity assets for digital publishing",
-      "Privacy-focused image processing for sensitive projects"
+    metaDescription:
+      "Compress image online free. Reduce image size without losing quality for JPG/PNG/WebP. Fast, secure, browser-based.",
+    intro:
+      "Need to compress image online free without sacrificing quality? This Image Compressor reduces file size for JPG, PNG, and WebP so your site loads faster and your uploads finish quicker. Your images stay private because compression runs in your browser, not on a server. Simply upload an image, choose the quality level, and download the optimized result in seconds. Use it to reduce image size without losing quality for web pages, email attachments, forms, resumes, and social media. If you want an image compressor online fast that works on mobile and desktop, this tool is built for speed and simplicity.",
+    howToSteps: [
+      "Upload a JPG, PNG, or WebP image using the upload area.",
+      "Adjust the quality slider to balance size and clarity.",
+      "Preview the new file size and compression savings.",
+      "Click Download to save the compressed image.",
+    ],
+    features: [
+      "Compress image online free with no signup",
+      "Reduce image size without losing quality (smart quality control)",
+      "Image compressor online fast (local processing)",
+      "Supports JPG, PNG, and WebP uploads",
+      "Shows original size, compressed size, and savings",
+      "Secure and private: files stay in your browser",
+    ],
+    benefits: [
+      "Faster websites: smaller images improve page speed and Core Web Vitals",
+      "Easier sharing: send photos on email, WhatsApp, and forms without size errors",
+      "Lower bandwidth and storage: save space on devices and hosting",
+      "Better UX: quick compression with clear results and simple controls",
     ],
     faqs: [
       {
-        question: "Will I lose image quality if I compress my files?",
-        answer: "With our variable compression, you can find a level where the file size is greatly reduced but the visual difference is invisible to the human eye."
+        question: "How can I compress image online free without losing quality?",
+        answer:
+          "Upload your image, then lower the quality slightly until the preview still looks good. The tool keeps detail while removing unnecessary data to reduce size.",
       },
       {
-        question: "What is the benefit of WebP over JPEG?",
-        answer: "WebP provides much better compression at the same quality level, and it supports transparency (unlike JPEG), making it the ideal format for the web."
+        question: "Can I compress JPG and PNG online?",
+        answer:
+          "Yes. You can upload JPG and PNG, and the tool will compress them quickly. You can also upload WebP images.",
       },
       {
-        question: "Is there a limit to the number of images I can compress?",
-        answer: "No! Our tool is free to use and allows you to optimize as many images as you need for your projects."
+        question: "Is this image compressor online fast and secure?",
+        answer:
+          "Yes. Compression runs locally in your browser, so your file is not uploaded to a server. That keeps it private and fast.",
       },
       {
-        question: "How do I know which quality setting to use?",
-        answer: "A setting of 80 is usually perfect for web images. For high-end photography, you might want to stay above 90."
+        question: "Will compressing an image reduce its dimensions?",
+        answer:
+          "No. This tool reduces file size by optimizing compression. Your image width and height remain the same unless you use a separate resize tool.",
       },
       {
-        question: "Is my data safe when I upload an image?",
-        answer: "Yes. Your images are processed 100% locally in your browser. We never upload, store, or see your files."
+        question: "What quality setting should I use for best results?",
+        answer:
+          "Start around 80% for photos. If you need a smaller file, reduce it step-by-step until the image still looks sharp for your use case.",
       },
-      {
-        question: "Can I compress PNG images with transparency?",
-        answer: "Yes. Our compressor handles alpha-channel transparency perfectly, ensuring your logos and icons look great."
-      }
     ],
     internalLinks: [
       { label: "Base64 to Image", href: "/base64-to-image", note: "Convert Base64 strings into images." },
@@ -155,255 +129,57 @@ Experience the speed, precision, and security of the KooBrain Image Compressor. 
     }
   },
 
-  // Generic configs (content is generated from templates in the renderer).
-  "/uuid-generator": {
-    toolName: "UUID v4 Generator",
-    mainKeyword: "uuid generator",
-    secondaryKeywords: [
-      "generate uuid v4",
-      "random guid generator",
-      "bulk uuid generator",
-      "secure universal unique identifier",
-      "uuid generator online",
-    ],
-    urlSlug: "/uuid-generator",
-    imageAltText: "UUID generator producing secure version 4 uniquely identifiable tokens",
-    seoTitle: "UUID v4 Generator | Fast, Secure & Bulk GUID Generation",
-    metaDescription: "Instantly generate cryptographically secure Version 4 UUIDs (GUIDs). Create bulk unique identifiers locally in your browser with zero server data logging.",
-    detailedDescription: `In modern software architecture, naming conventions and identifier assignments are critical for database integrity and distributed system synchronization. A Universally Unique Identifier, commonly known as a UUID (or GUID in the Microsoft ecosystem), is an industry-standard 128-bit label used to uniquely identify information without requiring central coordination. Our UUID Generator is a developer-focused utility built to produce cryptographically secure, fully random Version 4 UUIDs instantly in your browser.
-
-The historical problem with assigning IDs in databases (like simply using 1, 2, 3...) is that it scales poorly in distributed databases or microservice architectures where multiple disconnected nodes are creating records simultaneously. A UUID solves this by utilizing massive mathematical probability. A Version 4 UUID relies entirely on random numbers. The probability of generating a duplicate UUID (a collision) is so infinitesimally small that it is mathematically negligible. To put it in perspective, you could generate 1 billion UUIDs every second for 85 years, and there would still be less than a 50% chance of a single duplicate.
-
-Security is essential when generating identifiers used for session tokens, password reset links, or API keys. Common random number generators (like Javascript's native Math.random()) do not provide the necessary cryptographic entropy required for secure applications. They can be reverse-engineered or predicted. Our tool utilizes the browser's native 'Web Crypto API', specifically 'crypto.randomUUID()', which pulls its randomness directly from the operating system's cryptographic core. This guarantees that your generated IDs are truly unpredictable.
-
-Efficiency for developers is the core design philosophy of this laboratory tool. Often, you don't just need one UUID; you might need 50 to seed a testing database or populate a JSON payload. Our bulk generation feature allows you to instantly spin up to 100 UUIDs concurrently. With a single click, you can 'Copy All' to your clipboard, drastically reducing the friction in your development workflow.
-
-Data privacy remains our highest priority. Unlike other online tools that ping external APIs to fetch IDs, our UUID generator works via an entirely zero-server architecture. The cryptographic generation happens locally on your machine. We do not track, log, or transmit the IDs you generate. Once you close the tab, your session data is entirely wiped, making it completely safe for enterprise-grade proprietary development.
-
-Understanding your tools is vital for a modern developer. By using our UUID generator, you ensure your database schemas remain robust, your APIs remain secure, and your development environments remain perfectly synchronized. Experience the speed of true local cryptographic generation today.`,
-    usageGuide: {
-      title: "How to Generate UUIDs (v4)",
-      steps: [
-        "In the primary input field, enter the total number of UUIDs you wish to generate (up to 100 at a time).",
-        "Click the large 'Generate' button to instruct the cryptographic engine to produce your list.",
-        "The newly forged UUIDs will instantly populate in the preview container below.",
-        "To copy a single ID, simply click the copy icon adjacent to that specific string.",
-        "To copy the entire bulk list simultaneously, click the 'Copy All UUIDs' button at the bottom.",
-        "Paste the resulting text directly into your database script, API payload, or document."
-      ]
-    },
-    formula: {
-      title: "The Anatomy of a Version 4 UUID",
-      explanation: "A standard v4 UUID is represented as 32 hexadecimal digits, displayed in five groups separated by hyphens (8-4-4-4-12). It totals 36 characters. Crucially, the 13th character is always '4' indicating the version, and the 17th character is always '8', '9', 'a', or 'b' indicating the RFC 4122 variant.",
-      calculation: "Format: xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
-    },
-    examples: {
-      title: "UUID Implementation Scenarios",
-      list: [
-        { title: "Database Primary Keys", description: "Using a UUID as a primary key in a PostgreSQL or MongoDB database instead of auto-incrementing integers to ensure multi-node synchronization." },
-        { title: "Session Tokens", description: "Generating a random, unguessable token string for a user's browser cookie during secure authentication." },
-        { title: "File Upload References", description: "Renaming a user-uploaded file (like a profile picture) to a UUID to ensure it never overwrites a differently named existing file on an AWS S3 bucket." },
-        { title: "API Idempotency Keys", description: "Providing a unique key when hitting a payment gateway API to ensure the same charge isn't processed twice due to a network error." }
-      ]
-    },
-    useCases: [
-      "Seeding primary index keys for large-scale relational databases",
-      "Generating secure, unique one-time-use password reset tokens",
-      "Ensuring file system uniqueness when processing batch media uploads",
-      "Providing idempotency keys for complex API integrations",
-      "Creating anonymous trace IDs for distributed application logging"
-    ],
-    faqs: [
-      {
-        question: "What is the difference between a UUID and a GUID?",
-        answer: "Practically nothing. UUID (Universally Unique Identifier) is the open standard, while GUID (Globally Unique Identifier) is specifically Microsoft's implementation of the exact same standard."
-      },
-      {
-        question: "Is there any risk of a duplicate UUID being generated?",
-        answer: "Mathematically, the risk is so astronomically small it is effectively zero. You are far more likely to be hit by a meteorite than experience a v4 collision."
-      },
-      {
-        question: "Are these UUIDs safe to use as secure passwords?",
-        answer: "While highly random, UUIDs are not designed for direct password usage. However, they are excellent for secure session tokens or password reset keys."
-      },
-      {
-        question: "Does the generator work offline?",
-        answer: "Yes! Because we utilize the Web Crypto API, the generation logic executes entirely in your browser without requiring a server request."
-      },
-      {
-        question: "Why is there always a '4' in the middle?",
-        answer: "The '4' is a mandatory version marker according to the RFC 4122 specification, signaling to systems that this specific UUID was generated using a totally random algorithmic approach."
-      }
-    ]
-  },
-  "/text-case-converter": {
-    toolName: "Text Case Converter",
-    mainKeyword: "text case converter",
-    secondaryKeywords: [
-      "change text case",
-      "uppercase lowercase converter",
-      "title case generator",
-      "camel case to snake case",
-      "kebab case maker",
-      "convert text online"
-    ],
-    urlSlug: "/text-case-converter",
-    imageAltText: "Text case conversion tool displaying uppercase, lowercase, and camel case outputs",
-    seoTitle: "Text Case Converter | Uppercase, Title Case, camelCase",
-    metaDescription: "Instantly change text to UPPERCASE, lowercase, Title Case, camelCase, snake_case, or kebab-case. Fast, free, and completely local text conversion tool.",
-    detailedDescription: `Formatting text consistently is a universal challenge faced by programmers, technical writers, editors, and digital marketers alike. Whether you are standardizing JSON variable names for a software project or formatting headlines for a massive blog migration, manually changing the casing of text strings is incredibly tedious and prone to human error. Our Text Case Converter is an elegant, multi-functional tool designed to instantly transform any text into a variety of standard programmatic and editorial formats with a single click.
-
-The primary necessity for standardizing text stems from programming language syntax and data handling requirements. For example, JavaScript utilizes 'camelCase' for variables (e.g., \`userFirstName\`), Python developers prefer 'snake_case' (e.g., \`user_first_name\`), and CSS classes are traditionally written in 'kebab-case' (e.g., \`user-first-name\`). Mixing these standard formats within a single project leads to syntactic errors, confusing codebases, and failing linter pipelines. Our Case Converter allows you to paste massive lists of variables and instantly conform them to your team's specific coding guidelines.
-
-Beyond the constraints of software development, digital publishers rely heavily on our tool. 'Title Case', a format where the first letter of every major word is capitalized, is standard for article headlines, book titles, and email subject lines. Trying to remember whether a preposition like "with" or an article like "the" should be capitalized is a common editorial headache. The Text Case Converter automatically applies these linguistic rules, allowing authors to ensure consistency across their publications instantly. 
-
-Privacy and speed are exactly why our platform is superior to traditional word processors for this task. Most online tools require a slow POST request to a server to process text, creating latency and heavily compromising privacy. KooBrain’s Case Converter is driven entirely by client-side JavaScript Regular Expressions. The text you paste is instantly validated and transformed within your local browser's memory. No tracking cookies are fired, and your potentially sensitive proprietary corporate names or unreleased script lines are protected from server logging.
-
-The intuitive, glassmorphic UI is designed to stay out of your way. Simply paste your clipboard into the massive input zone and utilize the quick-select macro buttons up top. You can rapid-fire cycle between UPPERCASE, lowercase, Title Case, and more until you find the exact format you require. The integrated character counter provides simultaneous analytical insight, ensuring your newly generated string still conforms to your target length limits.
-
-Efficiency is the hallmark of modern digital work. Do not waste minutes pressing the shift key or manually deleting spaces. Transform your messy data, standardizing your codebase and editorial workflows securely and instantly, with the internet's most reliable local text manipulation laboratory.`,
-    usageGuide: {
-      title: "How to Change Text Cases",
-      steps: [
-        "Copy your unformatted text, variable names, or book titles from your source document.",
-        "Paste the entire block of text into the main editor area.",
-        "Select your desired casing format from the row of macro buttons (e.g., UPPERCASE, snake_case, Title Case).",
-        "The text in the box will instantly transform into the newly selected format without a page reload.",
-        "Review the built-in character counter to ensure your new text length is optimal.",
-        "Click the visual 'Copy Result' button to instantly transfer the clean, formatted text back to your clipboard."
-      ]
-    },
-    formula: {
-      title: "The Logic Behind Regular Expression Transformation",
-      explanation: "Converting cases isn't just about making letters big or small; it's about semantic boundary detection. Our script uses Regex to identify word boundaries (spaces, hyphens, and underlines). For 'camelCase', it forces the first letter of the first word to be lowercase, removes all spaces, and capitalizes the first letter of every subsequent word.",
-      calculation: "Regex parsing ($1 -> Capitalize) | Boundary stripping -> Final String"
-    },
-    examples: {
-      title: "Conversion Format Examples",
-      list: [
-        { title: "camelCase", description: "Input: 'hello world from web' -> Output: 'helloWorldFromWeb'. Used standard in JavaScript and Java variable declaration." },
-        { title: "snake_case", description: "Input: 'hello world from web' -> Output: 'hello_world_from_web'. Used standard in Python, Ruby, and database architectures." },
-        { title: "kebab-case", description: "Input: 'hello world from web' -> Output: 'hello-world-from-web'. Standard for URLs, slugs, and CSS class hierarchies." },
-        { title: "Title Case", description: "Input: 'the lord of the rings' -> Output: 'The Lord Of The Rings'. Essential for SEO headlines and professional publication titles." }
-      ]
-    },
-    useCases: [
-      "Standardizing a massive block of raw CSS class names into consistent kebab-case",
-      "Formatting hundreds of blog post titles to Title Case for SEO compliance",
-      "Renaming disorganized SQL database columns into standard snake_case strings",
-      "Quickly repairing accidentally caps-locked ('LOUD') text blocks sent via email",
-      "Translating plain text identifiers into camelCase functions for JavaScript refactoring"
-    ],
-    faqs: [
-      {
-        question: "Does the converter remove punctuation?",
-        answer: "Standard options like UPPERCASE and lowercase leave punctuation intact. Developer options like camelCase or snake_case logically strip out punctuation and replace spaces to create valid variable names."
-      },
-      {
-        question: "Can I convert heavily nested code, like a full HTML document?",
-        answer: "This tool is designed for strings and raw text. If you paste a full HTML document, it will aggressively format the tags themselves, breaking the code. Only paste the text/variables you want transformed."
-      },
-      {
-        question: "What is the difference between snake_case and kebab-case?",
-        answer: "snake_case utilizes an underscore (_) to separate words, typically used in back-end programming. kebab-case uses a simple hyphen (-) and is almost universally used for web URLs and CSS."
-      },
-      {
-        question: "Are line breaks preserved?",
-        answer: "Yes, standard formatting like UPPERCASE will process multiple lines independently and preserve your return carriages and paragraph structure exactly."
-      },
-      {
-        question: "Does this tool store my text online?",
-        answer: "Absolutely not. All Regular Expression formatting is handled exclusively by your local machine's web browser, ensuring a 100% private session."
-      }
-    ]
-  },
+  // Rich configs with full custom content.
   "/json-formatter": {
     toolName: "JSON Formatter",
-    mainKeyword: "json formatter",
+    mainKeyword: "json formatter online",
     secondaryKeywords: [
-      "json beautifier online",
-      "format json string",
+      "beautify json online",
+      "format json prettify",
+      "json formatter and validator",
       "pretty print json",
-      "json validator and formatter",
-      "json parser tool",
+      "format minified json",
+      "json formatter free tool",
     ],
     urlSlug: "/json-formatter",
-    imageAltText: "JSON formatter tool showing unformatted input and beautified JSON output",
-    detailedDescription: `JavaScript Object Notation, or JSON, has become the lingua franca of the modern web. From public APIs to configuration files, JSON is the standard data format for transmitting information between servers and web applications. However, despite its popularity, raw JSON is often transmitted in a 'minified' format to save bandwidth, making it nearly impossible for humans to read or debug. Our JSON Formatter is a high-performance utility designed to solve this problem, transforming dense blocks of code into a clear, hierarchical structure in milliseconds.
-
-The power of our JSON Formatter lies in its ability to handle massive datasets without compromising performance. Using optimized parsing logic, our tool can process JSON strings that are megabytes in size, providing instant feedback on syntax and structure. We believe that developer tools should be fast, reliable, and aesthetically pleasing. That's why we've built our formatter with a 'Glassmorphic' UI that emphasizes clarity and focus, reducing eye strain during long debugging sessions.
-
-Beyond simple indentation, our tool provides advanced features like 'Auto-Validation.' As you paste your code, our formatter checks for common errors—such as trailing commas, missing quotes, or mismatched brackets—and provides real-time warnings. This 'fail-fast' approach saves developers hours of frustration, allowing them to fix structural issues before they cause failures in their production environments. It's not just a formatter; it's a structural integrity checker for your most critical data.
-
-Privacy is another cornerstone of the KooBrain experience. In an era where proprietary data and API keys are often embedded in JSON strings, using a cloud-based formatter can be a security risk. Most online formatters send your data to their servers for processing, where it could be logged or intercepted. KooBrain's JSON Formatter is strictly client-side. Your data never leaves your browser. All parsing and formatting happen in your local memory, ensuring that your sensitive information remains private and secure at all times.
-
-Educational value is also part of our mission. Many junior developers struggle with the nuances of JSON syntax. Our tool helps by providing a 'canonical' representation of the data, helping users learn the standard rules of JSON formatting as they work. We also provide detailed explanations of JSON data types—strings, numbers, objects, arrays, booleans, and null—giving users a deeper understanding of the format's capabilities and limitations.
-
-As web development becomes more complex, the need for robust, specialized tools only grows. Our JSON Formatter is part of a larger ecosystem of developer utilities designed to make your life easier. Whether you're a backend engineer debugging a REST API, a frontend developer managing application state, or a data scientist exploring a JSON-based dataset, our tool provides the precision and speed you need to work efficiently.
-
-We are committed to AdSense compliance by providing 'meaningful content' that adds real value above and beyond the utility itself. Our platform serves as a knowledge hub, offering best practices for JSON design, performance optimization techniques for large payloads, and cross-platform compatibility guides. We don't just format your data; we help you master it.
-
-The technical implementation of our tool uses modern ECMAScript standards and specialized JSON parsing algorithms. We avoid the overhead of heavy backend frameworks, ensuring that the tool loads and executes instantly even on slower network connections. This focus on performance reflects our engineering philosophy: tools should be invisible, empowering the user without getting in their way.
-
-Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON to CSV, XML, or YAML) and schema validation. KooBrain is dedicated to remaining the world's premier destination for high-value developer content and utilities. Use our JSON Formatter today and experience the difference that professional-grade engineering makes in your daily workflow.`,
-    usageGuide: {
-      title: "How to Use the Pro JSON Beautification Laboratory",
-      steps: [
-        "Copy your raw or minified JSON string from your source code or API response.",
-        "Paste the string into the large 'Input' text area on the left side of the screen.",
-        "Choose your preferred indentation level (2 spaces is the industry standard).",
-        "The tool will automatically detect and format the JSON in the 'Output' panel.",
-        "Review any syntax error messages that appear if the JSON is malformed.",
-        "Click the 'Copy to Clipboard' button to use the beautified JSON in your project."
-      ]
-    },
-    formula: {
-      title: "The Logic of JSON Parsing",
-      explanation: "JSON formatting works by recursively traversing the object tree and applying specific white-space rules based on the nesting level. Our tool uses a safe parsing method that handles circular references and extremely deep nesting without crashing the browser thread.",
-      calculation: "FormattedString = JSON.stringify(JSON.parse(Input), null, IndentLevel)"
-    },
-    examples: {
-      title: "JSON Formatting Use Cases",
-      list: [
-        { title: "API Debugging", description: "Beautifying a dense response from a REST API to understand the data structure and field names." },
-        { title: "Config File Editing", description: "Formatting a 'package.json' or '.eslintrc' file to make it readable for human collaborators." },
-        { title: "Data Exploration", description: "Navigating large JSON datasets to find specific records or values during the research phase." },
-        { title: "Structural Validation", description: "Pasting a suspected broken JSON string to find the exact location of a missing bracket or comma." }
-      ]
-    },
-    useCases: [
-      "Beautifying minified JSON for readability",
-      "Validating JSON syntax against standard rules",
-      "Converting JSON strings to a structured hierarchy",
-      "Learning JSON data structures and types",
-      "Safe formatting of sensitive data with local-only processing"
+    imageAltText: "JSON formatter tool showing input and formatted JSON output",
+    seoTitle: "JSON Formatter Online — Beautify & Validate JSON Free",
+    metaDescription: "Format and validate JSON online free. Instantly beautify minified JSON with syntax highlighting and error detection. Fast, private, browser-based.",
+    intro: "Need to read a minified API response or debug a config file? The JSON Formatter takes raw or compressed JSON and instantly beautifies it with proper indentation, color-coded syntax highlighting, and structure. Paste any JSON string — no matter how deeply nested — and get clean, readable output in one click. The tool validates your JSON as it formats it, reporting the exact line and character position of syntax errors like missing commas, unclosed brackets, or misquoted keys. Everything runs in your browser, so sensitive payloads never leave your device.",
+    howToSteps: [
+      "Paste or type your JSON string into the input editor on the left.",
+      "The formatter validates in real time and highlights any syntax errors with the line number.",
+      "Click 'Format' or use the keyboard shortcut to apply 2-space or 4-space indentation.",
+      "Copy the beautified output to clipboard or download it as a .json file.",
+    ],
+    features: [
+      "Real-time syntax validation with exact error line and column",
+      "Syntax highlighting for keys, strings, numbers, booleans, and null",
+      "Configurable indentation: 2-space, 4-space, or tab",
+      "Detects and reports duplicate keys and structural errors",
+      "One-click copy to clipboard and .json download",
+      "100% browser-based — files and data never uploaded to a server",
+    ],
+    benefits: [
+      "Debug API responses instantly — turn a single unreadable line into a structured tree",
+      "Catch syntax errors before they reach production — save hours of runtime debugging",
+      "Share clean, documented JSON with teammates or in pull request comments",
+      "Work safely with tokens, credentials, and private configs — nothing is transmitted",
     ],
     faqs: [
-      {
-        question: "Is there a size limit for the JSON I can format?",
-        answer: "Our tool can handle several megabytes of JSON data comfortably. For extremely large files (100MB+), browser memory may become a factor."
-      },
-      {
-        question: "Does this tool work offline?",
-        answer: "Yes! Once the page is loaded, all formatting logic runs locally in your browser, even without an active internet connection."
-      },
-      {
-        question: "What happens if my JSON is invalid?",
-        answer: "The formatter will display a clear error message indicating the line and character where the syntax error was detected."
-      },
-      {
-        question: "Does it support JSON with comments?",
-        answer: "Standard JSON does not support comments. However, our tool can often strip simple comments before formatting to help you clean up non-standard files."
-      },
-      {
-        question: "Can I format JSON to different styles?",
-        answer: "We support the standard 'pretty print' style with customizable indentation (spaces or tabs) to match your team's coding standards."
-      },
-      {
-        question: "Is my data secure and private?",
-        answer: "100%. We use client-side logic only. No data is ever uploaded to our servers, making it safe for corporate and sensitive data."
-      }
+      { question: "What is JSON formatting and why does it matter?", answer: "JSON formatting adds indentation and line breaks so nested data is easy to read. Raw JSON from APIs is often a single long line. Formatted JSON shows every key-value pair at the correct depth, making it much faster to understand data structures and spot mistakes." },
+      { question: "Does the JSON Formatter also validate my JSON?", answer: "Yes. Validation runs automatically as you type or paste. If the JSON is invalid, the tool highlights the error and shows the exact line number and a description of the problem, such as 'Unexpected token at line 4, column 12'." },
+      { question: "What is the difference between JSON Formatter and JSON Validator?", answer: "The Formatter beautifies and validates simultaneously. The Validator focuses purely on syntax checking without altering your JSON. Use the Formatter when you want readable output; use the Validator when you only need a quick pass/fail answer on syntax." },
+      { question: "Can I format large JSON files?", answer: "Yes. The tool handles large JSON objects in the browser. Performance depends on your device, but it works well for typical API responses, database exports, and config files up to several megabytes." },
+      { question: "Is my JSON data sent to a server?", answer: "No. The formatter runs entirely in your browser using JavaScript. Your data never leaves your device, which makes it safe to use with API keys, authentication tokens, and private configuration data." },
     ],
+    internalLinks: [
+      { label: "JSON Validator", href: "/json-validator", note: "Quickly check if JSON syntax is valid." },
+      { label: "JSON Minifier", href: "/json-minifier", note: "Compress JSON by stripping whitespace." },
+      { label: "JSON Compare", href: "/json-compare", note: "Find differences between two JSON objects." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Convert JSON arrays to spreadsheet format." },
+    ],
+    cta: { headline: "Format your JSON in one click", copy: "Paste any JSON string to instantly beautify it, validate syntax, and copy clean output.", buttonText: "Open JSON Formatter", buttonHref: "/json-formatter" },
     locales: {
       hi: {
         mainKeyword: "JSON फॉर्मैटर ऑनलाइन",
@@ -437,6 +213,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-validator",
     imageAltText: "JSON validator tool showing valid and invalid JSON messages",
+    seoTitle: "JSON Validator Online — Check JSON Syntax Free",
+    metaDescription: "Validate JSON syntax online free. Instantly check for errors, missing commas, and bracket mismatches. Fast, private, browser-based JSON checker.",
+    intro: "A single misplaced comma or an unclosed bracket in JSON can break an entire application. The JSON Validator checks your JSON string for syntax errors in milliseconds and tells you exactly where the problem is — line number, column, and a plain-English error description. Paste a response from an API, a config file, or any JSON data and get an immediate pass or fail. Unlike editors that silently highlight errors in the gutter, this tool puts the error front and center so you can fix it fast and move on.",
+    howToSteps: [
+      "Paste your JSON string into the input area.",
+      "The validator checks the syntax automatically and shows a result badge.",
+      "If invalid, read the error message to find the exact line and position of the problem.",
+      "Fix the error in your source, paste again, and confirm it passes.",
+    ],
+    features: [
+      "Instant pass/fail result with a clear visual indicator",
+      "Exact error location: line number, column, and description",
+      "Handles deeply nested objects and large arrays",
+      "Detects multiple error types: missing commas, bad quotes, trailing commas, invalid values",
+      "No registration required — paste and validate instantly",
+      "Runs entirely in the browser — no data uploaded",
+    ],
+    benefits: [
+      "Stop chasing silent bugs — know immediately whether your JSON is structurally sound",
+      "Save time by finding errors before running code, hitting APIs, or writing to databases",
+      "Use as a pre-flight check before submitting JSON to CI pipelines or config management systems",
+      "Safe for production secrets — credentials and tokens never leave your browser",
+    ],
+    faqs: [
+      { question: "What errors does the JSON Validator catch?", answer: "It catches all standard JSON syntax errors: missing or extra commas, unclosed objects or arrays, unquoted keys, single-quoted strings, trailing commas, and invalid literal values like 'undefined' or 'NaN'." },
+      { question: "What is the difference between valid and well-formed JSON?", answer: "Valid JSON follows the JSON specification (RFC 8259): string keys must be double-quoted, values must be one of string, number, object, array, true, false, or null. Well-formed just means the brackets and braces are balanced. This tool checks both." },
+      { question: "Can I validate JSON with comments?", answer: "Standard JSON does not allow comments. If your file uses comments (common in JSON5 or JSONC formats used by editors like VS Code), you will need to strip them before validating with this tool." },
+      { question: "Why does my JSON fail validation even though it looks correct?", answer: "Common hidden issues include: trailing commas after the last property, smart quotes (curly quotes) pasted from a word processor instead of straight double quotes, invisible Unicode characters, or a byte-order mark (BOM) at the start of the string." },
+      { question: "Is there a file size limit?", answer: "There is no hard limit imposed by the tool. Very large files (tens of megabytes) may slow down depending on your device's available memory, but typical API responses, config files, and exports work without any issues." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify and indent your JSON." },
+      { label: "JSON Minifier", href: "/json-minifier", note: "Compress JSON for production use." },
+      { label: "JSON Compare", href: "/json-compare", note: "Diff two JSON objects side by side." },
+      { label: "JSON Sort Keys", href: "/json-sort-keys", note: "Alphabetize keys for stable output." },
+    ],
+    cta: { headline: "Validate your JSON in seconds", copy: "Paste any JSON string to check syntax, find errors, and confirm your data is structurally correct.", buttonText: "Open JSON Validator", buttonHref: "/json-validator" },
   },
   "/json-minifier": {
     toolName: "JSON Minifier",
@@ -450,6 +263,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-minifier",
     imageAltText: "JSON minifier tool showing original and minified JSON output",
+    seoTitle: "JSON Minifier Online — Compress JSON Free",
+    metaDescription: "Minify JSON online free. Remove whitespace and compress JSON for APIs, web apps, and storage. Fast, private, browser-based JSON compressor.",
+    intro: "Formatted JSON with indentation and newlines is great for reading but wasteful in production. Every extra space and line break increases payload size, which slows API response times and increases bandwidth costs. The JSON Minifier strips all unnecessary whitespace — spaces, tabs, and newlines — to produce the most compact valid JSON string possible. It validates your JSON first, so you only get minified output if the input is syntactically correct. Use it before embedding JSON in JavaScript bundles, storing it in databases, or transmitting it over constrained networks.",
+    howToSteps: [
+      "Paste your formatted or human-readable JSON into the input editor.",
+      "The tool validates the JSON and checks for syntax errors automatically.",
+      "Click 'Minify' to remove all whitespace and compress the output.",
+      "Copy the minified single-line JSON or download it for your project.",
+    ],
+    features: [
+      "Removes all unnecessary whitespace, newlines, and indentation",
+      "Validates JSON before minifying to prevent producing invalid output",
+      "Shows before and after file size so you can measure the savings",
+      "One-click copy to clipboard for fast pasting into code or config",
+      "Handles deeply nested objects and large arrays efficiently",
+      "Completely browser-based — no server upload, no data retention",
+    ],
+    benefits: [
+      "Reduce API payload size to improve response times and lower bandwidth usage",
+      "Shrink JSON stored in databases or cache layers to save storage costs",
+      "Optimize JavaScript bundles by embedding compact JSON literals",
+      "Speed up mobile apps where data transfer is metered and slow",
+    ],
+    faqs: [
+      { question: "What does JSON minification do?", answer: "Minification removes whitespace characters — spaces, tabs, and newlines — that are used for human readability but have no effect on the data. The result is a single-line JSON string that is functionally identical to the original but much smaller in byte size." },
+      { question: "How much does minification reduce JSON size?", answer: "Savings depend on how much whitespace the original has. A prettified JSON file with 4-space indentation can be 20–40% larger than its minified version. For deeply nested structures with many levels, savings are even greater." },
+      { question: "Is minified JSON still valid JSON?", answer: "Yes. Whitespace between tokens is optional in the JSON specification. Minified JSON is fully valid and will parse correctly in any language that supports JSON." },
+      { question: "When should I use minification vs compression like gzip?", answer: "Both together is best practice for web APIs. Minification reduces the raw text size; gzip then compresses the minified text further. Use minification at build time and enable gzip or Brotli compression at the HTTP server level." },
+      { question: "Can I reverse minification?", answer: "Yes. Paste the minified JSON into the JSON Formatter to get it back in a readable, indented format. No data is lost during minification — it only removes whitespace." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify minified JSON for reading." },
+      { label: "JSON Validator", href: "/json-validator", note: "Check JSON syntax before minifying." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Convert JSON arrays to CSV files." },
+      { label: "JSON Sort Keys", href: "/json-sort-keys", note: "Sort keys before minifying for stable output." },
+    ],
+    cta: { headline: "Compress your JSON instantly", copy: "Paste formatted JSON to strip whitespace and get a compact, production-ready output.", buttonText: "Open JSON Minifier", buttonHref: "/json-minifier" },
   },
   "/json-pretty-print": {
     toolName: "JSON Pretty Print",
@@ -463,6 +313,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-pretty-print",
     imageAltText: "JSON pretty print tool with readable formatted output",
+    seoTitle: "JSON Pretty Print Online — Beautify JSON Free",
+    metaDescription: "Pretty print JSON online free. Convert minified or messy JSON into a clean, indented, readable format instantly. No login required.",
+    intro: "Pretty printing JSON means adding consistent indentation and line breaks so a compact data structure becomes easy for a human to read and understand. Whether you have received a raw API response, copied a log entry, or extracted data from a database, the JSON Pretty Print tool transforms it into neatly structured output where every level of nesting is clearly visible. The tool also performs syntax validation, so if your input has an error, you will know before trying to read an incorrectly formatted result.",
+    howToSteps: [
+      "Paste the minified or unformatted JSON into the input area.",
+      "Select your preferred indentation level: 2 spaces, 4 spaces, or tab.",
+      "The tool instantly renders the pretty-printed output with color-coded tokens.",
+      "Copy the result or download it as a formatted .json file.",
+    ],
+    features: [
+      "Consistent indentation with configurable space or tab width",
+      "Color-coded keys, values, strings, numbers, booleans, and nulls",
+      "Automatic syntax validation before rendering output",
+      "Handles arrays, nested objects, and mixed-type values correctly",
+      "Copy to clipboard and file download in one click",
+      "No account, no upload — all processing in the browser",
+    ],
+    benefits: [
+      "Read complex API responses or config files without manually counting brackets",
+      "Speed up code reviews by sharing formatted JSON that reviewers can scan instantly",
+      "Reduce eye strain when debugging deeply nested data structures",
+      "Use as a quick sanity check when building or testing JSON-based APIs",
+    ],
+    faqs: [
+      { question: "What is the difference between pretty print and format?", answer: "They are the same operation. 'Pretty print' is the classic computer science term for rendering structured data with human-readable whitespace. 'Format' is the more common everyday term. Both mean adding indentation and line breaks." },
+      { question: "Does pretty printing change my data?", answer: "No. Pretty printing only adds whitespace between tokens. The actual keys, values, types, and structure are preserved exactly. You can minify the pretty-printed output and get the original back." },
+      { question: "What indentation should I use?", answer: "2-space indentation is the most common standard in JavaScript and JSON tooling (it is the default in JSON.stringify). 4-space is common in Python. Use whatever matches your team's coding style." },
+      { question: "Can I pretty print invalid JSON?", answer: "No. The tool validates syntax before printing. If your JSON has errors, you will see an error message pointing to the problem location instead of formatted output." },
+      { question: "How is this different from the JSON Formatter?", answer: "Both tools format JSON, but the JSON Formatter also provides additional features like minification toggle and detailed error reporting. JSON Pretty Print is a focused, lightweight version for users who just need readable output quickly." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Full-featured JSON formatting and validation." },
+      { label: "JSON Minifier", href: "/json-minifier", note: "Remove whitespace to compact JSON." },
+      { label: "JSON Validator", href: "/json-validator", note: "Syntax-check your JSON." },
+      { label: "JSON Compare", href: "/json-compare", note: "Diff two JSON objects." },
+    ],
+    cta: { headline: "Prettify your JSON now", copy: "Paste any JSON string to instantly turn it into clean, readable, indented output.", buttonText: "Open JSON Pretty Print", buttonHref: "/json-pretty-print" },
   },
   "/json-to-csv": {
     toolName: "JSON to CSV Converter",
@@ -476,6 +363,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-to-csv",
     imageAltText: "JSON to CSV converter tool showing JSON input and CSV output",
+    seoTitle: "JSON to CSV Converter Online — Free & Instant",
+    metaDescription: "Convert JSON to CSV online free. Turn JSON arrays into spreadsheet-ready CSV files instantly. No login, no upload — runs in your browser.",
+    intro: "JSON is the standard format for APIs and data exchange, but analysts and business users typically need data in CSV for Excel, Google Sheets, or database imports. The JSON to CSV Converter takes a JSON array of objects and maps each object's keys to column headers, with every object becoming one row. It handles flat structures instantly and lets you download the result as a .csv file ready for spreadsheet tools. No coding required — paste your JSON, get your CSV in seconds.",
+    howToSteps: [
+      "Paste your JSON array (an array of objects) into the input field.",
+      "The tool reads the keys from the first object and uses them as CSV column headers.",
+      "Preview the generated CSV table in the output area.",
+      "Click Download to save the file or Copy to paste it directly into a spreadsheet.",
+    ],
+    features: [
+      "Converts JSON arrays of objects to properly formatted CSV",
+      "Auto-detects column headers from JSON keys",
+      "Handles string, number, boolean, and null values",
+      "Escapes commas and quotes in values to produce valid CSV",
+      "Download as .csv file or copy the raw text",
+      "Browser-based — no server upload, no data retention",
+    ],
+    benefits: [
+      "Share API data with non-technical stakeholders who work in Excel or Google Sheets",
+      "Import JSON datasets into databases, BI tools, or analytics platforms that expect CSV",
+      "Reduce manual copy-paste errors when transferring structured data between systems",
+      "Save developer time — no need to write a one-off conversion script",
+    ],
+    faqs: [
+      { question: "What JSON structure does this converter expect?", answer: "The converter expects a JSON array of objects, like [{\"name\":\"Alice\",\"age\":30},{\"name\":\"Bob\",\"age\":25}]. Each object in the array becomes one row. Nested objects or arrays inside the values are serialized as strings in the CSV cell." },
+      { question: "Does it handle nested JSON?", answer: "Deeply nested objects are converted to their string representation in the CSV cell. For complex nested data, consider flattening your JSON first or using the JSON Formatter to inspect and restructure it before converting." },
+      { question: "Can I open the resulting CSV in Excel?", answer: "Yes. Download the .csv file and open it directly in Excel, Google Sheets, LibreOffice Calc, or any other spreadsheet application. If you see encoding issues with special characters, make sure to open the file with UTF-8 encoding." },
+      { question: "What happens if my JSON objects have different keys?", answer: "The converter uses the keys from the first object as the column headers. Objects that are missing a key will have an empty cell for that column. Extra keys in later objects that are not in the first object may be omitted." },
+      { question: "Is there a size limit on the JSON I can convert?", answer: "There is no enforced size limit. The converter runs in your browser, so very large files depend on your device's available memory. Files up to a few megabytes convert without issues." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify your JSON before converting." },
+      { label: "JSON Validator", href: "/json-validator", note: "Check JSON is valid before converting." },
+      { label: "JSON to HTML Table", href: "/json-to-html-table", note: "Render JSON data as an HTML table." },
+      { label: "JSON to YAML", href: "/json-to-yaml", note: "Convert JSON to YAML config format." },
+    ],
+    cta: { headline: "Convert JSON to CSV in seconds", copy: "Paste your JSON array to instantly generate a spreadsheet-ready CSV file.", buttonText: "Open JSON to CSV", buttonHref: "/json-to-csv" },
   },
   "/json-to-xml": {
     toolName: "JSON to XML Converter",
@@ -489,6 +413,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-to-xml",
     imageAltText: "JSON to XML converter showing JSON input and XML output",
+    seoTitle: "JSON to XML Converter Online — Free & Instant",
+    metaDescription: "Convert JSON to XML online free. Transform JSON objects to well-formed XML instantly. No login required — runs entirely in your browser.",
+    intro: "Many enterprise systems, legacy integrations, SOAP web services, and configuration frameworks use XML as their data format. If you need to feed JSON data into an XML-based system, the JSON to XML Converter does the transformation automatically. It maps JSON keys to XML element names, nests objects as child elements, and handles arrays by repeating the parent element. The output is well-formed XML that you can paste directly into a system, save as a .xml file, or inspect for further manual adjustments.",
+    howToSteps: [
+      "Paste your JSON object or array into the input editor.",
+      "The converter maps JSON keys to XML element tags automatically.",
+      "Review the generated XML structure in the output panel.",
+      "Copy the XML to clipboard or download it as a .xml file.",
+    ],
+    features: [
+      "Maps JSON keys directly to XML element names",
+      "Handles nested objects as child XML elements",
+      "Converts JSON arrays to repeated XML elements",
+      "Produces well-formed XML with proper escaping of special characters",
+      "Copy and download options for easy integration",
+      "Runs in the browser — no upload, no server processing",
+    ],
+    benefits: [
+      "Integrate JSON API data with legacy XML-based systems without writing conversion code",
+      "Prepare test payloads for SOAP services and XML-driven enterprise applications",
+      "Convert configuration data between JSON and XML formats used by different tools",
+      "Save development time on one-off format conversions during migration projects",
+    ],
+    faqs: [
+      { question: "What is the difference between JSON and XML?", answer: "JSON uses key-value pairs with curly braces and square brackets. XML uses opening and closing tags like HTML. JSON is lighter and more common in modern REST APIs, while XML is widely used in legacy systems, SOAP services, and some configuration formats like Maven pom.xml or Android manifests." },
+      { question: "How does the converter handle JSON arrays?", answer: "JSON arrays are converted by repeating the parent element for each item. For example, an array of three items under a 'users' key produces three separate <users> elements in the XML output." },
+      { question: "Can I convert XML back to JSON?", answer: "This tool converts JSON to XML only. For XML to JSON conversion, use a dedicated XML-to-JSON tool. KooBrain plans to add this direction in a future update." },
+      { question: "Does the output XML have a root element?", answer: "Yes. Since valid XML documents must have a single root element, the converter wraps the output in a <root> element if your JSON does not already have a single top-level key to use as the root." },
+      { question: "Are special characters in JSON values handled correctly?", answer: "Yes. Characters like <, >, &, and \" that are reserved in XML are automatically escaped to their XML entity equivalents (&lt;, &gt;, &amp;, &quot;) to produce valid XML output." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify and validate your JSON first." },
+      { label: "JSON to YAML", href: "/json-to-yaml", note: "Convert JSON to YAML format." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Convert JSON arrays to spreadsheets." },
+      { label: "JSON Validator", href: "/json-validator", note: "Check JSON syntax before converting." },
+    ],
+    cta: { headline: "Convert JSON to XML instantly", copy: "Paste your JSON to generate well-formed XML output ready for legacy systems and enterprise integrations.", buttonText: "Open JSON to XML", buttonHref: "/json-to-xml" },
   },
   "/json-to-yaml": {
     toolName: "JSON to YAML Converter",
@@ -502,6 +463,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-to-yaml",
     imageAltText: "JSON to YAML converter showing YAML output",
+    seoTitle: "JSON to YAML Converter Online — Free & Instant",
+    metaDescription: "Convert JSON to YAML online free. Transform JSON configs and data into clean YAML format instantly. No login required.",
+    intro: "YAML is the preferred configuration format for Docker Compose, Kubernetes manifests, GitHub Actions workflows, Ansible playbooks, and many other DevOps and cloud-native tools. If you have configuration data in JSON — perhaps exported from an API or another tool — the JSON to YAML Converter transforms it into clean, human-readable YAML with proper indentation and dash notation. YAML is less cluttered than JSON: no curly braces, no quotes for simple strings, and indentation-based structure that developers find easy to write and review.",
+    howToSteps: [
+      "Paste your JSON object or configuration into the input field.",
+      "The converter validates the JSON and maps it to YAML syntax.",
+      "Review the YAML output — objects become indented blocks, arrays become dash lists.",
+      "Copy the YAML or download it as a .yaml or .yml file.",
+    ],
+    features: [
+      "Converts JSON objects and arrays to clean YAML blocks and sequences",
+      "Preserves data types: strings, numbers, booleans, and nulls",
+      "Handles nested structures with correct indentation depth",
+      "Outputs standard YAML compatible with Kubernetes, Docker, GitHub Actions, and Ansible",
+      "Copy to clipboard and .yaml file download",
+      "Browser-based — nothing is uploaded or stored",
+    ],
+    benefits: [
+      "Write Kubernetes manifests and Helm values files starting from JSON API specs",
+      "Convert CI/CD pipeline configs exported as JSON into YAML for GitHub Actions or GitLab CI",
+      "Simplify configuration management by working in whichever format is most convenient",
+      "Skip hand-writing YAML syntax — let the converter handle indentation and formatting",
+    ],
+    faqs: [
+      { question: "What is YAML and how does it differ from JSON?", answer: "YAML (YAML Ain't Markup Language) is a human-readable data serialization format. Unlike JSON, it uses indentation instead of brackets, does not require quotes for simple string values, and supports comments. YAML is a superset of JSON, so all valid JSON is also valid YAML." },
+      { question: "Which tools use YAML instead of JSON?", answer: "YAML is the standard format for Kubernetes (k8s manifests), Docker Compose (docker-compose.yml), GitHub Actions (.github/workflows), GitLab CI (.gitlab-ci.yml), Ansible playbooks, Helm charts, and many other DevOps tools." },
+      { question: "Can I convert YAML back to JSON?", answer: "This tool converts in the JSON-to-YAML direction. For the reverse, use a YAML-to-JSON tool. Many online tools support both directions." },
+      { question: "Does YAML support comments?", answer: "Yes, YAML supports comments using the # symbol. JSON does not support comments. This is one reason developers prefer YAML for configuration files — you can document your config inline." },
+      { question: "Are there any JSON features that do not convert cleanly to YAML?", answer: "Most JSON structures convert cleanly. One edge case is JSON keys that contain special YAML characters (like : or #). These keys will be quoted in the YAML output to preserve correctness." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify JSON before converting." },
+      { label: "JSON to XML", href: "/json-to-xml", note: "Convert JSON to XML format." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Export JSON data as a spreadsheet." },
+      { label: "JSON Validator", href: "/json-validator", note: "Validate JSON syntax first." },
+    ],
+    cta: { headline: "Convert JSON to YAML in one click", copy: "Paste your JSON to generate clean, indented YAML ready for DevOps configs and cloud tools.", buttonText: "Open JSON to YAML", buttonHref: "/json-to-yaml" },
   },
   "/json-to-html-table": {
     toolName: "JSON to HTML Table",
@@ -515,6 +513,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-to-html-table",
     imageAltText: "JSON to HTML table tool rendering data into a table",
+    seoTitle: "JSON to HTML Table Generator — Free Online Tool",
+    metaDescription: "Convert JSON to an HTML table online free. Turn JSON arrays into formatted, copy-ready HTML tables instantly. No login required.",
+    intro: "Displaying data on a web page almost always means building an HTML table. If your data is in JSON format — from an API, a database query, or a spreadsheet export — the JSON to HTML Table tool eliminates the manual work of writing table rows and cells. It reads a JSON array of objects, uses the object keys as table headers, and renders each object as a <tr> row. The result is copy-ready HTML that you can paste directly into a webpage, a CMS, or a template engine.",
+    howToSteps: [
+      "Paste your JSON array of objects into the input field.",
+      "The tool reads the keys from the first object and creates <th> header cells.",
+      "Each object in the array becomes a <tr> row with corresponding <td> cells.",
+      "Copy the generated HTML table code and paste it into your webpage or template.",
+    ],
+    features: [
+      "Generates semantic HTML with <table>, <thead>, <tbody>, <tr>, <th>, and <td> tags",
+      "Auto-detects column headers from JSON object keys",
+      "Handles all JSON value types: strings, numbers, booleans, and nulls",
+      "Outputs clean, copy-ready HTML code",
+      "Preview the rendered table before copying the markup",
+      "Fully browser-based — no data sent to any server",
+    ],
+    benefits: [
+      "Add dynamic data tables to websites without writing repetitive HTML by hand",
+      "Quickly prototype data views from API responses during frontend development",
+      "Turn exported JSON datasets into HTML reports for stakeholders",
+      "Save time on documentation by rendering data examples as formatted tables",
+    ],
+    faqs: [
+      { question: "What JSON format does the table generator expect?", answer: "It expects a JSON array of objects: [{\"col1\": val, \"col2\": val}, ...]. Each object represents one row, and the keys of the first object determine the column headers." },
+      { question: "Can I style the generated HTML table?", answer: "The tool generates unstyled HTML. You can apply CSS classes, inline styles, or a CSS framework like Bootstrap or Tailwind to the output after copying it. The structure uses standard HTML table tags that any CSS can target." },
+      { question: "Does it handle nested JSON values in table cells?", answer: "Nested objects or arrays in cell values are serialized as their JSON string representation. For clean table output, flatten nested data before converting." },
+      { question: "Can I copy just the table code without surrounding HTML boilerplate?", answer: "Yes. The tool outputs only the <table>...</table> block so you can paste it directly into an existing HTML document without needing to strip any page wrapper markup." },
+      { question: "Is the output HTML valid and accessible?", answer: "Yes. The generated table uses proper semantic tags including <thead> and <tbody> for structure, which also helps screen readers and assistive technologies interpret the table correctly." },
+    ],
+    internalLinks: [
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Export JSON data as a spreadsheet." },
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify JSON before converting." },
+      { label: "JSON Validator", href: "/json-validator", note: "Validate JSON syntax first." },
+      { label: "JSON to YAML", href: "/json-to-yaml", note: "Convert JSON to YAML config format." },
+    ],
+    cta: { headline: "Generate your HTML table from JSON", copy: "Paste a JSON array to instantly produce clean, copy-ready HTML table markup.", buttonText: "Open JSON to HTML Table", buttonHref: "/json-to-html-table" },
   },
   "/json-compare": {
     toolName: "JSON Compare",
@@ -528,6 +563,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-compare",
     imageAltText: "JSON compare tool showing differences between two JSON inputs",
+    seoTitle: "JSON Compare Tool — Diff Two JSON Objects Online Free",
+    metaDescription: "Compare two JSON objects online free. Highlight added, removed, and changed keys side by side. Fast JSON diff tool — no login required.",
+    intro: "Spotting the difference between two JSON payloads by eye is slow and error-prone, especially when the objects are large or deeply nested. The JSON Compare tool performs a structural diff: it compares two JSON objects side by side and highlights every added key in green, every removed key in red, and every changed value in amber. Use it to compare API responses before and after a code change, diff configuration files across environments, or audit what changed in a JSON-based data migration.",
+    howToSteps: [
+      "Paste the first JSON object into the left input panel.",
+      "Paste the second JSON object into the right input panel.",
+      "The tool runs a deep structural comparison and highlights all differences.",
+      "Review added keys (green), removed keys (red), and changed values (amber) in the diff view.",
+    ],
+    features: [
+      "Deep structural comparison of nested objects and arrays",
+      "Color-coded diff: added (green), removed (red), modified (amber), unchanged (grey)",
+      "Side-by-side view for easy visual scanning",
+      "Detects key renames, value type changes, and null vs undefined differences",
+      "Works with any valid JSON: objects, arrays, and primitives",
+      "Runs entirely in the browser — no data uploaded",
+    ],
+    benefits: [
+      "Verify API response shape after backend changes without manual inspection",
+      "Confirm that config files across dev, staging, and production only differ where expected",
+      "Audit data migration outputs by comparing source and target JSON structures",
+      "Use in code reviews to show exactly what changed in a JSON test fixture or config",
+    ],
+    faqs: [
+      { question: "What does the JSON Compare tool highlight?", answer: "It shows three types of differences: added keys or values (exist in the second JSON but not the first), removed keys or values (exist in the first but not the second), and modified values (key exists in both but the value is different)." },
+      { question: "Does it compare arrays by index or by value?", answer: "Arrays are compared by index position. If element 0 in the first array is 'A' and element 0 in the second is 'B', the tool shows that index 0 changed. Reordered arrays may show many differences even if the same elements are present." },
+      { question: "Can it compare JSON files with different key orders?", answer: "Yes. The comparison is based on key names, not their order in the source text. Two objects with the same keys and values but in different order will show no differences." },
+      { question: "What is a practical use case for this tool?", answer: "A common use case is comparing REST API responses before and after a code deployment to confirm that the response structure is unchanged. Another is comparing a database export from two different points in time to see exactly which records changed." },
+      { question: "Can I compare more than two JSON objects at once?", answer: "The current tool compares exactly two JSON inputs. For multi-way comparison, compare pairs sequentially: A vs B, then B vs C." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify JSON before comparing." },
+      { label: "JSON Validator", href: "/json-validator", note: "Validate both JSON inputs first." },
+      { label: "JSON Sort Keys", href: "/json-sort-keys", note: "Sort keys to normalize structure before diff." },
+      { label: "String Comparison", href: "/string-comparison", note: "Compare plain text strings line by line." },
+    ],
+    cta: { headline: "Diff your JSON in seconds", copy: "Paste two JSON objects to instantly see every added, removed, and changed key highlighted.", buttonText: "Open JSON Compare", buttonHref: "/json-compare" },
   },
   "/json-sort-keys": {
     toolName: "JSON Sort Keys",
@@ -541,6 +613,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-sort-keys",
     imageAltText: "JSON sort keys tool showing alphabetically sorted JSON output",
+    seoTitle: "JSON Sort Keys Online — Alphabetize JSON Keys Free",
+    metaDescription: "Sort JSON keys alphabetically online free. Normalize JSON key order for stable diffs, consistent hashing, and clean documentation.",
+    intro: "When JSON objects are constructed programmatically, key order can vary between runs, libraries, or services. This makes JSON diffs noisy and hash comparisons unreliable. The JSON Sort Keys tool alphabetically sorts every key at every level of nesting, producing a deterministic, normalized output. Sorted JSON is easier to compare visually, produces stable git diffs in version-controlled config files, and results in consistent hash values when you need to sign or compare payloads.",
+    howToSteps: [
+      "Paste your JSON object into the input editor.",
+      "The tool recursively sorts all keys alphabetically at every nesting level.",
+      "Review the sorted output — the structure and values are identical, only key order changes.",
+      "Copy the sorted JSON or download it as a file.",
+    ],
+    features: [
+      "Recursive sort: alphabetizes keys at every depth level",
+      "Preserves all values, types, and nested structures exactly",
+      "Produces consistent, deterministic output for the same input",
+      "Combines with formatting for clean, sorted, readable JSON",
+      "Copy and download options",
+      "100% browser-based processing",
+    ],
+    benefits: [
+      "Produce stable git diffs for JSON config files — only real changes show up, not key order noise",
+      "Enable reliable hash comparison of JSON payloads for integrity checks and caching",
+      "Normalize JSON from multiple sources before comparing with the JSON Compare tool",
+      "Make configuration files consistent across team members who add keys in different orders",
+    ],
+    faqs: [
+      { question: "Why does key order matter in JSON?", answer: "The JSON specification says key order is undefined — parsers are not required to preserve it. In practice, different languages and libraries produce keys in different orders. This causes noisy diffs in version control and unstable hash values when comparing payloads." },
+      { question: "Does sorting keys change the meaning of the JSON?", answer: "No. Since JSON objects are unordered by spec, sorting keys produces a semantically identical object. All parsers will read the sorted and unsorted versions as the same data." },
+      { question: "Are array elements also sorted?", answer: "No. Array element order is meaningful in JSON and is preserved exactly as-is. Only object keys (not array items) are sorted." },
+      { question: "Can I sort and then minify in one step?", answer: "Sort first using this tool, then paste the output into the JSON Minifier to compress it. Both tools are browser-based and the workflow takes under a minute." },
+      { question: "Does it sort keys case-sensitively?", answer: "Yes. Uppercase letters sort before lowercase in standard ASCII order, so a key like 'Zebra' will appear before 'apple'. This follows standard lexicographic sorting." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify sorted JSON." },
+      { label: "JSON Compare", href: "/json-compare", note: "Diff two sorted JSON objects." },
+      { label: "JSON Minifier", href: "/json-minifier", note: "Compress sorted JSON." },
+      { label: "JSON Validator", href: "/json-validator", note: "Validate before sorting." },
+    ],
+    cta: { headline: "Sort your JSON keys now", copy: "Paste any JSON to recursively alphabetize keys at every nesting level for stable, comparable output.", buttonText: "Open JSON Sort Keys", buttonHref: "/json-sort-keys" },
   },
   "/json-to-typescript": {
     toolName: "JSON to TypeScript",
@@ -554,8 +663,245 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/json-to-typescript",
     imageAltText: "JSON to TypeScript tool generating TypeScript interfaces",
+    seoTitle: "JSON to TypeScript Generator — Free Online Interface Builder",
+    metaDescription: "Generate TypeScript interfaces from JSON online free. Convert API responses and JSON data to typed TS interfaces instantly. No login required.",
+    intro: "Writing TypeScript interfaces by hand for every API response is tedious and error-prone. The JSON to TypeScript Generator analyzes your JSON and automatically produces accurate TypeScript interfaces with the correct property names and inferred types. Numbers, strings, booleans, arrays, nested objects, and nullable values are all handled. Paste an API response and get production-ready TypeScript type definitions in seconds — ready to drop into your codebase and provide full type safety.",
+    howToSteps: [
+      "Paste your JSON object or API response into the input editor.",
+      "The tool analyzes the structure and infers TypeScript types for each property.",
+      "Review the generated interface — property names match JSON keys, types are inferred.",
+      "Copy the TypeScript interface code and paste it into your project.",
+    ],
+    features: [
+      "Generates TypeScript interface declarations with correct property types",
+      "Infers string, number, boolean, null, array, and nested object types",
+      "Handles arrays of objects by generating a typed interface for the array item",
+      "Produces optional properties (?) for nullable or undefined values",
+      "Generates nested interfaces for deeply nested JSON structures",
+      "Browser-based — your API data never leaves your device",
+    ],
+    benefits: [
+      "Add type safety to API integrations without writing interfaces by hand",
+      "Catch property name typos and type mismatches at compile time instead of runtime",
+      "Speed up onboarding for new team members by providing fully typed response shapes",
+      "Generate interfaces from real API responses to ensure types match actual production data",
+    ],
+    faqs: [
+      { question: "What TypeScript output does this tool generate?", answer: "It generates TypeScript interface declarations. For example, a JSON object {\"id\": 1, \"name\": \"Alice\"} becomes interface Root { id: number; name: string; }. You can rename the interface to match your domain model." },
+      { question: "Does it handle arrays of objects?", answer: "Yes. A JSON array of objects like [{\"id\": 1}] generates an interface for the object type, and the root type becomes an array: type Root = Item[]. Each nested object gets its own named interface." },
+      { question: "How does it handle null values?", answer: "Properties with null values are typed as nullable: propertyName: type | null. If a property is sometimes present and sometimes absent across samples, you may want to mark it optional with ? manually." },
+      { question: "Can I generate types instead of interfaces?", answer: "The generator produces interfaces by default, which is idiomatic for object shapes in TypeScript. You can manually replace the interface keyword with type if your codebase prefers type aliases." },
+      { question: "Should I use the generated interfaces exactly as-is?", answer: "The generated types are a solid starting point based on the sample JSON you provide. Review them for accuracy, especially for optional fields, union types, and enum values that can only be known from the full API contract." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify JSON before generating types." },
+      { label: "JSON Validator", href: "/json-validator", note: "Validate JSON structure first." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Export JSON data to spreadsheets." },
+      { label: "JSON Compare", href: "/json-compare", note: "Diff two API response shapes." },
+    ],
+    cta: { headline: "Generate TypeScript interfaces from JSON", copy: "Paste any JSON to instantly get typed TypeScript interfaces ready for your codebase.", buttonText: "Open JSON to TypeScript", buttonHref: "/json-to-typescript" },
   },
 
+  "/base64-encode": {
+    toolName: "Base64 Encode",
+    mainKeyword: "base64 encode",
+    secondaryKeywords: [
+      "text to base64",
+      "base64 encoder online",
+      "encode string to base64",
+      "base64 encode free",
+      "base64 encoding tool",
+    ],
+    urlSlug: "/base64-encode",
+    imageAltText: "Base64 encode tool showing input text and Base64 output",
+    seoTitle: "Base64 Encode Online — Free Text to Base64 Encoder",
+    metaDescription: "Encode text to Base64 online free. Convert strings, JSON, and data to Base64 format instantly. Secure, browser-based Base64 encoder.",
+    intro: "Base64 encoding converts binary data or text into a safe ASCII string format using 64 printable characters. It is used everywhere: embedding images in HTML and CSS, transmitting binary data in JSON payloads, encoding credentials in HTTP Basic Authentication headers, and storing binary content in text-based systems like email (MIME) and XML. The Base64 Encode tool converts any text input into its Base64 representation instantly. The encoding runs in your browser, so sensitive strings like passwords or tokens are never transmitted to a server.",
+    howToSteps: [
+      "Type or paste the text you want to encode into the input field.",
+      "The tool encodes the input in real time using the standard Base64 alphabet.",
+      "Review the Base64 output string in the result area.",
+      "Click Copy to clipboard to use the encoded string in your code or config.",
+    ],
+    features: [
+      "Real-time encoding as you type — no button press required",
+      "Supports any UTF-8 text input including Unicode characters",
+      "Standard Base64 encoding using the A-Z, a-z, 0-9, +, / alphabet",
+      "Option for URL-safe Base64 (replacing + with - and / with _)",
+      "Copy to clipboard in one click",
+      "Runs entirely in the browser — nothing transmitted",
+    ],
+    benefits: [
+      "Encode API credentials for HTTP Basic Auth headers without manual calculation",
+      "Embed small text payloads in data URIs for CSS backgrounds and HTML src attributes",
+      "Prepare binary-safe strings for JSON fields that do not support raw binary data",
+      "Debug Base64-encoded tokens in authentication flows and JWTs",
+    ],
+    faqs: [
+      { question: "What is Base64 encoding?", answer: "Base64 encoding converts binary or text data into a string of 64 printable ASCII characters. The name comes from the alphabet used: A-Z (26), a-z (26), 0-9 (10), and the symbols + and / (2). A padding character = is added to make the output length a multiple of 4." },
+      { question: "Why is Base64 encoding used?", answer: "Base64 is used when binary data needs to pass through a system that only handles text — like email, XML, JSON, or HTML attributes. It makes binary data safe to transmit in text-only channels without losing or corrupting bytes." },
+      { question: "Does Base64 encoding encrypt my data?", answer: "No. Base64 is an encoding scheme, not encryption. Anyone who receives a Base64 string can decode it instantly. Never use Base64 as a security measure for sensitive data. Use proper encryption if you need confidentiality." },
+      { question: "What is URL-safe Base64?", answer: "Standard Base64 uses + and / which are special characters in URLs. URL-safe Base64 replaces + with - and / with _ so the encoded string can be included in URLs and query parameters without percent-encoding." },
+      { question: "How much does Base64 increase the data size?", answer: "Base64 encoding increases data size by approximately 33%. Every 3 bytes of input become 4 bytes of Base64 output. This overhead is the trade-off for making binary data safe in text channels." },
+    ],
+    internalLinks: [
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 strings back to text." },
+      { label: "Text to Base64", href: "/text-to-base64", note: "Alternative Base64 text encoder." },
+      { label: "Image to Base64", href: "/image-to-base64", note: "Encode image files to Base64." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Inspect Base64-encoded JWT tokens." },
+    ],
+    cta: { headline: "Encode your text to Base64 now", copy: "Paste any string to instantly get its Base64 encoded representation.", buttonText: "Open Base64 Encode", buttonHref: "/base64-encode" },
+  },
+  "/base64-decode": {
+    toolName: "Base64 Decode",
+    mainKeyword: "base64 decode",
+    secondaryKeywords: [
+      "base64 decoder online",
+      "decode base64 to text",
+      "base64 to string",
+      "base64 decode free",
+      "base64 decoding tool",
+    ],
+    urlSlug: "/base64-decode",
+    imageAltText: "Base64 decode tool showing Base64 input and decoded text output",
+    seoTitle: "Base64 Decode Online — Free Base64 to Text Decoder",
+    metaDescription: "Decode Base64 to text online free. Convert Base64 strings back to readable text, JSON, or credentials instantly. Secure, browser-based decoder.",
+    intro: "When you encounter a Base64-encoded string in an API response, a JWT token, an HTTP header, or a config file, you need to decode it to see the original content. The Base64 Decode tool takes any valid Base64 string and converts it back to its original text in one step. It handles standard Base64 and URL-safe Base64 (with - and _ characters), and correctly manages padding characters. Decoding runs locally in your browser, so tokens, credentials, and private data are never sent anywhere.",
+    howToSteps: [
+      "Paste the Base64 encoded string into the input field.",
+      "The tool decodes the string automatically using standard Base64 decoding.",
+      "View the decoded text output in the result area.",
+      "Copy the decoded content to use in your application or for inspection.",
+    ],
+    features: [
+      "Decodes standard Base64 (A-Z, a-z, 0-9, +, /) instantly",
+      "Supports URL-safe Base64 with - and _ characters",
+      "Handles padding (=) automatically",
+      "Detects and reports invalid Base64 characters",
+      "Outputs decoded text with proper UTF-8 character support",
+      "Runs in the browser — your encoded strings are never uploaded",
+    ],
+    benefits: [
+      "Inspect JWT token payloads, HTTP Basic Auth credentials, and API keys encoded in Base64",
+      "Debug Base64-encoded log entries or error messages from APIs",
+      "Verify that an encoding step produced the expected output by decoding it back",
+      "Read Base64-embedded content in HTML data URIs and email MIME parts",
+    ],
+    faqs: [
+      { question: "How do I know if a string is Base64 encoded?", answer: "Base64 strings consist only of letters (A-Z, a-z), digits (0-9), and the characters +, /, = (or -, _ for URL-safe Base64). The length is always a multiple of 4 (with = padding). A string ending in = or == is almost certainly Base64 encoded." },
+      { question: "What if the decoded output is garbled?", answer: "Garbled output usually means the input is not text — it could be encoded binary data like an image or a compressed file. In that case, use the Base64 to Image tool or a binary-aware decoder depending on the original data type." },
+      { question: "Can I decode Base64 JWT tokens with this tool?", answer: "Yes, but the JWT Decoder is specifically designed for JWTs. It splits the token into header, payload, and signature sections and decodes each one, presenting the JSON payload in a readable format." },
+      { question: "Is Base64 decoding reversible?", answer: "Base64 encoding and decoding are perfectly reversible. Encoding then decoding always returns the exact original input. There is no data loss in the process." },
+      { question: "What is the difference between Base64 and Base64 URL-safe?", answer: "Standard Base64 uses + and / which conflict with URL syntax. URL-safe Base64 replaces + with - and / with _ so the string can appear in URLs. This tool handles both formats automatically." },
+    ],
+    internalLinks: [
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text or strings to Base64." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode JWT tokens with header and payload." },
+      { label: "Base64 to Image", href: "/base64-to-image", note: "Render images from Base64 strings." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Encode or decode HTML entities." },
+    ],
+    cta: { headline: "Decode any Base64 string now", copy: "Paste a Base64 string to instantly reveal the original text content.", buttonText: "Open Base64 Decode", buttonHref: "/base64-decode" },
+  },
+  "/url-encode": {
+    toolName: "URL Encode",
+    mainKeyword: "url encode",
+    secondaryKeywords: [
+      "encode url online",
+      "url encoder",
+      "encode query parameters",
+      "url encoding tool",
+      "url encode free",
+    ],
+    urlSlug: "/url-encode",
+    imageAltText: "URL encode tool showing encoded URL output",
+    seoTitle: "URL Encode Online — Free Percent-Encode URLs & Parameters",
+    metaDescription: "URL encode online free. Percent-encode URLs, query parameters, and special characters for safe HTTP transmission. Fast, browser-based encoder.",
+    intro: "URLs can only contain a limited set of characters. Spaces, ampersands, equals signs, hash symbols, and many other characters have special meanings in URL syntax — or are simply not allowed. URL encoding (also called percent-encoding) replaces unsafe characters with a % followed by two hexadecimal digits. For example, a space becomes %20 and & becomes %26. The URL Encode tool converts any text string into a properly encoded format safe for use in URLs, query parameters, form data, and HTTP requests.",
+    howToSteps: [
+      "Paste the text, URL, or query parameter value you want to encode.",
+      "The tool applies percent-encoding to all characters that are not URL-safe.",
+      "Review the encoded output where special characters are replaced with % codes.",
+      "Copy the encoded string to use in your URL, API call, or web form.",
+    ],
+    features: [
+      "Encodes all non-URL-safe characters using percent (%) notation",
+      "Handles spaces, &, =, #, ?, /, +, and all Unicode characters",
+      "Component encoding mode for encoding query parameter values",
+      "Full URL encoding mode for encoding entire URL strings",
+      "Real-time encoding as you type",
+      "100% browser-based — no server processing",
+    ],
+    benefits: [
+      "Build correct API request URLs with special characters in query parameters",
+      "Prevent broken links when sharing URLs with spaces or special characters",
+      "Encode search query strings for use in href attributes and HTTP requests",
+      "Debug URL parsing issues by seeing exactly how characters are encoded",
+    ],
+    faqs: [
+      { question: "What is URL encoding?", answer: "URL encoding (percent-encoding) converts characters that are not allowed or have special meaning in URLs into a safe format. Each unsafe character is replaced by a % sign followed by two hexadecimal digits representing the character's ASCII code. For example, space becomes %20." },
+      { question: "What characters need to be URL encoded?", answer: "Characters that must be encoded include: space ( ), quotes (' and \"), angle brackets (< >), curly braces ({ }), pipe (|), backslash (\\), caret (^), tilde (~), and non-ASCII characters. Characters with special URL meaning (&, =, ?, #, /) also need encoding in query parameter values." },
+      { question: "What is the difference between encodeURI and encodeURIComponent?", answer: "encodeURI encodes a full URL and preserves characters that are part of URL structure like /, ?, &. encodeURIComponent encodes a single component value like a query parameter and encodes those structural characters too. Use encodeURIComponent when encoding values, not full URLs." },
+      { question: "Why does a space sometimes become + and sometimes %20?", answer: "In HTML form data sent with application/x-www-form-urlencoded encoding, spaces become +. In standard URL percent-encoding (RFC 3986), spaces become %20. This tool uses %20 (standard URL encoding)." },
+      { question: "Should I URL encode the entire URL or just the parameter values?", answer: "Usually, you should only encode the values of query parameters, not the entire URL. Encoding the full URL would also encode the ://, ?, &, and = characters that are needed for the URL structure." },
+    ],
+    internalLinks: [
+      { label: "URL Decode", href: "/url-decode", note: "Decode percent-encoded URLs back to text." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text using Base64." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Escape HTML special characters." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode JWT tokens used in URL auth flows." },
+    ],
+    cta: { headline: "Encode your URL parameters now", copy: "Paste any text to percent-encode it for safe use in URLs and HTTP requests.", buttonText: "Open URL Encode", buttonHref: "/url-encode" },
+  },
+  "/url-decode": {
+    toolName: "URL Decode",
+    mainKeyword: "url decode",
+    secondaryKeywords: [
+      "decode url online",
+      "url decoder",
+      "decode query parameters",
+      "url decoding tool",
+      "url decode free",
+    ],
+    urlSlug: "/url-decode",
+    imageAltText: "URL decode tool showing decoded URL output",
+    seoTitle: "URL Decode Online — Free Percent-Decode URLs & Parameters",
+    metaDescription: "URL decode online free. Convert percent-encoded URLs back to readable text instantly. Decode query parameters and encoded characters. No login required.",
+    intro: "When you copy a URL from a browser address bar, a server log, or an API response, you often see strings littered with percent signs followed by two-digit codes: %20 for a space, %3A for a colon, %2F for a slash. URL decoding converts these percent-encoded sequences back into their original readable characters. The URL Decode tool transforms any percent-encoded URL or query string into human-readable text instantly, making it easy to inspect URLs, read query parameters, and debug redirects.",
+    howToSteps: [
+      "Paste the percent-encoded URL or query string into the input field.",
+      "The tool replaces all % sequences with their original characters.",
+      "View the decoded, readable output in the result area.",
+      "Copy the decoded text for inspection or further use.",
+    ],
+    features: [
+      "Decodes all percent-encoded characters including %20, %3D, %26, and Unicode sequences",
+      "Handles both standard URL encoding and form-encoded + as space",
+      "Decodes full URLs and individual query parameter values",
+      "Identifies and skips malformed % sequences gracefully",
+      "Real-time decoding as you type or paste",
+      "Runs in the browser — no data sent to any server",
+    ],
+    benefits: [
+      "Read complex API request URLs from server logs without manually looking up percent codes",
+      "Debug broken redirect chains by decoding the encoded location header values",
+      "Inspect search query strings embedded in analytics tracking URLs",
+      "Convert encoded email links and UTM parameter values to readable form",
+    ],
+    faqs: [
+      { question: "What is URL decoding?", answer: "URL decoding reverses percent-encoding: it finds all sequences of % followed by two hex digits and replaces them with the original character. For example, %20 becomes a space, %40 becomes @, and %2F becomes /." },
+      { question: "Why do URLs get encoded in the first place?", answer: "URLs can only safely contain certain ASCII characters. When a URL includes characters like spaces, Unicode letters, or symbols that conflict with URL syntax, they are percent-encoded to ensure correct transmission across systems that may not support those characters natively." },
+      { question: "What does + mean in a decoded URL?", answer: "In application/x-www-form-urlencoded data (used by HTML forms), + represents a space. In standard URL percent-encoding, + is a literal plus sign. If you decode form-submitted data, + is treated as a space." },
+      { question: "Can URL decoding reveal sensitive information?", answer: "Decoding only reveals what was already in the encoded string — it does not add information. However, encoded URLs sometimes contain passwords, API keys, or personal data embedded in query parameters, which is why you should be careful sharing encoded URLs." },
+      { question: "What if decoding produces garbled characters?", answer: "Garbled output usually means the string uses a non-UTF-8 encoding like ISO-8859-1 (Latin-1). Some older systems encode URLs differently. In this case, the decoded output may look correct for the original encoding but appear as unexpected characters in UTF-8." },
+    ],
+    internalLinks: [
+      { label: "URL Encode", href: "/url-encode", note: "Encode text as a URL-safe string." },
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 encoded strings." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Decode HTML entities." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode URL-encoded JWT tokens." },
+    ],
+    cta: { headline: "Decode your URL now", copy: "Paste any percent-encoded URL to instantly convert it to readable text.", buttonText: "Open URL Decode", buttonHref: "/url-decode" },
+  },
   "/html-encode": {
     toolName: "HTML Encode/Decode",
     mainKeyword: "html encode decode",
@@ -568,6 +914,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/html-encode",
     imageAltText: "HTML encode decode tool showing encoded HTML entities",
+    seoTitle: "HTML Encode & Decode Online — Free HTML Entity Tool",
+    metaDescription: "HTML encode and decode online free. Escape HTML special characters to entities and unescape entities back to text. Fast, browser-based tool.",
+    intro: "When you display user-supplied text on a web page, characters like <, >, &, and \" must be escaped to HTML entities to prevent them from being interpreted as HTML markup. Failing to do this is the root cause of Cross-Site Scripting (XSS) vulnerabilities, where malicious script tags injected through input fields execute in users' browsers. The HTML Encode tool escapes these dangerous characters to their safe entity equivalents: < becomes &lt;, > becomes &gt;, & becomes &amp;, and \" becomes &quot;. The Decode tool reverses the process.",
+    howToSteps: [
+      "Paste the text containing HTML characters or entities into the input field.",
+      "Select Encode to convert special characters like < and > to &lt; and &gt;.",
+      "Or select Decode to convert HTML entities back to their original characters.",
+      "Copy the output and use it safely in your HTML template, documentation, or code.",
+    ],
+    features: [
+      "Encodes the five critical HTML characters: <, >, &, \", and '",
+      "Decodes all named HTML entities like &nbsp;, &copy;, &amp;, and numeric entities",
+      "Helps prevent XSS vulnerabilities by escaping user-supplied content",
+      "Handles extended character entities like em dashes and trademark symbols",
+      "Bidirectional: encode and decode in the same tool",
+      "Browser-based — no data transmitted to any server",
+    ],
+    benefits: [
+      "Prevent XSS attacks by correctly escaping user input before rendering it in HTML",
+      "Safely display code examples on web pages without the browser interpreting the markup",
+      "Decode HTML entities in scraped web content to get readable plain text",
+      "Prepare safe HTML content for CMS platforms, email templates, and documentation",
+    ],
+    faqs: [
+      { question: "Why do I need to encode HTML characters?", answer: "Characters like < and > are used to define HTML tags. If you insert user text that contains < into a page without encoding it, the browser may interpret it as the start of a tag and execute arbitrary HTML or JavaScript. Encoding converts < to &lt; which the browser displays as a literal < without treating it as markup." },
+      { question: "What are the most important HTML entities to know?", answer: "The five critical entities are: &lt; for <, &gt; for >, &amp; for &, &quot; for \", and &apos; or &#39; for '. These five characters have structural meaning in HTML. Other useful entities include &nbsp; for a non-breaking space, &copy; for ©, and &reg; for ®." },
+      { question: "Does HTML encoding prevent all XSS attacks?", answer: "HTML encoding prevents HTML-context XSS where you insert text into HTML element content. For attributes, JavaScript contexts, CSS contexts, and URL contexts, different encoding rules apply. Always use a security library for comprehensive XSS prevention in production code." },
+      { question: "What is the difference between named and numeric HTML entities?", answer: "Named entities use descriptive names like &amp; or &copy;. Numeric entities use decimal (&&#169;) or hexadecimal (&#xA9;) code points. All three produce the same output and are equally valid HTML." },
+      { question: "Can I decode HTML entities in content scraped from websites?", answer: "Yes. Web content often contains HTML entities like &amp; or &lt; that should display as & or <. Paste the raw HTML text and use the Decode option to convert all entities back to their readable character form." },
+    ],
+    internalLinks: [
+      { label: "URL Encode", href: "/url-encode", note: "Encode characters for URL safety." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text to Base64 format." },
+      { label: "String Comparison", href: "/string-comparison", note: "Compare two text strings." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode JWT tokens." },
+    ],
+    cta: { headline: "Encode or decode HTML entities now", copy: "Paste any text to escape HTML special characters or convert entities back to readable text.", buttonText: "Open HTML Encode/Decode", buttonHref: "/html-encode" },
   },
   "/jwt-decoder": {
     toolName: "JWT Decoder",
@@ -581,6 +964,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/jwt-decoder",
     imageAltText: "JWT decoder tool showing token header, payload, and signature sections",
+    seoTitle: "JWT Decoder Online — Decode JWT Tokens Free",
+    metaDescription: "Decode JWT tokens online free. View the header, payload, and claims of any JSON Web Token instantly. Secure, browser-based JWT inspector.",
+    intro: "JSON Web Tokens (JWTs) are widely used for authentication and authorization in modern web applications. A JWT is a compact string of three Base64URL-encoded sections separated by dots: the header, the payload, and the signature. The JWT Decoder splits a token into its three parts and decodes the header and payload into readable JSON, showing you the algorithm used, the token issuer, expiry time, user claims, and any other embedded data. This is essential for debugging auth flows, verifying token contents, and understanding what a JWT actually contains.",
+    howToSteps: [
+      "Paste your JWT token string (the long dotted string) into the input field.",
+      "The tool splits it at the two dots to separate header, payload, and signature.",
+      "The header and payload sections are Base64URL-decoded and displayed as formatted JSON.",
+      "Read the claims: iss (issuer), sub (subject), exp (expiry), iat (issued at), and custom claims.",
+    ],
+    features: [
+      "Decodes JWT header to show algorithm (alg) and token type (typ)",
+      "Decodes JWT payload to show all standard and custom claims",
+      "Displays expiry time (exp) in human-readable date format",
+      "Shows issued-at time (iat) and not-before time (nbf) if present",
+      "Highlights whether the token is expired based on the current time",
+      "Signature section displayed but not verified (verification requires the secret key)",
+    ],
+    benefits: [
+      "Debug authentication issues by confirming what claims a token actually contains",
+      "Verify token expiry times during development and QA testing",
+      "Inspect issuer and audience claims to confirm correct token origin",
+      "Understand third-party JWT structures from OAuth providers like Google, GitHub, or Auth0",
+    ],
+    faqs: [
+      { question: "What is a JWT?", answer: "A JSON Web Token (JWT) is a compact, URL-safe token format defined by RFC 7519. It consists of three Base64URL-encoded parts separated by dots: a header (algorithm metadata), a payload (claims/data), and a signature (integrity verification). JWTs are commonly used as bearer tokens in Authorization headers." },
+      { question: "Does this tool verify the JWT signature?", answer: "No. Signature verification requires the secret key (for HMAC algorithms) or the public key (for RSA/ECDSA algorithms). This tool only decodes and displays the header and payload, which is sufficient for inspection and debugging. Never trust a JWT in production without verifying the signature in your backend." },
+      { question: "Is it safe to paste my JWT here?", answer: "The decoder runs entirely in your browser — your token is never sent to any server. That said, JWTs often contain session credentials. As a best practice, use test or expired tokens for inspection and avoid pasting production tokens into any third-party tool." },
+      { question: "What is the exp claim in a JWT?", answer: "The exp (expiration time) claim is a Unix timestamp indicating when the token expires. The tool displays this in a human-readable date and time format and flags the token as expired if the current time is past the exp value." },
+      { question: "What is the difference between the JWT header and payload?", answer: "The header contains metadata about the token itself: the algorithm used (e.g. HS256, RS256) and the token type (JWT). The payload contains the actual claims: user identity, permissions, expiry, issuer, and any custom data the authentication server embedded." },
+    ],
+    internalLinks: [
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 strings manually." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text to Base64." },
+      { label: "JSON Formatter", href: "/json-formatter", note: "Beautify decoded JWT payload JSON." },
+      { label: "String Comparison", href: "/string-comparison", note: "Compare two JWT strings." },
+    ],
+    cta: { headline: "Decode your JWT token now", copy: "Paste any JWT to instantly view the header, payload claims, and expiry information.", buttonText: "Open JWT Decoder", buttonHref: "/jwt-decoder" },
   },
   "/text-to-base64": {
     toolName: "Text to Base64",
@@ -594,6 +1014,93 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/text-to-base64",
     imageAltText: "Text to Base64 tool converting plain text into Base64 output",
+    seoTitle: "Text to Base64 Converter Online — Free & Instant",
+    metaDescription: "Convert text to Base64 online free. Encode any plain text string to Base64 instantly. Simple, fast, browser-based text encoder.",
+    intro: "The Text to Base64 converter is a focused, straightforward tool for encoding plain text strings into Base64 format. Type or paste any text — a password, a message, a JSON string, a configuration value, or any Unicode content — and get the Base64 representation immediately. It is useful for preparing values to embed in data URIs, encoding credentials for HTTP headers, testing API authentication, and generating encoded content for systems that require Base64 input. All encoding happens locally in your browser.",
+    howToSteps: [
+      "Type or paste your plain text string into the input field.",
+      "The tool encodes the text to Base64 in real time as you type.",
+      "View the Base64 output string in the result area.",
+      "Click Copy to clipboard and paste it where needed.",
+    ],
+    features: [
+      "Instant Base64 encoding of any plain text input",
+      "Supports full UTF-8 character set including emoji and non-Latin scripts",
+      "Real-time output — no need to press a convert button",
+      "Clean, minimal interface focused on the encoding task",
+      "Copy to clipboard in one click",
+      "100% browser-based — your text is never transmitted",
+    ],
+    benefits: [
+      "Encode authorization credentials for HTTP Basic Auth without manual calculation",
+      "Prepare Base64 values for environment variables, config files, and secret managers",
+      "Generate encoded content for HTML data attributes and CSS url() functions",
+      "Quickly test Base64 encoding behavior for development and debugging",
+    ],
+    faqs: [
+      { question: "How is this different from the Base64 Encode tool?", answer: "Both tools perform the same encoding. Text to Base64 is a simplified, focused interface for quick text encoding. The Base64 Encode tool may offer additional options like file upload, URL-safe encoding mode, and more detailed output. Use whichever fits your workflow." },
+      { question: "Can I encode multi-line text?", answer: "Yes. Multi-line text is encoded including the newline characters. The resulting Base64 string will include the encoded newline characters (\\n), which is correct behavior for encoding multiline content like certificates or private keys." },
+      { question: "Does it work with Unicode characters?", answer: "Yes. The tool uses UTF-8 encoding before applying Base64, so it correctly handles all Unicode characters including emoji, Arabic, Chinese, Japanese, and other non-ASCII scripts." },
+      { question: "What is a practical use case for encoding text to Base64?", answer: "A common use case is encoding username:password for HTTP Basic Authentication. The header format is Authorization: Basic <base64(username:password)>. Encode the string directly in this tool and paste the result into your request headers." },
+      { question: "How do I decode the output back to text?", answer: "Paste the Base64 string into the Base64 Decode tool to recover the original text. Base64 encoding is fully reversible." },
+    ],
+    internalLinks: [
+      { label: "Base64 Encode", href: "/base64-encode", note: "Full-featured Base64 encoder." },
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 back to text." },
+      { label: "Image to Base64", href: "/image-to-base64", note: "Encode image files to Base64." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode Base64-encoded JWT tokens." },
+    ],
+    cta: { headline: "Convert your text to Base64", copy: "Type or paste any text to instantly get a Base64 encoded string.", buttonText: "Open Text to Base64", buttonHref: "/text-to-base64" },
+  },
+  "/unicode-converter": {
+    toolName: "Unicode Converter",
+    mainKeyword: "unicode converter",
+    secondaryKeywords: [
+      "unicode to text",
+      "text to unicode",
+      "unicode escape converter",
+      "decode unicode escapes",
+      "unicode converter online",
+    ],
+    urlSlug: "/unicode-converter",
+    imageAltText: "Unicode converter tool showing Unicode escapes and decoded text",
+    seoTitle: "Unicode Converter Online — Text to Unicode & Back Free",
+    metaDescription: "Convert text to Unicode escape sequences and back online free. Encode and decode Unicode code points instantly. Free, browser-based Unicode tool.",
+    intro: "Unicode is the universal character encoding standard that assigns a unique code point to every character in every writing system. When working with source code, JSON, or text protocols, you sometimes encounter Unicode escape sequences like \\u0041 (for 'A') or \\u4e2d (for the Chinese character 中). The Unicode Converter converts plain text to its Unicode escape representation and decodes Unicode escapes back to readable text. This is useful for debugging internationalization issues, inspecting source code with embedded Unicode, and understanding how characters are stored in programming languages.",
+    howToSteps: [
+      "Paste your text or Unicode escape sequence into the input field.",
+      "Select whether you want to encode text to Unicode escapes or decode escapes to text.",
+      "The tool processes the input and shows the converted output.",
+      "Copy the result for use in code, JSON strings, or documentation.",
+    ],
+    features: [
+      "Converts text to Unicode escape sequences (\\uXXXX format)",
+      "Decodes Unicode escape sequences back to readable characters",
+      "Supports the full Unicode range including supplementary characters",
+      "Handles JavaScript, Python, and JSON-style \\uXXXX escape notation",
+      "Works with any script: Latin, Arabic, Chinese, Japanese, Korean, emoji",
+      "Runs in the browser — no data transmitted",
+    ],
+    benefits: [
+      "Debug internationalization (i18n) issues by inspecting how characters are stored",
+      "Embed non-ASCII characters safely in source code using Unicode escapes",
+      "Decode escaped strings in JSON, JavaScript, and Java source files",
+      "Understand how emoji and special symbols are represented at the code point level",
+    ],
+    faqs: [
+      { question: "What is a Unicode code point?", answer: "A Unicode code point is a unique number assigned to each character in the Unicode standard. Code points are written as U+ followed by hexadecimal digits, like U+0041 for 'A' or U+1F600 for the 😀 emoji. The Unicode standard currently defines over 140,000 code points." },
+      { question: "What is a Unicode escape sequence?", answer: "A Unicode escape sequence represents a character using its code point number in source code. In JavaScript and JSON, the format is \\uXXXX (4 hex digits). Characters outside the Basic Multilingual Plane (code points above U+FFFF) use surrogate pairs \\uXXXX\\uXXXX in JavaScript or \\u{XXXXX} in ES6+." },
+      { question: "Why would I convert text to Unicode escapes?", answer: "Common reasons: embedding non-ASCII characters in environments that only support ASCII, avoiding encoding issues when storing text in certain databases, including special characters in JSON without risking encoding problems, and writing portable source code files." },
+      { question: "What is the difference between Unicode and UTF-8?", answer: "Unicode is the standard that defines code points for characters. UTF-8 is an encoding scheme that represents those code points as sequences of bytes. A single Unicode code point may be 1 to 4 bytes in UTF-8. Unicode escapes use hexadecimal code point numbers, not UTF-8 byte values." },
+      { question: "Can I convert emoji to Unicode?", answer: "Yes. Emoji are Unicode characters with code points in the supplementary planes (above U+FFFF). The tool correctly handles them using surrogate pair notation (JavaScript) or extended code point notation depending on the target format." },
+    ],
+    internalLinks: [
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Encode HTML special characters." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text to Base64." },
+      { label: "String Comparison", href: "/string-comparison", note: "Compare two text strings." },
+      { label: "URL Encode", href: "/url-encode", note: "Percent-encode text for URLs." },
+    ],
+    cta: { headline: "Convert text to Unicode escapes", copy: "Paste any text or Unicode escape sequence to instantly convert in either direction.", buttonText: "Open Unicode Converter", buttonHref: "/unicode-converter" },
   },
 
   "/string-comparison": {
@@ -608,75 +1115,43 @@ Looking ahead, we plan to expand our JSON suite with tools for conversion (JSON 
     ],
     urlSlug: "/string-comparison",
     imageAltText: "String comparison tool highlighting differences between two texts",
-    seoTitle: "String Comparison Tool | Online Text Diff Checker",
-    metaDescription: "Compare two strings or text documents instantly. Highlight exact differences between texts, code, or data strings with our free, secure, local-only diff checker.",
-    detailedDescription: `In software development, legal document review, and data analysis, finding the exact difference between two pieces of text is a frequent and critical task. Attempting to spot these differences manually is not only incredibly time-consuming but is also highly prone to human error. Our String Comparison tool, also known as a Diff Checker, is a professional-grade text analysis utility designed to instantly identify and highlight the precise discrepancies between an 'Original' and a 'Modified' string of text.
-
-The fundamental operation of text comparison involves a mathematical concept known as the 'Longest Common Subsequence' (LCS). This algorithm evaluates both strings of text to find the longest sequence of characters or words that appear in the same order in both inputs. Once this baseline is established, everything else is categorized as either an addition or a deletion. By visualizing this output side-by-side or inline, users can instantly grasp what has been altered between two versions of a document or codebase.
-
-For developers, comparing code strings or JSON payloads is a daily activity. Often, a tiny typo or a misplaced bracket can cause catastrophic system failures. While Integrated Development Environments (IDEs) often have built-in diff tools, there are many times when you simply need to compare two terminal outputs, API responses, or log files rapidly without spinning up a heavy application. Our web-based tool provides instantaneous, high-performance comparison logic that rivals native desktop tools, handling thousands of lines of text without browser lag.
-
-In legal and academic settings, the "redline" process is essential. When contracts are revised or essays are edited, knowing exactly what was inserted, deleted, or changed ensures accountability and accuracy. Our String Comparison tool allows paralegals, editors, and students to paste two raw texts and immediately generate a clear visual map of all editorial adjustments, making the review process exponentially faster and more reliable.
-
-Data privacy is a paramount concern when dealing with proprietary code or confidential legal documents. Many online diff checkers send your data to a remote server for processing, creating a significant security vulnerability. We architected our String Comparison tool with a strict Zero-Server architecture. The comparison algorithms run entirely locally within your browser tab. Your text never touches our cloud infrastructure, guaranteeing that your intellectual property remains completely private.
-
-The user interface of our tool is specifically designed for analytical clarity. We utilize standard industry color-coding—typically red for deletions and green for additions—to make the cognitive load as light as possible. Furthermore, we offer granular control over how the comparison is executed, such as toggling case sensitivity or choosing whether to ignore white space and line breaks, which is particularly useful when comparing code where formatting might have changed but logic hasn't.
-
-By turning a complex algorithmic process into an accessible, instant, and secure web utility, KooBrain's String Comparison tool empowers professionals across industries to ensure data integrity and track revisions flawlessly. Whether you're debugging a script or reviewing a contract, this tool provides the analytical precision required for modern digital workflows.`,
-    usageGuide: {
-      title: "How to Use the Pro String Comparison Tool",
-      steps: [
-        "Paste your initial text, baseline code, or original document into the left-hand 'Original Text' panel.",
-        "Paste the revised text, updated code, or modified document into the right-hand 'Modified Text' panel.",
-        "Use the options toggles to decide whether the tool should 'Ignore Whitespace' or 'Ignore Case' depending on your needs.",
-        "The tool will automatically process the difference in real-time. Look at the visual output below.",
-        "Red highlights indicate text that was present in the original but removed in the modified version.",
-        "Green highlights indicate new text that was added to the modified version."
-      ]
-    },
-    formula: {
-      title: "The Logic Behind Text Comparison",
-      explanation: "Diff tools utilize dynamic programming algorithms, most notably Myers' Diff Algorithm. It calculates the Shortest Edit Script (SES)—the minimum number of insertions and deletions required to transform String A into String B—by mapping a path across an edit graph.",
-      calculation: "Difference = min(Insertions + Deletions) to transform A -> B"
-    },
-    examples: {
-      title: "String Comparison Scenarios",
-      list: [
-        { title: "API Response Debugging", description: "Pasting yesterday's working JSON response next to today's failing one to spot a missing key." },
-        { title: "Contract Review", description: "Comparing the original Terms of Service document against a revised draft from external counsel to ensure no hidden clauses were added." },
-        { title: "Academic Plagiarism Check", description: "Comparing a submitted paragraph against a source text to identify verbatim copying versus proper paraphrasing." },
-        { title: "Configuration Management", description: "Checking an old .env file against a new one to see which server variables were modified." }
-      ]
-    },
-    useCases: [
-      "Debugging code snippets and configuration files",
-      "Tracking editorial changes in articles or essays",
-      "Verifying data integrity between database exports",
-      "Reviewing legal contracts and non-disclosure agreements",
-      "Ensuring secure, local-only analysis of confidential documents"
+    seoTitle: "String Comparison Tool — Compare Two Texts Online Free",
+    metaDescription: "Compare two strings or text blocks online free. Highlight differences character by character with a side-by-side diff view. Fast and browser-based.",
+    intro: "Finding the exact difference between two pieces of text by eye is slow and error-prone, especially for long strings or multi-line content. The String Comparison tool performs a character-by-character or line-by-line diff of two text inputs and highlights every insertion, deletion, and change. It is useful for spotting differences in API responses, config values, code snippets, translated text, or any two strings that should be identical but aren't. The comparison runs entirely in your browser.",
+    howToSteps: [
+      "Paste the first string or text block into the left input panel.",
+      "Paste the second string or text block into the right input panel.",
+      "The tool highlights added characters in green and removed characters in red.",
+      "Use the summary to see the total number of differences found.",
+    ],
+    features: [
+      "Character-level diff with color-coded additions and deletions",
+      "Line-by-line mode for comparing multi-line text or code blocks",
+      "Ignore whitespace option to focus on content differences only",
+      "Case-insensitive comparison mode for flexible matching",
+      "Summary showing total added and removed sections",
+      "Runs entirely in the browser — no data uploaded",
+    ],
+    benefits: [
+      "Quickly spot subtle differences in error messages, config values, or code strings",
+      "Verify that two versions of translated text differ only where expected",
+      "Debug tests that fail due to hidden whitespace or line ending differences",
+      "Compare API responses before and after a change to see exactly what shifted",
     ],
     faqs: [
-      {
-        question: "Is my text data safe when comparing online?",
-        answer: "Yes. Our tool is built with a strictly client-side architecture. The text is compared securely in your local browser and is never transmitted anywhere over the internet."
-      },
-      {
-        question: "Can it compare large documents or entire codebases?",
-        answer: "The tool is highly optimized and can handle thousands of lines of text; however, it is designed for string/file comparison, not full multi-directory repository analysis."
-      },
-      {
-        question: "Why does it sometimes highlight a whole paragraph instead of one word?",
-        answer: "If the structural formatting (like line breaks) changes dramatically, the algorithm might interpret the entire block as being replaced. Using the 'Ignore Whitespace' option often resolves this."
-      },
-      {
-        question: "Does it support side-by-side and inline views?",
-        answer: "Yes, depending on your screen size, the tool optimizes the diff display to be as readable as possible, utilizing industry-standard color coding."
-      },
-      {
-        question: "What is the difference between Case Sensitive and Case Insensitive?",
-        answer: "If 'Ignore Case' is ON, 'Apple' and 'apple' will be marked as identical. If OFF, they will be highlighted as a difference."
-      }
-    ]
+      { question: "How is string comparison different from JSON comparison?", answer: "String comparison diffs raw text character by character or line by line, regardless of its format. JSON comparison understands JSON structure and compares key-value pairs semantically. Use string comparison for plain text, code, and any non-JSON content." },
+      { question: "Can it compare multi-line text?", answer: "Yes. Switch to line-by-line mode to compare multi-line text blocks like code, CSV data, or markdown content. Each line is treated as a unit and added or removed lines are highlighted in the diff." },
+      { question: "Does whitespace matter in the comparison?", answer: "By default, whitespace is significant. Enable the 'Ignore whitespace' option to treat sequences of spaces and tabs as equivalent, which is useful when comparing text that may have been reformatted." },
+      { question: "Can I use this to compare code?", answer: "Yes. String comparison works on any text including source code. For code in specific languages, a syntax-aware diff tool may provide more context, but this tool is fast and works for any language." },
+      { question: "What should I do if the comparison finds no differences?", answer: "If the tool reports no differences but you believe there should be some, enable case-sensitive mode and disable whitespace-ignore mode. Hidden differences like trailing spaces, zero-width characters, or different line endings (CRLF vs LF) can cause unexpected mismatches." },
+    ],
+    internalLinks: [
+      { label: "JSON Compare", href: "/json-compare", note: "Diff two JSON objects structurally." },
+      { label: "Word Counter", href: "/word-counter", note: "Count words and characters." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Encode HTML special characters." },
+      { label: "Text Case Converter", href: "/text-case-converter", note: "Change text casing for comparison." },
+    ],
+    cta: { headline: "Compare your strings instantly", copy: "Paste two text inputs to see every difference highlighted in a clear side-by-side diff view.", buttonText: "Open String Comparison", buttonHref: "/string-comparison" },
   },
   "/password-generator": {
     toolName: "Password Generator",
@@ -690,81 +1165,45 @@ By turning a complex algorithmic process into an accessible, instant, and secure
     ],
     urlSlug: "/password-generator",
     imageAltText: "Password generator tool with options and generated strong password",
-    seoTitle: "Secure Password Generator | Create Strong, Random Passwords",
-    metaDescription: "Generate highly secure, random passwords instantly. Protect your accounts with complex passwords generated 100% locally in your browser. No data saved.",
-    detailedDescription: `In today’s exponentially expanding digital world, cybersecurity is no longer an optional luxury—it is an absolute necessity. At the very front line of your personal and professional digital defense is your password. Unfortunately, human psychology tends toward convenience, leading millions of people to use weak, predictable, or repeated passwords across multiple platforms. Our Advanced Password Generator is a professional-grade security utility designed to eliminate this vulnerability by creating mathematically complex, cryptographically secure passwords that are virtually impervious to brute-force and dictionary attacks.
-
-The concept of a "strong password" has evolved significantly over the last decade. Historically, adding a single number or an exclamation mark to the end of a dictionary word was considered sufficient. Today, with the advent of distributed computing and massive botnets, such passwords can be cracked in a matter of seconds. To defend against modern cracking techniques, a password must possess high "entropy"—a cryptographic measure of randomness and unpredictability. Our tool allows you to maximize entropy by combining uppercase letters, lowercase letters, numbers, and specialized symbols into strings of extraordinary complexity.
-
-Security is not just about complexity; it’s also about process. The safest password is one you do not know, generated by a machine and stored in a secure vault. When you use an online tool to generate a password, the most critical question is: "Is my new password being transmitted over the internet?" With KooBrain’s Password Generator, the answer is a definitive "No." We employ a strict Zero-Knowledge Architecture. The randomization algorithm runs entirely within your browser's local sandbox, executing on your device's CPU. Your generated password is never sent to our servers, never logged in a database, and never shared with third parties. Once you close the tab, the password ceases to exist anywhere except where you chose to save it.
-
-Understanding the mechanics of our random generation is important for professionals who require auditable security. Our tool does not rely on the standard "Math.random()" function universally found in basic programming, which is known to be pseudo-random and potentially predictable under specific conditions. Instead, we utilize the Web Crypto API ("crypto.getRandomValues()"). This API draws its entropy directly from the operating system's cryptographic random number generator (such as /dev/urandom on Unix systems), ensuring true cryptographic randomness that meets stringent security standards.
-
-The flexibility of our tool ensures it fits any use case. Different enterprise systems have varying requirements for password length and character composition. Are you setting up a new Wi-Fi router that requires exactly 64 hexadecimal characters? Are you configuring a legacy banking portal that only permits alphanumeric characters up to 16 digits? Or are you securing a high-value cryptocurrency wallet where a 128-character alphanumeric string is preferred? The interactive toggles and length sliders put absolute control in your hands, allowing you to instantly forge keys tailored to any specific structural demand.
-
-Beyond providing a premium utility, our platform is deeply committed to cybersecurity education. A strong password is only one piece of the security puzzle. We strongly advocate for the use of Two-Factor Authentication (2FA) and dedicated Password Managers alongside our generated keys. We aim to elevate the digital hygiene of our users, transforming a simple tool request into a holistic improvement in their online safety posture.
-
-From IT administrators provisioning secure credentials for new employees, to everyday users securing their social media accounts against unauthorized access, KooBrain is trusted worldwide for its speed, reliability, and uncompromised privacy. Experience the peace of mind that comes from knowing your digital gates are locked with keys forged by true algorithmic randomness.`,
-    usageGuide: {
-      title: "How to Generate a Secure Password",
-      steps: [
-        "Use the length slider to determine how long you want your password to be. We strongly recommend a minimum of 16 characters for critical accounts.",
-        "Toggle the character types you wish to include. Selecting Uppercase, Lowercase, Numbers, and Symbols maximizes your password's entropy.",
-        "Watch as the tool instantly generates a unique password directly in the secure display box based on your exact parameters.",
-        "Click the visual 'Refresh' button alongside the password to instantly generate a completely new string if needed.",
-        "Click the designated 'Copy' button to safely transfer the generated securely into your clipboard.",
-        "Immediately paste the new password into your target application or, preferably, into a trusted encrypted Password Manager."
-      ]
-    },
-    formula: {
-      title: "Cryptographic Entropy Explained",
-      explanation: "Entropy measures the unpredictability of a password. It is calculated based on the size of the character pool ($R$) and the length of the string ($L$). Adding new character types exponentially increases the pool size, thereby drastically increasing the time required for a computer to brute-force the password.",
-      calculation: "Entropy (bits) = L * log2(R)"
-    },
-    examples: {
-      title: "Password Strength Scenarios",
-      list: [
-        { title: "Standard Web Accounts", description: "Length: 16 | Pool: All Characters | Time to crack: Trillions of years. Ideal for email and social media." },
-        { title: "Wi-Fi WPA2 Keys", description: "Length: 63 | Pool: Alphanumeric | The absolute maximum security configuration for a home or office router network." },
-        { title: "Legacy Bank PINs", description: "Length: 6-8 | Pool: Numbers Only | Often required by older financial systems, generated securely without human bias." },
-        { title: "API Keys", description: "Length: 32+ | Pool: Hexadecimal or Alphanumeric | Generating secure, random tokens for software-to-software authentication." }
-      ]
-    },
-    useCases: [
-      "Generating master passwords for encrypted password managers",
-      "Securing administrative access to web servers, databases, and routers",
-      "Creating highly secure, unique credentials after a data breach report",
-      "Developing software that requires random token or salt generation",
-      "Improving personal digital hygiene by eliminating reused dictionary words"
+    seoTitle: "Password Generator — Create Strong Secure Passwords Free",
+    metaDescription: "Generate strong, random passwords free. Customize length, uppercase, numbers, and symbols. Cryptographically secure and browser-based.",
+    intro: "Weak, reused, or predictable passwords are the leading cause of account compromises. The Password Generator creates cryptographically strong random passwords using your browser's built-in crypto.getRandomValues() function — the same source of randomness used by security software. You control the length, the character sets (uppercase, lowercase, digits, symbols), and how many passwords to generate at once. Nothing is sent to a server; the passwords exist only on your screen and in your clipboard.",
+    howToSteps: [
+      "Set your desired password length using the slider (12–64 characters recommended).",
+      "Toggle which character sets to include: uppercase letters, lowercase letters, numbers, and symbols.",
+      "Click Generate to create one or more cryptographically random passwords.",
+      "Click the copy icon next to any password to copy it to your clipboard.",
+    ],
+    features: [
+      "Uses crypto.getRandomValues() for cryptographic randomness — not Math.random()",
+      "Configurable length from 8 to 128 characters",
+      "Toggle uppercase, lowercase, digits, and special symbols independently",
+      "Exclude ambiguous characters (0, O, l, 1) option for easy-to-type passwords",
+      "Bulk generation: create multiple passwords at once",
+      "Runs in the browser — generated passwords never leave your device",
+    ],
+    benefits: [
+      "Create unique passwords for every account to prevent credential stuffing attacks",
+      "Meet enterprise password policies with configurable complexity requirements",
+      "Generate API keys, secret tokens, and temporary credentials quickly",
+      "Replace weak passwords identified in security audits with strong random ones",
     ],
     faqs: [
-      {
-        question: "Is it safe to generate passwords online?",
-        answer: "Yes, but only if the tool uses client-side processing like ours. Because the script runs locally on your browser, the password never travels across the internet."
-      },
-      {
-        question: "Why shouldn't I just use a phrase I can remember?",
-        answer: "Humans are terrible at randomness. 'Dictionary attacks' use lists of millions of common phrases to crack passwords. A random string generated by a computer resists these attacks."
-      },
-      {
-        question: "How long should a good password be?",
-        answer: "For modern security, 12 characters is the absolute bare minimum, but 16 to 20 characters is strongly recommended by cybersecurity professionals."
-      },
-      {
-        question: "What is 'Entropy' in password generation?",
-        answer: "Entropy is a mathematical measurement of how unpredictable a password is. Higher entropy means it's mathematically harder for an attacking computer to guess the combination."
-      },
-      {
-        question: "Does the generator use secure randomness?",
-        answer: "Yes. Instead of standard pseudorandom functions, we utilize the Web Crypto API which generates cryptographically strong random values."
-      },
-      {
-        question: "How should I remember these complex passwords?",
-        answer: "You shouldn't try. The best practice is to use a dedicated Password Manager app to store these strings, so you only need to remember one master password."
-      }
-    ]
+      { question: "How long should a secure password be?", answer: "Security experts recommend at least 12–16 characters for most accounts, and 20+ for highly sensitive ones. A 16-character random password using all character types has around 95^16 ≈ 4 × 10^31 possible combinations, which is infeasible to brute force." },
+      { question: "Is this password generator truly random?", answer: "Yes. The generator uses crypto.getRandomValues(), a cryptographically secure pseudorandom number generator (CSPRNG) provided by the browser's Web Crypto API. This is far more unpredictable than Math.random(), which is not suitable for security applications." },
+      { question: "Are the generated passwords stored anywhere?", answer: "No. Passwords are generated locally in your browser and are never transmitted to any server. They exist only in the browser's memory until you copy or close the tab." },
+      { question: "Should I use all character types?", answer: "Using all four character types (uppercase, lowercase, digits, symbols) maximizes the character set size, which exponentially increases the number of possible passwords for a given length. If a system restricts certain symbols, disable just those and increase the length instead." },
+      { question: "How should I store the generated passwords?", answer: "Use a password manager like Bitwarden, 1Password, or KeePass to store generated passwords securely. Never store passwords in plain text documents, email, or spreadsheets." },
+    ],
+    internalLinks: [
+      { label: "UUID Generator", href: "/uuid-generator", note: "Generate cryptographically random UUIDs." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode passwords for HTTP headers." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Inspect auth tokens." },
+      { label: "Session Vault", href: "/vault", note: "Temporarily store credentials in browser." },
+    ],
+    cta: { headline: "Generate a strong password now", copy: "Create a cryptographically secure random password with your choice of length and character sets.", buttonText: "Open Password Generator", buttonHref: "/password-generator" },
   },
-  "/word-counter-legacy": {
+  "/word-counter": {
     toolName: "Word Counter",
     mainKeyword: "word counter",
     secondaryKeywords: [
@@ -776,79 +1215,43 @@ From IT administrators provisioning secure credentials for new employees, to eve
     ],
     urlSlug: "/word-counter",
     imageAltText: "Word counter tool showing word and character counts",
-    seoTitle: "Pro Word Counter | Count Words, Characters & Sentences",
-    metaDescription: "Free online word counter, character counter, and text analysis tool. Instantly count words, sentences, reading time, and keyword density for SEO and essays.",
-    detailedDescription: `In the realm of writing, publishing, and digital marketing, precision is paramount. Whether you are crafting a targeted SEO blog post, writing a strict 500-word academic essay, or formatting a tweet to fit within exact character limits, knowing the precise mathematical breakdown of your text is critical. Our Professional Word Counter is an advanced, real-time text analysis laboratory designed to provide writers, editors, and digital marketers with instantaneous, comprehensive metrics about their copy.
-
-Far beyond a simple counting utility, this tool functions as a sophisticated copy-analysis engine. While basic counters may simply split text by spaces, our algorithm deeply parses grammatical structures. It intelligently distinguishes between hyphenated words, ignores special formatting characters, and accurately tallies sentences by analyzing terminal punctuation logic. This professional-grade accuracy ensures that when you submit an assignment or hit publish on an article, you have absolute confidence in your structural metrics.
-
-For SEO professionals and digital marketers, our tool provides an indispensable 'Keyword Density' analyzer. Search engines evaluate the relevancy of a page based on how frequently target terms appear within the text. However, "keyword stuffing"—overusing a term—can trigger algorithmic penalties. By instantly calculating the density percentage of your most used words, our tool helps you strike the perfect balance between optimization and natural readability, ensuring your content ranks higher while remaining engaging to human readers.
-
-Readability and pacing are fundamentally essential to audience retention. To assist with this, our system calculates an estimated 'Reading Time' and 'Speaking Time'. By comparing your total word count against average human processing speeds (typically 200-250 words per minute for reading), we provide metrics that are invaluable for podcasters scripting their episodes, keynote speakers timing their presentations, and bloggers aiming for the perfect "5-minute read" sweet spot.
-
-Privacy and workflow efficiency are central to our design philosophy. Unlike cloud-based document editors that require an internet connection to sync every keystroke, our Word Counter processes everything natively within your browser. There is no server latency, no data logging, and absolutely zero risk of your unpublished intellectual property being intercepted or stored entirely off-site. It is a secure, private sandbox for your creative and professional drafting.
-
-Our interface is meticulously engineered for focus. The "Glassmorphic" design minimizes visual clutter, allowing the text area to take center stage. Real-time updates occur without any lag or page refreshes, providing a frictionless flow state for writers. Features such as "Case Conversion" (changing text to UPPERCASE, lowercase, or Title Case) and formatting purges are integrated seamlessly, transforming the space into a robust pre-publishing command center.
-
-Millions of words are written every day, but refined, optimized, and perfectly measured content stands out. Whether you are a student striving for academic excellence, an author drafting a manuscript, or a social media manager crafting the perfect campaign, KooBrain's Word Counter provides the precise analytical clarity you need to communicate effectively and powerfully. Use our suite of text metrics to elevate your writing from mere drafting to engineered communication.`,
-    usageGuide: {
-      title: "How to Use the Pro Word Counter",
-      steps: [
-        "Simply type your text directly into the large editor area, or paste text securely copied from an external document like Word or Google Docs.",
-        "Watch the metrics dashboard at the top of the interface update instantaneously in real-time as you type or paste.",
-        "Review the primary metrics: total words, total characters (including and excluding spaces), and total sentences.",
-        "Scroll down to check advanced metrics, such as Estimated Reading Time and Speaking Time.",
-        "Use the 'Keyword Density' panel to analyze the frequency of specific terms for SEO optimization.",
-        "Utilize the quick-action buttons below the editor to instantly convert case formats or clear the board."
-      ]
-    },
-    formula: {
-      title: "Text Analysis Metrics Logic",
-      explanation: "Words are tallied using Regular Expressions (RegEx) that match boundary characters (spaces, tabs, newlines) while ignoring pure punctuation. Reading time is calculated based on an international adult average of 225 words per minute. Keyword Density is calculated as: (Target Word Count / Total Word Count) * 100.",
-      calculation: "Reading Time (Minutes) = Total Words / 225"
-    },
-    examples: {
-      title: "Writing Limit Scenarios",
-      list: [
-        { title: "Academic Essays", description: "Strict monitoring of 1,000 to 2,000-word university assignments to avoid both brevity penalties and verbose rambling." },
-        { title: "SEO Content Writing", description: "Ensuring an article hits the optimal 1,500-word mark for search engine ranking while maintaining a primary keyword density between 1% and 2.5%." },
-        { title: "Social Media Posts", description: "Validating character counts for strict platforms like X (Twitter) or crafting the perfect optimized meta-description length (under 160 characters)." },
-        { title: "Public Speaking", description: "Pasting a keynote speech script to calculate exact speaking duration, ensuring it fits perfectly within a 15-minute conference slot." }
-      ]
-    },
-    useCases: [
-      "Tracking daily word count goals for authors participating in NaNoWriMo",
-      "Optimizing blog copy and landing pages for targeted Search Engine Optimization",
-      "Formatting clean text and removing unwanted whitespace before publishing",
-      "Ensuring precise compliance with strict application or grant proposal limits",
-      "Translators verifying source vs. target text volume for accurate billing"
+    seoTitle: "Word Counter Online — Count Words, Characters & Sentences Free",
+    metaDescription: "Count words, characters, sentences, and paragraphs online free. Real-time word counter for essays, articles, and content. Fast, browser-based.",
+    intro: "Whether you are writing an essay with a minimum word count, optimizing a blog post for SEO, staying within a character limit for social media, or meeting a publishing guideline, the Word Counter gives you live statistics as you type. It counts words, characters (with and without spaces), sentences, paragraphs, and reading time — all updated in real time with no need to click a button. Paste any text or type directly in the editor and the metrics update instantly.",
+    howToSteps: [
+      "Paste your text or type directly into the editor area.",
+      "Statistics update in real time: word count, character count, sentence count.",
+      "Check the reading time estimate to know how long your content takes to consume.",
+      "Use the clear button to reset and start counting for a new piece of text.",
+    ],
+    features: [
+      "Real-time word count as you type — no submit button needed",
+      "Character count with spaces and without spaces",
+      "Sentence count based on punctuation detection",
+      "Paragraph count based on line break separation",
+      "Estimated reading time based on average reading speed",
+      "Works on any text: essays, articles, code comments, social posts",
+    ],
+    benefits: [
+      "Meet essay, assignment, and article minimum word count requirements with confidence",
+      "Stay within platform limits: Twitter (280 chars), LinkedIn posts, meta descriptions (160 chars)",
+      "Check reading time to ensure your content fits audience attention spans",
+      "Monitor content density and structure through paragraph and sentence counts",
     ],
     faqs: [
-      {
-        question: "Does the character counter include spaces?",
-        answer: "Our tool provides both metrics simultaneously: Character count WITH spaces, and Character count WITHOUT spaces, giving you total flexibility."
-      },
-      {
-        question: "How is 'Reading Time' calculated?",
-        answer: "We use the scientifically backed standard of 225 words per minute for reading time, and 130 words per minute for speaking time assessments."
-      },
-      {
-        question: "Are hyphens and numbers counted as words?",
-        answer: "Yes, our algorithm intelligently parses hyphenated terms as single words and distinct numbers (e.g., '2024') as individual words, mirroring Microsoft Word logic."
-      },
-      {
-        question: "Is there a limit to how much text I can paste?",
-        answer: "There is practically no limit. Because the tool runs locally in your browser memory, it can effortlessly process entire books or hundreds of thousands of words in a fraction of a second."
-      },
-      {
-        question: "Is my private writing saved or uploaded?",
-        answer: "Absolutely not. We guarantee a Zero-Server privacy policy. Your text remains entirely on your local machine and vanishes the moment you clear the box or secure the tab."
-      },
-      {
-        question: "What is Keyword Density and why does it matter?",
-        answer: "Keyword density is the percentage of times a word appears relative to the total word count. It is a vital SEO metric to ensure search engines understand your topic without penalizing you for 'stuffing'."
-      }
-    ]
+      { question: "How does the word counter define a word?", answer: "The counter splits text on whitespace (spaces, tabs, newlines) and counts non-empty tokens. Hyphenated words like 'well-known' are counted as one word. Punctuation attached to words is ignored." },
+      { question: "Does it count characters including spaces?", answer: "Yes, it shows both. 'Characters with spaces' counts every character including whitespace. 'Characters without spaces' counts only non-whitespace characters. Twitter character limits include spaces, so use the with-spaces count for social media." },
+      { question: "What reading speed does the reading time estimate use?", answer: "The estimate uses 200–250 words per minute, which is the average adult reading speed for web content. Actual reading time varies by content complexity and reader." },
+      { question: "Can I count words in multiple languages?", answer: "Yes. The counter works with any language that uses whitespace to separate words. For languages like Chinese and Japanese that do not use spaces between words, the character count is more relevant than the word count." },
+      { question: "Is there a text length limit?", answer: "There is no imposed limit. The counter processes text in your browser, so performance depends on your device. It handles typical document sizes — essays, articles, reports — without any issues." },
+    ],
+    internalLinks: [
+      { label: "String Comparison", href: "/string-comparison", note: "Compare two text blocks." },
+      { label: "Text Case Converter", href: "/text-case-converter", note: "Change text casing." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Prepare text for HTML output." },
+      { label: "JSON Formatter", href: "/json-formatter", note: "Format JSON content." },
+    ],
+    cta: { headline: "Count your words now", copy: "Paste any text to instantly see word count, character count, sentence count, and reading time.", buttonText: "Open Word Counter", buttonHref: "/word-counter" },
   },
   "/sql-formatter": {
     toolName: "SQL Formatter",
@@ -862,73 +1265,43 @@ Millions of words are written every day, but refined, optimized, and perfectly m
     ],
     urlSlug: "/sql-formatter",
     imageAltText: "SQL formatter tool showing input query and formatted SQL output",
-    seoTitle: "SQL Formatter & Beautifier | Format SQL Queries Online",
-    metaDescription: "Instantly beautify and format messy SQL queries into clean, readable code. Supports MySQL, PostgreSQL, and SQL Server. Free, privacy-first, local formatting.",
-    detailedDescription: `Structured Query Language (SQL) is the foundational language of data management, used globally to communicate with relational databases. However, SQL as a language is notoriously forgiving with whitespace. This often leads to developers writing complex, multi-table JOINs and nested subqueries as a single, unreadable block of text. When queries become "spaghetti code," debugging logic errors or optimizing performance becomes a nightmare. Our Pro SQL Formatter is an advanced developer utility built to instantly transform chaotic, minified query strings into pristine, structured, and highly readable syntax.
-
-Formatting code isn't just about aesthetics; it is about cognitive load and maintainability. When a database administrator or backend engineer looks at a SQL query, they need to instantly recognize the hierarchy of operations: what columns are being selected, what tables are joined, what the filtering conditions are, and how the data is grouped. Our tool automatically applies industry-standard indentation rules, capitalizing reserved keywords (like SELECT, FROM, WHERE), and aligning clauses vertically. This visual structure dramatically accelerates the reading and debugging process, reducing the time spent resolving syntax errors.
-
-One of the challenges of SQL formatting is dialect fragmentation. MySQL, PostgreSQL, SQL Server (T-SQL), and Oracle all have slight variations in their syntax and proprietary functions. Our SQL Beautifier is built with an intelligent parsing engine that adapts to common database dialects, ensuring that everything from basic SELECT statements to complex Window Functions and Common Table Expressions (CTEs) are formatted correctly without breaking the query's execution logic.
-
-In enterprise environments, data privacy is non-negotiable. SQL queries often contain sensitive schema information, table names reflecting business logic, or hardcoded strings of customer data (which is a bad practice, but happens). Using a third-party server to format your queries poses a massive security risk. This is why KooBrain’s SQL Formatter is engineered as a strictly client-side application. The parsing and formatting algorithms are downloaded to your browser and execute locally. Your proprietary database queries never leave your machine, guaranteeing total data sovereignty and compliance with corporate security policies.
-
-Beyond simple indentation, our tool serves as an educational benchmark for junior developers. By observing how chaotic queries are restructured into clean layouts, developers naturally internalize best practices for writing maintainable SQL. We encourage consistent capitalization of keywords and disciplined line breaks for logical operators (AND/OR), turning every formatted query into a visual demonstration of clean coding standards. 
-
-Whether you are extracting a complex query from application logs, sharing a query with heavily nested subqueries on Stack Overflow, or just trying to understand a legacy piece of database logic, our SQL Formatter provides the clarity you need. We are committed to providing robust, professional-grade utilities that elevate your productivity without compromising your privacy, helping you write better code, faster.`,
-    usageGuide: {
-      title: "How to Format SQL Queries",
-      steps: [
-        "Copy your unformatted, minified, or messy SQL query from your text editor, terminal, or application logs.",
-        "Paste the raw query into the designated 'Input' text area on the left side of the interface.",
-        "Select your preferred SQL Dialect (if applicable) or leave it on standard SQL for most general use cases.",
-        "Configure your indentation preference (e.g., 2 spaces, 4 spaces, or tabs).",
-        "The tool will instantly parse the language and display the beautifully structured query in the 'Output' panel.",
-        "Click the handy 'Copy' button to move the clean code back into your IDE or database management software."
-      ]
-    },
-    formula: {
-      title: "How SQL Parsing Works",
-      explanation: "Formatting SQL requires building an Abstract Syntax Tree (AST) or tokenizing the string. The algorithm identifies reserved keywords (SELECT, INSERT), identifiers (table/column names), and operators. It then applies rule-based spacing—such as breaking lines before top-level keywords and adding specific indentation depths for nested subqueries.",
-      calculation: "Input String -> Lexical Tokens -> Structural Parsing -> Indented Output String"
-    },
-    examples: {
-      title: "Formatting Scenarios",
-      list: [
-        { title: "Log File Extraction", description: "Taking a massive, single-line SQL query dumped by an ORM (like Hibernate or Entity Framework) in a server log and making it readable to find performance bottlenecks." },
-        { title: "Code Reviews", description: "Formatting a colleague's messy pull request to better understand the database logic before approving." },
-        { title: "Complex Reporting", description: "Structuring a 100-line analytical query with multiple JOINs, CTEs, and Window Functions so the data flow makes visual sense." },
-        { title: "Documentation Consistency", description: "Ensuring all SQL examples in a company's internal wiki adhere to the exact same style guidelines." }
-      ]
-    },
-    useCases: [
-      "Beautifying ORM-generated SQL queries for performance tuning",
-      "Standardizing database query syntax for team repositories",
-      "Debugging nested subqueries and missing parenthetical closures",
-      "Educating junior developers on SQL syntax best practices",
-      "Securely formatting proprietary queries without server transmission"
+    seoTitle: "SQL Formatter Online — Beautify SQL Queries Free",
+    metaDescription: "Format and beautify SQL queries online free. Clean up messy SQL with proper indentation and keyword casing. Supports MySQL, PostgreSQL, and more.",
+    intro: "Raw SQL queries from logs, ORMs, or debugging sessions are often a single dense line with inconsistent capitalization and no indentation. The SQL Formatter transforms them into clean, readable queries with proper keyword casing, consistent indentation for SELECT, FROM, WHERE, and JOIN clauses, and clear visual separation of logical blocks. It supports multiple SQL dialects including MySQL, PostgreSQL, SQLite, T-SQL (SQL Server), and PL/SQL (Oracle), so the output matches the conventions of your database platform.",
+    howToSteps: [
+      "Paste your raw or minified SQL query into the input editor.",
+      "Select your SQL dialect (MySQL, PostgreSQL, T-SQL, etc.) from the options.",
+      "Click Format to apply keyword casing, indentation, and clause separation.",
+      "Copy the formatted query and paste it into your SQL client or documentation.",
+    ],
+    features: [
+      "Formats SELECT, INSERT, UPDATE, DELETE, CREATE, and other statement types",
+      "Supports MySQL, PostgreSQL, SQLite, T-SQL, and PL/SQL dialects",
+      "Consistent keyword casing: uppercase keywords for readability",
+      "Indented subqueries, CTEs, and JOIN conditions for clear structure",
+      "Handles complex queries with window functions, CTEs, and nested subqueries",
+      "Browser-based — queries never sent to a server",
+    ],
+    benefits: [
+      "Read and review complex queries in seconds rather than spending minutes parsing dense text",
+      "Standardize query style across a team to make code reviews faster and more productive",
+      "Spot logic errors and unintended JOINs or WHERE conditions more easily in formatted output",
+      "Prepare SQL snippets for documentation, wikis, and blog posts in a clean, presentable format",
     ],
     faqs: [
-      {
-        question: "Does this tool work with specific databases like PostgreSQL or MySQL?",
-        answer: "Yes, our formatting engine is highly compatible with standard ANSI SQL as well as major dialects like PostgreSQL, MySQL, and Microsoft SQL Server."
-      },
-      {
-        question: "Will formatting change the logic of my query?",
-        answer: "No. The formatter only safely modifies whitespace, newlines, and the capitalization of reserved keywords. The execution logic remains completely untouched."
-      },
-      {
-        question: "Is it safe to format queries containing sensitive business logic?",
-        answer: "Absolutely. Our tool processes the text 100% locally in your browser. No data is ever transmitted to a server, making it perfectly safe for corporate environments."
-      },
-      {
-        question: "Can it detect syntax errors in my SQL?",
-        answer: "While it is primarily a formatter, major syntax errors may cause the tool to format unpredictably or show an error, helping you spot where the query is broken."
-      },
-      {
-        question: "Why should I capitalize SQL keywords?",
-        answer: "Capitalizing keywords (like SELECT or WHERE) is an industry-standard practice that visually separates the SQL language commands from your specific table and column names, vastly improving readability."
-      }
-    ]
+      { question: "What SQL dialects does the formatter support?", answer: "The formatter supports MySQL, PostgreSQL, SQLite, T-SQL (Microsoft SQL Server), and PL/SQL (Oracle). Select your dialect before formatting to get keyword conventions and syntax handling appropriate for your database." },
+      { question: "Does formatting change the meaning of my SQL query?", answer: "No. Formatting only changes whitespace, indentation, and keyword casing. It does not modify the logic, table names, column names, or any other semantics of the query. The formatted and unformatted versions execute identically." },
+      { question: "Can it format stored procedures and DDL statements?", answer: "Yes. The formatter handles CREATE TABLE, CREATE PROCEDURE, ALTER TABLE, and other DDL statements in addition to DML queries like SELECT, INSERT, UPDATE, and DELETE." },
+      { question: "What if the formatter produces unexpected output?", answer: "Most unexpected output is caused by non-standard syntax specific to a dialect. Make sure you have selected the correct dialect. If the query uses vendor-specific syntax not covered by the formatter, some clauses may not indent perfectly." },
+      { question: "Can I use the formatted SQL directly in production?", answer: "Yes. The formatting only affects whitespace and casing, which are ignored by SQL parsers. You can copy and run the formatted query directly in any SQL client without modification." },
+    ],
+    internalLinks: [
+      { label: "JSON Formatter", href: "/json-formatter", note: "Format JSON data returned by queries." },
+      { label: "JSON to CSV", href: "/json-to-csv", note: "Convert query result JSON to CSV." },
+      { label: "String Comparison", href: "/string-comparison", note: "Compare two SQL queries." },
+      { label: "Word Counter", href: "/word-counter", note: "Measure query complexity by character count." },
+    ],
+    cta: { headline: "Beautify your SQL query now", copy: "Paste any SQL statement to get clean, readable, properly indented output.", buttonText: "Open SQL Formatter", buttonHref: "/sql-formatter" },
   },
   "/age-calculator": {
     toolName: "Age Calculator",
@@ -942,83 +1315,43 @@ Whether you are extracting a complex query from application logs, sharing a quer
     ],
     urlSlug: "/age-calculator",
     imageAltText: "Age calculator tool showing date input and calculated age result",
-    detailedDescription: `Age is a fundamental metric of our existence, yet its calculation can often be more complex than it appears on the surface. Our Age Calculator is a precision-engineered utility designed to provide you with an exact breakdown of your lifespan from the moment of birth to the present second. While most people simply think of their age in years, this tool reveals the rich tapestry of time comprised of months and days, offering a deeper perspective on your journey through life.
-
-The history of age calculation is as old as civilization itself. Ancient cultures used various methods to track time, from lunar cycles in Mesopotamia to the complex solar calendars of the Maya. In the modern era, the Gregorian calendar provides the framework for our lives, yet calculating the exact difference between two dates remains a mathematical challenge due to leap years and the varying lengths of months. Our calculator handles these complexities effortlessly, using high-precision algorithms that respect the idiosyncrasies of time.
-
-At the core of the Age Calculator is the concept of 'Chronological Age.' This is different from 'Biological Age,' which refers to how old your body seems based on health markers. Chronological age is the primary metric used for legal identification, educational eligibility, and insurance risk assessment. By providing a tool that breaks this down into fine detail, we empower users to understand their place in time with scientific accuracy.
-
-Why is precision so important? Consider the leap year. Every four years (with certain exceptions), an extra day is added to February. Failing to account for this can lead to inaccuracies in age calculation over long periods. Our laboratory-grade tool uses the industry-standard 'date-fns' library to ensure that every leap day is accounted for, and every month—whether it has 28, 30, or 31 days—is treated correctly relative to your birth date.
-
-From a sociological perspective, age milestones define our transition from childhood to adulthood. Reaching age 18 or 21 brings new rights and responsibilities. Even smaller milestones, like a child's first 500 days or a couple's 10,000th hour together, are worth celebrating. Our calculator helps you identify these specific moments, turning a simple number into a meaningful life metric.
-
-In the realm of personal productivity and planning, knowing your exact age is essential for retirement calculations and life expectancy analysis. Financial advisors often require exact age data to project pension growth or insurance premiums. Instead of relying on mental math or suboptimal online widgets, our premium Calculator provides a verified output that you can trust for your most important life decisions.
-
-We also prioritize user security. In a digital world where personal data is the new currency, your birth date is sensitive. Most online calculators transmit this data to a server where it can be logged or sold. KooBrain's Age Calculator operates on a 'Zero-Server' principle. The calculation code is downloaded to your browser and executed locally. This ensures your birth date never leaves your machine, making it the most private and secure way to calculate your age online.
-
-Finally, we believe in the beauty of time. Seeing your age as more than just a number—but as a collection of months, days, and eventually minutes—can inspire a sense of wonder. It reminds us that every day is an asset. Whether you are using this tool for a legal form, a school project, or just a fun fact to share with your family, we provide the most comprehensive, accurate, and high-value experience available on the web.
-
-The mathematical foundation of our calculator is based on sequential subtraction of time components. We start by calculating the total years elapsed, then determine the remaining months by looking at the day of the month. If the current day is less than the birth day, we borrow a month from the year. Similarly, we calculate days by borrowing from the previous month's total days when necessary. This rigorous approach ensures that we never 'over-count' or 'under-count' a single day in your life.
-
-As we look to the future, age calculation will become even more integrated into health-tech and personalized medicine. Knowing your precise chronological benchmark is the first step in tracking health trends over time. KooBrain is committed to remaining at the forefront of this utility, providing free, expert-level tools that add real value to your digital daily life.`,
-    usageGuide: {
-      title: "How to Use the Pro Age Calculator Laboratory",
-      steps: [
-        "Select your month and year of birth using the intuitive dropdown menus at the top of the date picker.",
-        "Locate and click on the exact day of your birth on the calendar grid.",
-        "Ensure the 'Current Date' is set correctly (it defaults to today's local time).",
-        "Click the high-visibility 'Calculate' button to run the local browser-based algorithm.",
-        "Review your detailed results including Years, Months, and Days in the primary display box.",
-        "Use the 'Copy Result' feature if you need to paste the data into a legal or professional document."
-      ]
-    },
-    formula: {
-      title: "Chronological Difference Methodology",
-      explanation: "Our algorithm implements a non-inclusive date difference strategy. It calculates the full years completed, then the full months completed in the remaining time, and finally the days. It correctly identifies the number of days in the specific months being traversed (e.g., handling February 29th during leap years).",
-      calculation: "Age = Δ(Today, BirthDate) where Δ represents the precise Gregorian interval."
-    },
-    examples: {
-      title: "Real-World Precision Scenarios",
-      list: [
-        { title: "Kindergarten Eligibility", description: "Schools often require a child to be exactly 5 years and 0 months old by a specific cutoff date like September 1st." },
-        { title: "Insurance Underwriting", description: "Insurance premiums are often calculated based on your 'age nearest birthday' or 'exact age as of today' for actuarial accuracy." },
-        { title: "Personal Milestones", description: "Celebrating your 10,000th day of life or tracking a newborn baby's exact age in weeks for developmental charts." },
-        { title: "Contractual Obligations", description: "Verifying the legal age for signing contracts or entering into agreements in specific jurisdictions." }
-      ]
-    },
-    useCases: [
-      "Verifying legal age for government documentation and passports",
-      "Calculating the exact age of a house or vintage car",
-      "Tracking developmental milestones for infants and toddlers",
-      "Determining specific eligibility for retirement accounts (like 401k or IRA)",
-      "Fact-checking for historical researchers and genealogists"
+    seoTitle: "Age Calculator — Find Your Exact Age in Years, Months & Days",
+    metaDescription: "Calculate your exact age online free. Enter your date of birth to get age in years, months, and days instantly. Free age calculator.",
+    intro: "How old are you exactly? Not just the year — but your precise age in years, months, and days as of today? The Age Calculator takes your date of birth and the current date and computes your exact age accounting for leap years, varying month lengths, and the precise day count. It is useful for filling out official forms, verifying age eligibility requirements, celebrating milestone birthdays, or simply satisfying curiosity about how many days you have been alive.",
+    howToSteps: [
+      "Enter your date of birth using the date picker or type it in the input field.",
+      "The calculator automatically uses today's date as the reference point.",
+      "Your exact age is displayed instantly in years, months, and days.",
+      "Optionally change the 'as of' date to calculate your age at a specific past or future date.",
+    ],
+    features: [
+      "Calculates exact age in years, months, and days",
+      "Accounts for leap years and varying month lengths (28, 29, 30, 31 days)",
+      "Shows total days lived as a fun extra statistic",
+      "Works for any date of birth from any century",
+      "Instant result — no submit button needed",
+      "Mobile-friendly — works on any device",
+    ],
+    benefits: [
+      "Verify age eligibility for forms, services, and applications that require exact age",
+      "Calculate age for official documents like passport applications and insurance forms",
+      "Find out exactly how many days until your next birthday",
+      "Determine someone's age at a specific historical or future date",
     ],
     faqs: [
-      {
-        question: "Is this age calculator consistent with legal standards?",
-        answer: "Yes, our calculator follows the standard international method used by governments and legal entities worldwide."
-      },
-      {
-        question: "How does it handle someone born on February 29th during a non-leap year?",
-        answer: "For non-leap years, the legal birthday of a leap-year baby is typically considered March 1st. Our tool respects this chronological logic."
-      },
-      {
-        question: "Why does my age look different on other sites?",
-        answer: "Some tools use a 365-day average, while we use the actual number of days in each specific month, which is the higher precision method."
-      },
-      {
-        question: "Is there any data sent to your server when I calculate?",
-        answer: "Absolutely not. Our tools are strictly privacy-first and run 100% on your local device."
-      },
-      {
-        question: "Can I use this for business or actuarial calculations?",
-        answer: "While highly accurate, always cross-reference with professional legal advice for high-stakes business contracts."
-      },
-      {
-        question: "Does the time of day I was born affect the calculation?",
-        answer: "Most legal age systems only consider the date, so our calculator focuses on day-level precision rather than hours and minutes."
-      }
-    ]
+      { question: "How does the age calculator work?", answer: "The calculator subtracts your date of birth from today's date (or a date you specify). It counts complete years first, then the remaining complete months, then the remaining days, accounting for the actual number of days in each month and leap years." },
+      { question: "Does it account for leap years?", answer: "Yes. The calculator correctly handles February 29 birthdays and counts leap years accurately, so your day count is always precise regardless of whether any leap years fall between your birth date and today." },
+      { question: "Can I calculate my age as of a past or future date?", answer: "Yes. Change the 'as of' date field to any date and the calculator shows what your age was (or will be) on that specific date." },
+      { question: "What is the youngest age I can calculate?", answer: "The calculator can calculate ages for newborns — even showing age in days for very recent birth dates. Conversely, it correctly handles birth dates from any year, including those from over 100 years ago." },
+      { question: "Why does the month count sometimes seem off by one?", answer: "Age is calculated by counting complete months. If today is March 15 and your birthday is March 20, the current month is not yet complete so it is not counted. This matches how age is legally and commonly defined." },
+    ],
+    internalLinks: [
+      { label: "Time Between Dates", href: "/time-between-dates", note: "Calculate the duration between any two dates." },
+      { label: "Couple Age Calculator", href: "/couple-age-calculator", note: "Find the age gap between two people." },
+      { label: "Word Counter", href: "/word-counter", note: "Count text for forms and documents." },
+      { label: "Password Generator", href: "/password-generator", note: "Generate secure passwords for new accounts." },
+    ],
+    cta: { headline: "Calculate your exact age now", copy: "Enter your date of birth to find your precise age in years, months, and days.", buttonText: "Open Age Calculator", buttonHref: "/age-calculator" },
   },
   "/time-between-dates": {
     toolName: "Time Between Dates",
@@ -1032,73 +1365,43 @@ As we look to the future, age calculation will become even more integrated into 
     ],
     urlSlug: "/time-between-dates",
     imageAltText: "Time between dates tool showing date range and difference result",
-    seoTitle: "Time Between Dates Calculator | Calculate Days, Weeks, Months",
-    metaDescription: "Calculate the exact number of days, weeks, months, and years between two dates. A highly accurate, free, and private date difference calculator for planning and logistics.",
-    detailedDescription: `Time is the most universal variable in project management, legal contracts, and personal planning, yet accurately measuring the distance between two specific dates remains surprisingly error-prone for humans. Leap years, varying month lengths, and the nuances of inclusive versus exclusive counting make mental calendar math highly unreliable. Our 'Time Between Dates' calculator is a precision-engineered utility designed specifically to eliminate date-based guesswork, providing you with exact, granular interval metrics down to the day.
-
-At its core, this tool solves a fundamental logistical problem: "How much time do I actually have?" Whether you are mapping out a multi-phase corporate project timeline, calculating accrued interest on a financial loan, or simply counting down the days until a much-anticipated vacation, you need a metric you can trust. Our calculator doesn't just give you a blanket number; it provides a comprehensive breakdown of the interval expressed in total Years, total Months, total Weeks, and total Days. This multi-dimensional output allows you to frame the time in the format most relevant to your specific task.
-
-The complexity of calendar mathematics dates back to the establishment of the Gregorian calendar. Because the Earth's orbit is roughly 365.24 days, our calendar uses leap years to stay synchronized with astronomical seasons. Consequently, finding the exact duration between, say, February 15th, 2023, and July 8th, 2026, involves navigating several irregularities. Our tool handles this effortlessly securely, utilizing the industry-standard 'date-fns' algorithmic library. It accurately accounts for every leap day, every 31-day month, and every 30-day month along the timeline, ensuring that a 'year' or a 'month' is calculated based on strict logical parameters, not mere estimates.
-
-Legal and financial sectors rely heavily on precise date calculations. In contract law, "Net 90" payment terms or specific statutory limitations depend entirely on the precise counting of days. Similarly, daily accrued interest relies on exactly how many days money has been borrowed. Our tool serves as an impartial, mathematical referee in these scenarios. By providing clear, verifiable outputs, it helps professionals avoid the costly disputes that arise from "off-by-one" day counting errors, which are notoriously common when calculating timelines manually.
-
-Privacy is as crucial as accuracy. When you are calculating timelines for sensitive corporate launches or personal medical treatments, you do not want your date inputs stored in an external database. Designed with KooBrain's strict Zero-Server architecture, our Date Calculator processes all variables locally in your Chrome, Safari, or Edge browser. Your inputs are never transmitted, logged, or analyzed by third parties, ensuring total operational confidentiality.
-
-Whether you are a logistics manager scheduling international freight, a bride-to-be counting down weeks until the wedding, or a developer measuring sprint cycles, our tool provides unparalleled clarity. We transform the complex mechanics of the modern calendar into a simple, high-performance interface, empowering you to manage your most precious resource—time—with absolute confidence.`,
-    usageGuide: {
-      title: "How to Calculate the Distance Between Dates",
-      steps: [
-        "Click into the 'Start Date' input field to bring up the native calendar picker.",
-        "Select the exact starting year, month, and day for your calculation.",
-        "Click into the 'End Date' input field and select your target destination date.",
-        "The system will automatically validate the dates and ensure the chronological order is handled correctly.",
-        "Click the large 'Calculate Duration' button to run the local algorithm.",
-        "Review the results panel, which clearly displays the total elapsed time categorized distinctly by Years, Months, Weeks, and Days."
-      ]
-    },
-    formula: {
-      title: "Calendar Difference Mathematics",
-      explanation: "Our algorithm uses non-inclusive interval mapping. It aligns the start date to the end date, aggressively iterating through full years, then full subsequent months, to calculate structural time. It handles edge cases, such as end-of-month boundaries (e.g., Jan 31st to Feb 28th), using standardized Gregorian logic.",
-      calculation: "Difference = Absolute Value | Date 2 - Date 1 | (Iterated by specific calendar metric)"
-    },
-    examples: {
-      title: "Real-World Date Calculations",
-      list: [
-        { title: "Project Sprints", description: "Determining exactly how many business weeks (by calculating total days / 7) remain before a hard software release deadline." },
-        { title: "Financial Accrual", description: "Calculating the exact number of days a short-term bond has matured to accurately compute the daily interest payout." },
-        { title: "Legal Deadlines", description: "Verifying exactly how many days have elapsed since a formal notice was served, ensuring compliance with a 30-day statutory response window." },
-        { title: "Personal Countdowns", description: "Finding out precisely how many months and days are left until an anniversary or retirement date for event planning." }
-      ]
-    },
-    useCases: [
-      "Calculating exact timelines for complex project management software",
-      "Determining the precise elapsed time for legal and contract disputes",
-      "Planning logistics for events, ensuring accurate countdowns in weeks",
-      "Computing intervals for scientific research or observational studies",
-      "Tracking personal habits or milestones, such as 'days sober' or 'days married'"
+    seoTitle: "Time Between Dates Calculator — Days, Weeks & Months Free",
+    metaDescription: "Calculate the time between two dates online free. Find days, weeks, months, and years between any two calendar dates instantly.",
+    intro: "Whether you need to know how many days remain until a deadline, how long a project ran, the duration of a subscription, or the number of weeks between two appointments, the Time Between Dates calculator gives you the precise answer. Enter any two dates and instantly see the difference expressed in total days, weeks, months, and years. The calculator accounts for leap years and month length variations to ensure every count is accurate.",
+    howToSteps: [
+      "Enter the start date in the first date input field.",
+      "Enter the end date in the second date input field.",
+      "The calculator computes and displays the difference in multiple units simultaneously.",
+      "Read the result: total days, total weeks, total months, and years with remainder.",
+    ],
+    features: [
+      "Shows difference in days, weeks, months, and years",
+      "Accounts for leap years and variable month lengths",
+      "Works with past dates, future dates, and cross-year ranges",
+      "Instant result with no submit button",
+      "Clean, readable breakdown of all time units",
+      "Works on desktop and mobile browsers",
+    ],
+    benefits: [
+      "Calculate project durations for timelines, reports, and invoices",
+      "Count days until a deadline, event, or contract expiry",
+      "Determine subscription or warranty lengths in exact days",
+      "Calculate elapsed time for research, medical records, and legal documents",
     ],
     faqs: [
-      {
-        question: "Does this tool account for Leap Years?",
-        answer: "Yes, our algorithm is fully Gregorian-compliant and automatically factors in February 29th for any date ranges passing through a leap year."
-      },
-      {
-        question: "Is the calculation inclusive or exclusive?",
-        answer: "The calculation fundamentally measures the 'distance' between the two dates (exclusive). For example, the difference between Monday and Tuesday is exactly 1 day."
-      },
-      {
-        question: "Can I calculate dates in the past and the future?",
-        answer: "Absolutely. The algorithm works bi-directionally. You can calculate the time that has passed since a historical event or the time remaining until a future deadline."
-      },
-      {
-        question: "Does it factor in time zones?",
-        answer: "This specific tool operates purely on calendar dates (Year-Month-Day), which strips out time zone complications for absolute day-level clarity."
-      },
-      {
-        question: "Are my input dates tracked?",
-        answer: "No. The calculation happens dynamically in your device's memory. No data is stored, ensuring complete privacy for your scheduling data."
-      }
-    ]
+      { question: "What is the formula for days between two dates?", answer: "The calculator converts both dates to their Unix timestamp (milliseconds since January 1, 1970) and subtracts them. The absolute difference is divided by 86,400,000 ms (the number of milliseconds in a day) and rounded down to get whole days." },
+      { question: "Does the result include both the start and end dates?", answer: "By default, the calculator counts from the start date up to (but not including) the end date. To include both endpoints, add 1 to the displayed day count." },
+      { question: "Can I calculate time between dates in different years?", answer: "Yes. The calculator handles any date range regardless of how many years span the two dates. It correctly counts leap years and all month lengths in the range." },
+      { question: "What is the difference between this and the Age Calculator?", answer: "The Age Calculator is specifically designed to compute a person's age from their date of birth. The Time Between Dates calculator is more general — it computes the duration between any two arbitrary dates, which could be project start and end dates, event dates, or any other calendar range." },
+      { question: "Why do I get a different result when I swap start and end dates?", answer: "The tool calculates an absolute difference, so swapping start and end dates gives the same number. If you need to know whether a date is in the future or past, compare the result sign: a negative value means the end date is before the start date." },
+    ],
+    internalLinks: [
+      { label: "Age Calculator", href: "/age-calculator", note: "Calculate exact age from date of birth." },
+      { label: "Couple Age Calculator", href: "/couple-age-calculator", note: "Find age gap between two people." },
+      { label: "Word Counter", href: "/word-counter", note: "Count words in time-related documents." },
+      { label: "Password Generator", href: "/password-generator", note: "Generate secure passwords." },
+    ],
+    cta: { headline: "Calculate time between any two dates", copy: "Enter a start and end date to instantly see the exact number of days, weeks, and months between them.", buttonText: "Open Time Between Dates", buttonHref: "/time-between-dates" },
   },
   "/image-to-base64": {
     toolName: "Image to Base64",
@@ -1112,72 +1415,43 @@ Whether you are a logistics manager scheduling international freight, a bride-to
     ],
     urlSlug: "/image-to-base64",
     imageAltText: "Image to Base64 tool converting an uploaded image into a Base64 string",
-    seoTitle: "Image to Base64 Converter | Embed Images in HTML/CSS",
-    metaDescription: "Convert JPG, PNG, WebP, and SVG images to Base64 strings instantly. Ideal for embedding images in HTML, CSS, or JSON API payloads. Free, fast, and local.",
-    detailedDescription: `In modern front-end web development, optimizing page load speeds is critical for both user experience and Search Engine Optimization (SEO). A common bottleneck in website performance is the number of HTTP requests required to load multiple small image assets, such as icons, logos, or loading spinners. Every request adds latency. The 'Image to Base64' converter solves this by translating visual image files into localized text strings that can be embedded directly into your structural code, effectively eliminating external image requests.
-
-Base64 is an encoding scheme that translates binary data into an ASCII string format. When you process an image through our tool, the intricate binary data of the JPG, PNG, or SVG is converted into a continuous string of text. By formatting this string as a 'Data URI' (Uniform Resource Identifier), browsers can interpret the text as a visual image. This means you can drop the code directly into an HTML <img> tag's 'src' attribute, or use it as a 'background-image' in your CSS files. The result is a cleaner, faster, and more self-contained web component.
-
-While embedding images is highly beneficial for small files (typically under 100kb), it is important to understand the trade-offs. Base64 encoding inflates the data payload by approximately 33%. Therefore, encoding a massive 5MB hero image will critically bloat your HTML file and degrade performance. Our tool is designed as a precision instrument for developers, allowing you to quickly convert the right assets—like UI icons and lightweight graphics—while keeping your core application logic neat and portable.
-
-Beyond web development, transforming images to Base64 is heavily utilized in application architecture. When transmitting user-uploaded avatars via a JSON-based REST API, or storing visual data in NoSQL databases like MongoDB, images must be localized into strings. Our converter serves as an essential bridge in these workflows, allowing data engineers and backend developers to test payloads and debug API integrations without writing custom scripts from scratch.
-
-User privacy is a core architectural pillar of our platform. We recognize that developers often need to convert proprietary logos, confidential product mockups, or sensitive API data. Our Image to Base64 Converter is engineered with a strict Zero-Server policy. When you upload an image, it is read and encoded entirely within your browser's local sandbox using the HTML5 FileReader API. Your visual data is never transmitted across the internet, never saved on a remote server, and remains completely under your sovereign control.
-
-The tool provides distinct formatting outputs tailored to your specific workflow. Whether you need a raw Base64 string for an API payload, a formatted Data URI for an HTML document, or the exact CSS background syntax, the code is generated instantaneously and available with a single-click copy function. We have removed the friction from this common technical task, providing a lightning-fast, aesthetically pleasing utility that respects your time and your data boundaries.`,
-    usageGuide: {
-      title: "How to Convert an Image to a Base64 String",
-      steps: [
-        "Click the designated upload area or drag and drop your image file (JPG, PNG, WebP, SVG, or GIF) directly into the drop zone.",
-        "The browser will instantly read the file locally and generate the corresponding Base64 encoding without any server communication.",
-        "Review the original image preview generated to confirm the correct file was processed.",
-        "Select your desired output format using the tabs: Raw String, HTML <img> tag, or CSS background-image property.",
-        "Click the primary 'Copy' button to safely copy the code directly to your clipboard, ready for pasting into your codebase."
-      ]
-    },
-    formula: {
-      title: "The Encoding Mechanism Explained",
-      explanation: "The process reads the binary sequence of the image file in chunks of 3 bytes (24 bits). These 24 bits are then divided into 4 groups of 6 bits. Each 6-bit group is mapped to a specific character in the standard 64-character Base64 alphabet (A-Z, a-z, 0-9, +, /). Padding characters (=) are added if the original data does not divide cleanly by 3.",
-      calculation: "3 Bytes of binary image data → 4 ASCII text characters"
-    },
-    examples: {
-      title: "Practical Encoding Use Cases",
-      list: [
-        { title: "CSS Inline Icons", description: "Converting a 2kb loading spinner GIF into a CSS background to ensure it renders instantly before external assets finish loading." },
-        { title: "HTML Email Templates", description: "Embedding corporate logos as Base64 internally within marketing emails to bypass standard 'download images' filters in email clients." },
-        { title: "JSON API Payloads", description: "Encoding a user's uploaded profile picture to securely transmit it as a text field via a standard POST request." },
-        { title: "Portable Documents", description: "Embedding small charts into generated markdown or PDF files without relying on external hosting links that may break." }
-      ]
-    },
-    useCases: [
-      "Optimizing front-end web performance by reducing HTTP requests",
-      "Embedding images persistently in isolated application environments",
-      "Transmitting graphical assets safely through text-only API protocols",
-      "Bypassing external image hosting requirements for email campaigns",
-      "Securely encoding proprietary graphics without cloud transmission"
+    seoTitle: "Image to Base64 Converter — Free Online Encoder",
+    metaDescription: "Convert images to Base64 online free. Encode JPG, PNG, WebP, and GIF files to Base64 data URIs instantly. Secure, browser-based image encoder.",
+    intro: "Embedding images directly in HTML, CSS, or JSON using Base64 data URIs eliminates the need for separate image file requests, which can speed up small-image-heavy pages and simplify email template development. The Image to Base64 converter reads any image file from your device and produces the full Base64-encoded string and the complete data URI format (data:image/png;base64,...) ready to use in CSS background-image, HTML img src attributes, or JSON API payloads. Everything runs locally in your browser.",
+    howToSteps: [
+      "Click the upload area or drag and drop your image file (JPG, PNG, WebP, or GIF).",
+      "The tool reads the file locally and generates the Base64 encoded string.",
+      "Copy the raw Base64 string or the complete data URI including the mime type prefix.",
+      "Paste it into your CSS url(), HTML src attribute, or JSON payload.",
+    ],
+    features: [
+      "Supports JPG, PNG, WebP, GIF, SVG, and other common image formats",
+      "Outputs both raw Base64 and the complete data URI with MIME type",
+      "Instant encoding — no upload to a server, processing is local",
+      "Shows file size and encoded string length for size planning",
+      "Copy to clipboard for immediate use in code",
+      "100% browser-based — your images never leave your device",
+    ],
+    benefits: [
+      "Embed small icons and logos directly in CSS to eliminate HTTP requests",
+      "Include images inline in HTML email templates where external URLs may be blocked",
+      "Attach image data to JSON API payloads that require inline Base64 images",
+      "Create single-file HTML documents with all images embedded",
     ],
     faqs: [
-      {
-        question: "Does converting to Base64 reduce the file size of my image?",
-        answer: "No, it actually increases the data footprint by roughly 33%. The performance benefit comes from eliminating the HTTP request time, making it ideal only for small images."
-      },
-      {
-        question: "What image formats are supported by the converter?",
-        answer: "Our tool supports all standard browser-readable formats, including JPG, PNG, GIF, WebP, SVG, and BMP."
-      },
-      {
-        question: "What is a 'Data URI'?",
-        answer: "A Data URI is a scheme that allows you to include data inline in web pages. It typically looks like 'data:image/png;base64,iVBORw0KG...' indicating the format and the encoding method."
-      },
-      {
-        question: "Is my uploaded image saved on your servers?",
-        answer: "Absolutely not. The encoding process happens locally on your machine via JavaScript. Your image never leaves your computer."
-      },
-      {
-        question: "Can I use Base64 strings for large, high-resolution photographs?",
-        answer: "It is highly discouraged. A large image will result in a massive text string that can freeze your text editor, bloat your database, and severely slow down browser rendering."
-      }
-    ]
+      { question: "What is a Base64 image data URI?", answer: "A data URI is a URL scheme that embeds file content directly in the URL string. For images, the format is: data:[mimetype];base64,[base64data]. For example: data:image/png;base64,iVBORw0KGgo... This can be used anywhere a regular image URL would be used." },
+      { question: "Should I use Base64 images in production websites?", answer: "For very small images like icons (under 2–3 KB), Base64 can reduce HTTP requests and improve performance. For larger images, Base64 increases file size by 33% and hurts caching, so regular image files are better. Always measure the trade-off for your specific case." },
+      { question: "What image formats are supported?", answer: "The tool supports any image format your browser can read: JPG/JPEG, PNG, WebP, GIF, BMP, and SVG. The MIME type in the data URI is set automatically based on the file format." },
+      { question: "Is there a size limit for the image I can encode?", answer: "There is no hard limit imposed by the tool. Very large images produce very long Base64 strings, which may hit limits in some HTML attributes or JSON fields. For images larger than a few hundred KB, consider whether embedding is the right approach." },
+      { question: "Can I use the Base64 string in a CSS background?", answer: "Yes. Use it as: background-image: url('data:image/png;base64,...'). Make sure to copy the full data URI including the data: prefix and MIME type, not just the raw Base64 string." },
+    ],
+    internalLinks: [
+      { label: "Base64 to Image", href: "/base64-to-image", note: "Render a Base64 string as an image." },
+      { label: "Image Compressor", href: "/image-compressor", note: "Compress images before encoding." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text strings to Base64." },
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 strings to text." },
+    ],
+    cta: { headline: "Convert your image to Base64 now", copy: "Upload any image to instantly get a Base64 data URI ready for HTML, CSS, or JSON use.", buttonText: "Open Image to Base64", buttonHref: "/image-to-base64" },
   },
   "/base64-to-image": {
     toolName: "Base64 to Image",
@@ -1191,72 +1465,43 @@ The tool provides distinct formatting outputs tailored to your specific workflow
     ],
     urlSlug: "/base64-to-image",
     imageAltText: "Base64 to Image tool rendering an image from a Base64 string",
-    seoTitle: "Base64 to Image Decoder | Decode & Download Online",
-    metaDescription: "Instantly decode Base64 strings back to viewable image files (PNG, JPG, SVG). Safe, fast, local decoding tool. Preview the image and click to download.",
-    detailedDescription: `In the ecosystem of software development and data transit, data is frequently encoded into text strings to survive transmission across protocols that cannot handle raw binary. While encoding is a standard protocol, the reverse process—translating that opaque block of text back into a visual, usable file—is often a manual challenge for developers. Our 'Base64 to Image' decoder is a high-performance, strictly local utility engineered to instantaneously strip the text encoding and restore your binary visual assets with total fidelity.
-
-Developers frequently encounter Base64 encoded images during debugging sessions. Whether you are inspecting a massive JSON payload returning from a RESTless API, analyzing the raw source code of an HTML email template, or migrating legacy data from a NoSQL database, you are likely to find essential visual assets locked inside thousands of characters of random text. Instead of writing custom decompression scripts in Python or Node.js, our web-based decoder allows you to simply paste the string and immediately preview the resulting graphic in your browser.
-
-The decoding architecture of our tool handles extreme variations in input data gracefully. Base64 strings found in the wild often come prefixed with "Data URI" metadata (such as 'data:image/jpeg;base64,...'). Alternatively, they may be raw, unprefixed strings extracted directly from a database column. Our intelligent parsing engine automatically detects the format, strips out unnecessary headers or spacing, and focuses purely on the cryptographic payload, rendering the exact image regardless of how the developer extracted it.
-
-Speed and stability are critical when dealing with decoded files. Some high-resolution images can result in Base64 strings containing millions of characters. Standard text editors and simple online tools frequently crash or freeze when attempting to process data of this magnitude. Our tool is optimized specifically for large memory payloads, ensuring that even substantial strings are decoded, rendered into a browser canvas, and made ready for download in milliseconds without crashing your tab.
-
-Beyond the utility of the visual preview, the fundamental goal of decoding is usually asset recovery. Once the image is processed, the tool algorithmically determines the appropriate MIME type—be it a transparent PNG, a compressed WEBP, or a vector SVG—and provides a seamless download link. This allows designers, analysts, and engineers to quickly extract missing assets from codebases and restore them to standard local files for editing or archiving.
-
-Privacy constraints are rigorous for enterprise professionals handling encrypted data. As a part of our core security commitment, the 'Base64 to Image' tool operates on a zero-transmission model. The text you paste is parsed locally using native browser APIs, and the resulting image is generated purely within your local machine's memory. No strings are tracked, and no images are uploaded to external servers, rendering the tool compliant with stringent non-disclosure and proprietary code policies.`,
-    usageGuide: {
-      title: "How to Decode Base64 Text into an Image",
-      steps: [
-        "Locate your Base64 encoded text string from your API response, database, or source code.",
-        "Paste the entire string into the primary text input area. The tool will automatically accept both raw strings and proper Data URIs.",
-        "The system will instantly process the text locally. Look to the preview panel to verify the image has been rendered correctly.",
-        "If the image renders successfully, click the 'Download Image' button.",
-        "The file will automatically save to your local machine with the correct file extension (e.g., .png or .jpg) based on the inferred MIME data."
-      ]
-    },
-    formula: {
-      title: "The Decoding Logic",
-      explanation: "Base64 decoding reverses the mathematical encoding process. It reads groups of 4 ASCII characters, converts them back into their respective 6-bit binary indices, and concatenates them to form 3 standard 8-bit bytes (24 bits total). The browser then reads this binary structure and renders it using standard image codecs.",
-      calculation: "4 ASCII Characters -> 24-bit block -> 3 Bytes of Binary Data"
-    },
-    examples: {
-      title: "Decoding Recovery Scenarios",
-      list: [
-        { title: "API Payload Debugging", description: "Extracting a massive encrypted string from a user-profile JSON response and pasting it to ensure the backend is delivering the correct avatar image." },
-        { title: "Legacy Website Migration", description: "Scraping an old inline-CSS stylesheet to recover and download the original, uncompressed company logo." },
-        { title: "Database Architecture", description: "Verifying binary image blobs stored in MongoDB text fields to ensure data integrity hasn't been corrupted during migration." },
-        { title: "Email Template Analysis", description: "Extracting embedded marketing graphics from a raw, exported `.eml` email file source to reuse in a new campaign." }
-      ]
-    },
-    useCases: [
-      "Debugging internal API image transmission infrastructure",
-      "Recovering lost local graphical assets from legacy HTML/CSS files",
-      "Isolating visual payloads from complex NoSQL database structures",
-      "Auditing embedded image sizes within high-performance email campaigns",
-      "Securely converting proprietary code blocks back to visual designs"
+    seoTitle: "Base64 to Image Converter — Free Online Decoder",
+    metaDescription: "Convert Base64 to image online free. Paste a Base64 data URI to instantly preview and download the image. Fast, browser-based Base64 image decoder.",
+    intro: "If you encounter a Base64 string in an API response, a database field, an HTML source, or a log file and want to see what image it represents, the Base64 to Image converter renders it instantly. Paste any Base64 image string — with or without the data URI prefix — and the tool displays the image and lets you download it as a PNG or JPG file. This is useful for debugging APIs that return Base64 images, inspecting email HTML, and recovering embedded images from source code.",
+    howToSteps: [
+      "Paste the Base64 image string into the input area.",
+      "Include the full data URI (data:image/png;base64,...) or just the raw Base64 string.",
+      "The tool renders the image preview immediately.",
+      "Click Download to save the image as a file on your device.",
+    ],
+    features: [
+      "Renders Base64 encoded images from raw strings or full data URIs",
+      "Supports JPG, PNG, WebP, GIF, and SVG encoded images",
+      "Instant preview — see the image without downloading it first",
+      "One-click download to save the rendered image as a file",
+      "Handles both the raw Base64 string and the full data:image/... URI format",
+      "All processing in the browser — no data transmitted",
+    ],
+    benefits: [
+      "Inspect Base64 images returned by APIs to verify the image content quickly",
+      "Recover embedded images from HTML email source code",
+      "Debug image pipeline issues by rendering intermediate Base64 outputs",
+      "Extract images embedded in JSON payloads for inspection and download",
     ],
     faqs: [
-      {
-        question: "Can I decode a string that doesn't have the 'data:image...' prefix?",
-        answer: "Yes. Our tool is intelligent enough to automatically detect and append the correct headers if your string is raw Base64 data without the standard Data URI scheme."
-      },
-      {
-        question: "Why does the tool show a 'Broken Image' icon?",
-        answer: "This occurs if the string you pasted is incomplete, contains formatting errors, or is not actually an image file. Ensure you copied the entire string without missing trailing '=' characters."
-      },
-      {
-        question: "Is there a maximum string size I can paste?",
-        answer: "Browser memory limits dictate the maximum size, but you can typically decode strings equating to several megabytes of data without issue."
-      },
-      {
-        question: "Will the decoded image lose any quality?",
-        answer: "No. The decoding process is mathematically lossless. The image rendered will be a 100% exact replica of the original file prior to encoding."
-      },
-      {
-        question: "Is the data I paste stored on your cloud servers?",
-        answer: "Never. The decoding process operates locally via Javascript in your active browser window, providing top-tier data security for sensitive assets."
-      }
-    ]
+      { question: "Do I need to include the data URI prefix?", answer: "No. You can paste just the raw Base64 string without the data:image/...;base64, prefix. The tool detects the image format from the Base64 data itself. However, including the full data URI also works correctly." },
+      { question: "What image formats can I decode?", answer: "The tool renders any image format that your browser supports, including PNG, JPG/JPEG, WebP, GIF, BMP, and SVG. The format is typically specified in the data URI MIME type or detected from the Base64 header bytes." },
+      { question: "What if the rendered image looks corrupted?", answer: "A corrupted result usually means the Base64 string is truncated, has extra characters, or represents a binary format that is not an image. Verify the source of the Base64 string and make sure you copied it completely without any missing characters." },
+      { question: "Can I use this to extract images from HTML email source code?", answer: "Yes. HTML emails often embed images as Base64 data URIs in img src attributes. Copy the Base64 string from the src attribute (everything after base64,) and paste it here to view and download the image." },
+      { question: "Is there a maximum Base64 string length?", answer: "There is no hard limit, but very long strings (representing large images) may use significant browser memory during rendering. Typical embedded images in APIs and emails are small enough to render without any issues." },
+    ],
+    internalLinks: [
+      { label: "Image to Base64", href: "/image-to-base64", note: "Encode an image file to Base64." },
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode Base64 to text." },
+      { label: "Image Compressor", href: "/image-compressor", note: "Compress images to reduce size." },
+      { label: "Base64 Encode", href: "/base64-encode", note: "Encode text to Base64." },
+    ],
+    cta: { headline: "Render your Base64 image now", copy: "Paste any Base64 image string to instantly preview it and download the image file.", buttonText: "Open Base64 to Image", buttonHref: "/base64-to-image" },
   },
   "/security": {
     toolName: "Security Tools",
@@ -1270,6 +1515,43 @@ Privacy constraints are rigorous for enterprise professionals handling encrypted
     ],
     urlSlug: "/security",
     imageAltText: "Security tools page with links to security utilities",
+    seoTitle: "Security Tools Online — Free Developer Security Utilities",
+    metaDescription: "Free browser-based security tools for developers. Generate passwords, decode JWTs, encode Base64, and handle sensitive data privately. No uploads.",
+    intro: "Security-conscious development requires tools that can handle sensitive data — tokens, credentials, keys, and payloads — without sending them to third-party servers. KooBrain's security-focused tools are designed with a privacy-first architecture: all processing happens in your browser using standard Web APIs. Nothing is transmitted, logged, or stored. This page collects the tools most relevant to security work: password generation, JWT inspection, encoding utilities, and data handling.",
+    howToSteps: [
+      "Browse the security tool categories to find the utility you need.",
+      "Open any tool directly — no account, no registration required.",
+      "Use the tool with confidence: all processing is local to your browser.",
+      "Copy or download results for use in your application or workflow.",
+    ],
+    features: [
+      "Password Generator using crypto.getRandomValues() for true randomness",
+      "JWT Decoder for inspecting tokens without sending them to a server",
+      "Base64 Encode/Decode for credentials and binary data handling",
+      "URL Encode/Decode for safe parameter transmission",
+      "HTML Encode to prevent XSS vulnerabilities",
+      "All tools: zero server upload, zero data retention",
+    ],
+    benefits: [
+      "Handle API keys, tokens, and credentials without exposing them to third-party servers",
+      "Inspect and debug authentication flows safely in a controlled browser environment",
+      "Reduce security risk surface area by using local tools instead of cloud-based alternatives",
+      "Meet compliance requirements by ensuring sensitive data processing stays on-device",
+    ],
+    faqs: [
+      { question: "Are these tools safe to use with production credentials?", answer: "All KooBrain tools run in your browser and do not transmit data. However, as a best practice, avoid pasting production secrets into any tool — online or offline — when possible. Use test tokens and non-production credentials for debugging." },
+      { question: "Does KooBrain log the data I enter in tools?", answer: "No. KooBrain does not collect, log, or transmit any data you enter in tool inputs. The privacy policy confirms zero data collection. All tool processing uses browser-side JavaScript." },
+      { question: "What is the most important tool for web security?", answer: "The HTML Encode/Decode tool is critical for preventing XSS (Cross-Site Scripting) vulnerabilities. Always encode user-supplied content before inserting it into HTML. The Password Generator is essential for creating strong, unique credentials." },
+      { question: "Can I use these tools offline?", answer: "Once a page is loaded, most tools work without an active internet connection since all logic runs in JavaScript. However, initial page load requires a connection to download the application." },
+      { question: "What is the Session Vault?", answer: "The Session Vault is a browser-based temporary storage tool for saving text snippets, tokens, and notes during a work session. Data is stored in sessionStorage — it is cleared automatically when you close the browser tab." },
+    ],
+    internalLinks: [
+      { label: "Password Generator", href: "/password-generator", note: "Generate strong, random passwords." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Inspect JWT token contents." },
+      { label: "HTML Encode/Decode", href: "/html-encode", note: "Prevent XSS with proper encoding." },
+      { label: "Session Vault", href: "/vault", note: "Temporarily store sensitive snippets." },
+    ],
+    cta: { headline: "Explore security tools", copy: "Browse KooBrain's privacy-first security utilities — all browser-based, no data uploaded.", buttonText: "Open Security Tools", buttonHref: "/security" },
   },
   "/vault": {
     toolName: "Session Vault",
@@ -1283,6 +1565,143 @@ Privacy constraints are rigorous for enterprise professionals handling encrypted
     ],
     urlSlug: "/vault",
     imageAltText: "Session vault tool page for storing temporary snippets in the browser",
+    seoTitle: "Session Vault — Private Temporary Notes in Your Browser",
+    metaDescription: "Store temporary notes, snippets, and tokens privately in your browser session. Session Vault clears automatically when you close the tab. Free and secure.",
+    intro: "Sometimes you need a temporary, private place to hold a token, a config value, a code snippet, or a note while you are working — without pasting it into a permanent document or sending it to a cloud service. The Session Vault stores your text entries in your browser's sessionStorage, which means data is completely private, never sent to any server, and automatically deleted when you close the browser tab. It is the developer equivalent of a sticky note that shreds itself when you leave the room.",
+    howToSteps: [
+      "Open the Session Vault and type a name (label) for your entry.",
+      "Paste or type the content you want to store temporarily.",
+      "The entry is saved to sessionStorage in your browser — no server involved.",
+      "Access your entries for the duration of the browser session; they clear when the tab closes.",
+    ],
+    features: [
+      "Stores entries in browser sessionStorage — never on a server",
+      "Entries automatically deleted when the browser tab is closed",
+      "Multiple named entries for organizing different snippets",
+      "Copy any entry back to clipboard with one click",
+      "Simple, distraction-free interface for quick note-taking",
+      "Works offline — no network connection required after page load",
+    ],
+    benefits: [
+      "Hold temporary tokens, keys, or credentials during a debugging session without writing them to disk",
+      "Keep multiple related snippets organized and accessible during a complex workflow",
+      "Avoid accidentally committing sensitive values to version control by keeping them in a session store",
+      "Share context between browser tabs that share the same session",
+    ],
+    faqs: [
+      { question: "What is sessionStorage and how is it different from localStorage?", answer: "sessionStorage is a browser API that stores key-value pairs for the duration of the browser tab session. Data is deleted when the tab is closed. localStorage persists data across browser restarts. The Session Vault uses sessionStorage for automatic cleanup and privacy." },
+      { question: "Can other websites see my Session Vault data?", answer: "No. sessionStorage is origin-scoped — data stored at koobrain.com is only accessible to koobrain.com pages. Other websites cannot read your vault entries." },
+      { question: "Is the vault data encrypted?", answer: "sessionStorage itself is not encrypted by the browser, but the data is only accessible to JavaScript running on the same origin. For highly sensitive data like passwords or private keys, use a dedicated password manager instead." },
+      { question: "How long do vault entries persist?", answer: "Entries persist for the duration of the browser tab session. They survive page refreshes within the same tab but are deleted when you close the tab or the browser." },
+      { question: "Can I use the vault across multiple tabs?", answer: "No. sessionStorage is per-tab — entries in one tab are not visible in another tab, even on the same website. If you need cross-tab persistence, you would need localStorage, which is not used here for privacy reasons." },
+    ],
+    internalLinks: [
+      { label: "Password Generator", href: "/password-generator", note: "Generate secure credentials to store here." },
+      { label: "JWT Decoder", href: "/jwt-decoder", note: "Decode tokens before storing them." },
+      { label: "Base64 Decode", href: "/base64-decode", note: "Decode encoded strings." },
+      { label: "Security Tools", href: "/security", note: "Browse all security-related tools." },
+    ],
+    cta: { headline: "Store your snippets privately", copy: "Use the Session Vault to hold temporary notes, tokens, and code snippets that clear automatically when you close the tab.", buttonText: "Open Session Vault", buttonHref: "/vault" },
+  },
+  "/couple-age-calculator": {
+    toolName: "Couple Age Calculator",
+    mainKeyword: "couple age calculator",
+    secondaryKeywords: [
+      "age difference calculator",
+      "age gap between two people",
+      "calculate age difference online",
+      "relationship age difference",
+      "couple age gap tool",
+    ],
+    urlSlug: "/couple-age-calculator",
+    imageAltText: "Couple age calculator showing two date inputs and age difference result",
+    seoTitle: "Couple Age Calculator — Age Difference Between Two People",
+    metaDescription: "Calculate the age difference between two people online free. Find the exact gap in years, months, and days. Free couple age gap calculator.",
+    intro: "Curious about the age gap between you and a partner, friend, sibling, or colleague? The Couple Age Calculator takes two dates of birth and computes the precise age difference between the two people in years, months, and days. It also shows each person's current age for quick comparison. The calculation accounts for leap years and exact month lengths, so the result is always accurate regardless of when in the year each birthday falls.",
+    howToSteps: [
+      "Enter the date of birth for the first person in the left input field.",
+      "Enter the date of birth for the second person in the right input field.",
+      "The calculator displays each person's current age and the exact difference between them.",
+      "Read the age gap in years, months, and days for a precise comparison.",
+    ],
+    features: [
+      "Calculates each person's exact current age separately",
+      "Computes the precise age difference in years, months, and days",
+      "Determines which person is older and by exactly how much",
+      "Accounts for leap years and exact month lengths",
+      "Works for any two dates of birth from any era",
+      "Instant results on any device — mobile and desktop",
+    ],
+    benefits: [
+      "Satisfy natural curiosity about the age gap between two people",
+      "Calculate age differences for official documents that require exact figures",
+      "Compare ages for medical, legal, or insurance purposes",
+      "Plan milestone events by knowing exact age differences",
+    ],
+    faqs: [
+      { question: "How is the age difference calculated?", answer: "The calculator finds each person's exact age from their date of birth to today, then subtracts the smaller age from the larger age. The result is the absolute age gap in years, months, and days." },
+      { question: "Does it matter which person I enter first?", answer: "No. The calculator shows the absolute difference regardless of which date you enter in which field. It automatically identifies which person is older." },
+      { question: "Can I calculate age differences for historical figures?", answer: "Yes. You can enter any date of birth, including dates from decades or centuries ago. The calculation works for any valid calendar dates." },
+      { question: "What is considered a large age gap?", answer: "There is no universal definition. Age gaps are personal and contextual. This tool simply calculates the mathematical difference — how you interpret the significance is entirely up to you." },
+      { question: "Can I use this for non-romantic comparisons?", answer: "Absolutely. The tool works for any two people: siblings, friends, colleagues, or historical figures. It simply calculates the birth date difference between two humans." },
+    ],
+    internalLinks: [
+      { label: "Age Calculator", href: "/age-calculator", note: "Calculate a single person's exact age." },
+      { label: "Time Between Dates", href: "/time-between-dates", note: "Find the duration between any two dates." },
+      { label: "Word Counter", href: "/word-counter", note: "Count words in documents and forms." },
+      { label: "Password Generator", href: "/password-generator", note: "Generate secure passwords." },
+    ],
+    cta: { headline: "Calculate your age difference now", copy: "Enter two dates of birth to instantly find the exact age gap in years, months, and days.", buttonText: "Open Couple Age Calculator", buttonHref: "/couple-age-calculator" },
+  },
+  "/image-size-converter": {
+    toolName: "Image Size Converter",
+    mainKeyword: "image size converter",
+    secondaryKeywords: [
+      "resize image online free",
+      "change image dimensions",
+      "reduce image dimensions",
+      "image resizer online",
+      "resize jpg png online",
+    ],
+    urlSlug: "/image-size-converter",
+    imageAltText: "Image size converter tool showing dimension inputs and resized image output",
+    seoTitle: "Image Size Converter — Resize Images Online Free",
+    metaDescription: "Resize images online free. Change image dimensions to exact pixels or preset sizes. Supports JPG, PNG, WebP. Browser-based, no upload needed.",
+    intro: "Need to resize an image to exact pixel dimensions — for a profile picture, a banner, a thumbnail, or a specific upload requirement? The Image Size Converter lets you set a target width and height, or choose from common preset sizes, and scales the image accordingly. It preserves aspect ratio by default to prevent distortion, but you can also set custom dimensions independently if you need a specific canvas size. All resizing happens locally in your browser using the Canvas API, so your files stay private.",
+    howToSteps: [
+      "Upload your image by clicking the upload area or dragging and dropping a file.",
+      "Enter your target width and height in pixels, or select a preset size.",
+      "Toggle 'maintain aspect ratio' to keep the image proportionally correct.",
+      "Click Download to save the resized image to your device.",
+    ],
+    features: [
+      "Resize to exact pixel dimensions: width × height",
+      "Maintain aspect ratio option to prevent distortion",
+      "Common preset sizes: profile photos, banners, thumbnails, social media formats",
+      "Supports JPG, PNG, and WebP input and output",
+      "Preview the resized image before downloading",
+      "Browser-based Canvas API — no file uploaded to any server",
+    ],
+    benefits: [
+      "Prepare images to exact dimension requirements for upload portals and CMSes",
+      "Create correctly sized social media images for platforms with strict dimension limits",
+      "Reduce image file size by reducing pixel dimensions before compressing",
+      "Standardize product image sizes for e-commerce catalogs",
+    ],
+    faqs: [
+      { question: "How does image resizing work in the browser?", answer: "The tool draws the original image onto an HTML5 Canvas element at the specified dimensions. The canvas is then exported as a new image file. This is the same technique used by professional image editing software, executed entirely in your browser." },
+      { question: "Will resizing reduce my image file size?", answer: "Usually yes. Reducing pixel dimensions typically reduces file size proportionally. For the best results, use the Image Compressor after resizing to apply quality-based compression on top of the dimension reduction." },
+      { question: "What happens if I set dimensions that don't match my image's aspect ratio?", answer: "If aspect ratio is maintained, the image is scaled to fit within the target dimensions while keeping proportions. If you disable aspect ratio lock, the image is stretched to exactly fill the specified width and height, which may cause distortion." },
+      { question: "What is the maximum image size I can resize?", answer: "There is no explicit file size limit. Very large images (20MP+) may be slow on low-memory devices. The Canvas API handles typical photos up to 10–20 megapixels without issues on modern devices." },
+      { question: "Does the output image retain EXIF metadata?", answer: "Canvas-exported images do not include EXIF metadata. If preserving metadata (camera info, GPS, etc.) is important, use a specialized tool. For web use, removing EXIF is usually desirable for privacy and file size reasons." },
+    ],
+    internalLinks: [
+      { label: "Image Compressor", href: "/image-compressor", note: "Compress resized images further." },
+      { label: "Pro Image Tool", href: "/pro-image-tool", note: "Batch resize and watermark images." },
+      { label: "Image to Base64", href: "/image-to-base64", note: "Encode the resized image to Base64." },
+      { label: "Base64 to Image", href: "/base64-to-image", note: "Render Base64 image strings." },
+    ],
+    cta: { headline: "Resize your image now", copy: "Upload any image and set your target dimensions to get a perfectly sized output instantly.", buttonText: "Open Image Size Converter", buttonHref: "/image-size-converter" },
   },
   "/pro-image-tool": {
     toolName: "Pro Image Studio",
@@ -1326,905 +1745,4 @@ Privacy constraints are rigorous for enterprise professionals handling encrypted
       }
     }
   },
-  "/couple-age-calculator": {
-    toolName: "Couple Age Calculator",
-    mainKeyword: "couple age calculator",
-    secondaryKeywords: [
-      "love calculator by date of birth",
-      "relationship age gap calculator",
-      "compatibility test online",
-      "calculate age difference between partners",
-      "marriage age compatibility",
-      "soulmate age calculator",
-      "relationship milestones calculator",
-      "years months days age gap",
-    ],
-    urlSlug: "/couple-age-calculator",
-    imageAltText: "Couple age calculator showing names, birthdates, and love compatibility score",
-    seoTitle: "Couple Age Calculator ❤️ | Relationship Compatibility Tool",
-    metaDescription: "Calculate the exact age difference between you and your partner. Get a compatibility score based on years, months, and days. Free, fast, and private.",
-    detailedDescription: `Relationships are built on various foundations, and while age is just a number, understanding the temporal dynamics between partners can be both enlightening and fun. Our Couple Age Calculator is designed to provide you with a precise breakdown of the age gap between you and your significant other, down to the very day. This tool goes beyond a simple subtraction of years; it dives into the months and days that make your partnership unique.
-
-Historically, age gaps in relationships have been a topic of much discussion, from the "half your age plus seven" rule to modern sociological studies that examine how age differences impact relationship longevity. Whether you are curious about your "Love Score" or simply want to know exactly how many days older one partner is than the other, this calculator offers a professional and user-friendly way to explore these metrics.
-
-Mathematical compatibility in relationships often uses the consistency of age as a benchmark. For many, a small age gap suggests shared cultural references, similar life stages, and aligned career trajectories. Conversely, larger age gaps can provide a balance of wisdom and energy, offering different perspectives that enrich the bond. Our algorithm takes these factors into account to provide a "Compatibility Score" that serves as a fun conversation starter for couples.
-
-In the digital age, privacy is paramount. Many online "love testers" ask for personal information that is then stored on servers. We take a different approach. Every calculation performed here happens locally in your browser. Your names and birthdates never leave your device, ensuring that your intimate details remain exactly where they belong—with you. This makes our tool not just a high-value content platform, but a trusted utility for millions of couples worldwide.
-
-Understanding your relationship milestones is another key benefit of knowing your exact age gap. For instance, when one partner hits a "round" birthday like 30 or 50, exactly where will the other be? Our tool helps you visualize these gaps, making it easier to plan for the future and celebrate the present. We believe that by providing clear, data-driven insights, we help couples foster better communication and deeper understanding.`,
-    usageGuide: {
-      title: "How to Use the Couple Age Calculator",
-      steps: [
-        "Enter the first partner's name in the designated field (optional, for personalization).",
-        "Select the first partner's date of birth using the calendar picker.",
-        "Enter the second partner's name and choose their date of birth.",
-        "Click the golden 'Calculate Love' button to process the data.",
-        "Review your detailed results, including the exact age gap in years, months, and days.",
-        "Check your Love Compatibility Score and share the results with your partner!"
-      ],
-    },
-    formula: {
-      title: "The Logic Behind the Love Score",
-      explanation: "Our compatibility algorithm is based on the 'Temporal Proximity Principle'. It calculates the total day difference between two birthdates and scales it against a 100-point compatibility index. We also consider the 'Golden Age Ratio' where smaller relative differences (proportionate to total age) typically yield higher initial scores.",
-      calculation: "Score = MAX(40, 100 - (YearGap * 2 + MonthGap * 0.5))"
-    },
-    examples: {
-      title: "Real-World Compatibility Scenarios",
-      list: [
-        { title: "The Peer Pair", description: "Partners born within 1 year of each other often score 95%+, signifying high synchronization in life stages and cultural context." },
-        { title: "The Five-Year Gap", description: "A common and stable gap that usually scores around 85-90%, representing a healthy balance of different experiences." },
-        { title: "The Decade Difference", description: "Scoring around 75-80%, these relationships thrive on the 'Complementary Strengths' found in different generations." }
-      ]
-    },
-    useCases: [
-      "Checking relationship compatibility for fun",
-      "Calculating exact age gap for legal or wedding documents",
-      "Planning joint retirement or milestone celebrations",
-      "Understanding the 'power dynamic' based on age maturity",
-      "Settling friendly debates about who is 'actually' older"
-    ],
-    faqs: [
-      {
-        question: "Is the Love Score actually scientifically accurate?",
-        answer: "While we use mathematical models to calculate the score, relationship success depends on communication, trust, and shared values. Consider this score a fun indicator rather than a scientific absolute."
-      },
-      {
-        question: "Can I use this for non-romantic relationships?",
-        answer: "Absolutely! You can use it to check the age gap between siblings, best friends, or even business partners to see your 'professional compatibility' score."
-      },
-      {
-        question: "Why does the score decrease with a larger age gap?",
-        answer: "The algorithm prioritizes 'shared life stage' as a metric for compatibility. Larger gaps often mean partners are in different phases of their career or life, which requires more effort to synchronize."
-      },
-      {
-        question: "Does the time of birth matter for the calculation?",
-        answer: "Currently, we use the date of birth. For most users, this provides sufficient accuracy down to the day level."
-      },
-      {
-        question: "Is my partner's data safe on this website?",
-        answer: "Yes. All calculations are performed in your browser's local environment. No data is sent to our servers or third-party advertisers."
-      },
-      {
-        question: "What is the 'Golden Age Gap' in relationships?",
-        answer: "Sociologists often cite 1-3 years as the 'Golden Gap' for most stable long-term outcomes, but successful relationships exist across all age ranges."
-      }
-    ]
-  },
-  "/gst-calculator": {
-    toolName: "GST Calculator",
-    mainKeyword: "gst calculator online",
-    secondaryKeywords: [
-      "calculate gst amount",
-      "gst inclusive and exclusive",
-      "india gst tax slabs",
-      "cgst sgst igst calculator",
-      "business tax calculator",
-      "gst calculation formula",
-      "net vs gross amount gst",
-    ],
-    urlSlug: "/gst-calculator",
-    imageAltText: "GST calculator showing net amount, GST rate selection, and tax breakdown",
-    seoTitle: "GST Calculator Online | Add/Remove GST (5%, 12%, 18%, 28%)",
-    metaDescription: "Calculate GST amount instantly with our free GST Calculator. Features for both adding and removing GST. Get breakdown of CGST and SGST.",
-    detailedDescription: `GST (Goods and Services Tax) has revolutionized the indirect tax landscape in many countries, particularly India. Understanding how to calculate it accurately is essential for business owners, accountants, and consumers alike. Our GST Calculator is designed to simplify this process, allowing you to quickly determine the tax component of any transaction. Whether you are creating an invoice or checking the tax on a retail purchase, this tool provides real-time results with professional precision.
-
-The beauty of our tool lies in its flexibility. Different products and services fall under different GST 'slabs'—typically 5%, 12%, 18%, and 28%. Our interface allows you to switch between these rates with a single click. Furthermore, it handles both 'GST Inclusive' (where the tax is already part of the total) and 'GST Exclusive' (where you need to add tax to the base price) scenarios. This 'Add/Remove' functionality is crucial for anyone dealing with complex pricing structures.
-
-For those in countries with a federal tax structure like India, knowing the split between Central GST (CGST) and State GST (SGST) is often a legal requirement on invoices. Our tool automatically performs this split for you, ensuring that your accounting entries are always accurate and compliant with local tax laws. We use the most up-to-date calculation formulas to ensure that rounding errors are eliminated, providing you with a reliable financial companion.
-
-As a platform committed to high-value content, we believe that education is just as important as the tool itself. Below the calculator, you'll find a wealth of information regarding GST laws, sample calculations, and use cases. We want our users to not just get a number, but to understand the logic behind it. This commitment to 'meaningful content' is what makes our platform AdSense compliant and a trusted resource for financial information online.`,
-    usageGuide: {
-      title: "How to Use the GST Calculator Effectively",
-      steps: [
-        "Enter the base amount (Net or Gross) into the primary input field.",
-        "Select the applicable GST percentage from the quick-select buttons (5%, 12%, 18%, or 28%).",
-        "Choose whether you want to 'Add GST' to the base amount or 'Remove GST' from the total amount.",
-        "Toggle between the modes to see how it affects the final calculation.",
-        "Observe the dynamic breakdown of Net Amount, Total GST, CGST, and SGST below.",
-        "Use the calculated values for your invoices, receipts, or tax filings."
-      ]
-    },
-    formula: {
-      title: "GST Calculation Formulas",
-      explanation: "To add GST, multiply the base amount by the tax rate. To remove GST (calculate inclusive tax), use the standard reverse tax formula.",
-      calculation: "Add GST: Total = Amount + (Amount * Rate / 100) | Remove GST: Amount - (Amount * (100 / (100 + Rate)))"
-    },
-    examples: {
-      title: "Common GST Tax Scenarios",
-      list: [
-        { title: "Standard Service (18%)", description: "Calculating tax on a ₹1000 service fee: GST = ₹180, Total = ₹1180." },
-        { title: "Luxury Goods (28%)", description: "Calculating tax on a high-end electronic item worth ₹50,000." },
-        { title: "Inclusive Pricing", description: "Working backward from a ₹500 inclusive price to find the original net price and tax paid." }
-      ]
-    },
-    useCases: [
-      "Creating professional business invoices",
-      "Double-checking tax calculations on shopping bills",
-      "Estimating tax liability for CA and accounting purposes",
-      "Comparing prices across different tax slabs",
-      "Educational purposes for students learning commerce"
-    ],
-    faqs: [
-      {
-        question: "What is the difference between GST Inclusive and Exclusive?",
-        answer: "Inclusive means the price already includes tax. Exclusive means the tax must be added to the base price."
-      },
-      {
-        question: "How is the CGST and SGST split calculated?",
-        answer: "In most cases, the total GST is split equally (50-50) between the Central and State governments."
-      },
-      {
-        question: "Is this calculator suitable for international GST/VAT?",
-        answer: "Yes, you can input any custom rate, making it suitable for VAT or GST in countries other than India as well."
-      },
-      {
-        question: "Will this tool help with GS-T filing?",
-        answer: "This tool helps you calculate the values needed for filing, but you should still use official portals for the actual filing process."
-      },
-      {
-        question: "Is my financial data stored on your server?",
-        answer: "No. All calculations are performed on your local device for maximum privacy and security."
-      }
-    ]
-  },
-  "/emi-calculator": {
-    toolName: "EMI Calculator",
-    mainKeyword: "emi calculator",
-    secondaryKeywords: [
-      "home loan emi calculator",
-      "car loan emi calculator",
-      "personal loan emi calculator",
-      "calculate emi online",
-      "loan repayment calculator",
-    ],
-    urlSlug: "/emi-calculator",
-    imageAltText: "EMI calculator tool with sliders for amount, interest, and tenure",
-    detailedDescription: `Equated Monthly Installments, or EMIs, are a ubiquitous part of modern financial life. Whether you are purchasing your dream home, a new vehicle, or funding a major personal project, understanding the long-term cost of borrowing is essential for financial stability. Our EMI Calculator is a professional-grade simulation tool designed to give you absolute clarity on your monthly financial obligations before you sign any loan agreement.
-
-The fundamental principle of an EMI is the distribution of total debt—both principal and interest—over a fixed period of time. While banks and financial institutions provide their own calculators, they often hide the true cost of interest or fail to provide a detailed amortization schedule. Our laboratory tool provides a transparent, side-by-side breakdown of how much of your payment goes towards reducing your debt and how much is absorbed by interest costs over time.
-
-Calculating an EMI manually involves complex mathematical formulas involving interest rates per month and compounding periods. Our calculator automates this using industry-standard financial algorithms, ensuring that your results are accurate down to the last cent. This allows you to experiment with different loan scenarios—such as varying the interest rate by just 0.1% or extending the tenure by 12 months—to see the dramatic impact these small changes can have on your total interest outgo.
-
-In the context of wealth management, the 'cost of borrowing' is one of the most important metrics to minimize. A high-interest loan can siphon away thousands of dollars that could otherwise be invested. By using our EMI Calculator, you can identify the 'sweet spot' in your loan structure where you balance monthly affordability with minimal interest expense. This 'financial laboratory' approach empowers you to negotiate better terms with your lender, backed by data you generated yourself.
-
-Security and privacy are also paramount when dealing with financial figures. Many fintech sites require you to enter personal details, which are then used to target you with aggressive credit card or loan offers. KooBrain's EMI Calculator is built on a 'Privacy First' architecture. All calculations are performed on your local machine. Your loan amount, interest rate, and income data never leave your browser. We provide the utility you need without the privacy compromises common in the industry.
-
-Furthermore, our tool goes beyond just the monthly number. We provide a visual breakdown of your total repayment amount, clearly showing the ratio of principal to interest. This visualization is crucial for understanding why 'shorter tenure' is almost always better if you can afford the monthly payment. It's an educational resource designed to improve your financial literacy while serving as a high-precision utility for your daily life.
-
-As you plan for large life events—like a wedding, a child's education, or retirement—knowing your EMI capacity is the first step in budgeting. Our tool helps you avoid 'debt traps' by allowing you to stress-test your finances. What if interest rates rise? What if your income changes? By running these scenarios in our simulator, you can make decisions that protect your family's financial future.
-
-We believe that every borrower deserves access to the same high-quality data used by banking professionals. Our EMI Calculator is part of our mission to democratize financial tools, making them free, fast, and accessible to everyone, everywhere. Whether you are a first-time homebuyer or a seasoned real estate investor, KooBrain provides the mathematical rigor and user experience you need to manage your debt effectively.
-
-The amortization logic used in our tool follows the 'Reducing Balance' method, which is the standard for most modern banking products. In this method, the interest is calculated on the outstanding principal at the end of each month. As you pay off your loan, the interest portion of your EMI decreases, and the principal portion increases. Understanding this trajectory is key to knowing when 'pre-payment' or 'refinancing' makes the most sense for your portfolio.
-
-KooBrain is committed to providing a content-rich environment where utility meets education. We provide the formulas, the logic, and the practical examples you need to become your own financial analyst. Use our EMI Calculator today to take control of your debt and plan your journey toward financial freedom with confidence.`,
-    usageGuide: {
-      title: "How to Use the Professional EMI Laboratory",
-      steps: [
-        "Enter the 'Loan Amount' you intend to borrow into the primary input field or adjust the slider for quick changes.",
-        "Input the annual 'Interest Rate' offered by your lender (use decimal points for high precision).",
-        "Set the 'Loan Tenure' in years or months to define the repayment period.",
-        "The calculator will instantly refresh and display your 'Monthly EMI' in the large results panel.",
-        "Examine the 'Total Interest' and 'Total Payment' figures to understand the full cost of the loan.",
-        "Review the color-coded chart to see the visual ratio of principal versus interest in your repayment plan."
-      ]
-    },
-    formula: {
-      title: "The Standard EMI Calculation Formula",
-      explanation: "EMIs are calculated using the formula for an annuity: P * r * (1 + r)^n / ((1 + r)^n - 1). Here, P is the principal loan amount, r is the monthly interest rate (calculated as Annual Rate / 12 / 100), and n is the total number of monthly installments (tenure in years * 12).",
-      calculation: "EMI = [P x R x (1+R)^N] / [(1+R)^N - 1]"
-    },
-    examples: {
-      title: "Loan Repayment Scenarios",
-      list: [
-        { title: "Standard Home Loan", description: "Calculating the monthly cost for a $250,000 mortgage at 4.5% interest over 30 years to check monthly budget fit." },
-        { title: "High-Interest Car Loan", description: "Comparing a 5-year loan vs a 3-year loan for a $30,000 vehicle to see how much interest can be saved by a shorter term." },
-        { title: "Personal Debt Consolidation", description: "Visualizing the monthly savings when consolidating multiple high-interest credit cards into a single lower-interest personal loan." },
-        { title: "Mortgage Refinancing", description: "Checking if a 0.5% reduction in interest rate justifies the closing costs of a new loan by calculating the monthly difference." }
-      ]
-    },
-    useCases: [
-      "Budgeting for a new home or vehicle purchase",
-      "Comparing different loan offers from multiple banks",
-      "Calculating the impact of pre-payments on your total loan tenure",
-      "Explaining loan mechanics to students or first-time borrowers",
-      "Strategic financial planning for debt-free living"
-    ],
-    faqs: [
-      {
-        question: "What is the difference between Fixed and Reducing interest rates?",
-        answer: "Fixed rates are calculated on the original principal, while Reducing rates (which our tool uses) calculate interest only on the remaining debt."
-      },
-      {
-        question: "Does the EMI amount change over the loan period?",
-        answer: "Usually, the EMI remains constant, but the proportion of your payment going to principal vs. interest changes every month."
-      },
-      {
-        question: "Can I use this tool for an APR (Annual Percentage Rate) calculation?",
-        answer: "Yes, if you enter the all-inclusive APR as the interest rate, the EMI will reflect the total cost including fees."
-      },
-      {
-        question: "Is there a maximum loan amount or tenure I can enter?",
-        answer: "Our tool supports a wide range of values suitable for everything from small personal loans to multi-million dollar mortgages."
-      },
-      {
-        question: "How can I reduce my monthly EMI?",
-        answer: "You can reduce your EMI by decreasing the loan amount, negotiating a lower interest rate, or increasing the loan tenure (though the latter increases total interest)."
-      },
-      {
-        question: "Does this account for processing fees or property taxes?",
-        answer: "Our calculator focuses on the banks' interest and principal logic. Always add your specific local fees to the total monthly cost."
-      }
-    ]
-  },
-  "/base64-encode": {
-    toolName: "Base64 Encoder",
-    mainKeyword: "base64 encode online",
-    secondaryKeywords: [
-      "binary to base64 converter",
-      "text to base64 tool",
-      "encode string to base64",
-      "what is base64 encoding",
-      "base64 image encoder",
-    ],
-    urlSlug: "/base64-encode",
-    imageAltText: "Base64 encoder tool showing text input converted to a standard Base64 string",
-    detailedDescription: `Base64 encoding is a fundamental process in computer science and web development. It is an encoding scheme that represents binary data in an ASCII string format. Our Base64 Encoder is a professional-grade utility designed to help developers, data scientists, and technical enthusiasts convert plain text or binary files into safe, cross-platform strings in milliseconds. 
-
-The primary purpose of Base64 is to ensure that data remains intact during transmission across systems that may not support binary formats. This is particularly crucial in email systems (MIME) and data URIs within HTML and CSS. By using a 64-character set—consisting of A-Z, a-z, 0-9, and the characters "+" and "/"—Base64 transforms any input into a format that is 100% safe for internet protocols. Our tool follows the RFC 4648 standard, ensuring that every string you generate is compatible with any modern programming language or server architecture.
-
-In the context of modern web architecture, Base64 is frequently used for 'Image Embedding.' Instead of making multiple HTTP requests for small icons or sprites, developers often encode these images into Base64 strings directly within their CSS files. This technique reduces latency and improves page load speeds, a key factor in SEO and user experience. KooBrain's encoder provides a clean, local-only environment for this operation. Because our tool runs entirely in your browser, your sensitive data, proprietary code, or private images never touch our servers, maintaining absolute data sovereignty.
-
-Understanding the 'inflation' of data is also important for performance. Base64 strings are typically about 33% larger than the original binary data. Our tool provides a transparent visualization of the byte size both before and after encoding, helping you make informed decisions about whether to use Base64 for a specific use case. We believe that empowering users with data is just as important as providing the utility itself.
-
-The history of Base64 dates back to the early days of networked computing when systems were often incompatible in how they handled non-printable characters. Today, it remains essential for handling cryptographic keys, transmitting certificates, and embedding data in JSON-based APIs. By using our Base64 Encoder, you are accessing a robust, mathematically precise implementation of this classic algorithm, optimized for the scale and speed of the modern web.
-
-We are committed to providing a high-value content platform. Beyond the simple utility, we offer insights into the encoding process, padding rules (the "=" character), and the character set variations used in different protocols like 'Base64URL.' Our goal is to transform a routine technical task into an educational opportunity, helping you understand the underlying mechanics of the data you work with every day.`,
-    usageGuide: {
-      title: "How to Use the Pro Base64 Encoder",
-      steps: [
-        "Paste your plain text, XML, JSON, or any other data into the 'Input' container.",
-        "Alternatively, upload a file if you need to encode a binary asset for a Data URI.",
-        "The encoder will automatically detect the input and generate the Base64 string in real-time.",
-        "Review the 'Before' vs 'After' byte count to understand the data inflation ratio.",
-        "Click the 'Copy to Clipboard' button to use the result in your code or documentation.",
-        "Use the 'Download' option if you prefer to save the result as a text file for larger payloads."
-      ]
-    },
-    formula: {
-      title: "The Base64 Algorithm Logic",
-      explanation: "Base64 works by splitting the data into 6-bit chunks. Since every 6-bit chunk maps to a specific character in the 64-character set, it converts 3 bytes of binary data into 4 characters of Base64. Padding with '=' is used if the input bytes are not divisible by 3.",
-      calculation: "3 Bytes (24 bits) → 4 Base64 Characters (6 bits × 4)"
-    },
-    examples: {
-      title: "Base64 Encoding Scenarios",
-      list: [
-        { title: "MIME Email Attachments", description: "Encoding an image or document so it can be safely sent through a legacy SMTP server." },
-        { title: "HTML Data URIs", description: "Embedding a tiny SVG icon directly into a <img> tag to save an extra server request." },
-        { title: "API Authentication", description: "Encoding 'username:password' for use in the 'Authorization: Basic' header of an HTTP request." },
-        { title: "JWT Payload Storage", description: "Representing JSON states in a URL-safe format for session management." }
-      ]
-    },
-    useCases: [
-      "Securing data transmission in non-binary systems",
-      "Embedding small binary assets in HTML or CSS",
-      "Handling cryptographic keys and certificates",
-      "Developing and testing API authentication headers",
-      "Privacy-focused data preparation with local-only processing"
-    ],
-    faqs: [
-      {
-        question: "Does Base64 encoding encrypt my data?",
-        answer: "No. Base64 is an encoding format, not an encryption method. Anyone who has the string can easily decode it back to the original form."
-      },
-      {
-        question: "Why do some Base64 strings end with '='?",
-        answer: "The '=' character is used as padding to ensure the final Base64 string length is a multiple of 4, as required by the algorithm."
-      },
-      {
-        question: "Is there a limit to how much data I can encode?",
-        answer: "Our tool handles several megabytes of data comfortably. For gigabyte-scale files, a specialized terminal tool is recommended."
-      },
-      {
-        question: "Can I use Base64 strings in a URL?",
-        answer: "Standard Base64 contains '+' and '/' which are not URL-safe. For URLs, you should use the 'Base64URL' variant which replaces those characters."
-      },
-      {
-        question: "Is my data sent to a server for encoding?",
-        answer: "No. KooBrain's encoder is 100% client-side. All processing happens in your browser, keeping your data private and secure."
-      },
-      {
-        question: "Why is the Base64 string larger than the original text?",
-        answer: "Because Base64 uses 4 characters to represent every 3 bytes of data, the resulting string is approximately 33% larger than the input."
-      }
-    ]
-  },
-  "/base64-decode": {
-    toolName: "Base64 Decoder",
-    mainKeyword: "base64 decode online",
-    secondaryKeywords: [
-      "base64 string to text",
-      "decoder for base64 strings",
-      "base64 to binary converter",
-      "how to decode base64",
-      "restore image from base64",
-    ],
-    urlSlug: "/base64-decode",
-    imageAltText: "Base64 decoder tool restoring an original text string from an encoded input",
-    detailedDescription: `Decoding Base64 is the reverse process of the fundamental encoding scheme used widely across the web. Whether you've encountered an encoded string in a source file, a JWT token, or a raw email header, our Base64 Decoder is the precision tool you need to restore the data to its original, human-readable form. 
-
-At its core, decoding involves translating 6-bit character groups back into the original 8-bit bytes. This is a mathematically exact process, but it requires a decoder that can handle various character sets and potential formatting issues like extra whitespace or missing padding. Our implementation is designed for technical accuracy, following the RFC 4648 standard precisely to ensure that no data is lost during the conversion.
-
-One of the most powerful features of our decoder is its 'Multi-Format Output.' When you paste a string, our tool doesn't just try to show you text; it attempts to detect the underlying data type. If the encoded data is an image, we provide a preview; if it's JSON or XML, we provide syntax highlighting. This intelligence makes KooBrain more than a simple converter—it's a forensic tool for data analysis.
-
-Privacy and security are of paramount importance when decoding. Often, Base64 strings contain sensitive information like passwords, API keys, or private user data. Using a third-party server to decode these strings is a high-risk activity. KooBrain's Base64 Decoder operates entirely within your local environment (the browser). We never transmit your encoded input or the decoded output to any external server. Your data remains on your machine, where it belongs.
-
-We also believe in the importance of teaching the 'why' alongside the 'how.' Our platform provides detailed explanations of common decoding errors, such as 'Invalid Character' or 'Incorrect Padding' errors. By understanding these edge cases, you become a more resilient and effective developer. We are dedicated to building a content-rich resource that serves as a trusted guide for developers and students alike.
-
-Whether you are debugging a complex backend application, studying network protocols, or simply satisfying your curiosity about how data is moved across the internet, the KooBrain Base64 Decoder provides the speed, accuracy, and security you need. Join thousands of developers who trust our platform for high-performance, private, and educational data tools.`,
-    usageGuide: {
-      title: "How to Use the Pro Base64 Decoder",
-      steps: [
-        "Paste the Base64-encoded string into the 'Input' section of the tool.",
-        "The tool will instantly begin decoding and attempt to identify the original data format.",
-        "Check the 'Output Type' detector to see if the data is recognized as Plain Text, JSON, or an Image.",
-        "Use the 'Formatted View' if the result is a code-based format like XML or HTML.",
-        "Download the resulting data as a file if it represents a binary asset (like a PDF or Zip).",
-        "Click 'Clear' to reset the tool for your next batch of data analysis."
-      ]
-    },
-    formula: {
-      title: "The Decoding Logic",
-      explanation: "The decoder reverses the mapping from the 64-character ASCII set back to 6-bit numbers. It then concatenates these 6-bit groups into a long bitstream and carves it back into the original 8-bit bytes (Octets).",
-      calculation: "4 Base64 Characters → 3 Bytes (24 pits)"
-    },
-    examples: {
-      title: "Practical Decoding Scenarios",
-      list: [
-        { title: "Inspecting JWT Payloads", description: "Decoding the middle section of a JSON Web Token to see the stored user claims and metadata." },
-        { title: "Recovering Images", description: "Turning a long string found in an old CSS file back into the original PNG or SVG logo." },
-        { title: "Debugging API Requests", description: "Decoding 'Basic' authentication headers to verify the credentials being sent to a server." },
-        { title: "Content Restoration", description: "Restoring corrupted text blobs from legacy databases that were stored in Base64 for safety." }
-      ]
-    },
-    useCases: [
-      "Restoring data integrity from encoded sources",
-      "Validating the content of encoded API tokens",
-      "Analysis of localized or legacy database records",
-      "Restoring binary assets from Data URIs",
-      "High-security data inspection with local-only processing"
-    ],
-    faqs: [
-      {
-        question: "Can I decode a Base64 string that has no padding?",
-        answer: "Yes. While standard Base64 requires '=' padding, many modern libraries omit it. Our tool is smart enough to handle missing padding automatically."
-      },
-      {
-        question: "Why does my output look like gibberish?",
-        answer: "This usually happens if you are decoding binary data (like a Zip file) as plain text. Try the 'Download' option to save it as a file instead."
-      },
-      {
-        question: "Is there a way to decode Base64 safely?",
-        answer: "The safest way is to use a client-side tool like KooBrain. This ensures that sensitive data (like credentials) is never sent over the network to a third-party server."
-      },
-      {
-        question: "What is 'Base64URL' and can you decode it?",
-        answer: "Base64URL uses '-' and '_' instead of '+' and '/'. Our tool is designed to recognize and decode both formats seamlessly."
-      },
-      {
-        question: "Does decoding change the file size?",
-        answer: "Yes. Decoding restores the data to its original size, which is approximately 25-33% smaller than the encoded Base64 string."
-      },
-      {
-        question: "Can this tool handle non-UTF-8 characters?",
-        answer: "Yes, our decoder handles various character encodings. If your data was encoded from a different format, the bytes will still be restored accurately."
-      }
-    ]
-  },
-  "/url-encode": {
-    toolName: "URL Encoder",
-    mainKeyword: "url encode online",
-    secondaryKeywords: [
-      "percent encoding tool",
-      "make url safe online",
-      "encode query parameters",
-      "what is percent encoding",
-      "online uri encoder",
-    ],
-    urlSlug: "/url-encode",
-    imageAltText: "URL encoder tool converting a complex URL with special characters into a safe, percent-encoded format",
-    detailedDescription: `URL Encoding, officially known as 'Percent-encoding,' is an essential mechanism for ensuring that information in a Uniform Resource Identifier (URI) is transmitted reliably. Not all characters are allowed in a URL; certain characters have reserved meanings (like '?' or '&'), while others are considered 'unsafe' because they could be misinterpreted by servers or browsers. Our URL Encoder is a professional utility that sanitizes your strings, ensuring they are perfectly formatted for any network protocol.
-
-The core principle behind URL Encoding is to replace non-ASCII and reserved characters with a '%' followed by their hexadecimal value. This creates a universally understood string that can pass through even the most restrictive internet gatekeepers. For example, a space character is replaced by '%20' or a '+' symbol. Our tool follows the latest RFC 3986 standards, providing you with the most up-to-date and compatible encoding logic available today.
-
-In the world of Digital Marketing and SEO, URL Encoding is particularly important for 'Query Parameters.' When sending user data through a URL—such as a search query or an email address—failure to encode can result in broken links or malicious attacks like 'Parameter Pollution.' By using the KooBrain encoder, you ensure that your marketing links and API calls are robust and secure.
-
-Performance and usability are at the heart of our design. We've built an interactive interface that shows you exactly which characters are being encoded and why. This level of transparency helps you understand the transformation of your data, making you a more knowledgeable professional. Like all our tools, the URL Encoder is 'Privacy First.' Since all encoding happens in your browser's local sandbox, the URLs you are building—which might contain confidential project names or user IDs—never leave your device.
-
-We also cater to localized needs. Our tool supports full UTF-8 encoding, meaning you can safely encode URLs containing emojis, international characters (Cyrillic, Kanji, etc.), and complex symbols. This makes KooBrain a global resource for the modern, multilingual web. Every tool we build is a combination of high-precision mathematics and high-fidelity user experience, designed to help you build a better internet.
-
-Whether you're an SEO expert building tracking URLs, a developer constructing API requests, or a student learning about web protocols, the KooBrain URL Encoder is the definitive resource for your daily tasks. We are committed to providing educational, secure, and ultra-fast tools that empower your digital journey.`,
-    usageGuide: {
-      title: "How to Use the Pro URL Encoder",
-      steps: [
-        "Paste your raw URL, path, or query string into the 'Input' field.",
-        "Choose whether you want to encode 'All' characters or only those that are strictly 'Reserved'.",
-        "The tool will provide an instant, percent-encoded string in the output panel below.",
-        "Review the 'Anatomy of the Encoded String' to see which hex values were assigned to your inputs.",
-        "Click 'Copy' to use the safe URL in your browser, code, or marketing spreadsheets.",
-        "Toggle 'Space to plus' if you are specifically building a query string format."
-      ]
-    },
-    formula: {
-      title: "The Percent-Encoding Logic",
-      explanation: "Characters are converted to their UTF-8 byte values, then represented as a '%' followed by two hexadecimal digits. Unreserved characters (A-Z, a-z, 0-9, '-', '.', '_', '~') are never encoded.",
-      calculation: "Character → UTF-8 Hex → %HH"
-    },
-    examples: {
-      title: "Practical URL Encoding Scenarios",
-      list: [
-        { title: "Safe Search Queries", description: "Encoding symbols like '#' or '&' in a search box so they don't break the query string structure." },
-        { title: "UTM Tracking Links", description: "Making sure your marketing campaign names with spaces and symbols are safe for browser address bars." },
-        { title: "API Path Construction", description: "Encoding dynamic IDs or names that might contain slashes or dots to prevent routing errors." },
-        { title: "International Domains", description: "Safe transmission of non-ASCII characters in a URL path for global accessibility." }
-      ]
-    },
-    useCases: [
-      "Securing query parameters in web applications",
-      "Building robust marketing and tracking links",
-      "Preventing 'Invalid URI' errors in server logs",
-      "Safe transmission of international and non-ASCII characters",
-      "Educational exploration of web protocol standards"
-    ],
-    faqs: [
-      {
-        question: "Why should I encode my URLs?",
-        answer: "To prevent browsers and servers from misinterpreting special characters, which can lead to broken links or security vulnerabilities."
-      },
-      {
-        question: "What is the difference between URL encode and URI encode?",
-        answer: "URL encoding usually targets a specific part of a URL (like a parameter), while URI encoding is often more comprehensive for the entire address."
-      },
-      {
-        question: "Does this tool support UTF-8 characters?",
-        answer: "Yes! Our encoder fully supports multi-byte UTF-8 sequences, making it safe for all languages and emojis."
-      },
-      {
-        question: "Why is a space encoded as %20 or +?",
-        answer: "%20 is the standard hex code for a space. In query strings specifically, a '+' is often used as a shorthand, and our tool supports both."
-      },
-      {
-        question: "Is percent-encoding permanent?",
-        answer: "No. It is a completely reversible process. You can use our URL Decoder to restore the original string at any time."
-      },
-      {
-        question: "Is my data private when using this tool?",
-        answer: "Absolutely. 100% of the encoding is done in your browser. No URL data is ever transmitted to Koobrain's servers."
-      }
-    ]
-  },
-  "/url-decode": {
-    toolName: "URL Decoder",
-    mainKeyword: "url decode online",
-    secondaryKeywords: [
-      "percent decoding tool",
-      "convert encoded url to text",
-      "decode url online free",
-      "how to read percent encoding",
-      "uri decoding utility",
-    ],
-    urlSlug: "/url-decode",
-    imageAltText: "URL decoder tool restoring a complex percent-encoded string to a human-readable URL",
-    detailedDescription: `URL Decoding is the essential counterpart to percent-encoding, allowing humans to make sense of the dense, character-heavy strings used by web protocols. Whether you're a developer investigating an encoded parameter in a server log or a digital marketer trying to audit a tracking link, our URL Decoder is designed to provide instant, accurate, and secure results. It strips away the percent-signs and hexadecimal codes, restoring your data to its original, legible form.
-
-The process of decoding involves identifying every occurrence of the '%' symbol followed by two hexadecimal digits and translating that sequence back into the corresponding UTF-8 character. This requires a decoder that is not only mathematically precise but also capable of handling various character encodings if the source was non-standard. KooBrain's decoder is built to handle these complexities, providing a robust 'Fail-Safe' mechanism that gracefully handles malformed encoded strings.
-
-In professional environments, 'Data Traceability' is key. When a link breaks or an API returns an error, the cause is often hidden inside an encoded URL. Our tool helps you quickly 'see through' the encoding to find the root cause, such as an accidentally twice-encoded character or an incorrectly handled space. We provide a 'Side-by-Side' visualization that highlights exactly where the transformations happened, saving you valuable hours of manual inspection.
-
-Privacy is a core value of the KooBrain platform. URLs often contain highly sensitive data—tracking IDs, personal names, internal system paths, or even tokens. Using an online decoder that logs your input is a significant vulnerability. Our URL Decoder is strictly client-side. All transformations happen within your browser's memory, ensuring that your URLs never leave your device. This 'Security-by-Design' approach makes KooBrain the trusted choice for hundreds of privacy-conscious organizations.
-
-We are dedicated to building a content-rich resource that goes beyond mere utility. Our platform includes guides on 'URL Best Practices,' explanations of 'The Anatomy of a URL,' and tips for ensuring cross-browser compatibility. We believe that by providing the 'why' alongside the tool, we help cultivate a more skilled and security-aware digital workforce.
-
-Accelerate your workflow with the KooBrain URL Decoder. Whether you're an engineering leader, a marketing director, or a student just starting your digital journey, our platform provides the high-fidelity tools and high-value knowledge you need to succeed in the modern web landscape.`,
-    usageGuide: {
-      title: "How to Use the Pro URL Decoder",
-      steps: [
-        "Copy the percent-encoded URL or query string from your browser or log file.",
-        "Paste the string into the 'Input' container of the URL Decoder.",
-        "Choose whether '+' should be interpreted as a 'Space' (common in query strings) or kept as-is.",
-        "The tool will instantly show the human-readable string in the 'Output' pane below.",
-        "Review any 'Encoding Alerts' if the input format was non-standard or malformed.",
-        "Copy the decoded string or download it as a text file for your records."
-      ]
-    },
-    formula: {
-      title: "The Decoding Logic",
-      explanation: "The decoder scans the string for the '%' character. It takes the following two hex digits, converts them to a byte value, and identifies the character in the UTF-8 character map. All other characters are left unchanged.",
-      calculation: "%HH → UTF-8 Hex → Character"
-    },
-    examples: {
-      title: "Practical URL Decoding Scenarios",
-      list: [
-        { title: "Analyzing Tracking Links", description: "Restoring UTM parameters to readable names to verify campaign settings." },
-        { title: "Debugging Web Server Logs", description: "Identifying the actual paths and search terms used by visitors from raw access logs." },
-        { title: "Token Inspection", description: "Decoding encoded segments of a URL that might contain session data or authentication tokens." },
-        { title: "Restoring International Paths", description: "Viewing foreign-language paths that were converted into a long string of percent codes." }
-      ]
-    },
-    useCases: [
-      "Auditing and validating complex marketing links",
-      "Debugging server errors and pathing issues",
-      "Analysis of user behavior from encoded query strings",
-      "Restoring readability to international and emoji-heavy paths",
-      "Privacy-focused diagnostic work with local-only processing"
-    ],
-    faqs: [
-      {
-        question: "What is an 'Invalid URI' error?",
-        answer: "This happens if a '%' is not followed by two hex digits. Our tool will highlight exactly where the error occurred."
-      },
-      {
-        question: "Should I decode the entire URL or just a part?",
-        answer: "Usually, you only want to decode the 'Query' or 'Path' sections. Decoding the protocol (https://) or hostname can sometimes lead to invalid URLs."
-      },
-      {
-        question: "Does this tool work with emojis in URLs?",
-        answer: "Yes! Since emojis are multi-byte UTF-8 sequences, our decoder will restore them perfectly from their percent-encoded forms."
-      },
-      {
-        question: "Why do some decoders fail on '+' characters?",
-        answer: "The '+' can mean a literal plus or a space. Our tool allows you to toggle this behavior to ensure the most accurate decoding for your specific case."
-      },
-      {
-        question: "Is it safe to decode private tokens here?",
-        answer: "Yes. All decoding is done locally in your browser. No URL data is ever transmitted to Koobrain's servers."
-      },
-      {
-        question: "Why do some URLs have many %25 symbols?",
-        answer: "This indicates 'Double Encoding,' where a string was encoded twice. Decoding it once will reveal another encoded string."
-      }
-    ]
-  },
-  "/unicode-converter": {
-    toolName: "Unicode Converter",
-    mainKeyword: "unicode converter online",
-    secondaryKeywords: [
-      "text to unicode escape",
-      "unicode to plain text",
-      "convert unicode online free",
-      "hex unicode converter",
-      "look up unicode characters",
-    ],
-    urlSlug: "/unicode-converter",
-    imageAltText: "Unicode converter tool showing text being transformed into platform-independent hex codes",
-    detailedDescription: `The global nature of the modern web requires a robust way to represent characters from every language, script, and symbol set. Unicode is the industry standard that provides this universality. Our Unicode Converter is a high-precision developer utility designed to bridge the gap between human-readable text and the underlying numerical representations used by machines. Whether you're a localized software engineer or a curious student, this tool provides the transparency you need to manage international data safely.
-
-Unicode works by assigning a unique 'Code Point' to every character, regardless of the platform, program, or language. Our tool allows you to convert text into several formats, including Hexadecimal, Decimal, and several 'Escape Sequence' formats like \\uXXXX (used in JavaScript and Java) or &#XXXX; (used in HTML). This capability is crucial for preventing 'Mojibake'—those random, unreadable characters that appear when systems disagree on encoding. By using our converter, you ensure your strings are perfectly portable.
-
-Beyond simple conversion, our tool serves as an educational 'Unicode Laboratory.' As you type, we provide the official Unicode names and categories for each character. Did you know that the 'Face with Tears of Joy' emoji is officially U+1F602? Our tool reveals these details, turning a technical task into a learning experience. This high-fidelity information is essential for developers debugging character set issues in databases or API payloads.
-
-Security and privacy are interwoven into everything we build at KooBrain. When you convert sensitive text or proprietary strings, you need a tool that you can trust. Our Unicode Converter is 100% client-side. The conversion logic runs in your browser's private sandbox, meaning your input never travels to our servers. This ensures complete data integrity and privacy for every user. 
-
-We are committed to AdSense compliance through high-value, unique content. Our platform offers more than just a converter; we provide deep insights into 'UTF-8' vs 'UTF-16', the 'Basic Multilingual Plane' (BMP), and how modern browsers handle surrogate pairs. We don't just transform your data; we help you understand the architecture of global information exchange.
-
-Experience the fast, secure, and educational Unicode Converter at KooBrain. Join the thousands of professionals who rely on our platform for their mission-critical data transformations and character set analysis.`,
-    usageGuide: {
-      title: "How to Use the Pro Unicode Laboratory",
-      steps: [
-        "Paste the text or the Unicode escape sequences into the 'Input' container.",
-        "Choose your desired output format (Hex, Decimal, or Escape Sequence).",
-        "The tool will instantly perform the conversion as you type in real-time.",
-        "Examine the 'Character Metadata' section for official names and categories.",
-        "Click the 'Copy' button to move the result to your clipboard or documentation.",
-        "Clear the tool to start analyzing a new set of international characters."
-      ]
-    },
-    formula: {
-      title: "Character Mapping Logic",
-      explanation: "Each character is mapped to its unique position in the Unicode standard. We then represent that numerical index in the chosen base (usually base 16 for Hex) or apply a specific programming language's escape syntax.",
-      calculation: "Character → Unicode Code Point → Formatted Output"
-    },
-    examples: {
-      title: "Practical Unicode Scenarios",
-      list: [
-        { title: "HTML Entity Encoding", description: "Converting symbols like '©' to '&copy;' or '&#169;' for safe rendering in legacy browsers." },
-        { title: "JavaScript String Escaping", description: "Using '\\uXXXX' to safely represent emojis or non-ASCII characters in source code files." },
-        { title: "Database Debugging", description: "Identifying the exact hex code of a character to find encoding mismatches in a SQL table." },
-        { title: "Internationalization (i18n)", description: "Preparing strings for localization files by ensuring they use platform-independent codes." }
-      ]
-    },
-    useCases: [
-      "Securing strings for cross-platform data transmission",
-      "Debugging character set and encoding issues in databases",
-      "Learning the official naming and categorization of symbols",
-      "Preparing text for inclusion in web and software source code",
-      "Safe and private character analysis with local-only processing"
-    ],
-    faqs: [
-      {
-        question: "What is a Unicode Code Point?",
-        answer: "It is a unique number assigned to each character in the Unicode standard, usually written as 'U+' followed by hexadecimal digits."
-      },
-      {
-        question: "Is Unicode the same as UTF-8?",
-        answer: "Unicode is the standard (the map), while UTF-8 is one way to encode those numbers into actual bytes (the delivery mechanism)."
-      },
-      {
-        question: "Why do some characters show up as boxes?",
-        answer: "This happens if your system doesn't have a font installed that can render that specific Unicode character. The data itself is still correct."
-      },
-      {
-        question: "Does this tool support emojis?",
-        answer: "Absolutely! Emojis are just specialized Unicode characters, and our tool can decode and analyze them perfectly."
-      },
-      {
-        question: "Is it safe to convert private data here?",
-        answer: "Yes. All conversion logic is client-side. Your data never leaves your computer or is seen by Koobrain's servers."
-      },
-      {
-        question: "Can I convert large blocks of text?",
-        answer: "Yes, our tool is optimized for performance and can process large datasets instantly within your browser window."
-      }
-    ]
-  },
-  "/word-counter": {
-    toolName: "Word Counter",
-    mainKeyword: "word counter online",
-    secondaryKeywords: [
-      "character count tool",
-      "count words in text",
-      "essay word count online",
-      "sentence and paragraph counter",
-      "writing tool for SEO",
-    ],
-    urlSlug: "/word-counter",
-    imageAltText: "Word counter tool showing real-time statistics for words, characters, and reading time",
-    detailedDescription: `Writing high-quality content requires more than just creativity; it requires precision and control. Whether you're a professional author, a student writing an essay, or a digital marketer optimizing for SEO, our Word Counter is the ultimate dashboard for your text analysis. It provides real-time, high-fidelity statistics that help you meet strict length requirements while improving the impact of your message.
-
-Most online counters stop at word and character totals. KooBrain's Word Counter goes much deeper, providing insights into 'Top Keyword Density,' 'Average Sentence Length,' and 'Estimated Reading Time.' These metrics are critical for modern content creation. By understanding how often you use certain words, you can avoid repetition and improve your SEO ranking. By monitoring reading time, you can cater your content to the attention spans of your specific audience.
-
-Usability and speed are at the core of our technical philosophy. Our counter features a 'Ghost-Writing' mode, where the statistics update instantly as you type without any lag. This seamless experience allows you to stay in the 'flow state' while maintaining absolute control over your project's scope. Additionally, we provide specialized counters for social media platforms like Twitter, LinkedIn, and Instagram, ensuring your posts are never cut off by character limits.
-
-Privacy is a non-negotiable standard at KooBrain. Your writing is your intellectual property, and often contains sensitive drafts or proprietary research. Most online word counters log your text to improve their algorithms or sell data to advertisers. Our Word Counter is 100% client-side. Your text never leaves your browser and is never stored on any server. You can write your most confidential documents with the absolute certainty of private processing.
-
-We are committed to AdSense compliance by offering detailed, high-value educational content beside our tools. Our platform includes guides on 'SEO Writing Best Practices,' 'How to Improve Readability Scores,' and 'The Ideal Word Count for Blog Posts in 2024.' We believe in empowering our users with both the tools and the knowledge to become better communicators.
-
-Join the thousands of authors and professionals who chose KooBrain for its speed, privacy, and analytical depth. Whether you are writing the next great novel or a high-converting marketing email, our Word Counter provides the precision you need to succeed.`,
-    usageGuide: {
-      title: "How to Use the Pro Content Dashboard",
-      steps: [
-        "Type your content directly into the editor or paste your text from another document.",
-        "Watch the 'Live Statistics' panel update instantly with word, character, and sentence counts.",
-        "Review the 'Keyword Cloud' to see which words are appearing most frequently in your text.",
-        "Check the 'Readability' section to see the estimated time required for an average user to read your work.",
-        "Use the 'Export' button to download your analysis or 'Copy' the text for publishing.",
-        "Clear the editor to start fresh with a new content project."
-      ]
-    },
-    formula: {
-      title: "Text Analysis Methodology",
-      explanation: "Words are identified using regular expressions that detect whitespace and punctuation boundaries. Reading time is calculated based on a global average of 225 words per minute. Keyword density is determined by the relative frequency of unique word stems.",
-      calculation: "Words = Text.split(/\\s+/).length"
-    },
-    examples: {
-      title: "Practical Counting Scenarios",
-      list: [
-        { title: "SEO Optimization", description: "Ensuring your blog post meets the 1500-word target for competitive search ranking." },
-        { title: "Social Media Planning", description: "Drafting the perfect LinkedIn post that stays within the 3000-character limit for maximum engagement." },
-        { title: "Academic Essay Writing", description: "Staying within the strict word count range specified by university professors." },
-        { title: "Marketing Email Drafts", description: "Controlling sentence length to ensure high readability and conversion on mobile devices." }
-      ]
-    },
-    useCases: [
-      "Meeting strict word count requirements for publishing",
-      "Analyzing keyword density for search engine optimization",
-      "Improving text readability and engagement scoring",
-      "Drafting and controlling social media post length",
-      "Safe and private content creation with local-only processing"
-    ],
-    faqs: [
-      {
-        question: "Does this counter include spaces in the character count?",
-        answer: "Yes, we provide two counts: total characters (including spaces) and characters excluding spaces, as different platforms have different rules."
-      },
-      {
-        question: "Is there a limit on how much text I can count?",
-        answer: "Our tool is highly optimized and can handle documents up to 50,000 words without any performance loss."
-      },
-      {
-        question: "How is 'Reading Time' calculated?",
-        answer: "We use the industry-standard rate of 225 words per minute for adults. This is a good baseline for most web-based content."
-      },
-      {
-        question: "Does it count words in other languages?",
-        answer: "Yes! Our regex-based counting engine is compatible with all Latin-based scripts and handles specialized symbols and punctuation correctly."
-      },
-      {
-        question: "Is my text saved on your servers?",
-        answer: "No. KooBrain processes all text locally in your browser. We never see, store, or sell any of the text you input."
-      },
-      {
-        question: "What is an ideal keyword density?",
-        answer: "Generally, staying between 1% and 2% for your primary keyword is considered optimal for SEO without appearing spammy."
-      }
-    ]
-  },
-
-  "/pdf/merge": {
-    toolName: "Merge PDF",
-    mainKeyword: "merge pdf online free",
-    secondaryKeywords: ["combine pdf files", "free pdf merger", "join pdf documents", "pdf joiner online", "merge pdf without watermark", "combine multiple pdfs into one"],
-    urlSlug: "/pdf/merge",
-    imageAltText: "Merge PDF tool showing multiple uploaded PDF files and a combine button",
-    seoTitle: "Merge PDF Online Free | No Watermark | KooBrain",
-    metaDescription: "Combine multiple PDF files into one document. Free, fast, and secure PDF merger online. No login required. No watermark added.",
-    detailedDescription: `Merging PDF files is one of the most common document management tasks for students, professionals, and businesses. Whether you're combining multiple reports into one submission, joining scanned invoices, or assembling a multi-chapter document, KooBrain's Merge PDF tool makes the process instantaneous and completely free.\n\nOur browser-based PDF merger uses the industry-standard pdf-lib library to combine your documents at the page object level — meaning every page, font, image, and annotation is perfectly preserved in the final output. There is no quality degradation, no watermark, and no server involved. Your files stay entirely on your device throughout the process.\n\nWith support for up to 20 PDF files in a single merge operation, KooBrain handles everything from simple two-file merges to complex multi-document assemblies. The order of the output PDF mirrors the order you upload the files, giving you full control over the final structure.`,
-    usageGuide: {
-      title: "How to Merge PDFs in 3 Steps",
-      steps: ["Upload all PDF files you want to merge using the drag-and-drop area.", "Review the file list — files will be merged in this order. Remove any unwanted files.", "Click 'Merge PDFs' and download your combined document instantly."]
-    },
-    useCases: ["Combining report chapters into one submission", "Joining invoices for accounting", "Assembling multi-part application documents", "Merging scanned forms"],
-    faqs: [
-      { question: "Is this PDF merger completely free?", answer: "Yes — 100% free with no account, no watermark, and no hidden fees." },
-      { question: "Are my files safe?", answer: "Absolutely. Files are processed entirely in your browser and never uploaded to any server." },
-      { question: "Does the merged PDF have a watermark?", answer: "No. KooBrain never adds watermarks or branding to your output." },
-      { question: "What is the file limit?", answer: "You can merge up to 20 PDFs in a single operation." },
-    ]
-  },
-
-  "/pdf/split": {
-    toolName: "Split PDF",
-    mainKeyword: "split pdf online free",
-    secondaryKeywords: ["extract pdf pages", "pdf splitter free", "divide pdf", "separate pdf pages", "pdf page extractor"],
-    urlSlug: "/pdf/split",
-    imageAltText: "Split PDF tool showing a PDF file with page extraction options",
-    seoTitle: "Split PDF Online Free | Extract PDF Pages | KooBrain",
-    metaDescription: "Split a PDF file into individual pages or extract a page range. Free, secure browser-based PDF splitter. No upload required.",
-    usageGuide: {
-      title: "How to Split a PDF",
-      steps: ["Upload the PDF you want to split.", "The tool automatically extracts the first half of the document.", "Download the split PDF file."]
-    },
-    useCases: ["Extracting a specific chapter from a long document", "Separating invoices", "Splitting exam papers", "Dividing large reports"],
-    faqs: [
-      { question: "Is this PDF splitter free?", answer: "Yes, completely free with no login required." },
-      { question: "Can I choose which pages to extract?", answer: "Currently the tool splits at the midpoint. Full page-range selection is coming soon." },
-      { question: "Does it work on password-protected PDFs?", answer: "No — you'll need to remove the password protection first." },
-    ]
-  },
-
-  "/pdf/compress": {
-    toolName: "Compress PDF",
-    mainKeyword: "compress pdf online free",
-    secondaryKeywords: ["reduce pdf size", "pdf compressor", "shrink pdf file", "optimize pdf", "pdf size reducer online"],
-    urlSlug: "/pdf/compress",
-    imageAltText: "Compress PDF tool showing file size before and after optimization",
-    seoTitle: "Compress PDF Online Free | Reduce PDF Size | KooBrain",
-    metaDescription: "Reduce PDF file size online for free. Optimize PDF structure without losing quality. No upload to server — 100% private.",
-    usageGuide: {
-      title: "How to Compress a PDF",
-      steps: ["Upload the PDF file you want to compress.", "The tool optimizes the internal PDF structure using object streams.", "Download the compressed PDF."]
-    },
-    useCases: ["Reducing PDF size for email attachments", "Optimizing PDFs for web hosting", "Shrinking documents for storage", "Preparing files for online form submissions"],
-    faqs: [
-      { question: "How much will it reduce my PDF size?", answer: "Results vary. Structure-optimized PDFs typically see 10–30% reduction. Results depend on how optimized the original PDF already is." },
-      { question: "Will it damage my content?", answer: "No — only internal structure is optimized. Text, images, and layout remain unchanged." },
-    ]
-  },
-
-  "/pdf/editor": {
-    toolName: "PDF Editor",
-    mainKeyword: "pdf editor online free",
-    secondaryKeywords: ["add text to pdf", "annotate pdf online", "edit pdf browser", "pdf annotation tool", "free pdf editor no signup"],
-    urlSlug: "/pdf/editor",
-    imageAltText: "PDF Editor tool showing text annotation being added to a PDF document",
-    seoTitle: "PDF Editor Online Free | Add Text to PDF | KooBrain",
-    metaDescription: "Edit PDF files online for free. Add text annotations to any PDF page. Secure browser-based PDF editor — no software install required.",
-    usageGuide: {
-      title: "How to Edit a PDF Online",
-      steps: ["Upload the PDF you want to annotate.", "Enter your annotation text and choose the target page number.", "Click 'Add Annotation' and download the edited PDF."]
-    },
-    useCases: ["Adding comments to contracts", "Annotating reports", "Marking up academic papers", "Adding notes to shared documents"],
-    faqs: [
-      { question: "Can I add text to a specific page?", answer: "Yes — specify the page number in the options panel before processing." },
-      { question: "What fonts are available?", answer: "The tool uses Helvetica Bold, a standard PDF font embedded in all PDF viewers." },
-    ]
-  },
-
-  "/pdf/create": {
-    toolName: "Create PDF",
-    mainKeyword: "create pdf online free",
-    secondaryKeywords: ["make pdf from text", "pdf creator online", "generate pdf document", "new pdf from scratch", "free pdf creator no login"],
-    urlSlug: "/pdf/create",
-    imageAltText: "Create PDF tool showing text input fields and a generate button",
-    seoTitle: "Create PDF Online Free | PDF Creator | KooBrain",
-    metaDescription: "Create a PDF document from scratch online. Type your content, add a title, and download a professional PDF instantly. Free, no login.",
-    usageGuide: {
-      title: "How to Create a PDF",
-      steps: ["Enter a document title in the title field.", "Type or paste your body content in the text area.", "Click 'Generate PDF' and download."]
-    },
-    useCases: ["Creating quick memos", "Generating simple reports", "Making printable documents", "Producing PDF invoices"],
-    faqs: [
-      { question: "Is this PDF creator free?", answer: "Yes — completely free, no account required." },
-      { question: "Can I add images?", answer: "Text-only creation is supported currently. Image embedding is coming in a future update." },
-    ]
-  },
-
-  "/pdf/add-files": {
-    toolName: "Add Files to PDF",
-    mainKeyword: "add files to pdf online",
-    secondaryKeywords: ["append pdf pages", "add pages to pdf", "insert pdf pages", "combine pdf documents", "extend pdf with pages"],
-    urlSlug: "/pdf/add-files",
-    imageAltText: "Add Files to PDF tool showing a base document with additional files being appended",
-    seoTitle: "Add Files to PDF Online Free | Append PDF Pages | KooBrain",
-    metaDescription: "Append pages from other PDFs to an existing document. Free online tool to add files to PDF — no watermark, no login.",
-    usageGuide: {
-      title: "How to Add Files to a PDF",
-      steps: ["Upload your base PDF first.", "Upload additional PDFs to append.", "Click 'Append Files' and download the combined result."]
-    },
-    useCases: ["Appending signature pages", "Adding appendices to reports", "Combining form responses", "Extending contracts"],
-    faqs: [
-      { question: "What is the maximum number of files?", answer: "You can append up to 10 PDF files in a single operation." },
-      { question: "Is this free?", answer: "Yes — completely free with no account required." },
-    ]
-  },
-
-  "/pdf-to-word": {
-    toolName: "PDF to Word",
-    mainKeyword: "pdf to word converter free",
-    secondaryKeywords: ["convert pdf to word online", "extract text from pdf", "pdf to docx", "pdf text extractor free", "pdf to editable document"],
-    urlSlug: "/pdf-to-word",
-    imageAltText: "PDF to Word converter showing a PDF being converted to a Word document",
-    seoTitle: "PDF to Word Converter Online Free | Extract PDF Text | KooBrain",
-    metaDescription: "Convert PDF to Word online for free. Extract text content from any PDF and download as a document. No login, no upload to server.",
-    usageGuide: {
-      title: "How to Convert PDF to Word",
-      steps: ["Upload your PDF file.", "The tool extracts all text content.", "Download the .txt file and open in Word or Google Docs."]
-    },
-    useCases: ["Editing PDF contracts in Word", "Extracting research content", "Converting scanned text for editing", "Repurposing PDF content"],
-    faqs: [
-      { question: "Will it preserve formatting?", answer: "Plain text is extracted. Complex formatting like tables and columns is not preserved — a server-side tool is required for full DOCX conversion." },
-      { question: "Does it work with scanned PDFs?", answer: "Scanned PDFs are image-based and require OCR. This tool works best with digitally-created PDFs." },
-    ]
-  },
-
-  "/image-to-pdf": {
-    toolName: "Image to PDF",
-    mainKeyword: "image to pdf converter free",
-    secondaryKeywords: ["jpg to pdf online", "png to pdf converter", "convert photo to pdf", "images to pdf free", "webp to pdf", "multiple images to one pdf"],
-    urlSlug: "/image-to-pdf",
-    imageAltText: "Image to PDF converter showing multiple images being combined into a PDF document",
-    seoTitle: "Image to PDF Converter Online Free | JPG PNG to PDF | KooBrain",
-    metaDescription: "Convert images to PDF online for free. Turn JPG, PNG, or WebP photos into a PDF. Combine multiple images into one PDF. No login.",
-    usageGuide: {
-      title: "How to Convert Images to PDF",
-      steps: ["Upload your JPG, PNG, or WebP images.", "Each image is placed on its own A4 page.", "Click 'Convert to PDF' and download your document."]
-    },
-    useCases: ["Converting scanned documents to PDF", "Creating photo albums", "Sending images as PDF attachments", "Combining photos into a single report"],
-    faqs: [
-      { question: "What image formats are supported?", answer: "JPG, JPEG, PNG, and WebP are fully supported." },
-      { question: "Will multiple images go on the same page?", answer: "Each image gets its own A4 page for clean, readable output." },
-      { question: "Is image quality preserved?", answer: "Yes — images are embedded at original resolution, scaled only to fit A4 bounds." },
-    ]
-  },
 };
-

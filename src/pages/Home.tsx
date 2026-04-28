@@ -99,14 +99,8 @@ export const Home: React.FC = () => {
   const calculatorToolsList = [
     { id: 'emi-calculator', category: 'Finance', icon: 'banknote' },
     { id: 'gst-calculator', category: 'Finance', icon: 'landmark' },
-    // { id: 'sip-calculator', category: 'Finance', icon: 'trending-up' },
-    // { id: 'loan-calculator', category: 'Finance', icon: 'currency' },
-    // { id: 'discount-calculator', category: 'Finance', icon: 'tag' },
-    // { id: 'bmi-calculator', category: 'Health', icon: 'activity' },
     { id: 'age-calculator', category: 'Daily', icon: 'calendar' },
     { id: 'couple-age-calculator', category: 'Daily', icon: 'heart' },
-    // { id: 'time-calculator', category: 'Daily', icon: 'hourglass' },
-    // { id: 'percentage-calculator', category: 'Daily', icon: 'percent' },
   ].map(tool => ({
     ...getToolTranslation(tool as any),
     calcCat: tool.category,
@@ -124,9 +118,7 @@ export const Home: React.FC = () => {
   const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter').map(getToolTranslation);
   const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode').map(getToolTranslation);
   const imageTools   = TOOLS.filter(t => t.category === 'image').map(getToolTranslation);
-  const calcTools    = TOOLS.filter(t => t.category === 'calculator').map(getToolTranslation);
-  const pdfTools     = TOOLS.filter(t => t.category === 'pdf').map(getToolTranslation);
-  const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
+const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
   const allTools     = TOOLS.map(getToolTranslation);
 
   const cardColors = [
@@ -425,7 +417,7 @@ export const Home: React.FC = () => {
               </div>
             </section>
 
-            {/* ── Tools Hub: Math Laboratory ──────────────── */}
+            {/* ── Tools Hub: Calculator Hub ──────────────── */}
             <section className="section-card">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-primary rounded-l-3xl" />
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -437,12 +429,16 @@ export const Home: React.FC = () => {
                   </p>
                 </div>
                 <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {calcTools.slice(0, 6).map(tool => (
-                    <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
+                  {[
+                    { path: '/age-calculator', label: 'Age Calculator', icon: 'calendar' },
+                    { path: '/couple-age-calculator', label: 'Couple Age Calculator', icon: 'users' },
+                    { path: '/time-between-dates', label: 'Time Between Dates', icon: 'hourglass' },
+                  ].map(tool => (
+                    <Link key={tool.path} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
                       <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                         {React.createElement(resolveIcon(tool.icon, Calculator), { className: 'size-4 text-primary' })}
                       </div>
-                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                      <span className="font-semibold text-sm text-on-surface">{tool.label}</span>
                     </Link>
                   ))}
                 </div>
@@ -453,6 +449,33 @@ export const Home: React.FC = () => {
 
             {/* PDF Tools Studio */}
             <PdfToolsSection />
+
+            {/* ── Tools Hub: Productivity Suite ────────────── */}
+            <section className="section-card">
+              <div className="absolute top-0 left-0 w-1.5 h-full bg-secondary rounded-l-3xl" />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div className="lg:col-span-4 pl-4">
+                  <span className="text-secondary font-bold tracking-widest text-xs uppercase mb-3 block">Efficiency Tools</span>
+                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">Productivity Suite</h2>
+                  <p className="text-on-surface-variant mb-6 leading-relaxed">
+                    Organize your thoughts and refine your text with our minimalist productivity utilities.
+                  </p>
+                  <Link to="/tools" className="inline-flex items-center gap-2 text-secondary font-bold hover:translate-x-1 transition-transform">
+                    View All Tools <ArrowRight className="size-4" />
+                  </Link>
+                </div>
+                <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {prodTools.map(tool => (
+                    <Link key={tool.id} to={tool.path} className="home-tile-3d-row dark:bg-surface-container-high/60 p-5 rounded-2xl dark:hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-3 group">
+                      <div className="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
+                        {React.createElement(resolveIcon(tool.icon, LayoutList), { className: 'size-4 text-secondary' })}
+                      </div>
+                      <span className="font-semibold text-sm text-on-surface">{tool.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
 
             {/* Success Stories / Use Cases */}
             <section className="bg-gradient-to-r from-tertiary/5 to-secondary/5 rounded-[2.5rem] p-8 sm:p-12 border border-outline-variant/20">
