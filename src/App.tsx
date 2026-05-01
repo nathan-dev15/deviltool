@@ -80,7 +80,7 @@ export default function App() {
           <Router>
             <Layout>
               <Suspense fallback={
-                <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+                <div className="min-h-screen flex flex-col items-center justify-center gap-4">
                   <div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/40 animate-pulse">Initializing Laboratory...</p>
                 </div>
