@@ -61,6 +61,17 @@ const WhatIsJson = lazy(() => import('./pages/guides/WhatIsJson').then(m => ({ d
 const Base64Explained = lazy(() => import('./pages/guides/Base64Explained').then(m => ({ default: m.Base64Explained })));
 const ImageCompressionGuide = lazy(() => import('./pages/guides/ImageCompressionGuide').then(m => ({ default: m.ImageCompressionGuide })));
 const StrongPasswordGuide = lazy(() => import('./pages/guides/StrongPasswordGuide').then(m => ({ default: m.StrongPasswordGuide })));
+const UrlEncodingGuide = lazy(() => import('./pages/guides/UrlEncodingGuide').then(m => ({ default: m.UrlEncodingGuide })));
+const WhatIsJwt = lazy(() => import('./pages/guides/WhatIsJwt').then(m => ({ default: m.WhatIsJwt })));
+const WhatIsUuid = lazy(() => import('./pages/guides/WhatIsUuid').then(m => ({ default: m.WhatIsUuid })));
+const YamlVsJsonGuide = lazy(() => import('./pages/guides/YamlVsJsonGuide').then(m => ({ default: m.YamlVsJsonGuide })));
+const SqlFormattingGuide = lazy(() => import('./pages/guides/SqlFormattingGuide').then(m => ({ default: m.SqlFormattingGuide })));
+const HtmlEncodingGuide = lazy(() => import('./pages/guides/HtmlEncodingGuide').then(m => ({ default: m.HtmlEncodingGuide })));
+const EmiGuide = lazy(() => import('./pages/guides/EmiGuide').then(m => ({ default: m.EmiGuide })));
+const GstGuide = lazy(() => import('./pages/guides/GstGuide').then(m => ({ default: m.GstGuide })));
+const WordCountGuide = lazy(() => import('./pages/guides/WordCountGuide').then(m => ({ default: m.WordCountGuide })));
+const PdfGuide = lazy(() => import('./pages/guides/PdfGuide').then(m => ({ default: m.PdfGuide })));
+const JsonToTypescriptGuide = lazy(() => import('./pages/guides/JsonToTypescriptGuide').then(m => ({ default: m.JsonToTypescriptGuide })));
 
 // PDF Tools
 const PdfEditor = lazy(() => import('./pages/PdfTools/PdfEditor').then(m => ({ default: m.PdfEditor })));
@@ -151,6 +162,17 @@ export default function App() {
                   <Route path="/guides/base64-encoding-explained" element={<Base64Explained />} />
                   <Route path="/guides/image-compression-guide" element={<ImageCompressionGuide />} />
                   <Route path="/guides/strong-password-guide" element={<StrongPasswordGuide />} />
+                  <Route path="/guides/url-encoding-explained" element={<UrlEncodingGuide />} />
+                  <Route path="/guides/how-jwt-works" element={<WhatIsJwt />} />
+                  <Route path="/guides/what-is-uuid" element={<WhatIsUuid />} />
+                  <Route path="/guides/yaml-vs-json" element={<YamlVsJsonGuide />} />
+                  <Route path="/guides/sql-formatting-guide" element={<SqlFormattingGuide />} />
+                  <Route path="/guides/html-encoding-xss" element={<HtmlEncodingGuide />} />
+                  <Route path="/guides/how-emi-works" element={<EmiGuide />} />
+                  <Route path="/guides/gst-india-explained" element={<GstGuide />} />
+                  <Route path="/guides/word-count-writing-guide" element={<WordCountGuide />} />
+                  <Route path="/guides/working-with-pdf-files" element={<PdfGuide />} />
+                  <Route path="/guides/typing-json-in-typescript" element={<JsonToTypescriptGuide />} />
 
                   {/* Fallback to NotFound */}
                   <Route path="*" element={<NotFound />} />

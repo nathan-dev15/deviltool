@@ -84,14 +84,14 @@ export const ToolPageWrapper: React.FC<ToolPageWrapperProps> = ({
         
         {/* Hreflang for international SEO - country wise promotion */}
         {SUPPORTED_LOCALES.map(loc => (
-          <link 
+          <link
             key={loc.code}
-            rel="alternate" 
-            hrefLang={loc.code} 
-            href={`https://toolnest.com${location.pathname}?lang=${loc.code}`} 
+            rel="alternate"
+            hrefLang={loc.code}
+            href={`https://koobrain.com${location.pathname}?lang=${loc.code}`}
           />
         ))}
-        <link rel="alternate" hrefLang="x-default" href={`https://toolnest.com${location.pathname}`} />
+        <link rel="alternate" hrefLang="x-default" href={`https://koobrain.com${location.pathname}`} />
       </Helmet>
 
       {/* Page hero header */}
