@@ -7,42 +7,10 @@ import { ErrorBoundary } from '@/src/components/ErrorBoundary';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { AdConsentBanner } from './AdConsentBanner';
-import { AD_CONSENT_EVENT, getStoredAdConsent, type AdConsentStatus } from '@/src/lib/adConsent';
-import { canRenderAdSense } from '@/src/lib/adSense';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const toolSeo = TOOL_SEO_BY_PATH[location.pathname];
-  const [adConsent, setAdConsent] = React.useState<AdConsentStatus>(getStoredAdConsent);
-  const shouldLoadAdScript = canRenderAdSense();
-
-  React.useEffect(() => {
-    const handleConsentChange = () => {
-      setAdConsent(getStoredAdConsent());
-    };
-
-    window.addEventListener(AD_CONSENT_EVENT, handleConsentChange);
-    window.addEventListener('storage', handleConsentChange);
-
-    return () => {
-      window.removeEventListener(AD_CONSENT_EVENT, handleConsentChange);
-      window.removeEventListener('storage', handleConsentChange);
-    };
-  }, []);
-
-  // Load AdSense script only after consent is given
-  React.useEffect(() => {
-    if (!shouldLoadAdScript) return;
-
-    const existingScript = document.querySelector('script[src*="googlesyndication.com"]');
-    if (existingScript) return;
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117';
-    script.crossOrigin = 'anonymous';
-    document.head.appendChild(script);
-  }, [shouldLoadAdScript]);
 
   // Scroll to top on route change
   React.useEffect(() => {
