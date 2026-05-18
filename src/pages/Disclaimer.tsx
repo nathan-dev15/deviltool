@@ -204,7 +204,7 @@ export const Disclaimer: React.FC = () => {
           <section className="bg-gradient-to-r from-error/10 to-warning/10 border border-outline-variant/20 px-10 py-12 rounded-[2.5rem] shadow-sm">
             <h2 className="text-2xl font-black text-on-surface mb-6">Questions About This Disclaimer?</h2>
             <p className="text-on-surface-variant mb-6 leading-relaxed">
-              If you have questions or concerns about this Disclaimer, please contact us at <a href="mailto:legal@koobrain.com" className="text-primary font-bold hover:underline">legal@koobrain.com</a> or use our contact form.
+              If you have questions or concerns about this Disclaimer, please contact us at <a href="mailto:nsnathan15@yahoo.com" className="text-primary font-bold hover:underline">nsnathan15@yahoo.com</a> or use our contact form.
             </p>
             <div className="space-y-3">
               <p className="text-base">

@@ -266,15 +266,12 @@ export const Navbar: React.FC = () => {
                    </select>
                  </div>
 
-                 <div className="bg-gradient-to-br from-tertiary to-tertiary-container rounded-3xl p-6 text-on-tertiary shadow-xl">
+                 <div className="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl p-6 border border-outline-variant/20">
                     <div className="flex items-center gap-3 mb-2">
-                       <Sparkles size={20} />
-                       <span className="font-extrabold text-lg">KooBrain Premium</span>
+                       <Sparkles size={20} className="text-primary" />
+                       <span className="font-extrabold text-lg text-on-surface">100% Free, Always</span>
                     </div>
-                    <p className="text-xs opacity-80 font-medium mb-4 italic">Experience the ultimate toolkit with no limits.</p>
-                    <button className="w-full bg-white text-tertiary py-3 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:scale-105 transition-transform active:scale-95">
-                        Get Early Access
-                    </button>
+                    <p className="text-xs text-on-surface-variant font-medium mb-4">All {`${40}+`} tools are free with no registration required. Your data never leaves your device.</p>
                  </div>
                </div>
             </div>

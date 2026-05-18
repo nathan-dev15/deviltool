@@ -5,7 +5,7 @@ import { SEO } from "@/src/components/SEO";
 import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
 
-const SUPPORT_EMAIL = "privacy@koobrain.com";
+const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
 
 export const Privacy: React.FC = () => {
   const { t } = useI18n();

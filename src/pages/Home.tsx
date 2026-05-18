@@ -237,42 +237,127 @@ const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToo
 
         {/* Welcome & Mission Section */}
         {!searchQuery && (
+          <>
           <section className="bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 border border-outline-variant/20 rounded-[2.5rem] p-8 sm:p-12 relative overflow-hidden">
             <div className="absolute inset-0 bg-grid opacity-5" />
-            <div className="relative z-10">
-              <h2 className="text-3xl sm:text-4xl font-black mb-6 text-on-surface text-center">
-                Welcome to KooBrain - Your Free Online Tools Hub
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
-                <div>
-                  <h3 className="text-xl font-bold text-primary mb-3">Why KooBrain?</h3>
-                  <p className="text-on-surface-variant leading-relaxed">
-                    KooBrain is your all-in-one solution for online productivity. Our comprehensive suite of {TOOLS.length}+ free tools is designed to simplify your workflow whether you're a developer, designer, student, or content creator.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-secondary mb-3">No Complications</h3>
-                  <p className="text-on-surface-variant leading-relaxed">
-                    From JSON formatting and image optimization to password generation and text analysis, all tools work instantly in your browser. Zero installation, zero registration, zero hassle.
-                  </p>
+            <div className="relative z-10 space-y-10">
+              <div className="text-center max-w-3xl mx-auto">
+                <h2 className="text-3xl sm:text-4xl font-black mb-4 text-on-surface">
+                  Welcome to KooBrain — Your Free Online Tools Hub
+                </h2>
+                <p className="text-on-surface-variant leading-relaxed text-base sm:text-lg">
+                  KooBrain is a browser-based productivity platform offering {TOOLS.length}+ free tools across seven categories: JSON processing, encoding &amp; decoding, image editing, PDF management, text utilities, financial calculators, and security tools. Every tool runs entirely in your browser — your data never reaches our servers.
+                </p>
+              </div>
+
+              {/* Why KooBrain — 3-column feature grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    color: 'primary',
+                    title: 'Works Instantly — No Install',
+                    body: 'Open any tool and start working immediately. No signup, no app download, no plugin required. KooBrain tools load in seconds and run directly inside your browser using modern web APIs and WebAssembly.',
+                  },
+                  {
+                    color: 'secondary',
+                    title: 'Your Data Stays on Your Device',
+                    body: 'Unlike cloud services, KooBrain processes everything locally. When you format JSON, compress an image, or generate a password, the data never leaves your machine. This is client-side processing by design, not as an afterthought.',
+                  },
+                  {
+                    color: 'tertiary',
+                    title: 'Spec-Verified and Accurate',
+                    body: 'Every tool is validated against official specifications — RFCs for encoding formats, ISO standards for data structures. We test with real edge-case data so results are reliable enough to use in production workflows.',
+                  },
+                ].map(({ color, title, body }) => (
+                  <div key={title} className={`bg-${color}/5 border border-${color}/20 rounded-2xl p-6`}>
+                    <h3 className={`text-base font-black text-${color} mb-3`}>{title}</h3>
+                    <p className="text-on-surface-variant text-sm leading-relaxed">{body}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* How It Works — 3 steps */}
+              <div className="border-t border-outline-variant/20 pt-8">
+                <h3 className="text-xl font-black text-on-surface mb-6 text-center">How It Works</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                  {[
+                    { step: '1', heading: 'Pick a tool', detail: 'Browse by category or search by name. Every tool is one click away from the homepage.' },
+                    { step: '2', heading: 'Paste or upload your data', detail: 'Type directly, paste from clipboard, or drag and drop a file. Real-time output appears instantly.' },
+                    { step: '3', heading: 'Copy or download the result', detail: 'One-click copy to clipboard or download as a file. No account required to save your work.' },
+                  ].map(({ step, heading, detail }) => (
+                    <div key={step} className="flex gap-4 items-start">
+                      <div className="w-9 h-9 rounded-xl bg-primary/15 text-primary font-black text-sm flex items-center justify-center shrink-0">{step}</div>
+                      <div>
+                        <p className="font-bold text-on-surface text-sm mb-1">{heading}</p>
+                        <p className="text-xs text-on-surface-variant leading-relaxed">{detail}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
+
+              {/* Stats row */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
-                  <p className="font-bold text-2xl text-primary mb-1">{TOOLS.length}+</p>
-                  <p className="text-sm text-on-surface-variant">Professional Tools</p>
+                <div className="bg-surface-container-lowest/50 p-5 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-3xl text-primary mb-1">{TOOLS.length}+</p>
+                  <p className="text-sm font-semibold text-on-surface mb-0.5">Professional Tools</p>
+                  <p className="text-xs text-on-surface-variant">JSON, image, PDF, text, encoding, calculators &amp; more</p>
                 </div>
-                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
-                  <p className="font-bold text-2xl text-tertiary mb-1">100% Free</p>
-                  <p className="text-sm text-on-surface-variant">Forever & Always</p>
+                <div className="bg-surface-container-lowest/50 p-5 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-3xl text-tertiary mb-1">100% Free</p>
+                  <p className="text-sm font-semibold text-on-surface mb-0.5">No Paywalls, Ever</p>
+                  <p className="text-xs text-on-surface-variant">No subscriptions, no hidden fees, no feature gating</p>
                 </div>
-                <div className="bg-surface-container-lowest/50 p-4 rounded-2xl border border-outline-variant/10 text-center">
-                  <p className="font-bold text-2xl text-secondary mb-1">Privacy Protected</p>
-                  <p className="text-sm text-on-surface-variant">Data on Your Device</p>
+                <div className="bg-surface-container-lowest/50 p-5 rounded-2xl border border-outline-variant/10 text-center">
+                  <p className="font-bold text-3xl text-secondary mb-1">0 Bytes</p>
+                  <p className="text-sm font-semibold text-on-surface mb-0.5">Data Sent to Servers</p>
+                  <p className="text-xs text-on-surface-variant">All processing is local — total privacy, guaranteed</p>
                 </div>
               </div>
             </div>
           </section>
+
+          {/* Why Use Our Tools — educational explainer */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-8 space-y-4">
+              <h2 className="text-2xl font-black text-on-surface">Why Use Browser-Based Tools?</h2>
+              <p className="text-on-surface-variant text-sm leading-relaxed">
+                Traditional desktop applications require installation, updates, and often licensing fees. Cloud-based tools send your data to remote servers, introducing privacy risk and latency. KooBrain takes a third approach: the full processing power of a native app, delivered through a URL.
+              </p>
+              <p className="text-on-surface-variant text-sm leading-relaxed">
+                Modern browsers support WebAssembly, the File System API, Canvas, and native cryptography primitives. This means tasks like PDF manipulation, image compression, and AES encryption can run at near-native speed without ever touching the network. The result is a tool that is simultaneously faster, more private, and more accessible than the alternatives.
+              </p>
+              <p className="text-on-surface-variant text-sm leading-relaxed">
+                For developers this is especially valuable: you can inspect the tool's source, verify there is no data exfiltration, and use it confidently with API keys, credentials, or production data — the kind of inputs you would never put into an unknown cloud tool.
+              </p>
+              <Link to="/guides" className="inline-flex items-center gap-2 text-primary font-bold text-sm hover:translate-x-1 transition-transform">
+                Read our technical guides <ArrowRight className="size-4" />
+              </Link>
+            </div>
+            <div className="space-y-4">
+              <div className="bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-8">
+                <h2 className="text-2xl font-black text-on-surface mb-4">What Can You Build With KooBrain?</h2>
+                <ul className="space-y-3 text-sm text-on-surface-variant">
+                  {[
+                    { label: 'Validate and format API responses', detail: 'Paste raw JSON from Postman or curl output and instantly see a clean, syntax-highlighted view with error detection.' },
+                    { label: 'Optimize images for web publishing', detail: 'Compress PNG/JPEG files to target sizes or dimensions without quality loss, directly in the browser.' },
+                    { label: 'Decode JWTs and Base64 payloads', detail: 'Inspect authentication tokens and encoded strings safely — no third-party server ever sees your tokens.' },
+                    { label: 'Calculate EMI and GST breakdowns', detail: 'Get instant, accurate financial calculations with amortization schedules and full tax breakdowns.' },
+                    { label: 'Merge, split, and compress PDFs', detail: 'Handle everyday document workflows without Adobe Acrobat or any installed software.' },
+                  ].map(({ label, detail }) => (
+                    <li key={label} className="flex gap-3 items-start">
+                      <span className="text-primary font-black mt-0.5 shrink-0">→</span>
+                      <div>
+                        <span className="font-semibold text-on-surface">{label}:</span>{' '}
+                        <span>{detail}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+          </>
         )}
 
         {/* Popular Tools */}
@@ -560,7 +645,7 @@ const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToo
                   },
                   {
                     question: 'Do you offer an API or bulk processing?',
-                    answer: 'Currently, KooBrain tools are designed for web-based use. For special requirements or partnerships, please contact us at contact@koobrain.com.'
+                    answer: 'Currently, KooBrain tools are designed for web-based use. For special requirements or partnerships, please reach out via our Contact page.'
                   },
                 ].map((faq, index) => (
                   <div
