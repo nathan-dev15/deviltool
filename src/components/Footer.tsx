@@ -1,5 +1,5 @@
 import React from 'react';
-import { Send, Zap, Twitter, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
+import { Zap, Mail, Sparkles } from 'lucide-react';
 import { useI18n } from '../i18n/I18nContext';
 import { Link } from 'react-router-dom';
 
@@ -33,10 +33,13 @@ export const Footer: React.FC = () => {
                 {t('footer.tagline_2') || 'Free · Open-source · Privacy-first'}
              </span>
           </p>
-          <div className="flex items-center gap-4">
-             <a href="#" aria-label="Follow us on Twitter" className="p-3 bg-primary/10 hover:bg-primary/20 dark:bg-primary/20 dark:hover:bg-primary/30 rounded-xl text-primary hover:text-primary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Twitter size={18} aria-hidden="true" /></a>
-             <a href="#" aria-label="Follow us on GitHub" className="p-3 bg-secondary/10 hover:bg-secondary/20 dark:bg-secondary/20 dark:hover:bg-secondary/30 rounded-xl text-secondary hover:text-secondary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Github size={18} aria-hidden="true" /></a>
-             <a href="#" aria-label="Follow us on LinkedIn" className="p-3 bg-tertiary/10 hover:bg-tertiary/20 dark:bg-tertiary/20 dark:hover:bg-tertiary/30 rounded-xl text-tertiary hover:text-tertiary transition-all hover:scale-110 active:scale-95 shadow-sm dark:shadow-md"><Linkedin size={18} aria-hidden="true" /></a>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">
+              <Sparkles size={11} aria-hidden="true" /> 100% Free
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary/10 text-secondary text-[10px] font-black uppercase tracking-widest border border-secondary/20">
+              Privacy First
+            </span>
           </div>
         </div>
 
@@ -90,34 +93,23 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* NEWSLETTER */}
+        {/* CONTACT CTA */}
         <div className="space-y-6 footer-3d-card animate-entrance-3d-4" style={{borderRadius: '16px', padding: '16px', background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(249, 115, 22, 0.03))' }}>
           <h4 className="text-on-surface dark:text-on-surface px-4 py-1 bg-tertiary/10 dark:bg-tertiary/20 inline-block rounded-lg font-black text-[10px] uppercase tracking-[0.2em] border border-tertiary/30 dark:border-tertiary/40">
-             {t('footer.newsletter') || 'Newsletter'}
+            Get In Touch
           </h4>
           <p className="text-on-surface-variant font-medium text-xs leading-relaxed pr-4 opacity-75 dark:opacity-70">
-             Get the latest tool updates and security patches directly in your inbox.
+            Have a question, found a bug, or want to request a new tool? We'd love to hear from you.
           </p>
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <label htmlFor="footer-newsletter-email" className="sr-only">Email Address</label>
-              <input
-                id="footer-newsletter-email"
-                className="bg-surface-container-highest dark:bg-surface-container-high border border-outline-variant/30 dark:border-outline-variant/40 rounded-2xl text-xs w-full focus:ring-2 focus:ring-primary dark:focus:ring-primary outline-none px-6 py-4 text-on-surface dark:text-on-surface placeholder:text-on-surface-variant/50 dark:placeholder:text-on-surface-variant/40 font-bold transition-all focus:bg-surface-container-highest dark:focus:bg-surface-container-high"
-                placeholder={t('footer.email_placeholder') || 'Email Address'}
-                type="email"
-                aria-label="Newsletter email address"
-              />
-              <Mail className="absolute right-5 top-1/2 -translate-y-1/2 size-4 text-on-surface-variant/40 dark:text-on-surface-variant/50" aria-hidden="true" />
-            </div>
-            <button aria-label="Subscribe to newsletter" className="bg-tertiary text-on-tertiary p-4 rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-tertiary/30 dark:shadow-tertiary/20">
-              <Send className="size-5" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.3em] text-on-surface-variant/50 dark:text-on-surface-variant/40 italic">
-             <Sparkles size={10} className="text-warning dark:text-warning" />
-             Joins 4,000+ modern creators
-          </div>
+          <a
+            href="mailto:nsnathan15@yahoo.com"
+            className="flex items-center gap-3 px-5 py-4 bg-tertiary text-on-tertiary rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-tertiary/20 w-full justify-center"
+          >
+            <Mail className="size-4" aria-hidden="true" /> Email Us
+          </a>
+          <Link to="/contact" className="flex items-center gap-3 px-5 py-4 bg-surface-container-high text-on-surface rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-surface-variant transition-all w-full justify-center border border-outline-variant/20">
+            Contact Form
+          </Link>
         </div>
 
       </div>

@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Building2, ShieldCheck, Sparkles, Mail, ChevronRight, LayoutDashboard } from "lucide-react";
+import { Building2, ShieldCheck, Sparkles, Mail, ChevronRight, Calendar, Code2, Users } from "lucide-react";
 import { SEO } from "@/src/components/SEO";
 import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
+import { TOOLS } from "@/src/constants";
+
+const LAST_UPDATED = "May 2025";
+const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
 
 export const About: React.FC = () => {
   const { t } = useI18n();
@@ -23,6 +27,28 @@ export const About: React.FC = () => {
 
       <div className="mt-12 grid lg:grid-cols-12 gap-12 animate-fade-in">
         <div className="lg:col-span-8 space-y-12">
+
+          {/* About This Site — identity + last updated */}
+          <section className="bg-primary/5 border border-primary/20 px-10 py-10 rounded-[2.5rem]">
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary px-3 py-1.5 bg-primary/10 rounded-full border border-primary/20">
+                <Calendar className="size-3" /> Last updated: {LAST_UPDATED}
+              </span>
+            </div>
+            <h2 className="text-2xl font-black text-on-surface mb-4">About KooBrain</h2>
+            <div className="space-y-4 text-on-surface-variant leading-relaxed text-sm">
+              <p>
+                KooBrain is a free, browser-based productivity platform built and maintained by an independent web developer passionate about making professional-grade tools accessible to everyone without cost or complexity. The platform launched with a simple premise: every task a developer, designer, or knowledge worker performs on scattered websites or expensive desktop software should be available in one clean, instant, privacy-respecting interface.
+              </p>
+              <p>
+                Today KooBrain offers <strong className="text-on-surface">{TOOLS.length}+ tools</strong> across categories including JSON processing, encoding/decoding, image editing, PDF management, financial calculators, text utilities, and security tools. All tools run entirely client-side — your data is processed inside your browser and never transmitted to any server.
+              </p>
+              <p>
+                The site is self-funded and supported by contextual Google AdSense advertisements. Revenue is reinvested into new tools, performance improvements, and expanded guide content. There is no premium tier, no data monetization, and no account requirement — ever.
+              </p>
+            </div>
+          </section>
+
           {/* Mission */}
           <section className="bg-surface-container-lowest border border-outline-variant/30 px-10 py-12 rounded-[2.5rem] shadow-sm group">
             <h2 className="text-3xl font-black tracking-tight text-on-surface flex items-center gap-4 mb-8">
@@ -169,8 +195,58 @@ export const About: React.FC = () => {
         </div>
 
         <aside className="lg:col-span-4 space-y-8">
-          <div className="bg-surface-container-high/40 p-8 rounded-[2.5rem] border border-outline-variant/20 sticky top-24 backdrop-blur-md">
-            <h3 className="text-sm font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mb-10">{t('label.quick_links')}</h3>
+          {/* Quick Facts */}
+          <div className="bg-surface-container-lowest border border-outline-variant/30 p-8 rounded-[2.5rem] space-y-5">
+            <h3 className="text-sm font-black text-on-surface uppercase tracking-widest">Quick Facts</h3>
+            <ul className="space-y-4 text-sm">
+              <li className="flex gap-3 items-start">
+                <Code2 className="size-4 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Platform type</span>
+                  <span className="text-on-surface-variant text-xs">Browser-based, client-side SPA built with React + Vite</span>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <Users className="size-4 text-secondary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Who builds it</span>
+                  <span className="text-on-surface-variant text-xs">Independent developer — full-stack web engineering background</span>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <ShieldCheck className="size-4 text-tertiary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Data handling</span>
+                  <span className="text-on-surface-variant text-xs">Zero server-side processing — all tools run in the browser</span>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <Sparkles className="size-4 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Monetisation</span>
+                  <span className="text-on-surface-variant text-xs">Google AdSense contextual ads — no user data sold</span>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <Calendar className="size-4 text-secondary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Last updated</span>
+                  <span className="text-on-surface-variant text-xs">{LAST_UPDATED}</span>
+                </div>
+              </li>
+              <li className="flex gap-3 items-start">
+                <Mail className="size-4 text-tertiary mt-0.5 shrink-0" />
+                <div>
+                  <span className="font-bold text-on-surface block">Contact</span>
+                  <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary font-bold text-xs hover:underline break-all">{SUPPORT_EMAIL}</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Quick links */}
+          <div className="bg-surface-container-high/40 p-8 rounded-[2.5rem] border border-outline-variant/20 backdrop-blur-md">
+            <h3 className="text-sm font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mb-6">{t('label.quick_links')}</h3>
             <div className="grid gap-4">
               <Link to="/contact" className="group flex items-center justify-between px-6 py-5 bg-surface-container-high rounded-2xl font-black text-xs uppercase tracking-widest text-on-surface hover:bg-primary hover:text-on-primary transition-all">
                 <span className="flex items-center gap-3">
@@ -184,9 +260,11 @@ export const About: React.FC = () => {
               <Link to="/terms" className="group flex items-center justify-between px-6 py-5 bg-surface-container-high rounded-2xl font-black text-xs uppercase tracking-widest text-on-surface hover:bg-secondary hover:text-on-secondary transition-all">
                 {t('footer.terms')} <ChevronRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </Link>
+              <Link to="/guides" className="group flex items-center justify-between px-6 py-5 bg-surface-container-high rounded-2xl font-black text-xs uppercase tracking-widest text-on-surface hover:bg-secondary hover:text-on-secondary transition-all">
+                Guides &amp; Articles <ChevronRight className="size-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
             </div>
           </div>
-          
         </aside>
       </div>
     </ToolPageWrapper>

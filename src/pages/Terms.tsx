@@ -238,7 +238,7 @@ export const Terms: React.FC = () => {
             </p>
             <div className="space-y-3">
               <p className="text-base">
-                <span className="font-bold text-on-surface">Email:</span> <a href="mailto:terms@koobrain.com" className="text-primary font-bold hover:underline">terms@koobrain.com</a>
+                <span className="font-bold text-on-surface">Email:</span> <a href="mailto:nsnathan15@yahoo.com" className="text-primary font-bold hover:underline">nsnathan15@yahoo.com</a>
               </p>
               <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-on-secondary rounded-2xl font-bold hover:scale-105 transition-transform">
                 Contact Support

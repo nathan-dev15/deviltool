@@ -1,14 +1,27 @@
 import React from "react";
-import { Mail, MessageSquare, ShieldAlert, LayoutDashboard, ChevronRight } from "lucide-react";
+import { Mail, MessageSquare, ShieldAlert, ChevronRight, CheckCircle2 } from "lucide-react";
 import { SEO } from "@/src/components/SEO";
 import { ToolPageWrapper } from "@/src/components/ToolPageWrapper";
 import { useI18n } from "@/src/i18n/I18nContext";
-import { Link } from "react-router-dom";
 
 const SUPPORT_EMAIL = "nsnathan15@yahoo.com";
+const LAST_UPDATED = "May 2025";
 
 export const Contact: React.FC = () => {
   const { t } = useI18n();
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const name = (data.get('name') as string) || '';
+    const email = (data.get('email') as string) || '';
+    const subject = (data.get('subject') as string) || 'General Inquiry';
+    const message = (data.get('message') as string) || '';
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    window.location.href = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setSubmitted(true);
+  };
 
   return (
     <ToolPageWrapper
@@ -35,13 +48,27 @@ export const Contact: React.FC = () => {
             </p>
 
             <div className="grid gap-12">
-              <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+              {submitted ? (
+                <div className="flex flex-col items-center gap-4 py-10 text-center">
+                  <CheckCircle2 className="size-14 text-secondary" />
+                  <p className="text-xl font-black text-on-surface">Your email client is ready!</p>
+                  <p className="text-on-surface-variant text-sm max-w-sm">
+                    Your message has been pre-filled in your email app. Hit <strong>Send</strong> to reach us at <strong>{SUPPORT_EMAIL}</strong>. We reply within 24–48 business hours.
+                  </p>
+                  <button onClick={() => setSubmitted(false)} className="text-secondary font-bold text-sm underline underline-offset-4">
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+              <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="space-y-3">
                     <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Name</label>
                     <input
                       id="contact-name"
+                      name="name"
                       type="text"
+                      required
                       placeholder="John Doe"
                       className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
                     />
@@ -50,7 +77,9 @@ export const Contact: React.FC = () => {
                     <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Email Address</label>
                     <input
                       id="contact-email"
+                      name="email"
                       type="email"
+                      required
                       placeholder="john@example.com"
                       className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold"
                     />
@@ -59,7 +88,7 @@ export const Contact: React.FC = () => {
 
                 <div className="space-y-3">
                   <label htmlFor="contact-subject" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Subject</label>
-                  <select id="contact-subject" className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold appearance-none">
+                  <select id="contact-subject" name="subject" className="w-full px-6 py-4 rounded-2xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold appearance-none">
                     <option>General Inquiry</option>
                     <option>Bug Report</option>
                     <option>Feature Request</option>
@@ -72,9 +101,11 @@ export const Contact: React.FC = () => {
                   <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant/60 ml-1">Your Message</label>
                   <textarea
                     id="contact-message"
+                    name="message"
                     rows={6}
+                    required
                     placeholder="How can we help you today?"
-                    className="w-full px-6 py-5 rounded-[2rem] bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold resize-none"
+                    className="w-full px-6 py-5 rounded-4xl bg-surface-container-high/40 border border-outline-variant/20 focus:ring-4 focus:ring-secondary/10 outline-none transition-all font-bold resize-none"
                   ></textarea>
                 </div>
 
@@ -85,6 +116,7 @@ export const Contact: React.FC = () => {
                   <Mail className="size-4" /> Send Message
                 </button>
               </form>
+              )}
 
               <div className="grid sm:grid-cols-2 gap-6 pt-6">
                 <div className="rounded-2xl border border-outline-variant/30 bg-surface-container-high/40 px-6 py-5">
@@ -120,9 +152,11 @@ export const Contact: React.FC = () => {
                 <ChevronRight className="size-3" />
                 {t('label.support_notes_p3')}
               </p>
+              <p className="text-[10px] not-italic font-black uppercase tracking-widest text-on-surface-variant/40 pt-2 border-t border-outline-variant/20">
+                Page last updated: {LAST_UPDATED}
+              </p>
             </div>
           </div>
-          
         </aside>
       </div>
     </ToolPageWrapper>
