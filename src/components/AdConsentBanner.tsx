@@ -31,7 +31,7 @@ export const AdConsentBanner: React.FC = () => {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-on-surface-variant">
               Koobrain uses cookies and similar technologies to support Google AdSense. You can accept
-              personalized ads or decline them. You can read more in our{' '}
+              personalized ads or decline them. Ads are only loaded after you accept consent. You can read more in our{' '}
               <Link to="/privacy" className="font-bold text-primary hover:underline">
                 Privacy Policy
               </Link>

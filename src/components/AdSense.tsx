@@ -14,6 +14,34 @@ interface AdSenseProps {
 }
 
 const initializedAdSlots = new WeakSet<HTMLElement>();
+const AD_SENSE_SCRIPT_SRC = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8601698568618117';
+
+const loadAdSenseScript = (): Promise<void> => {
+  if (typeof document === 'undefined') return Promise.resolve();
+
+  const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${AD_SENSE_SCRIPT_SRC}"]`);
+  if (existingScript) {
+    return existingScript.getAttribute('data-loaded') === 'true'
+      ? Promise.resolve()
+      : new Promise((resolve, reject) => {
+          existingScript.addEventListener('load', () => resolve());
+          existingScript.addEventListener('error', () => reject(new Error('AdSense script failed to load')));
+        });
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = AD_SENSE_SCRIPT_SRC;
+    script.crossOrigin = 'anonymous';
+    script.onload = () => {
+      script.setAttribute('data-loaded', 'true');
+      resolve();
+    };
+    script.onerror = () => reject(new Error('AdSense script failed to load'));
+    document.head.appendChild(script);
+  });
+};
 
 export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
   const [consent, setConsent] = React.useState<AdConsentStatus>(getStoredAdConsent);
@@ -44,14 +72,27 @@ export const AdSense: React.FC<AdSenseProps> = ({ slot, className }) => {
       return;
     }
 
-    try {
-      initializedAdSlots.add(ins);
-      // Google uses this queue to render the ad unit once the script is ready.
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-      initializedAdSlots.delete(ins);
-      console.error('AdSense error', error);
-    }
+    let cancelled = false;
+
+    loadAdSenseScript()
+      .then(() => {
+        if (cancelled || !insRef.current) return;
+
+        try {
+          initializedAdSlots.add(ins);
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (error) {
+          initializedAdSlots.delete(ins);
+          console.error('AdSense error', error);
+        }
+      })
+      .catch((error) => {
+        console.error('AdSense script load error', error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [canShowAds, consent, slot]);
 
   if (!canShowAds || consent !== 'accepted') {
