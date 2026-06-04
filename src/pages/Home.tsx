@@ -8,7 +8,7 @@ import {
   Zap, Shield, Globe, FileText, LayoutList, Divide, Percent, 
   BadgeIndianRupee, AreaChart, SquareFunction, FileUp, FileDown, PenLine,
   Scissors, Layers, RotateCw, Signature, Highlighter, Activity, TrendingUp,
-  Tag, Banknote, Hourglass, Landmark, Filter
+  Tag, Banknote, Hourglass, Landmark, Filter, BookOpen
 } from 'lucide-react';
 import { TOOLS } from '../constants';
 import { cn } from '../lib/utils';
@@ -118,8 +118,26 @@ export const Home: React.FC = () => {
   const jsonTools    = TOOLS.filter(t => t.category === 'json' && t.id !== 'json-formatter').map(getToolTranslation);
   const encodeTools  = TOOLS.filter(t => t.category === 'encoding' && t.id !== 'base64-encode').map(getToolTranslation);
   const imageTools   = TOOLS.filter(t => t.category === 'image').map(getToolTranslation);
-const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
+  const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToolTranslation);
   const allTools     = TOOLS.map(getToolTranslation);
+
+  const featuredGuides = [
+    {
+      title: 'What is JSON? A Complete Beginner’s Guide',
+      summary: 'Learn the syntax, common use cases, and JSON best practices that every developer should know.',
+      href: '/guides/what-is-json',
+    },
+    {
+      title: 'How JWT Tokens Work: A Developer’s Visual Guide',
+      summary: 'Understand the JWT structure, signature verification, and how to inspect tokens safely.',
+      href: '/guides/how-jwt-works',
+    },
+    {
+      title: 'Image Compression for the Web: The Complete Guide',
+      summary: 'Discover how to reduce file size without sacrificing quality and which formats work best for the web.',
+      href: '/guides/image-compression-guide',
+    },
+  ];
 
   const cardColors = [
     'from-indigo-500 to-violet-700 shadow-indigo-500/20',
@@ -357,6 +375,39 @@ const prodTools    = TOOLS.filter(t => t.category === 'productivity').map(getToo
               </div>
             </div>
           </section>
+
+          <section className="bg-surface-container-lowest border border-outline-variant/20 rounded-3xl p-8 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-black text-on-surface">Featured Guides & Learning Resources</h2>
+                <p className="text-on-surface-variant max-w-2xl leading-relaxed mt-3">
+                  KooBrain is more than a collection of tools. We also publish practical guides, explanations, and real-world examples that help you understand the concepts behind the utilities.
+                </p>
+              </div>
+              <Link
+                to="/guides"
+                className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 font-extrabold text-on-primary hover:bg-primary-container transition-colors"
+              >
+                Browse all guides <ArrowRight className="size-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {featuredGuides.map((guide) => (
+                <Link
+                  key={guide.href}
+                  to={guide.href}
+                  className="group rounded-3xl border border-outline-variant/20 bg-surface-container p-6 transition-all hover:border-primary/30 hover:shadow-xl"
+                >
+                  <h3 className="text-lg font-black text-on-surface mb-3">{guide.title}</h3>
+                  <p className="text-sm text-on-surface-variant leading-relaxed">{guide.summary}</p>
+                  <span className="inline-flex items-center gap-2 mt-6 text-primary font-bold text-sm">
+                    Read guide <ArrowRight className="size-4" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
           </>
         )}
 
